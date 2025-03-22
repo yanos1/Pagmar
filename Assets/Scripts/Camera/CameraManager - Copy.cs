@@ -1,13 +1,14 @@
 using System.Collections;
-
 using UnityEngine;
+
+using UnityEngine.Serialization;
 
 namespace Camera
 {
     public class CameraManager : MonoBehaviour
     {
         public GameObject Player;
-        [SerializeField] public GameObject MainCamera;
+        [SerializeField] private UnityEngine.Camera mainCamera;
 
         public float SmoothSpeed = 3;
         public static float PPUScale;
@@ -15,7 +16,6 @@ namespace Camera
         public Vector3 DefaultCameraPosition;
         public int NativePPU;
 
-        private UnityEngine.Camera _mainCamera;
         private float _zStartPositionCamera;
         [SerializeField] private float _xOffsetCameraToPlayer;
         [SerializeField] private float _yOffsetCameraToPlayer;
@@ -30,42 +30,15 @@ namespace Camera
 
         void Start()
         {
-            _mainCamera = MainCamera.GetComponent<UnityEngine.Camera>();
-            MainCamera.SetActive(false);
-
             ScreenPPU = NativePPU;
-            _zStartPositionCamera = MainCamera.transform.position.z;
+            _zStartPositionCamera = mainCamera.transform.position.z;
             DefaultCameraPosition = new Vector3(2.5f, 2.42f, 0.2f);
 
         }
-
-        private void OnEndGame(object obj)
-        {
-            MainCamera.SetActive(true);
-        }
-
-        private void OnEndCutScene(object obj)
-        {
-            MainCamera.SetActive(false);
-        }
-
-        private void OnDie(object obj)
-        {
-            if (MainCamera.activeInHierarchy)
-            {
-                LerpCameraPosition(DefaultCameraPosition);
-            }
-        }
-
-        private void OnStart(object obj)
-        {
-            MainCamera.SetActive(true);
-        }
-
         void Update()
         {
             if (_screenResolutionWidth != Screen.currentResolution.width ||
-                !Mathf.Approximately(_orthographicCameraSize, _mainCamera.orthographicSize))
+                !Mathf.Approximately(_orthographicCameraSize, mainCamera.orthographicSize))
             {
                 UpdatePixelPerfectScaleValues();
             }
@@ -89,7 +62,7 @@ namespace Camera
                 Time.deltaTime * SmoothSpeed);
             Vector2 smoothPixelPerfectPosition = new Vector2(PPV(smoothPosition.x), PPV(smoothPosition.y));
 
-            MainCamera.transform.position = (Vector3)smoothPixelPerfectPosition +
+            mainCamera.transform.position = (Vector3)smoothPixelPerfectPosition +
                                             Vector3.forward * (PPV(_zStartPositionCamera) * _zOffsetCameraToPlayer);
         }
 
@@ -102,13 +75,13 @@ namespace Camera
         private void UpdatePixelPerfectScaleValues()
         {
             float aspectRatio = 16f / 9f;
-            float auxiliaryVar = aspectRatio * _mainCamera.orthographicSize * NativePPU * 2f;
+            float auxiliaryVar = aspectRatio * mainCamera.orthographicSize * NativePPU * 2f;
             _nativeResolutionWidth = (int)auxiliaryVar;
 
             PPUScale = (float)Screen.currentResolution.width / _nativeResolutionWidth;
             ScreenPPU = PPUScale * NativePPU;
 
-            _orthographicCameraSize = _mainCamera.orthographicSize;
+            _orthographicCameraSize = mainCamera.orthographicSize;
             _screenResolutionWidth = Screen.currentResolution.width;
         }
 
@@ -157,19 +130,19 @@ namespace Camera
         private IEnumerator ShakeCoroutine(float duration, float magnitude)
         {
             float elapsedTime = 0f;
-            Vector3 originalPosition = MainCamera.transform.localPosition;
+            Vector3 originalPosition = mainCamera.transform.localPosition;
 
             while (elapsedTime < duration)
             {
                 float offsetX = UnityEngine.Random.Range(-1f, 1f) * magnitude;
                 float offsetY = UnityEngine.Random.Range(-1f, 1f) * magnitude;
-                MainCamera.transform.localPosition = originalPosition + new Vector3(offsetX, offsetY, 0f);
+                mainCamera.transform.localPosition = originalPosition + new Vector3(offsetX, offsetY, 0f);
 
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
-            MainCamera.transform.localPosition = originalPosition; // Reset camera position
+            mainCamera.transform.localPosition = originalPosition; // Reset camera position
         }
     }
 

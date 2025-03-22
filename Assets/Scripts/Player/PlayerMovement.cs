@@ -1,7 +1,6 @@
 using System.Collections;
 using SpongeScene;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -10,12 +9,13 @@ namespace Player
         [SerializeField] private float moveSpeed = 5f; // Base move speed
         [SerializeField] private float jumpHeight = 5f; // Jump height
         [SerializeField] private float dashSpeed = 15f; // Second dash speed
-        [SerializeField] private float dashTime = 0.65f; // Total dash time (two dashes with a delay)
         [SerializeField] private float maxSpeed = 10f; // Maximum speed
         [SerializeField] private float verticalRamAmount = 1.5f; // Vertical movement during the second dash (up and down movement)
         [SerializeField] private float rotationAmount = 30f; // The amount of rotation during the dash (degrees)
-        [SerializeField] private float rotationDuration = 0.3f;
+        [SerializeField] private float rotationDuration;
     
+        private float dashTime = 0.65f; // Total dash time (unaccurate)
+
         private float currentSpeed = 0f; // Current movement speed
         private bool isDashing = false; // If the player is currently dashing
         private bool isGrounded = true; // Check if the player is grounded

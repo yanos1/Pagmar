@@ -10,7 +10,7 @@ namespace Player
         [SerializeField] private float moveSpeed = 5f; // Base move speed
         [SerializeField] private float jumpHeight = 5f; // Jump height
         [SerializeField] private float dashSpeed = 15f; // Second dash speed
-        [SerializeField] private float dashTime = 0.4f; // Total dash time (two dashes with a delay)
+        [SerializeField] private float dashTime = 0.65f; // Total dash time (two dashes with a delay)
         [SerializeField] private float maxSpeed = 10f; // Maximum speed
         [SerializeField] private float verticalRamAmount = 1.5f; // Vertical movement during the second dash (up and down movement)
         [SerializeField] private float rotationAmount = 30f; // The amount of rotation during the dash (degrees)
@@ -110,7 +110,7 @@ namespace Player
             yield return StartCoroutine(UtilityFunctions.RotateOverTime(transform, rotationAmount * -initialDirection, rotationDuration));
             rb.linearVelocity = new Vector2(initialDirection * dashSpeed, verticalRamAmount); // Move vertically and horizontally
 
-            yield return new WaitForSeconds(0.7f); // Wait until the dash is done
+            yield return new WaitForSeconds(dashTime); // dash time is not accurate
             yield return StartCoroutine(UtilityFunctions.RotateOverTime(transform, -rotationAmount * -initialDirection, rotationDuration/2));
 
             // End dashing after the second dash

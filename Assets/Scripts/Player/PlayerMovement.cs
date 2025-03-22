@@ -13,7 +13,7 @@ namespace Player
         [SerializeField] private float verticalRamAmount = 1.5f; // Vertical movement during the second dash (up and down movement)
         [SerializeField] private float rotationAmount = 30f; // The amount of rotation during the dash (degrees)
         [SerializeField] private float rotationDuration;
-    
+            
         private float dashTime = 0.65f; // Total dash time (unaccurate)
 
         private float currentSpeed = 0f; // Current movement speed

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Terrain
 {
-    public class BreakableTerrain : MonoBehaviour
+    public class BreakableTerrain : MonoBehaviour, IBreakable
     {
         private void OnCollisionEnter2D(Collision2D other)
         {
@@ -12,9 +12,15 @@ namespace Terrain
             {
                 if (other.gameObject.GetComponent<PlayerMovement>().IsDashing)
                 {
-                    gameObject.SetActive(false);
+                    OnBreak();
                 }
             }
+        }
+
+        public void OnBreak()
+        {
+            gameObject.SetActive(false);
+            
         }
     }
 }

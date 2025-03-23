@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using SpongeScene;
 using UnityEngine;
@@ -13,21 +14,32 @@ namespace Player
         [SerializeField] private float verticalRamAmount = 1.5f; // Vertical movement during the second dash (up and down movement)
         [SerializeField] private float rotationAmount = 30f; // The amount of rotation during the dash (degrees)
         [SerializeField] private float rotationDuration;
-            
+        
         private float dashTime = 0.65f; // Total dash time (unaccurate)
-
+        private float gravityScale;
         private float currentSpeed = 0f; // Current movement speed
         private bool isDashing = false; // If the player is currently dashing
         private bool isGrounded = true; // Check if the player is grounded
         private bool isFacingRight = true; // Check if the player is facing right
-
+        private float defaultMovespeed;
+        private float defaultJumpHeight;
+        
+        private Collider2D col;
         private Rigidbody2D rb; // Reference to the player's Rigidbody2D
         private Vector2 moveInput;
+        private bool inQuickSand;
+        private float defaultDashSpeed;
 
         public bool IsDashing => isDashing;
+
         void Start()
         {
-            rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component
+            rb = GetComponent<Rigidbody2D>();
+            col = GetComponent<Collider2D>();
+            gravityScale = rb.gravityScale;
+            defaultMovespeed = moveSpeed;
+            defaultJumpHeight = jumpHeight;
+            defaultDashSpeed = dashSpeed;
         }
 
         void Update()
@@ -129,6 +141,39 @@ namespace Player
             Vector3 playerScale = transform.localScale;
             playerScale.x *= -1; // Flip horizontally
             transform.localScale = playerScale;
+        }
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Quicksand"))
+            {
+                transform.Translate(Vector3.down * Time.fixedDeltaTime/4);
+                if (!inQuickSand)
+                {
+                    moveSpeed *= 0.4f;
+                    jumpHeight *= 0.4f;
+                    dashSpeed *= 0.4f;
+                    rb.gravityScale = 0;
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+
+
+                }
+                inQuickSand = true;
+
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Quicksand"))
+            {
+                rb.gravityScale = gravityScale;
+                inQuickSand = false;
+                moveSpeed = defaultMovespeed;
+                jumpHeight = defaultJumpHeight;
+                dashSpeed = defaultDashSpeed;
+
+            }
         }
     }
 }

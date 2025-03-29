@@ -6,13 +6,32 @@ namespace Terrain
 {
     public class BreakableTerrain : MonoBehaviour, IBreakable
     {
+        private Rigidbody2D rb;
+        private float hitFroce = 40f; // this is a dummy value that will be obtained from the player.
+
+
+        private void Start()
+        {
+            rb = GetComponent<Rigidbody2D>();
+        }
+
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.GetComponent<PlayerMovement>() is not null)
+            PlayerMovement playerMovement = other.gameObject.GetComponent<PlayerMovement>();
+            PlayerMovement2 playerMovement2 = other.gameObject.GetComponent<PlayerMovement2>();
+
+            if (playerMovement != null || playerMovement2 != null)
             {
-                if (other.gameObject.GetComponent<PlayerMovement>().IsDashing)
+                Vector2 hitDirection = (transform.position - other.transform.position).normalized;
+
+                if (playerMovement != null && playerMovement.IsDashing) // && player.isBig => then break
                 {
-                    OnBreak();
+                    // OnBreak();
+                }
+                
+                if (playerMovement != null && playerMovement.IsDashing)  // && player.isSmall => move it
+                {
+                    OnHit(hitDirection);
                 }
             }
         }
@@ -20,7 +39,14 @@ namespace Terrain
         public void OnBreak()
         {
             gameObject.SetActive(false);
-            
+        }
+
+        public void OnHit(Vector2 hitDirection)
+        {
+            if (rb != null)
+            {
+                rb.AddForce(hitDirection * hitFroce, ForceMode2D.Impulse);
+            }
         }
     }
 }

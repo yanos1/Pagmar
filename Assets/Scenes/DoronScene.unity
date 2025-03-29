@@ -1437,7 +1437,7 @@ GameObject:
   - component: {fileID: 671193809}
   - component: {fileID: 671193808}
   - component: {fileID: 671193807}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundBlock
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2514,23 +2514,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f99c64f3a4a42a3800e6c262fce5d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MovementSpeed: 300
   _rb: {fileID: 1240520639}
   jumpForce: 9
-  MovementSpeed: 300
   regularGravity: 1
   WhenStopPressGravity: 2.3
-  whenJumpFallingGravity: 1.9
   maxFallingSpeed: -8
-  HangGravity: 1.3
-  HangThreshold: 1
-  LastPressedJumpTime: 0
-  LastOnGroundTime: 0
-  jumpIsPressed: 0
   groundCheckPosition: {fileID: 1269044641}
   checkSize: {x: 0.23, y: -0.02}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  jumpIsPressed: 0
 --- !u!114 &1240520644
 MonoBehaviour:
   m_ObjectHideFlags: 0

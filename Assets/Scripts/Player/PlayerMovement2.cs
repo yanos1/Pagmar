@@ -20,6 +20,14 @@ public class PlayerMovement2 : MonoBehaviour
     [SerializeField] private Vector2 checkSize = new Vector2(0.5f, 0.1f);
     [SerializeField] private LayerMask groundLayer;
     
+    [Header("Dash")]
+    [SerializeField] private float dashSpeed = 150f;
+    [SerializeField] private float dashAttackTime = 0.15f;
+    [SerializeField] private float dashEndTime = 0.15f;
+    [SerializeField] private float dashEndSpeed = 50f;
+    [SerializeField] private float dashCoolDownTime = 1f;
+    
+    
     private bool isJumping = false;
     public bool jumpIsPressed = false;
     private float LastPressedJumpTime = 0f;
@@ -28,11 +36,18 @@ public class PlayerMovement2 : MonoBehaviour
     private float _moveInputX;
     private float _moveInputY;
     private Coroutine jumpTimer;
+    private bool _isDashAttacking = false;
+    private bool _isDashing = false;
+    private Vector2 _lastDashDir;
+    private Vector2 _moveInput;
+    private float LastPressedDashTime;
+    private bool _canDash = true;
     
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         LastOnGroundTime = Time.time;
+        LastPressedDashTime = Time.time;
         
     }
     
@@ -46,14 +61,19 @@ public class PlayerMovement2 : MonoBehaviour
     
     private void CheckIfGrounded()
     {
-        if (IsGrounded() && isJumping)
+        if (IsGrounded())
         {
-            isJumping = false;
-            _rb.gravityScale = regularGravity;
+            _canDash = true;
+            if(isJumping)
+            {
+                isJumping = false;
+                _rb.gravityScale = regularGravity;
+            }
         }
     }
     private void Move()
     {
+        if(_isDashAttacking) return;
         _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed * Time.fixedDeltaTime,Mathf.Max(_rb.linearVelocity.y,maxFallingSpeed));
     }
     
@@ -62,17 +82,45 @@ public class PlayerMovement2 : MonoBehaviour
         _isFacingRight = true;
     }
     
-    // Called from your InputAction for movement
     public void HandleMovment(InputAction.CallbackContext context)
     {
-        Vector2 moveInput = context.ReadValue<Vector2>();
-        _moveInputX = moveInput.x;
-        _moveInputY = moveInput.y;
+         _moveInput = context.ReadValue<Vector2>();
+        _moveInputX = _moveInput.x;
+        _moveInputY = _moveInput.y;
         
         if (_moveInputX != 0)
         {
             HandleFlip(_moveInputX > 0);
         }
+    }
+    
+    public void HandleDash(InputAction.CallbackContext context)
+    {
+        if (context.started && CanDash())
+        {
+            Debug.Log("Dash");
+            if (_moveInput != Vector2.zero)
+                _lastDashDir = _moveInput;
+            else
+                _lastDashDir = _isFacingRight ? Vector2.right : Vector2.left;
+
+            _isDashing = true;
+            isJumping = false;
+            // IsWallJumping = false;
+            // _isJumpCut = false;
+
+            StartCoroutine(nameof(StartDash), _lastDashDir);
+        }
+        
+    }
+    private bool CanDash()
+    {
+        if (Time.time - LastPressedDashTime >= dashCoolDownTime && !_isDashing&&_canDash)
+        {
+            LastPressedDashTime = Time.time;
+            return true;
+        }
+        return false;
     }
     
     // Called from your InputAction for jump
@@ -156,5 +204,39 @@ public class PlayerMovement2 : MonoBehaviour
     private bool CanJump()
     {
         return IsGrounded();
+    }
+    
+    private IEnumerator StartDash(Vector2 dir)
+    {
+        _isDashing = true;
+        _canDash = false;
+
+        float startTime = Time.time;
+
+        _isDashAttacking = true;
+
+        _rb.gravityScale = 0;
+        
+
+        while (Time.time - startTime <= dashAttackTime)
+        {
+            _rb.linearVelocity = dir.normalized * dashSpeed;
+            yield return null;
+        }
+
+        startTime = Time.time;
+
+        _isDashAttacking = false;
+
+        _rb.gravityScale = WhenStopPressGravity;
+        
+        _rb.linearVelocity = dashEndSpeed * dir.normalized;
+        
+        while (Time.time - startTime <= dashEndTime)
+        {
+            yield return null;
+        }
+        _isDashing = false;
+
     }
 }

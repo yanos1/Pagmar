@@ -5,36 +5,35 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement2 : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D _rb;
-    [SerializeField] private float jumpForce = 10f;
+    [Header("Movement")]
     [SerializeField] private float MovementSpeed = 200f;
+    [SerializeField] private Rigidbody2D _rb;
+    
+    [Header("Jump")]
+    [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float regularGravity = 1.2f;
     [SerializeField] private float WhenStopPressGravity = 2.5f;
-    [SerializeField] private float whenJumpFallingGravity = 1.8f;
     [SerializeField] private float maxFallingSpeed = -10f;
-    [SerializeField] private float HangGravity = 1f;
-    [SerializeField] private float HangThreshold = 2f;
-    
-    private bool _isFacingRight = true;
-    private float _moveInputX;
-    private float _moveInputY;
-    private bool IsJumpFalling = false;
-    private Coroutine jumpTimer;
-    public float LastPressedJumpTime = 0f;
-    public float LastOnGroundTime = 0f;
-    
-    private bool isJumping = false;
-    public bool jumpIsPressed = false;
     
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheckPosition;
     [SerializeField] private Vector2 checkSize = new Vector2(0.5f, 0.1f);
     [SerializeField] private LayerMask groundLayer;
     
+    private bool isJumping = false;
+    public bool jumpIsPressed = false;
+    private float LastPressedJumpTime = 0f;
+    private float LastOnGroundTime = 0f;
+    private bool _isFacingRight = true;
+    private float _moveInputX;
+    private float _moveInputY;
+    private Coroutine jumpTimer;
+    
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         LastOnGroundTime = Time.time;
+        
     }
     
     private void Update()
@@ -42,19 +41,13 @@ public class PlayerMovement2 : MonoBehaviour
         LastOnGroundTime+=Time.deltaTime;
 
         Move();
-        if((isJumping|IsJumpFalling)&&Mathf.Abs(_rb.linearVelocity.y)<HangThreshold)
+        CheckIfGrounded();
+    }
+    
+    private void CheckIfGrounded()
+    {
+        if (IsGrounded() && isJumping)
         {
-            _rb.gravityScale = HangGravity;
-            Debug.Log("Hang");
-        }
-        if(_rb.linearVelocity.y<-HangThreshold && !IsGrounded())
-        {
-            JumpFall();
-        }
-        
-        if (IsGrounded() && IsJumpFalling)
-        {
-            IsJumpFalling = false;
             isJumping = false;
             _rb.gravityScale = regularGravity;
         }
@@ -85,10 +78,9 @@ public class PlayerMovement2 : MonoBehaviour
     // Called from your InputAction for jump
     public void HandleJump(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started&&CanJump())
         {
-            jumpIsPressed = true;
-            if(CanJump())StartJumping();
+            StartJumping();
         }
         else if (context.canceled)
         {
@@ -98,15 +90,12 @@ public class PlayerMovement2 : MonoBehaviour
     }
     private void StartJumping()
     {
+        LastPressedJumpTime = 0f;
+        jumpIsPressed = true;
         jumpTimer = StartCoroutine(JumpTimeout(0.4f));
+        _rb.gravityScale = regularGravity;
         Jump();
         
-    }
-    private void JumpFall()
-    {
-        IsJumpFalling = true;
-        _rb.gravityScale = whenJumpFallingGravity;
-        Debug.Log("JumpFall");
     }
     private IEnumerator JumpTimeout(float duration)
     {
@@ -136,7 +125,13 @@ public class PlayerMovement2 : MonoBehaviour
     
     private bool IsGrounded()
     {
-        return Physics2D.OverlapBox(groundCheckPosition.position, checkSize, 0, groundLayer) != null;
+        if (Physics2D.OverlapBox(groundCheckPosition.position, checkSize, 0, groundLayer) != null)
+        {
+            LastOnGroundTime = 0f;
+            return true;
+        }
+
+        return false;
     }
     
     private void OnDrawGizmos()
@@ -147,19 +142,19 @@ public class PlayerMovement2 : MonoBehaviour
     
     private void Jump()
     {
-        isJumping = true;
-        LastPressedJumpTime = 0f;
-        LastOnGroundTime = 0f;
-        
         float force = jumpForce;
         if (_rb.linearVelocity.y < 0)
             force -= _rb.linearVelocity.y;
         
         _rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+        LastOnGroundTime = 0f;
+        isJumping = true;
+
+
     }
     
     private bool CanJump()
     {
-        return IsGrounded() && !isJumping && LastOnGroundTime > 0.1f;
+        return IsGrounded();
     }
 }

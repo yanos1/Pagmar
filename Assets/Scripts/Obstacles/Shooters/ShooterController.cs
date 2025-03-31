@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Player;
 using SpongeScene;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Obstacles.Shooters
 {
@@ -16,7 +17,11 @@ namespace Obstacles.Shooters
         [SerializeField] private float warningDuration = 2;
 
         [SerializeField] private SpriteRenderer warningRenderer;
-        [SerializeField] private GameObject warning;
+        [SerializeField] private GameObject warningPrefab;
+
+        [SerializeField] private AudioSource src;
+        [SerializeField] private AudioClip shoot;
+        [SerializeField] private AudioClip warning;
 
         private bool cantShoot = false;
         private int timesActivated = 0;
@@ -25,10 +30,13 @@ namespace Obstacles.Shooters
         {
             for (int i = 0; i < waves; ++i)
             {
-                warning.SetActive(true);
+                warningPrefab.SetActive(true);
+                src.clip = warning;
+                src.Play();
                 yield return StartCoroutine(UtilityFunctions.FadeImage(warningRenderer, 0.6f, 0,
                     warningDuration));
-                
+                src.clip = shoot;
+                src.Play();
                 foreach (var shooter in shooters)
                 {
                     shooter.Shoot();

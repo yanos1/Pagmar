@@ -7,8 +7,14 @@ namespace Terrain
     public class BreakableTerrain : MonoBehaviour, IBreakable
     {
         private Rigidbody2D rb;
-        private float hitFroce = 40f; // this is a dummy value that will be obtained from the player.
+        private float hitForce = 40f; // this is a dummy value that will be obtained from the player.
+        private bool isMoving;
+        private bool isDropping;
 
+        [SerializeField] private AudioSource src;
+        [SerializeField] private AudioClip boxHit;
+        [SerializeField] private AudioClip boxPush;
+        [SerializeField] private AudioClip boxDrop;
 
         private void Start()
         {
@@ -26,12 +32,15 @@ namespace Terrain
 
                 if (playerMovement != null && playerMovement.IsDashing) // && player.isBig => then break
                 {
+                    PlaySound(boxHit);
+                    OnHit(hitDirection);
+
                     // OnBreak();
                 }
-                
-                if (playerMovement != null && playerMovement.IsDashing)  // && player.isSmall => move it
+                else if (playerMovement != null && !playerMovement.IsDashing)  // && player.isSmall => move it
                 {
-                    OnHit(hitDirection);
+                    PlaySound(boxPush, loop: true);
+                    isMoving = true;
                 }
             }
         }
@@ -45,7 +54,49 @@ namespace Terrain
         {
             if (rb != null)
             {
-                rb.AddForce(hitDirection * hitFroce, ForceMode2D.Impulse);
+                rb.AddForce(hitDirection * hitForce, ForceMode2D.Impulse);
+            }
+        }
+
+        private void Update()
+        {
+            if (isMoving && rb.linearVelocity.magnitude < 0.1f)
+            {
+                isMoving = false;
+                StopSound();
+            }
+        }
+
+        private void PlaySound(AudioClip clip, bool loop = false)
+        {
+            if (src != null && clip != null)
+            {
+                src.clip = clip;
+                src.loop = loop;
+                src.Play();
+            }
+        }
+
+        private void StopSound()
+        {
+            if (src != null && src.isPlaying)
+            {
+                src.loop = false;
+                src.Stop();
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (Mathf.Approximately(rb.linearVelocity.y, 0) && isDropping)
+            {
+                isDropping = false;
+                PlaySound(boxDrop);
+            }
+            if (rb.linearVelocity.y < -0.1f)
+            {
+                isDropping = true;
+                
             }
         }
     }

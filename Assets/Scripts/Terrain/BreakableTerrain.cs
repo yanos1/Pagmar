@@ -15,6 +15,7 @@ namespace Terrain
         [SerializeField] private AudioClip boxHit;
         [SerializeField] private AudioClip boxPush;
         [SerializeField] private AudioClip boxDrop;
+        
 
         private void Start()
         {
@@ -23,21 +24,20 @@ namespace Terrain
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            PlayerMovement playerMovement = other.gameObject.GetComponent<PlayerMovement>();
             PlayerMovement2 playerMovement2 = other.gameObject.GetComponent<PlayerMovement2>();
 
-            if (playerMovement != null || playerMovement2 != null)
+            if (playerMovement2 != null || playerMovement2 != null)
             {
                 Vector2 hitDirection = (transform.position - other.transform.position).normalized;
 
-                if (playerMovement != null && playerMovement.IsDashing) // && player.isBig => then break
+                if (playerMovement2 != null && playerMovement2.IsDashing) // && player.isBig => then break
                 {
                     PlaySound(boxHit);
                     OnHit(hitDirection);
 
                     // OnBreak();
                 }
-                else if (playerMovement != null && !playerMovement.IsDashing)  // && player.isSmall => move it
+                else if (playerMovement2 != null && !playerMovement2.IsDashing)  // && player.isSmall => move it
                 {
                     PlaySound(boxPush, loop: true);
                     isMoving = true;

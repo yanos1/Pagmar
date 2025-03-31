@@ -16,6 +16,10 @@ namespace Enemies
         public float rotationSpeed = 5f;
         public float minDistanceActivation = 3f;
         public Transform player;
+        [SerializeField] private AudioSource src;
+        [SerializeField] private AudioClip charge;
+        [SerializeField] private AudioClip growl;
+        
 
         private bool isCharging = false;
         private bool isPreparingCharge = false;
@@ -39,6 +43,9 @@ namespace Enemies
             if (Mathf.Abs(transform.position.x -player.position.x) > 1)
             {
                 FlipSprite(currentDirection);
+            } else if (Mathf.Abs(transform.position.x - player.position.x) < -1)
+            {
+                FlipSprite(currentDirection);
             }
 
             float distanceToPlayer = Vector2.Distance(transform.position, player.position);
@@ -60,6 +67,8 @@ namespace Enemies
 
         void StartCharge()
         {
+            src.clip = charge;
+            src.Play();
             isCharging = true;
             StartCoroutine(ChargeCooldown());
         }
@@ -72,14 +81,16 @@ namespace Enemies
 
         void FixedUpdate()
         {
+            currentDirection = (player.position - transform.position).x > 0 ? Vector2.right : Vector2.left;
+
             if (isCharging)
             {
-                currentDirection = (player.position - transform.position).x > 0 ? Vector2.right : Vector2.left;
                 transform.position += (Vector3)currentDirection * (chargeSpeed * Time.fixedDeltaTime);
                 RotateEnemy();
                 if (Math.Abs(player.position.x - transform.position.x) < 1)
                 {
                     isCharging = false;
+                    src.Stop();
                 }
             }
         }
@@ -109,6 +120,13 @@ namespace Enemies
                     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 }
             }
+        }
+
+        public void Growl()
+        {
+            src.clip = growl;
+            src.Play();
+            
         }
     }
 }

@@ -19,6 +19,7 @@ public class PlayerMovement2 : MonoBehaviour
     [SerializeField] private Transform groundCheckPosition;
     [SerializeField] private Vector2 checkSize = new Vector2(0.5f, 0.1f);
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask enemyLayer;
     
     [Header("Dash")]
     [SerializeField] private float dashSpeed = 150f;
@@ -42,6 +43,9 @@ public class PlayerMovement2 : MonoBehaviour
     private Vector2 _moveInput;
     private float LastPressedDashTime;
     private bool _canDash = true;
+
+    public bool IsDashing => _isDashing;
+
     
     private void Awake()
     {
@@ -174,7 +178,8 @@ public class PlayerMovement2 : MonoBehaviour
     
     private bool IsGrounded()
     {
-        if (Physics2D.OverlapBox(groundCheckPosition.position, checkSize, 0, groundLayer) != null)
+        if (Physics2D.OverlapBox(groundCheckPosition.position, checkSize, 0, groundLayer) != null||
+            Physics2D.OverlapBox(groundCheckPosition.position, checkSize, 0, enemyLayer))
         {
             LastOnGroundTime = 0f;
             return true;

@@ -1,9 +1,7 @@
 ﻿using System;
 
-namespace NPC
+namespace NPC.NpcActions
 {
-    using UnityEngine;
-    
     [Serializable]
     public abstract class NpcAction 
     {
@@ -11,7 +9,7 @@ namespace NPC
 
         public abstract void StartAction(Npc npc);
         public abstract void UpdateAction(Npc npc);
-        public virtual void ResetAction() => isCompleted = false;
+        public virtual void ResetAction(Npc npc) => isCompleted = false;
         public bool IsCompleted() => isCompleted;
     }
 

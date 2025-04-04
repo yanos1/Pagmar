@@ -29,7 +29,7 @@ namespace Obstacles.Shooters.Projectiles
                 _rb.bodyType = RigidbodyType2D.Static;
             }
             
-            if (other.gameObject.GetComponent<PlayerMovement>() is not null || other.gameObject.GetComponent<PlayerMovement2>() is not null)
+            if (other.gameObject.GetComponent<PlayerMovement>() is not null || other.gameObject.GetComponent<PlayerMovement>() is not null)
             {
                 if (_rb.bodyType == RigidbodyType2D.Dynamic)
                 {

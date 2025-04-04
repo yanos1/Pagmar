@@ -113,7 +113,7 @@ namespace Enemies
         private void OnCollisionEnter2D(Collision2D col)
         {
             if (col.gameObject.GetComponent<PlayerMovement>() is not null ||
-                col.gameObject.GetComponent<PlayerMovement2>() is not null)
+                col.gameObject.GetComponent<PlayerMovement>() is not null)
             {
                 if (player.position.y < transform.position.y)
                 {

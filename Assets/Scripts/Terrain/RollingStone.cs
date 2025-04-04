@@ -1,5 +1,6 @@
 using System;
 using Enemies;
+using Player;
 using UnityEngine;
 
 namespace Terrain
@@ -32,7 +33,7 @@ namespace Terrain
                 rb.AddForce(Vector2.left * 1000);
             }
 
-            PlayerMovement2 player = other.gameObject.GetComponent<PlayerMovement2>();
+            PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
             if(player is not null && !fell)
             {
                 src.clip = roll;

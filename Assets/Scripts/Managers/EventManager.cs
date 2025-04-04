@@ -1,17 +1,11 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-namespace SpongeScene.Managers
+namespace Managers
 {
-    public class EventsManager : MonoBehaviour
+    public class EventManager
     {
-        private Dictionary<EventNames, List<Action<object>>> _activeListeners;
-
-        private void Awake()
-        {
-            _activeListeners = new();
-        }
+        private Dictionary<EventNames, List<Action<object>>> _activeListeners = new();
 
         public void AddListener(EventNames eventName, Action<object> listener)
         {

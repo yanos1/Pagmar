@@ -24,7 +24,7 @@ namespace Terrain
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            PlayerMovement2 playerMovement2 = other.gameObject.GetComponent<PlayerMovement2>();
+            PlayerMovement playerMovement2 = other.gameObject.GetComponent<PlayerMovement>();
 
             if (playerMovement2 != null || playerMovement2 != null)
             {

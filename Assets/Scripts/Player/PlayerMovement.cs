@@ -1,179 +1,250 @@
-using System;
 using System.Collections;
-using SpongeScene;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private float moveSpeed = 5f; // Base move speed
-        [SerializeField] private float jumpHeight = 5f; // Jump height
-        [SerializeField] private float dashSpeed = 15f; // Second dash speed
-        [SerializeField] private float maxSpeed = 10f; // Maximum speed
-        [SerializeField] private float verticalRamAmount = 1.5f; // Vertical movement during the second dash (up and down movement)
-        [SerializeField] private float rotationAmount = 30f; // The amount of rotation during the dash (degrees)
-        [SerializeField] private float rotationDuration;
-        
-        private float dashTime = 0.65f; // Total dash time (unaccurate)
-        private float gravityScale;
-        private float currentSpeed = 0f; // Current movement speed
-        private bool isDashing = false; // If the player is currently dashing
-        private bool isGrounded = true; // Check if the player is grounded
-        private bool isFacingRight = true; // Check if the player is facing right
-        private float defaultMovespeed;
-        private float defaultJumpHeight;
-        
-        private Collider2D col;
-        private Rigidbody2D rb; // Reference to the player's Rigidbody2D
-        private Vector2 moveInput;
-        private bool inQuickSand;
-        private float defaultDashSpeed;
+        [Header("Movement")]
+        [SerializeField] private float MovementSpeed = 200f;
+        [SerializeField] private Rigidbody2D _rb;
+    
+        [Header("Jump")]
+        [SerializeField] private float jumpForce = 10f;
+        [SerializeField] private float regularGravity = 1.2f;
+        [SerializeField] private float WhenStopPressGravity = 2.5f;
+        [SerializeField] private float maxFallingSpeed = -10f;
+    
+        [Header("Ground Check")]
+        [SerializeField] private Transform groundCheckPosition;
+        [SerializeField] private Vector2 checkSize = new Vector2(0.5f, 0.1f);
+        [SerializeField] private LayerMask groundLayer;
+        [SerializeField] private LayerMask enemyLayer;
+    
+        [Header("Dash")]
+        [SerializeField] private float dashSpeed = 150f;
+        [SerializeField] private float dashAttackTime = 0.15f;
+        [SerializeField] private float dashEndTime = 0.15f;
+        [SerializeField] private float dashEndSpeed = 50f;
+        [SerializeField] private float dashCoolDownTime = 1f;
+    
+    
+        private bool isJumping = false;
+        public bool jumpIsPressed = false;
+        private float LastPressedJumpTime = 0f;
+        private float LastOnGroundTime = 0f;
+        private bool _isFacingRight = true;
+        private float _moveInputX;
+        private float _moveInputY;
+        private Coroutine jumpTimer;
+        private bool _isDashAttacking = false;
+        private bool _isDashing = false;
+        private Vector2 _lastDashDir;
+        private Vector2 _moveInput;
+        private float LastPressedDashTime;
+        private bool _canDash = true;
 
-        public bool IsDashing => isDashing;
+        public bool IsDashing => _isDashing;
 
-        void Start()
+    
+        private void Awake()
         {
-            rb = GetComponent<Rigidbody2D>();
-            col = GetComponent<Collider2D>();
-            gravityScale = rb.gravityScale;
-            defaultMovespeed = moveSpeed;
-            defaultJumpHeight = jumpHeight;
-            defaultDashSpeed = dashSpeed;
+            _rb = GetComponent<Rigidbody2D>();
+            LastOnGroundTime = Time.time;
+            LastPressedDashTime = Time.time;
+        
         }
-
-        void Update()
+    
+        private void Update()
         {
-            HandleInput();
-            HandleJump();
+            LastOnGroundTime+=Time.deltaTime;
+
+            Move();
             CheckIfGrounded();
         }
-
+    
         private void CheckIfGrounded()
         {
-            if (Physics2D.Raycast(transform.position, Vector2.down, 0.3f))
+            if (IsGrounded())
             {
-                isGrounded = true;
-            }
-        }
-
-        void FixedUpdate()
-        {
-            if (!isDashing)
-            {
-                MovePlayer();
-            }
-        }
-
-        void HandleInput()
-        {
-            // Getting horizontal movement input
-            moveInput = new Vector2(Input.GetAxis("Horizontal"), 0);
-
-            // Trigger dash only when LeftShift is pressed, if not already dashing
-            if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing && Mathf.Abs(moveInput.x) > 0)
-            {
-                StartCoroutine(Dash());
-            }
-        }
-
-        void HandleJump()
-        {
-            // Jumping if the player is grounded and presses the jump key (e.g., space)
-            if (isGrounded && Input.GetKeyDown(KeyCode.Space))
-            {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
-                isGrounded = false;
-            }
-        }
-
-        void MovePlayer()
-        {
-            // Increase speed gradually while moving, capped at maxSpeed
-            if (moveInput.x != 0)
-            {
-                currentSpeed += moveSpeed * Time.deltaTime * 5;
-                currentSpeed = Mathf.Clamp(currentSpeed, 0, maxSpeed);
-            }
-            else
-            {
-                currentSpeed = 0f;
-            }
-
-            // Apply movement to the Rigidbody2D
-            rb.linearVelocity = new Vector2(moveInput.x * currentSpeed, rb.linearVelocity.y);
-
-            // Flip the player to face the direction they're moving in
-            if (moveInput.x > 0 && !isFacingRight)
-            {
-                Flip();
-            }
-            else if (moveInput.x < 0 && isFacingRight)
-            {
-                Flip();
-            }
-        }
-
-        IEnumerator Dash()
-        {
-            isDashing = true;
-            float initialDirection = moveInput.x > 0 ? 1 : -1;
-        
-            yield return StartCoroutine(UtilityFunctions.RotateOverTime(transform, rotationAmount * -initialDirection, rotationDuration));
-            rb.linearVelocity = new Vector2(initialDirection * dashSpeed, verticalRamAmount); // Move vertically and horizontally
-
-            yield return new WaitForSeconds(dashTime); // dash time is not accurate
-            yield return StartCoroutine(UtilityFunctions.RotateOverTime(transform, -rotationAmount * -initialDirection, rotationDuration/2));
-
-            // End dashing after the second dash
-            isDashing = false;
-
-
-            // Reset rotation to normal after dash
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
-
-
-        // Flip the player to face the other direction
-        void Flip()
-        {
-            isFacingRight = !isFacingRight;
-            Vector3 playerScale = transform.localScale;
-            playerScale.x *= -1; // Flip horizontally
-            transform.localScale = playerScale;
-        }
-
-        private void OnTriggerStay2D(Collider2D other)
-        {
-            if (other.gameObject.CompareTag("Quicksand"))
-            {
-                transform.Translate(Vector3.down * Time.fixedDeltaTime/4);
-                if (!inQuickSand)
+                _canDash = true;
+                if(isJumping)
                 {
-                    moveSpeed *= 0.4f;
-                    jumpHeight *= 0.4f;
-                    dashSpeed *= 0.4f;
-                    rb.gravityScale = 0;
-                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-
-
+                    isJumping = false;
+                    _rb.gravityScale = regularGravity;
                 }
-                inQuickSand = true;
-
             }
         }
-
-        private void OnTriggerExit2D(Collider2D other)
+        private void Move()
         {
-            if (other.gameObject.CompareTag("Quicksand"))
+            if(_isDashAttacking) return;
+            _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed * Time.fixedDeltaTime,Mathf.Max(_rb.linearVelocity.y,maxFallingSpeed));
+        }
+    
+        private void Start()
+        {
+            _isFacingRight = true;
+        }
+    
+        public void HandleMovment(InputAction.CallbackContext context)
+        {
+            _moveInput = context.ReadValue<Vector2>();
+            print($"move input is {_moveInput}");
+            _moveInputX = _moveInput.x;
+            _moveInputY = _moveInput.y;
+        
+            if (_moveInputX != 0)
             {
-                rb.gravityScale = gravityScale;
-                inQuickSand = false;
-                moveSpeed = defaultMovespeed;
-                jumpHeight = defaultJumpHeight;
-                dashSpeed = defaultDashSpeed;
-
+                HandleFlip(_moveInputX > 0);
             }
+        }
+    
+        public void HandleDash(InputAction.CallbackContext context)
+        {
+            if (context.started && CanDash())
+            {
+                Debug.Log("Dash");
+                if (_moveInput != Vector2.zero)
+                    _lastDashDir = _moveInput;
+                else
+                    _lastDashDir = _isFacingRight ? Vector2.right : Vector2.left;
+
+                _isDashing = true;
+                isJumping = false;
+                // IsWallJumping = false;
+                // _isJumpCut = false;
+
+                StartCoroutine(nameof(StartDash), _lastDashDir);
+            }
+        
+        }
+        private bool CanDash()
+        {
+            if (Time.time - LastPressedDashTime >= dashCoolDownTime && !_isDashing&&_canDash)
+            {
+                LastPressedDashTime = Time.time;
+                return true;
+            }
+            return false;
+        }
+    
+        // Called from your InputAction for jump
+        public void HandleJump(InputAction.CallbackContext context)
+        {
+            if (context.started&&CanJump())
+            {
+                StartJumping();
+            }
+            else if (context.canceled)
+            {
+                jumpIsPressed = false;
+                _rb.gravityScale = WhenStopPressGravity;
+            }
+        }
+        private void StartJumping()
+        {
+            LastPressedJumpTime = 0f;
+            jumpIsPressed = true;
+            jumpTimer = StartCoroutine(JumpTimeout(0.4f));
+            _rb.gravityScale = regularGravity;
+            Jump();
+        
+        }
+        private IEnumerator JumpTimeout(float duration)
+        {
+            yield return new WaitForSeconds(duration);
+            if (jumpIsPressed)
+            {
+                jumpIsPressed = false;
+                _rb.gravityScale = WhenStopPressGravity;
+            }
+        }
+    
+        private void HandleFlip(bool isMovingRight)
+        {
+            if (isMovingRight != _isFacingRight)
+            {
+                Flip();
+            }
+        }
+    
+        private void Flip()
+        {
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
+            _isFacingRight = !_isFacingRight;
+        }
+    
+        private bool IsGrounded()
+        {
+            if (Physics2D.OverlapBox(groundCheckPosition.position, checkSize, 0, groundLayer) != null||
+                Physics2D.OverlapBox(groundCheckPosition.position, checkSize, 0, enemyLayer))
+            {
+                LastOnGroundTime = 0f;
+                return true;
+            }
+
+            return false;
+        }
+    
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(groundCheckPosition.position, checkSize);
+        }
+    
+        private void Jump()
+        {
+            float force = jumpForce;
+            if (_rb.linearVelocity.y < 0)
+                force -= _rb.linearVelocity.y;
+        
+            _rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+            LastOnGroundTime = 0f;
+            isJumping = true;
+
+
+        }
+    
+        private bool CanJump()
+        {
+            return IsGrounded();
+        }
+    
+        private IEnumerator StartDash(Vector2 dir)
+        {
+            _isDashing = true;
+            _canDash = false;
+
+            float startTime = Time.time;
+
+            _isDashAttacking = true;
+
+            _rb.gravityScale = 0;
+        
+
+            while (Time.time - startTime <= dashAttackTime)
+            {
+                _rb.linearVelocity = dir.normalized * dashSpeed;
+                yield return null;
+            }
+
+            startTime = Time.time;
+
+            _isDashAttacking = false;
+
+            _rb.gravityScale = WhenStopPressGravity;
+        
+            _rb.linearVelocity = dashEndSpeed * dir.normalized;
+        
+            while (Time.time - startTime <= dashEndTime)
+            {
+                yield return null;
+            }
+            _isDashing = false;
+
         }
     }
 }

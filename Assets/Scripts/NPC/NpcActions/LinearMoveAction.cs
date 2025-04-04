@@ -1,18 +1,15 @@
 ﻿using System;
+using DG.Tweening;
+using UnityEngine;
 
-namespace NPC
+namespace NPC.NpcActions
 {
-    using DG.Tweening;
-    using UnityEngine;
-
     [Serializable]
     public class LinearMoreAction : MoveAction
     {
         protected override void PerformMovement(Npc npc)
         {
-            Vector3 adjustedTargetPosition = new Vector3(targetPosition.x, npc.transform.position.y, targetPosition.z);
-        
-            npc.transform.DOMove(adjustedTargetPosition, duration)
+            npc.transform.DOMove(npc.transform.position + targetPosition, duration)
                 .SetEase(easeType)
                 .OnComplete(() => isCompleted = true);
         }

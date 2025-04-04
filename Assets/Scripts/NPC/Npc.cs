@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
+using NPC.NpcActions;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NPC
 {
     public class Npc : MonoBehaviour
     {
 
-        [SerializeReference,SubclassSelector] private List<NpcAction> actionQueue;
+        [SerializeReference,SubclassSelector] private List<NpcAction> actions;
         private NpcAction currentAction;
         private int actionIndex = 0;
 
@@ -27,9 +29,9 @@ namespace NPC
 
         private void NextAction()
         {
-            if (actionIndex < actionQueue.Count)
+            if (actionIndex < actions.Count)
             {
-                currentAction = actionQueue[actionIndex++];
+                currentAction = actions[actionIndex++];
                 currentAction.StartAction(this);
             }
             else
@@ -39,19 +41,16 @@ namespace NPC
         }
 
         // ✅ Insert actions dynamically
-        public void AddAction(NpcAction newAction, int index = -1)
+        public void AddAction(NpcAction newAction)
         {
-            if (index == -1 || index >= actionQueue.Count)
-                actionQueue.Add(newAction); // Default: Add at the end
-            else
-                actionQueue.Insert(index, newAction); // Insert at specific position
+            actions.Insert(actionIndex, newAction);
         }
 
         // ✅ Interrupt current action and insert a new one
         public void InterruptWithAction(NpcAction newAction)
         {
-            currentAction?.ResetAction();
-            actionQueue.Insert(actionIndex, newAction); // Insert at current position
+            currentAction?.ResetAction(this);
+            actions.Insert(actionIndex, newAction); // Insert at current position
             NextAction();
         }
     }

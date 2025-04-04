@@ -1,10 +1,9 @@
 ﻿using System;
+using DG.Tweening;
+using UnityEngine;
 
-namespace NPC
+namespace NPC.NpcActions
 {
-    using UnityEngine;
-    using DG.Tweening;
-
     [Serializable]
     public abstract class MoveAction : NpcAction
     {

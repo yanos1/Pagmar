@@ -47,7 +47,7 @@ namespace Obstacles.Shooters
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.GetComponent<PlayerMovement>() is not null || other.GetComponent<PlayerMovement2>() is not null)
+            if (other.GetComponent<PlayerMovement>() is not null || other.GetComponent<PlayerMovement>() is not null)
             {
                 if (cantShoot) return;
                 StartCoroutine(Shoot());

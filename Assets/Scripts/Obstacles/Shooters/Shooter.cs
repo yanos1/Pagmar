@@ -12,14 +12,14 @@ namespace Obstacles.Shooters
         [SerializeField] private Transform firePoint;
         [SerializeField] private Vector2 direction;
         [SerializeField] private float force;
-        private SpriteRenderer renderer;
+        private SpriteRenderer _renderer;
 
         private void Start()
         {
-            renderer = GetComponent<SpriteRenderer>();
+            _renderer = GetComponent<SpriteRenderer>();
             if (direction == Vector2.right)
             {
-                renderer.flipX = true;
+                _renderer.flipX = true;
             }
         }
 

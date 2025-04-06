@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using NPC.NpcActions;
@@ -13,6 +14,15 @@ namespace NPC
         private NpcAction currentAction;
         private int actionIndex = 0;
         private Coroutine currentCoroutine;
+
+        [SerializeField] private float maxSpeed;
+        [SerializeField] private float maxJumpHeight;
+        [SerializeField] private float jumpDuration;
+        [SerializeField] private float dashDistance;
+
+        public float MaxJumpHeight => maxJumpHeight;
+        public float JumpDuration => jumpDuration;
+        public float DashDistance => dashDistance;
 
 
         private void Start()
@@ -35,7 +45,7 @@ namespace NPC
         
         private IEnumerator WaitAndMoveToNextAction()
         {
-            yield return new WaitForSeconds(1.2f);  // Wait for 1.2 seconds
+            yield return new WaitForSeconds(0.2f);  // Wait for 1.2 seconds
             NextAction();  // Move to the next action
             currentCoroutine = null;  // Reset the coroutine to allow further actions
         }

@@ -7,6 +7,7 @@ namespace Camera
 {
     public class CameraManager : MonoBehaviour
     {
+        public static CameraManager Instance;
         public GameObject Player;
         [SerializeField] private UnityEngine.Camera mainCamera;
 
@@ -30,6 +31,7 @@ namespace Camera
 
         void Start()
         {
+            Instance = this;
             ScreenPPU = NativePPU;
             _zStartPositionCamera = mainCamera.transform.position.z;
             DefaultCameraPosition = new Vector3(2.5f, 2.42f, 0.2f);

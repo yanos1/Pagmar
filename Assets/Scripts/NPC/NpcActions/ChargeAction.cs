@@ -21,7 +21,7 @@ namespace NPC.NpcActions
             if (IsObstacleInFront(npc))
             {
                 // Tell the NPC to insert a jump, then come back to this charge action
-                npc.AddAction(new JumpMoveAction(5,5));
+                // npc.AddAction(new JumpMoveAction(5,,5));
                 jumpInserted = true;
                 isCompleted = true; // Mark this as done so it doesn’t keep checking
                 return;

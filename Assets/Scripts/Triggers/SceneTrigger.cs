@@ -9,11 +9,10 @@ namespace Triggers
     {
         [Header("Trigger Settings")] private int triggered = 0;
         [SerializeField] private int requiredTriggers;
-        private bool isTriggered = false;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.GetComponent<PlayerMovement>())
+            if (other.GetComponent<PlayerManager>())
             {
                 if (++triggered == requiredTriggers)
                 {

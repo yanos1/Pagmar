@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using DG.Tweening;
 using NPC.NpcActions;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace NPC
 {
@@ -11,6 +12,8 @@ namespace NPC
         [SerializeReference,SubclassSelector] private List<NpcAction> actions;
         private NpcAction currentAction;
         private int actionIndex = 0;
+        private Coroutine currentCoroutine;
+
 
         private void Start()
         {
@@ -22,9 +25,19 @@ namespace NPC
             if (currentAction != null)
             {
                 currentAction.UpdateAction(this);
-                if (currentAction.IsCompleted())
-                    NextAction();
+                if (currentAction.IsCompleted() && currentCoroutine == null)
+                {
+                    print($"{currentAction.ToString()} is complete!");
+                    currentCoroutine = StartCoroutine(WaitAndMoveToNextAction());
+                }
             }
+        }
+        
+        private IEnumerator WaitAndMoveToNextAction()
+        {
+            yield return new WaitForSeconds(1.2f);  // Wait for 1.2 seconds
+            NextAction();  // Move to the next action
+            currentCoroutine = null;  // Reset the coroutine to allow further actions
         }
 
         private void NextAction()
@@ -49,9 +62,13 @@ namespace NPC
         // ✅ Interrupt current action and insert a new one
         public void InterruptWithAction(NpcAction newAction)
         {
+            actionIndex--;
             currentAction?.ResetAction(this);
             actions.Insert(actionIndex, newAction); // Insert at current position
             NextAction();
         }
+        
+        
+        
     }
 }

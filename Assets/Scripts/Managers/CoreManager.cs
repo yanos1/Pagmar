@@ -1,4 +1,6 @@
 ﻿
+using Player;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Managers
@@ -12,14 +14,16 @@ namespace Managers
         public EventManager EventManager;
         public InputManager InputManager;
         public SceneManager SceneManager;
+        public CallbackManager CallbackManager;
+        public MonoRunner Runner;
+        public PlayerManager Player;
 
-        private CoreManager()
+        public CoreManager()
         {
             Instance ??= this;
             EventManager = new EventManager();
             InputManager = new InputManager();
+            Runner = new GameObject("CoreManagerRunner").AddComponent<MonoRunner>();
         }
-        
-        
     }
 }

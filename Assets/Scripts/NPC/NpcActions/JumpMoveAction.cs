@@ -16,15 +16,17 @@ namespace NPC.NpcActions
             this.jumpPower = jumpPower;
             this.numJumps = numJumps;
         }
-        public JumpMoveAction(float jumpPower, int numJumps = 1)
+        public JumpMoveAction(float jumpPower, Vector3 targetPosition, float duration, int numJumps = 1)
         {
             this.jumpPower = jumpPower;
+            this.targetPosition = targetPosition;
             this.numJumps = numJumps;
+            this.duration = duration;
         }
 
         protected override void PerformMovement(Npc npc)
         {
-            npc.transform.DOJump(targetPosition, jumpPower, numJumps, duration)
+            npc.transform.DOJump(npc.transform.position + targetPosition, jumpPower, numJumps, duration)
                 .SetEase(easeType)
                 .OnComplete(() => isCompleted = true);
         }

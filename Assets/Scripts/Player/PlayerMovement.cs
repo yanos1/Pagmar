@@ -179,8 +179,7 @@ namespace Player
     
         private bool IsGrounded()
         {
-            if (Physics2D.OverlapBox(groundCheckPosition.position, checkSize, 0, groundLayer) != null||
-                Physics2D.OverlapBox(groundCheckPosition.position, checkSize, 0, enemyLayer))
+            if (Physics2D.OverlapBox(groundCheckPosition.position, checkSize, 0))
             {
                 LastOnGroundTime = 0f;
                 return true;

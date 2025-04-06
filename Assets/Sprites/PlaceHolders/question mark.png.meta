@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: d9eb3730f5f14044e9d7ce149cb38d4b
+guid: fec2e0469db2bf04f8bcffd359da6755
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3187706808980990712
-    second: Capture-removebg-preview_0
+      213: -6476456761517676602
+    second: question mark_0
+  - first:
+      213: -1481501776715461126
+    second: question mark_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,12 +49,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
-  spriteExtrude: 10
+  spriteMode: 2
+  spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.48357338, y: 0.067519486}
-  spritePixelsToUnits: 50
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 150
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,7 +78,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,23 +103,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Capture-removebg-preview_0
+      name: question mark_0
       rect:
         serializedVersion: 2
-        x: 15
-        y: 12
-        width: 147
-        height: 207
-      alignment: 9
-      pivot: {x: 0.49190968, y: 0.018825116}
+        x: 118
+        y: 124
+        width: 135
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8051892eb8df2c3d0800000000000000
-      internalID: -3187706808980990712
+      spriteID: 6c7ef8e93e00f16a0800000000000000
+      internalID: -6476456761517676602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: question mark_1
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 72
+        width: 54
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afdc3c0cbf5a07be0800000000000000
+      internalID: -1481501776715461126
       vertices: []
       indices: 
       edges: []
@@ -125,8 +150,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ef046e5db007abe4ca4c35de65072bfe
-    internalID: -642975433
+    spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Capture-removebg-preview_0: -3187706808980990712
+      question mark_0: -6476456761517676602
+      question mark_1: -1481501776715461126
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -45,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 256838444697489981, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.66
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 256838444697489981, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -145,7 +145,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5662022951266685875}
-        m_TargetAssemblyTypeName: PlayerMovement2, Assembly-CSharp
+        m_TargetAssemblyTypeName: Player.PlayerMovement, Assembly-CSharp
         m_MethodName: HandleMovment
         m_Mode: 0
         m_Arguments:
@@ -165,7 +165,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5662022951266685875}
-        m_TargetAssemblyTypeName: PlayerMovement2, Assembly-CSharp
+        m_TargetAssemblyTypeName: Player.PlayerMovement, Assembly-CSharp
         m_MethodName: HandleDash
         m_Mode: 0
         m_Arguments:
@@ -189,7 +189,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5662022951266685875}
-        m_TargetAssemblyTypeName: PlayerMovement2, Assembly-CSharp
+        m_TargetAssemblyTypeName: Player.PlayerMovement, Assembly-CSharp
         m_MethodName: HandleJump
         m_Mode: 0
         m_Arguments:

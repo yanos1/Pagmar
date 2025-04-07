@@ -18,7 +18,7 @@ namespace NPC.NpcActions
         public override void StartAction(Npc npc)
         {
             isRunning = true;
-            npc.transform.GetComponent<Collider2D>().isTrigger = false;
+            // npc.transform.GetComponent<Collider2D>().isTrigger = false;
             beFollowedCoroutine = CoreManager.Instance.Runner.StartCoroutine(BeFollowedRoutine(npc));
         }
 
@@ -35,7 +35,7 @@ namespace NPC.NpcActions
         public override void ResetAction(Npc npc)
         {
             isRunning = false;
-            npc.transform.GetComponent<Collider2D>().isTrigger = true;
+            // npc.transform.GetComponent<Collider2D>().isTrigger = true;
             StopWalking();
 
             if (beFollowedCoroutine != null)

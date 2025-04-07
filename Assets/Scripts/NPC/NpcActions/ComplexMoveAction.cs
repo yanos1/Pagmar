@@ -139,6 +139,7 @@ namespace NPC.NpcActions
             }
 
             float wallAheadHeight = GetWallAheadHeight(npc);
+            Debug.Log($"{wallAheadHeight} !!");
             if (wallAheadHeight > npc.MaxJumpHeight)
             {
                 PerformJumpCancelDashUp(npc);

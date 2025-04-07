@@ -4,18 +4,18 @@ using System.Collections.Generic;
 using DG.Tweening;
 using NPC.NpcActions;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NPC
 {
     public class Npc : MonoBehaviour
     {
-
         [SerializeReference,SubclassSelector] private List<NpcAction> actions;
         private NpcAction currentAction;
         private int actionIndex = 0;
         private Coroutine currentCoroutine;
 
-        [SerializeField] private float maxSpeed;
+        [SerializeField] private float speed;
         [SerializeField] private float maxJumpHeight;
         [SerializeField] private float jumpDuration;
         [SerializeField] private float dashDistance;
@@ -23,6 +23,7 @@ namespace NPC
         public float MaxJumpHeight => maxJumpHeight;
         public float JumpDuration => jumpDuration;
         public float DashDistance => dashDistance;
+        public float Speed => speed;
 
 
         private void Start()

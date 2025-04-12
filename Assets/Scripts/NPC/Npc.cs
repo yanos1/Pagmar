@@ -36,6 +36,7 @@ namespace NPC
             if (currentAction != null)
             {
                 currentAction.UpdateAction(this);
+                print(currentAction);
                 if (currentAction.IsCompleted() && currentCoroutine == null)
                 {
                     print($"{currentAction.ToString()} is complete!");

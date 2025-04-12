@@ -26,6 +26,7 @@ namespace NPC.NpcActions
         {
             if (stopFollowTrigger.IsTriggered)
             {
+                Debug.Log("STOP BEING FOLLOWED");
                 isRunning = false;
                 isCompleted = true;
                 StopWalking();

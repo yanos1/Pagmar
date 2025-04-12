@@ -16,6 +16,7 @@ namespace Triggers
             {
                 if (++triggered == requiredTriggers)
                 {
+                    print($"trigged {gameObject.name} trigger");
                     isTriggered = true;
                 }
             }

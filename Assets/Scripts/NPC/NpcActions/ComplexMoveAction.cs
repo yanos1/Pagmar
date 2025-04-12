@@ -47,6 +47,7 @@ namespace NPC.NpcActions
             RaycastHit2D hit = Physics2D.Raycast(origin, direction, wallCheckDistance, groundMask);
             if (hit.collider is not null)
             {
+                Debug.Log($"hit {hit.collider.gameObject.name} performing jump");
                 return hit.collider.bounds.max.y - npc.transform.position.y;
             }
 
@@ -139,7 +140,6 @@ namespace NPC.NpcActions
             }
 
             float wallAheadHeight = GetWallAheadHeight(npc);
-            Debug.Log($"{wallAheadHeight} !!");
             if (wallAheadHeight > npc.MaxJumpHeight)
             {
                 PerformJumpCancelDashUp(npc);

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace Enemies
 {
-    public class ChargingEnemy : MonoBehaviour
+    public class ChargingEnemy : Enemy
     {
         public float detectionRange;
         public float chargeSpeed;
@@ -25,11 +25,13 @@ namespace Enemies
         private bool isPreparingCharge = false;
         private float rotationTimer = 0f;
         private SpriteRenderer spriteRenderer;
+        private Rigidbody2D rb;
         private Vector2 currentDirection = Vector2.left;
 
         private void Start()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
+            rb = GetComponent<Rigidbody2D>();
         }
 
         void Update()
@@ -112,12 +114,11 @@ namespace Enemies
 
         private void OnCollisionEnter2D(Collision2D col)
         {
-            if (col.gameObject.GetComponent<PlayerMovement>() is not null ||
-                col.gameObject.GetComponent<PlayerMovement>() is not null)
+            if (col.gameObject.GetComponent<PlayerMovement>() is not null)
             {
                 if (player.position.y < transform.position.y)
                 {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                    // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 }
             }
         }
@@ -127,6 +128,13 @@ namespace Enemies
             src.clip = growl;
             src.Play();
             
+        }
+
+        public override void OnRam()
+        {
+            isCharging = false;
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            rb.AddForce(Vector2.right * 100f);
         }
     }
 }

@@ -13,7 +13,12 @@ namespace NPC.NpcActions
 
         public override void StartAction(Npc npc)
         {
-            PerformMovement(npc);
+            base.StartAction(npc);
+        }
+
+        public override void ResetAction(Npc npc)
+        {
+            base.ResetAction(npc);
         }
 
         protected abstract void PerformMovement(Npc npc);

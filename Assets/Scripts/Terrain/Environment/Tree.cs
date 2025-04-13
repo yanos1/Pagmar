@@ -1,15 +1,16 @@
 ﻿using System;
+using System;
 using NPC;
-using Unity.VisualScripting;
+using SpongeScene;
+using Triggers;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 
 namespace Terrain.Environment
 {
-    public class Tree : MonoBehaviour
+    public class Tree : MonoBehaviour, IBreakable
     {
-        [SerializeField] private float power = 25;
-        private int hitcount;
+        [SerializeField] private float power;
+        [SerializeField] private Trigger trigger;
         private Rigidbody2D rb;
 
         private void Start()
@@ -17,21 +18,26 @@ namespace Terrain.Environment
             rb = GetComponent<Rigidbody2D>();
         }
 
-        private void OnTriggerExit2D(Collider2D other)
+        private void Update()
         {
-            
-            if (other.GetComponent<Npc>() is not null)
+            if (trigger.IsTriggered)
             {
-                if (++hitcount == 2)
+                StartCoroutine(UtilityFunctions.WaitAndInvokeAction(1f, () =>
                 {
-                    Fall();
-                }
+                    rb.linearVelocity = Vector2.zero;
+                    rb.bodyType = RigidbodyType2D.Static;
+                }));
             }
         }
 
-        private void Fall()
+        public void OnBreak()
         {
             rb.AddForce(Vector2.left * power);
+        }
+
+        public void OnHit(Vector2 hitDir)
+        {
+            return;
         }
     }
 }

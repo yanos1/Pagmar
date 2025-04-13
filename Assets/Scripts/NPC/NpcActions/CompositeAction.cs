@@ -29,8 +29,9 @@
                 if (currentSubAction == null) return;
 
                 currentSubAction.UpdateAction(npc);
-                if (currentSubAction.IsCompleted())
+                if (currentSubAction.IsCompleted)
                 {
+                    currentSubAction.ResetAction(npc);
                     currentSubActionIndex++;
                     if (currentSubActionIndex < subActions.Count)
                     {
@@ -47,10 +48,6 @@
 
             public override void ResetAction(Npc npc)
             {
-                foreach (var action in subActions)
-                {
-                    action.ResetAction(npc);
-                }
                 currentSubAction = null;
                 currentSubActionIndex = 0;
             }

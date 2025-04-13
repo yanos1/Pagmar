@@ -12,19 +12,21 @@ namespace NPC.NpcActions
 {
     public abstract class ComplexMoveAction : NpcAction
     {
-        [SerializeField] protected float speed;
-        [SerializeField] protected float minDistanceToPlayer;
-        [SerializeField] protected LayerMask groundMask;
-        [SerializeField] protected float groundCheckDistance;
-        [SerializeField] protected int rayCount;
-        [SerializeField] protected float raySpreadAngle;
-        [SerializeField] protected float rayLength;
-        [SerializeField] protected float wallCheckDistance;
+        [SerializeField] private LayerMask groundMask;
+
+        [SerializeField] protected float minDistanceToPlayer = 5;
+        protected float groundCheckDistance = 0.3f;
+        protected int rayCount = 15;
+        protected float raySpreadAngle = 120;
+        protected float rayLength = 20;
+        protected float wallCheckDistance = 4.5f;
 
         protected Coroutine walkRoutine;
 
         protected Vector2 GetMoveDirection(Npc npc)
         {
+            if (npc.State == NpcState.Followed) return Vector2.right;
+            
             return CoreManager.Instance.Player.transform.position.x > npc.transform.position.x
                 ? Vector2.right
                 : Vector2.left;

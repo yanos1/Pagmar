@@ -129,6 +129,10 @@ namespace Camera
             shakeCoroutine = StartCoroutine(ShakeCoroutine(duration, magnitude));
         }
 
+        public void ShakeCamera()
+        {
+            ShakeCamera(0.1f,0.1f); 
+        }
         private IEnumerator ShakeCoroutine(float duration, float magnitude)
         {
             float elapsedTime = 0f;

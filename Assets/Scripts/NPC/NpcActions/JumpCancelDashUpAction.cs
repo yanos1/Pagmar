@@ -24,6 +24,7 @@ namespace NPC.NpcActions
       
         public override void StartAction(Npc npc)
         {
+            base.StartAction(npc);
             isCompleted = false;
             CoreManager.Instance.Runner.StartCoroutine(JumpDashRoutine(npc));
         }
@@ -35,6 +36,7 @@ namespace NPC.NpcActions
 
         public override void ResetAction(Npc npc)
         {
+            base.ResetAction(npc);
             
             // if (jumpCancelDashRoutine != null)
             // {

@@ -1,5 +1,7 @@
 ﻿using Managers;
 using Player;
+using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,16 +12,15 @@ namespace Triggers
         [Header("Trigger Settings")] private int triggered = 0;
         [SerializeField] private int requiredTriggers;
 
-        private void OnTriggerEnter2D(Collider2D other)
+        public override void OnTriggerEnter2D(Collider2D other) 
         {
-            if (other.GetComponent<PlayerManager>())
+            print($"{other.tag} hit {gameObject.name}");
+            if (other.CompareTag(trigger) && ++triggered == requiredTriggers)
             {
-                if (++triggered == requiredTriggers)
-                {
-                    print($"trigged {gameObject.name} trigger");
-                    isTriggered = true;
-                }
+                print($"{trigger} triggered {gameObject.name}");
+                isTriggered = true;
             }
         }
     }
+    
 }

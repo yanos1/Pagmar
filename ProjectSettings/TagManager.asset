@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Quicksand
+  - Big
+  - Enemy
   layers:
   - Default
   - TransparentFX

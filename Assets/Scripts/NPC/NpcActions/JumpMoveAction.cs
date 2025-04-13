@@ -24,6 +24,19 @@ namespace NPC.NpcActions
             this.duration = duration;
         }
 
+        public override void StartAction(Npc npc)
+        {
+            base.StartAction(npc);
+            PerformMovement(npc);
+            npc.SetState(NpcState.Jumping);
+        }
+
+        public override void ResetAction(Npc npc)
+        {
+            base.ResetAction(npc);
+            npc.SetState(NpcState.Idle);
+        }
+
         protected override void PerformMovement(Npc npc)
         {
             npc.transform.DOJump(npc.transform.position + targetPosition, jumpPower, numJumps, duration)

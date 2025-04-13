@@ -19,7 +19,9 @@ namespace NPC.NpcActions
 
         public override void StartAction(Npc npc)
         {
+            base.StartAction(npc);
             isFollowing = true;
+            npc.SetState(NpcState.Following);
             followCoroutine = CoreManager.Instance.Runner.StartCoroutine(FollowRoutine(npc));
         }
 
@@ -35,6 +37,7 @@ namespace NPC.NpcActions
 
         public override void ResetAction(Npc npc)
         {
+            base.ResetAction(npc);
             isFollowing = false;
             if (followCoroutine != null)
                 CoreManager.Instance.Runner.StopCoroutine(followCoroutine);
@@ -42,7 +45,7 @@ namespace NPC.NpcActions
 
         private IEnumerator FollowRoutine(Npc npc)
         {
-            PerformWalk(npc, GetMoveDirection(npc), speed);
+            PerformWalk(npc, GetMoveDirection(npc), npc.Speed);
 
             while (isFollowing)
             {
@@ -58,7 +61,7 @@ namespace NPC.NpcActions
                 {
                     if (walkRoutine is null)
                     {
-                        PerformWalk(npc, GetMoveDirection(npc), speed);
+                        PerformWalk(npc, GetMoveDirection(npc), npc.Speed);
                         yield return new WaitForSeconds(Random.Range(0.4f, 1f));
                     }
                 }

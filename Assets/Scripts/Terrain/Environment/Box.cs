@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Terrain
 {
-    public class BreakableTerrain : MonoBehaviour, IBreakable
+    public class Box : MonoBehaviour, IBreakable
     {
         private Rigidbody2D rb;
         private float hitForce = 40f; // this is a dummy value that will be obtained from the player.

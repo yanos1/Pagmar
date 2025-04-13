@@ -17,7 +17,9 @@ namespace NPC.NpcActions
 
         public override void StartAction(Npc npc)
         {
+            base.StartAction(npc);
             isRunning = true;
+            npc.SetState(NpcState.Followed);
             // npc.transform.GetComponent<Collider2D>().isTrigger = false;
             beFollowedCoroutine = CoreManager.Instance.Runner.StartCoroutine(BeFollowedRoutine(npc));
         }
@@ -35,6 +37,7 @@ namespace NPC.NpcActions
 
         public override void ResetAction(Npc npc)
         {
+            base.ResetAction(npc);
             isRunning = false;
             // npc.transform.GetComponent<Collider2D>().isTrigger = true;
             StopWalking();
@@ -50,7 +53,7 @@ namespace NPC.NpcActions
                 float dist = npc.transform.position.x - CoreManager.Instance.Player.transform.position.x;
                 if (dist < minDistanceToPlayer)
                 {
-                    PerformWalk(npc, Vector2.right, speed);
+                    PerformWalk(npc, Vector2.right, npc.Speed);
                 }
                 else
                 {

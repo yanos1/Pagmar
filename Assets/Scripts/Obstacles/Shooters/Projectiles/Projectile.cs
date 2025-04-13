@@ -24,7 +24,7 @@ namespace Obstacles.Shooters.Projectiles
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.GetComponent<BreakableTerrain>())
+            if (other.gameObject.GetComponent<Box>())
             {
                 _rb.bodyType = RigidbodyType2D.Static;
             }

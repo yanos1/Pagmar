@@ -10,7 +10,6 @@ namespace NPC.NpcActions
     public class WaitAction : NpcAction
     {
         [SerializeField] private Trigger trigger;                 // Trigger to wait for (can still be used)
-        [SerializeField] private UnityEvent startCallback;         // Callback to invoke at the start
         [SerializeField] private bool waitForDuration = false;     // Option to wait for duration
         [SerializeField] private float duration = 3f;              // Duration to wait before completing action
 
@@ -18,7 +17,7 @@ namespace NPC.NpcActions
 
         public override void StartAction(Npc npc)
         {
-            startCallback?.Invoke();
+            base.StartAction(npc);
             if (waitForDuration)
             {
                 // Reset the timer if waiting for a duration
@@ -42,6 +41,11 @@ namespace NPC.NpcActions
                 // If waiting for the trigger, complete the action when triggered
                 isCompleted = true;
             }
+        }
+
+        public override void ResetAction(Npc npc)
+        {
+            base.ResetAction(npc);
         }
     }
 }

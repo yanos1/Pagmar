@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         _rb.gravityScale = regularGravity;
-        // _fallSpeedYDampingChangeThreshold = CameraManager.GetInstance().FallSpeedYDampingChangeThreshold;
+        _fallSpeedYDampingChangeThreshold = CameraManager.GetInstance().FallSpeedYDampingChangeThreshold;
         _isFacingRight = true;
     }
     
@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
         Move();
         CheckIfGrounded();
-        // CheckIfFalling();
+        CheckIfFalling();
     }
 
     private void CheckIfFalling()

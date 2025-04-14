@@ -53,12 +53,13 @@ namespace Camera
                     _currentCamera = _allVirtualCameras[i];
 
                     // Set the framing transposer
-                    _framingTransposer = _currentCamera.GetComponents<CinemachinePositionComposer>()[0];
+                    _framingTransposer = _currentCamera.GetComponentInParent<CinemachinePositionComposer>();
+                    _normYPanAmount = _framingTransposer.Damping.y;
+                    Debug.Log(_normYPanAmount);
                 }
             }
-            Debug.Log(_framingTransposer.CameraDistance);
+            
 
-            _normYPanAmount = _framingTransposer.TargetOffset.y;
         }
 
         #region Lerp the Y Damping
@@ -94,8 +95,11 @@ namespace Camera
                 elapsedTime += Time.deltaTime;
 
                 float lerpedPanAmount = Mathf.Lerp(startDampAmount, endDampAmount, (elapsedTime / _fallYPanTime));
-                _framingTransposer.Damping.y = lerpedPanAmount;
-
+                
+                Vector3 damping = _framingTransposer.Damping;
+                damping.y = lerpedPanAmount;
+                _framingTransposer.Damping = damping;
+                
                 yield return null;
             }
 

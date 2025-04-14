@@ -27,7 +27,7 @@ namespace NPC.NpcActions
 
         public override void UpdateAction(Npc npc)
         {
-            if (stopFollowTrigger != null && stopFollowTrigger.IsTriggered)
+            if (stopFollowTrigger is not null && stopFollowTrigger.IsTriggered)
             {
                 StopWalking();
                 isFollowing = false;

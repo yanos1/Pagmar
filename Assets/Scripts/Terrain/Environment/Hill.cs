@@ -24,7 +24,7 @@ namespace Terrain.Environment
 
         public void OnHit(Vector2 hitDir)
         {
-            StartCoroutine(UtilityFunctions.ShakeObject(_rb));
+            StartCoroutine(UtilityFunctions.ShakeObject(_rb,0.1f,0.05f));
         }
     }
 }

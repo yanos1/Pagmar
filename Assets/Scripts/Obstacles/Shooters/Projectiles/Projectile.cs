@@ -1,6 +1,7 @@
 ﻿using System;
 using Player;
 using Terrain;
+using Terrain.Environment;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

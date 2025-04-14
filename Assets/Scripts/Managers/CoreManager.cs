@@ -14,7 +14,7 @@ namespace Managers
         public EventManager EventManager;
         public InputManager InputManager;
         public SceneManager SceneManager;
-        public CallbackManager CallbackManager;
+        public ResetManager ResetManager;
         public MonoRunner Runner;
         public PlayerManager Player;
 
@@ -23,6 +23,7 @@ namespace Managers
             Instance ??= this;
             EventManager = new EventManager();
             InputManager = new InputManager();
+            ResetManager = new ResetManager();
             Runner = new GameObject("CoreManagerRunner").AddComponent<MonoRunner>();
         }
     }

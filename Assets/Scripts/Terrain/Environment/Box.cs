@@ -1,15 +1,15 @@
-﻿using System;
-using Player;
+﻿using Interfaces;
 using UnityEngine;
 
-namespace Terrain
+namespace Terrain.Environment
 {
-    public class Box : MonoBehaviour, IBreakable
+    public class Box : MonoBehaviour, IBreakable, IResettable
     {
         private Rigidbody2D rb;
         private float hitForce = 40f; // this is a dummy value that will be obtained from the player.
         private bool isMoving;
         private bool isDropping;
+        private Vector3 startingPosition;
 
         [SerializeField] private AudioSource src;
         [SerializeField] private AudioClip boxHit;
@@ -20,6 +20,7 @@ namespace Terrain
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
+            startingPosition = transform.position;
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -98,6 +99,11 @@ namespace Terrain
                 isDropping = true;
                 
             }
+        }
+
+        public void ResetToInitialState()
+        {
+            transform.position = startingPosition;
         }
     }
 }

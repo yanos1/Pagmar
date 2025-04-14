@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Camera;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -45,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _moveInput;
     private float LastPressedDashTime;
     private bool _canDash = true;
+    private float _fallSpeedYDampingChangeThreshold;
     public bool IsFacingRight => _isFacingRight;
     
     
@@ -58,6 +60,12 @@ public class PlayerMovement : MonoBehaviour
         _isFacingRight = true;
         
     }
+    private void Start()
+    {
+        _rb.gravityScale = regularGravity;
+        // _fallSpeedYDampingChangeThreshold = CameraManager.GetInstance().FallSpeedYDampingChangeThreshold;
+        _isFacingRight = true;
+    }
     
     private void Update()
     {
@@ -65,8 +73,26 @@ public class PlayerMovement : MonoBehaviour
 
         Move();
         CheckIfGrounded();
+        // CheckIfFalling();
     }
-    
+
+    private void CheckIfFalling()
+    {
+        if (_rb.linearVelocity.y < _fallSpeedYDampingChangeThreshold &&
+            !CameraManager.GetInstance().IsLerpingYDamping && !CameraManager.GetInstance().LerpedFromPlayerFalling)
+        {
+            CameraManager.GetInstance().LerpYDamping(true);
+        }
+
+        if (_rb.linearVelocity.y >= 0 &&
+            !CameraManager.GetInstance().IsLerpingYDamping && CameraManager.GetInstance().LerpedFromPlayerFalling)
+        {
+            CameraManager.GetInstance().LerpedFromPlayerFalling = false;
+            CameraManager.GetInstance().LerpYDamping(false);
+        }
+        
+    }
+
     private void CheckIfGrounded()
     {
         if (IsGrounded())
@@ -83,11 +109,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if(_isDashAttacking) return;
         _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed * Time.fixedDeltaTime,Mathf.Max(_rb.linearVelocity.y,maxFallingSpeed));
-    }
-    
-    private void Start()
-    {
-        _isFacingRight = true;
     }
     
     public void HandleMovment(InputAction.CallbackContext context)

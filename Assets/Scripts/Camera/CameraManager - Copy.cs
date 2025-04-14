@@ -1,164 +1,107 @@
 using System.Collections;
+using Unity.Cinemachine;
 using UnityEngine;
-
-using UnityEngine.Serialization;
 
 namespace Camera
 {
     public class CameraManager : MonoBehaviour
     {
-        public static CameraManager Instance;
-        public GameObject Player;
-        [SerializeField] private UnityEngine.Camera mainCamera;
+        [SerializeField] private CinemachineCamera[] _allVirtualCameras;
 
-        public float SmoothSpeed = 3;
-        public static float PPUScale;
-        public static float ScreenPPU;
-        public Vector3 DefaultCameraPosition;
-        public int NativePPU;
+        [Header("Controls for lerping the Y Damping during player jump/fall")]
+        [SerializeField] private float _fallPanAmount = 0.25f;
+        [SerializeField] private float _fallYPanTime = 0.35f;
+        [SerializeField] public float _fallSpeedYDampingChangeThreshold = -5f;
 
-        private float _zStartPositionCamera;
-        [SerializeField] private float _xOffsetCameraToPlayer;
-        [SerializeField] private float _yOffsetCameraToPlayer;
-        [SerializeField] private float _zOffsetCameraToPlayer;
-        private float _orthographicCameraSize;
-        private int _screenResolutionWidth;
-        private int _nativeResolutionWidth;
+        public bool IsLerpingYDamping { get; private set; }
+        public bool LerpedFromPlayerFalling { get;  set; }
+
+        private Coroutine _lerpYPanCoroutine;
+
+        private CinemachineCamera _currentCamera;
+        private CinemachinePositionComposer _framingTransposer;
+
+        private static CameraManager instance;
         
-        private Coroutine shakeCoroutine;
+        private float _normYPanAmount;
 
-        private Coroutine cameraLerpCoroutine; // Track the active coroutine
-
-        void Start()
+        public static CameraManager GetInstance()
         {
-            Instance = this;
-            ScreenPPU = NativePPU;
-            _zStartPositionCamera = mainCamera.transform.position.z;
-            DefaultCameraPosition = new Vector3(2.5f, 2.42f, 0.2f);
-
-        }
-        void Update()
-        {
-            if (_screenResolutionWidth != Screen.currentResolution.width ||
-                !Mathf.Approximately(_orthographicCameraSize, mainCamera.orthographicSize))
+            if (instance == null)
             {
-                UpdatePixelPerfectScaleValues();
+                Debug.LogError("CameraManager instance is null.");
+                return null;
             }
-        }
 
-        void FixedUpdate()
+            return instance;
+        }
+        
+        public float FallSpeedYDampingChangeThreshold {get => _fallSpeedYDampingChangeThreshold; }
+
+        private void Awake()
         {
-            if (Mathf.Abs(Player.transform.position.x - GrafikAndGuiSettings.PPV(transform.position.x)) >
-                10 * 1 / GrafikAndGuiSettings.ScreenPPU)
+            if (instance == null)
             {
-                SmoothPixelPerfectCamera();
+                instance = this;
             }
-        }
 
-        private void SmoothPixelPerfectCamera()
-        {
-            Vector2 desiredPosition = new Vector2(Player.transform.position.x + _xOffsetCameraToPlayer,
-                Player.transform.position.y + _yOffsetCameraToPlayer);
-            Vector2 pixelPerfectDesiredPosition = new Vector2(PPV(desiredPosition.x), PPV(desiredPosition.y));
-            Vector2 smoothPosition = Vector2.Lerp(transform.position, pixelPerfectDesiredPosition,
-                Time.deltaTime * SmoothSpeed);
-            Vector2 smoothPixelPerfectPosition = new Vector2(PPV(smoothPosition.x), PPV(smoothPosition.y));
-
-            mainCamera.transform.position = (Vector3)smoothPixelPerfectPosition +
-                                            Vector3.forward * (PPV(_zStartPositionCamera) * _zOffsetCameraToPlayer);
-        }
-
-        public static float PPV(float valueWithoutPixelPerfection)
-        {
-            float screenPixelPosition = valueWithoutPixelPerfection * ScreenPPU;
-            return Mathf.Round(screenPixelPosition) / ScreenPPU;
-        }
-
-        private void UpdatePixelPerfectScaleValues()
-        {
-            float aspectRatio = 16f / 9f;
-            float auxiliaryVar = aspectRatio * mainCamera.orthographicSize * NativePPU * 2f;
-            _nativeResolutionWidth = (int)auxiliaryVar;
-
-            PPUScale = (float)Screen.currentResolution.width / _nativeResolutionWidth;
-            ScreenPPU = PPUScale * NativePPU;
-
-            _orthographicCameraSize = mainCamera.orthographicSize;
-            _screenResolutionWidth = Screen.currentResolution.width;
-        }
-
-        public void LerpCameraPosition(Vector3 target)
-        {
-            if (cameraLerpCoroutine != null)
+            for (int i = 0; i < _allVirtualCameras.Length; i++)
             {
-                StopCoroutine(cameraLerpCoroutine);
+                if (_allVirtualCameras[i].enabled)
+                {
+                    // Set the current active camera
+                    _currentCamera = _allVirtualCameras[i];
+
+                    // Set the framing transposer
+                    _framingTransposer = _currentCamera.GetComponents<CinemachinePositionComposer>()[0];
+                }
             }
-            cameraLerpCoroutine = StartCoroutine(LerpCameraToTarget(target));
+            Debug.Log(_framingTransposer.CameraDistance);
+
+            _normYPanAmount = _framingTransposer.TargetOffset.y;
         }
 
-        private IEnumerator LerpCameraToTarget(Vector3 target)
+        #region Lerp the Y Damping
+
+        public void LerpYDamping(bool isPlayerFalling)
         {
+            _lerpYPanCoroutine = StartCoroutine(LerpYAction(isPlayerFalling));
+        }
+
+        private IEnumerator LerpYAction(bool isPlayerFalling)
+        {
+            IsLerpingYDamping = true;
+
+            // Grab the starting damping amount
+            float startDampAmount = _framingTransposer.Damping.y;
+            float endDampAmount = 0f;
+
+            // Determine the end damping amount
+            if (isPlayerFalling)
+            {
+                endDampAmount = _fallPanAmount;
+                LerpedFromPlayerFalling = true;
+            }
+            else
+            {
+                endDampAmount = _normYPanAmount;
+            }
+
+            // Lerp the pan amount
             float elapsedTime = 0f;
-            Vector3 startPosition = new Vector3(_xOffsetCameraToPlayer, _yOffsetCameraToPlayer, _zOffsetCameraToPlayer);
-
-            while (elapsedTime < 1f)
+            while (elapsedTime < _fallYPanTime)
             {
                 elapsedTime += Time.deltaTime;
-                Vector3 newPosition = Vector3.Lerp(startPosition, target, elapsedTime / 0.7f);
-                
-                _xOffsetCameraToPlayer = newPosition.x;
-                _yOffsetCameraToPlayer = newPosition.y;
-                _zOffsetCameraToPlayer = newPosition.z;
+
+                float lerpedPanAmount = Mathf.Lerp(startDampAmount, endDampAmount, (elapsedTime / _fallYPanTime));
+                _framingTransposer.Damping.y = lerpedPanAmount;
 
                 yield return null;
             }
 
-            _xOffsetCameraToPlayer = target.x;
-            _yOffsetCameraToPlayer = target.y;
-            _zOffsetCameraToPlayer = target.z;
-        }
-        
-        
-        // Screen Shake Functionality
-        public void ShakeCamera(float duration, float magnitude)
-        {
-            if (shakeCoroutine != null)
-            {
-                StopCoroutine(shakeCoroutine);
-            }
-            shakeCoroutine = StartCoroutine(ShakeCoroutine(duration, magnitude));
+            IsLerpingYDamping = false;
         }
 
-        public void ShakeCamera()
-        {
-            ShakeCamera(0.1f,0.1f); 
-        }
-        private IEnumerator ShakeCoroutine(float duration, float magnitude)
-        {
-            float elapsedTime = 0f;
-            Vector3 originalPosition = mainCamera.transform.localPosition;
-
-            while (elapsedTime < duration)
-            {
-                float offsetX = UnityEngine.Random.Range(-1f, 1f) * magnitude;
-                float offsetY = UnityEngine.Random.Range(-1f, 1f) * magnitude;
-                mainCamera.transform.localPosition = originalPosition + new Vector3(offsetX, offsetY, 0f);
-
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-
-            mainCamera.transform.localPosition = originalPosition; // Reset camera position
-        }
-    }
-
-    public static class GrafikAndGuiSettings
-    {
-        public static float ScreenPPU = 100f;
-
-        public static float PPV(float value)
-        {
-            return value * ScreenPPU;
-        }
+        #endregion
     }
 }

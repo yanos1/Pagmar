@@ -27,6 +27,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashEndSpeed = 50f;
     [SerializeField] private float dashCoolDownTime = 1f;
     
+    [Header("CammeraFollowObject")]
+    [SerializeField] private CameraFollowObject _cameraFollowObject;
+    
     
     private bool isJumping = false;
     public bool jumpIsPressed = false;
@@ -42,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _moveInput;
     private float LastPressedDashTime;
     private bool _canDash = true;
+    public bool IsFacingRight => _isFacingRight;
     
     
     public bool IsDashing => _isDashing;
@@ -51,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         LastOnGroundTime = Time.time;
         LastPressedDashTime = Time.time;
+        _isFacingRight = true;
         
     }
     
@@ -168,9 +173,19 @@ public class PlayerMovement : MonoBehaviour
     
     private void Flip()
     {
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
+        if (_isFacingRight)
+        {
+            var rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(rotator);
+            _cameraFollowObject.CallTurn();
+        }
+        else
+        {
+            var rotator = new Vector3(transform.rotation.x, 0f, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(rotator);
+            _cameraFollowObject.CallTurn();
+        }
+
         _isFacingRight = !_isFacingRight;
     }
     

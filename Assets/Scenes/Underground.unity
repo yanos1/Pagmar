@@ -2015,7 +2015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d02ad5931e248847bece7c0c2889174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resetManager: {fileID: 0}
+  resetManager: {fileID: 1189063542}
 --- !u!4 &728542366
 Transform:
   m_ObjectHideFlags: 0
@@ -3708,6 +3708,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1189063541}
+  - component: {fileID: 1189063542}
   m_Layer: 0
   m_Name: ResetManager
   m_TagString: Untagged
@@ -3730,6 +3731,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 266702399}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1189063542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189063540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180017d942be47988e314e1a6fecbfe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1207722795
 PrefabInstance:
   m_ObjectHideFlags: 0

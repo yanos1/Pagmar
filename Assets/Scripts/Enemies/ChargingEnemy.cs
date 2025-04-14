@@ -27,6 +27,7 @@ namespace Enemies
         private SpriteRenderer spriteRenderer;
         private Rigidbody2D rb;
         private Vector2 currentDirection = Vector2.left;
+        private bool hit = false;
 
         private void Start()
         {
@@ -52,7 +53,7 @@ namespace Enemies
 
             float distanceToPlayer = Vector2.Distance(transform.position, player.position);
             if (distanceToPlayer > minDistanceActivation && distanceToPlayer < detectionRange && !isCharging &&
-                !isPreparingCharge && player.transform.position.y < transform.position.y)
+                !isPreparingCharge && player.transform.position.y < transform.position.y && !hit)
             {
                 print($"preparing charge since distance is {distanceToPlayer} and detection range is {detectionRange}");
                 StartCoroutine(PrepareCharge());
@@ -133,8 +134,10 @@ namespace Enemies
         public override void OnRam()
         {
             isCharging = false;
+            hit = true;
+            src.Stop();
             rb.bodyType = RigidbodyType2D.Dynamic;
-            rb.AddForce(Vector2.right * 100f);
+            rb.AddForce(Vector2.right * 200f);
         }
     }
 }

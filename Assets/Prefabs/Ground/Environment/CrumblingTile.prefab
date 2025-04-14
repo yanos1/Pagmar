@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2060918886066825883}
   - component: {fileID: 4000122485883326472}
   - component: {fileID: 5169349280573579606}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CrumblingTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

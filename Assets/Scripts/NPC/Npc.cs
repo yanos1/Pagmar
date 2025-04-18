@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Enemies;
+using Interfaces;
 using NPC.NpcActions;
 using Terrain;
 using UnityEngine;

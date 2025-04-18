@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Terrain
+namespace Interfaces
 {
     public interface IBreakable
     {

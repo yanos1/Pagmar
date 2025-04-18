@@ -1,6 +1,7 @@
 ﻿using System;
 using DG.Tweening;
 using Enemies;
+using Interfaces;
 using Player;
 using Terrain;
 using UnityEngine;

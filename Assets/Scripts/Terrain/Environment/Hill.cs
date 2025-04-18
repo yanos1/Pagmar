@@ -1,4 +1,5 @@
-﻿using SpongeScene;
+﻿using Interfaces;
+using SpongeScene;
 
 namespace Terrain.Environment
 {

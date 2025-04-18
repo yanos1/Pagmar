@@ -1,5 +1,6 @@
 ﻿using System;
 using System;
+using Interfaces;
 using NPC;
 using SpongeScene;
 using Triggers;

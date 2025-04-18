@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Terrain.Environment
 {
-    public class Box : MonoBehaviour, IBreakable, IResettable
+    public class Box : MonoBehaviour, IResettable, IBreakable
     {
         private Rigidbody2D rb;
         private float hitForce = 40f; // this is a dummy value that will be obtained from the player.

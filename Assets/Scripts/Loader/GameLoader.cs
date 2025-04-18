@@ -1,15 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
 using Managers;
 using UnityEngine;
 
 namespace Loader
 {
-    public class GameLoader : MonoBehaviour
+    namespace SpongeScene.Loader
     {
-        // will be changed
-        [SerializeField] private ResetManager resetManager;
-        void Awake()
+        public class GameLoader : MonoBehaviour
         {
-            new CoreManager(resetManager);
+            [SerializeField] private GameLoaderUI loaderUI;
+            [SerializeField] private ScenesManager sceneManager;
+
+            private Animator animator;
+            private float loadSpeed = 0.01f;
+
+            private void Start()
+            {
+                // animator = GetComponent<Animator>();
+                StartCoroutine(LoadGame());
+                // animator.SetTrigger("Start");
+            }
+
+            private IEnumerator LoadGame()
+            {
+                yield return new WaitForSeconds(0.05f); // fixes rare bugs
+                if (sceneManager is not null)
+                {
+                    sceneManager.LoadPersistentScene(() => loadSpeed /= 2f);
+                }
+                yield return StartCoroutine(StartLoading());
+            }
+
+            private IEnumerator StartLoading()
+            {
+                // animator.SetTrigger("Stop"); // Ensure you have a "Stop" trigger in your Animator
+
+                while (loaderUI.IsNotFinished)
+                {
+                    loaderUI.AddProgress(1);
+                    yield return new WaitForSeconds(loadSpeed);
+                }
+
+                sceneManager.LoadNextScene();
+            }
         }
     }
 }

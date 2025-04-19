@@ -52,8 +52,9 @@ namespace Enemies
             }
 
             float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+    
             if (distanceToPlayer > minDistanceActivation && distanceToPlayer < detectionRange && !isCharging &&
-                !isPreparingCharge && player.transform.position.y < transform.position.y && !hit)
+                !isPreparingCharge && player.transform.position.y < transform.position.y  +0.5f && !hit)
             {
                 print($"preparing charge since distance is {distanceToPlayer} and detection range is {detectionRange}");
                 StartCoroutine(PrepareCharge());

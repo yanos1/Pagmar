@@ -25,6 +25,8 @@ namespace Managers
             UiManager = uiManager;
             ResetManager = resetManager;
             Runner = new GameObject("CoreManagerRunner").AddComponent<MonoRunner>();
+            uiManager.gameObject.SetActive(true);
+            resetManager.gameObject.SetActive(true);
         }
     }
 }

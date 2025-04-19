@@ -62,7 +62,6 @@ namespace Managers
             {
                 if (currentSceneIndex + 1 < numScenes)
                 {
-                    CoreManager.Instance.EventManager.InvokeEvent(EventNames.StartNewScene, currentSceneIndex + 1);
                     StartCoroutine(SwitchScene(currentSceneIndex + 1));
                 }
                 else
@@ -119,6 +118,8 @@ namespace Managers
                     }
 
                     CoreManager.Instance.UiManager.HideLoadingScreen();
+                    CoreManager.Instance.EventManager.InvokeEvent(EventNames.StartNewScene, currentSceneIndex + 1);
+
                 }
 
                 currentSceneIndex = newSceneIndex;

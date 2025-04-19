@@ -12,6 +12,9 @@ namespace Terrain.Environment
     {
         private Rigidbody2D _rb;
         private bool isShaking = false;
+        [SerializeField] private Rigidbody2D objectOnTop;
+        [SerializeField] private float force;
+        [SerializeField] private float shakeMagnitude;
 
         private void Awake()
         {
@@ -25,7 +28,8 @@ namespace Terrain.Environment
 
         public void OnHit(Vector2 hitDir)
         {
-            StartCoroutine(UtilityFunctions.ShakeObject(_rb,0.1f,0.05f));
+            StartCoroutine(UtilityFunctions.ShakeObject(_rb,0.12f,shakeMagnitude,true,false));
+            if(objectOnTop is not null) objectOnTop.AddForce(Vector2.left * force);
         }
     }
 }

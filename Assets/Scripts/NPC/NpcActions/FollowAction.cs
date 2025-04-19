@@ -21,6 +21,7 @@ namespace NPC.NpcActions
         {
             base.StartAction(npc);
             isFollowing = true;
+            CoreManager.Instance.Player.SetFollowedBy(npc);
             npc.SetState(NpcState.Following);
             followCoroutine = CoreManager.Instance.Runner.StartCoroutine(FollowRoutine(npc));
         }
@@ -39,6 +40,7 @@ namespace NPC.NpcActions
         {
             base.ResetAction(npc);
             isFollowing = false;
+            CoreManager.Instance.Player.SetFollowedBy(null);
             if (followCoroutine != null)
                 CoreManager.Instance.Runner.StopCoroutine(followCoroutine);
         }
@@ -67,7 +69,7 @@ namespace NPC.NpcActions
                 }
 
                 PerformSpecialMovementIfNecessary(npc);
-
+                if (IsCompleted) yield break;
                 yield return new WaitForSeconds(0.2f);
             }
         }

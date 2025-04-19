@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7bfc01da80944508c3b1f3105c40bd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crumbleDelay: 0.7
+  crumbleDelay: 0.5
   destroyAfterCrumble: 0
-  crumbleDuration: 0.7
+  crumbleDuration: 0.5
   animator: {fileID: 0}
 --- !u!212 &4000122485883326472
 SpriteRenderer:

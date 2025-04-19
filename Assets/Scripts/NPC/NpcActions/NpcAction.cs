@@ -14,6 +14,7 @@ namespace NPC.NpcActions
         [SerializeField] protected UnityEvent beforeActionCallBack;
         [SerializeField] protected UnityEvent afterActionCallback;
         
+        
         private const float DefaultDelayAfterAction = 0.2f;
 
         public bool IsCompleted

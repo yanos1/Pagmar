@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -22,6 +24,7 @@ namespace NPC.NpcActions
             this.targetPosition = targetPosition;
             this.numJumps = numJumps;
             this.duration = duration;
+            Debug.Log($"target pos of jump: {targetPosition}");
         }
 
         public override void StartAction(Npc npc)
@@ -36,12 +39,34 @@ namespace NPC.NpcActions
             base.ResetAction(npc);
             npc.SetState(NpcState.Idle);
         }
-
+        
         protected override void PerformMovement(Npc npc)
         {
             npc.transform.DOJump(npc.transform.position + targetPosition, jumpPower, numJumps, duration)
                 .SetEase(easeType)
                 .OnComplete(() => isCompleted = true);
+        }
+
+        private IEnumerator WaitForGround(Npc npc, Rigidbody2D rb)
+        {
+            int groundLayer = LayerMask.GetMask("Ground");
+
+            while (true)
+            {
+                // Raycast down to check if touching ground
+                RaycastHit2D hit = Physics2D.Raycast(npc.transform.position, Vector2.down, 0.1f, groundLayer);
+
+                if (hit.collider != null)
+                {
+                    // Hit the ground
+
+                    rb.bodyType = RigidbodyType2D.Kinematic; // Optional: Stop physics after landing
+                    yield break;
+                }
+
+                yield return null; // Wait a frame
+            }
+        
         }
 
         public override void UpdateAction(Npc npc)

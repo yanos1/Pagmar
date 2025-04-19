@@ -19,6 +19,9 @@ namespace NPC
         private NpcAction currentAction;
         private int actionIndex = 0;
         private Coroutine currentCoroutine;
+        private bool isGrounded;
+        private float groundCheckDistance = 0.1f;
+        private Rigidbody2D rb;
 
         [SerializeField] private float speed;
         [SerializeField] private float maxJumpHeight;
@@ -30,8 +33,11 @@ namespace NPC
         public float DashDistance => dashDistance;
         public float Speed => speed;
         public NpcState State => state;
+        public Rigidbody2D Rb => rb;
+        public int ActionIndex => actionIndex;
         private void Start()
         {
+            rb = GetComponent<Rigidbody2D>();
             NextAction();
         }
 
@@ -47,6 +53,21 @@ namespace NPC
                     currentCoroutine = StartCoroutine(WaitAndMoveToNextAction(currentAction.DelayAfterAction));
                 }
             }
+
+            if (state != NpcState.Jumping)
+            {
+                isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance,
+                    LayerMask.NameToLayer("Ground"));
+
+                if (!isGrounded)
+                {
+                    rb.bodyType = RigidbodyType2D.Dynamic;
+                }
+                else
+                {
+                    rb.bodyType = RigidbodyType2D.Kinematic;
+                }
+            }
         }
         
         private IEnumerator WaitAndMoveToNextAction(float delayAfterAction)
@@ -60,11 +81,13 @@ namespace NPC
         {
             if (actionIndex < actions.Count)
             {
+                print($"{actionIndex} {actions.Count}");
                 if (actionIndex > 0)
                 {
                     currentAction.ResetAction(this);
                 }
                 currentAction = actions[actionIndex++];
+                print(currentAction);
                 currentAction.StartAction(this);
             }
             else
@@ -72,7 +95,21 @@ namespace NPC
                 currentAction = null;
             }
         }
+        
+        public void RestoreStateFromIndex(int index)
+        {
+            if (index >= 0 && index < actions.Count)
+            {
+                // Reset the current action if needed
+                currentAction?.ResetAction(this);
 
+                // Set index and start the correct action
+                actionIndex = index;
+                currentAction = actions[actionIndex];
+                currentAction.StartAction(this);
+            }
+        }
+        
         public void AddAction(NpcAction newAction)
         {
             actions.Insert(actionIndex, newAction);

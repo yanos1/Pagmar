@@ -1,6 +1,6 @@
 ﻿using System;
 using Triggers;
-using Unity.Android.Types;
+// using Unity.Android.Types;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;

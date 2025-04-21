@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float regularGravity = 1.2f;
     [SerializeField] private float WhenStopPressGravity = 2.5f;
     [SerializeField] private float maxFallingSpeed = -10f;
+    [SerializeField] private float graceJumpTime = 0.1f;
     
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheckPosition;
@@ -243,7 +244,7 @@ public class PlayerMovement : MonoBehaviour
     
     private bool CanJump()
     {
-        return IsGrounded();
+        return IsGrounded()||LastOnGroundTime <= graceJumpTime;
     }
     
     private IEnumerator StartDash(Vector2 dir)

@@ -797,7 +797,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 11.6
+      value: 13.07436
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -805,7 +805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.86
+      value: -11.123
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1873,6 +1873,7 @@ MonoBehaviour:
           serializedVersion: 2
           m_Bits: 8
         minDistanceToPlayer: 5
+        rayLength: 20
         stopFollowTrigger: {fileID: 1584883447}
     - rid: 2933668849943576576
       type: {class: CompositeAction, ns: NPC.NpcActions.NPC.NpcActions, asm: Assembly-CSharp}
@@ -1931,6 +1932,7 @@ MonoBehaviour:
           serializedVersion: 2
           m_Bits: 8
         minDistanceToPlayer: 5
+        rayLength: 20
         stopFollowTrigger: {fileID: 61674885}
     - rid: 2933668851201343591
       type: {class: ChargeAction, ns: NPC.NpcActions, asm: Assembly-CSharp}
@@ -1960,6 +1962,7 @@ MonoBehaviour:
           serializedVersion: 2
           m_Bits: 8
         minDistanceToPlayer: 10
+        rayLength: 20
         stopFollowTrigger: {fileID: 753204487}
     - rid: 2933668851201343606
       type: {class: LinearMoveAction, ns: NPC.NpcActions, asm: Assembly-CSharp}

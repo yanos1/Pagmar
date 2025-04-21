@@ -233,7 +233,8 @@ public class PlayerMovement : MonoBehaviour
         if (_rb.linearVelocity.y < 0)
             force -= _rb.linearVelocity.y;
         
-        _rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, _rb.linearVelocity.y + ((force + (0.5f * Time.fixedDeltaTime * -_rb.gravityScale)) / _rb.mass));
+        // _rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
         LastOnGroundTime = 0f;
         isJumping = true;
 

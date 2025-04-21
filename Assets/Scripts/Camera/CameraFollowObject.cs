@@ -20,7 +20,7 @@ public class CameraFollowObject : MonoBehaviour
         _isFacingRight = !_player.IsFacingRight;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         transform.position = _playerTransform.position;
     }

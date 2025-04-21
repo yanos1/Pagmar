@@ -29,7 +29,11 @@ namespace Terrain.Environment
         public void OnHit(Vector2 hitDir)
         {
             StartCoroutine(UtilityFunctions.ShakeObject(_rb,0.12f,shakeMagnitude,true,false));
-            if(objectOnTop is not null) objectOnTop.AddForce(Vector2.left * force);
+            if (objectOnTop is not null)
+            {
+                print($"adding force {force}");
+                objectOnTop.AddForce(Vector2.left * force);
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using Interfaces;
 using Triggers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Windows;
 
 namespace Managers
@@ -51,19 +52,32 @@ namespace Managers
         {
             resettables.Add(resettable);
         }
-        
+
         private void FindResetAblesInScene(object obj)
         {
-            print("find restables 123");
-            resettables = FindObjectsOfType<MonoBehaviour>().OfType<IResettable>().ToList();
-            print($"resetablees size {resettables.Count}");
-            foreach (var r in resettables)
-            {
+            resettables.AddRange(FindObjectsOfType<MonoBehaviour>().OfType<IResettable>().ToList());
 
-                print($" 123 {r.ToString()}");
+            var sceneName = "PersistentScene";
+            Scene targetScene = SceneManager.GetSceneByName(sceneName);
+
+            if (!targetScene.IsValid())
+            {
+                Debug.LogError($"Scene '{sceneName}' not found or not loaded.");
+                return;
+            }
+
+            // Loop through all root GameObjects in the scene
+            foreach (GameObject rootObj in targetScene.GetRootGameObjects())
+            {
+                // Get all MonoBehaviours on this GameObject and its children that implement IResettable
+                IResettable[] found = rootObj.GetComponentsInChildren<MonoBehaviour>(true)
+                    .OfType<IResettable>()
+                    .ToArray();
+
+                resettables.AddRange(found);
             }
         }
-        
+
         private void RestoreCheckPoint()
         {
             lastCheckPoint.RestoreCheckpointState();

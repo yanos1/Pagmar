@@ -8,9 +8,10 @@ namespace Loader
     {
         [SerializeField] private ResetManager resetManager;
         [SerializeField] private UiManager uiManager;
+        [SerializeField] private PoolManager poolManager;
         private void Awake()
         {
-            new CoreManager(resetManager, uiManager);
+            new CoreManager(resetManager, uiManager, poolManager);
         }
     }
 }

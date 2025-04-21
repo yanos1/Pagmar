@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Interfaces;
 using Player;
 using SpongeScene;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEngine.Rendering;
 
 namespace Obstacles.Shooters
 {
-    public class ShooterController : MonoBehaviour
+    public class ShooterController : MonoBehaviour, IResettable
     {
         [SerializeReference] private List<Shooter> shooters;
 
@@ -59,8 +60,14 @@ namespace Obstacles.Shooters
         private IEnumerator CantShootForDuration() // this is BAD CODE - fix later
         {
             cantShoot = true;
-            if(++timesActivated == 2 ) yield break; 
+            if(++timesActivated >= 2 ) yield break; 
             yield return new WaitForSeconds(2.5f);
+            cantShoot = false;
+        }
+
+        public void ResetToInitialState()
+        {
+            timesActivated = 0;
             cantShoot = false;
         }
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Managers;
 using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,8 +30,9 @@ namespace Enemies
         private Vector2 currentDirection = Vector2.left;
         private bool hit = false;
 
-        private void Start()
+        public override void Start()
         {
+            base.Start();
             spriteRenderer = GetComponent<SpriteRenderer>();
             rb = GetComponent<Rigidbody2D>();
         }
@@ -59,6 +61,40 @@ namespace Enemies
                 print($"preparing charge since distance is {distanceToPlayer} and detection range is {detectionRange}");
                 StartCoroutine(PrepareCharge());
             }
+        }
+
+        public override void ResetToInitialState()
+        {
+            base.ResetToInitialState();
+
+            // Stop audio
+            src.Stop();
+            src.clip = null;
+
+            // Reset flags
+            isCharging = false;
+            isPreparingCharge = false;
+            hit = false;
+
+            // Reset physics
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+                rb.bodyType = RigidbodyType2D.Kinematic;
+            }
+
+            // Reset transform rotation
+            transform.rotation = Quaternion.identity;
+
+            // Reset timers and direction
+            rotationTimer = 0f;
+            currentDirection = Vector2.left;
+        }
+
+        public override bool IsDeadly()
+        {
+            return isCharging && player.transform.position.y -1f  < transform.position.y;
         }
 
         IEnumerator PrepareCharge()

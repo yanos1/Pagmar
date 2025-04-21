@@ -280,10 +280,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 300
   _rb: {fileID: 2739707248122857144}
-  jumpForce: 9
-  regularGravity: 1
-  WhenStopPressGravity: 3
-  maxFallingSpeed: -8
+  jumpForce: 13
+  regularGravity: 2.5
+  WhenStopPressGravity: 6
+  maxFallingSpeed: -10
   groundCheckPosition: {fileID: 5368563437033077608}
   checkSize: {x: 0.23, y: -0.02}
   groundLayer:

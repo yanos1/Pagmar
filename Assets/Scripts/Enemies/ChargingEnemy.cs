@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Managers;
 using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -89,6 +90,11 @@ namespace Enemies
             // Reset timers and direction
             rotationTimer = 0f;
             currentDirection = Vector2.left;
+        }
+
+        public override bool IsDeadly()
+        {
+            return isCharging && player.transform.position.y -1f  < transform.position.y;
         }
 
         IEnumerator PrepareCharge()

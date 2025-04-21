@@ -18,5 +18,7 @@ namespace Enemies
         {
             transform.position = startingPos;
         }
+
+        public abstract bool IsDeadly();
     }
 }

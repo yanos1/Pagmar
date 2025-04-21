@@ -3567,7 +3567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectOnTop: {fileID: 713238511}
-  force: 1000
+  force: 80
   shakeMagnitude: 0.09
 --- !u!50 &966029493
 Rigidbody2D:

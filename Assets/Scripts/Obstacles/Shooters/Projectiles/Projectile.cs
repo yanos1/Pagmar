@@ -70,7 +70,6 @@ namespace Obstacles.Shooters.Projectiles
         {
             base.OnReturnToPool();
             _rb.bodyType = RigidbodyType2D.Dynamic;
-            transform.rotation = Quaternion.identity;
         }
     }
 }

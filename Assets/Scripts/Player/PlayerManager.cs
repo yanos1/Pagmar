@@ -1,4 +1,5 @@
 ﻿using System;
+using Enemies;
 using Interfaces;
 using JetBrains.Annotations;
 using Managers;
@@ -28,7 +29,7 @@ namespace Player
                 breakable.OnHit((other.transform.position - gameObject.transform.position).normalized);
             }
 
-            if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            if (other.gameObject.GetComponent<Enemy>() is { } enemy && enemy.IsDeadly())
             {
                 CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
             }

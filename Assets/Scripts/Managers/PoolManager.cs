@@ -48,7 +48,7 @@ namespace Managers
         {
             Poolable prefab = prefabDict[type];
             print($"add to pool {prefab}");
-            Poolable instance = Instantiate(prefab);
+            Poolable instance = Instantiate(prefab,Vector3.zero,Quaternion.identity);
             instance.Type = type; // setting the type for each object.
             instance.Initialize();
             instance.OnReturnToPool();

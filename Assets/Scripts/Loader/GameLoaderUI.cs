@@ -35,7 +35,6 @@ namespace Loader
             var percent = (float)_progress / _targetProgress;
             var percentClamp = Mathf.Clamp01(percent);
             bar.fillAmount = percentClamp;
-            Debug.Log(percent);
         }
 
         private void Reset()

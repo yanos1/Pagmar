@@ -7,10 +7,11 @@ using Terrain;
 using Terrain.Environment;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utility;
 
 namespace Obstacles.Shooters.Projectiles
 {
-    public class Projectile : MonoBehaviour, IResettable
+    public class Projectile : Poolable, IResettable
     {
         private Rigidbody2D _rb;
         private SpriteRenderer _renderer;
@@ -19,7 +20,6 @@ namespace Obstacles.Shooters.Projectiles
         {
             _rb = GetComponent<Rigidbody2D>();
             _renderer = GetComponent<SpriteRenderer>();
-            CoreManager.Instance.ResetManager.AddResettable(this); //careful this is big prone!
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -41,8 +41,9 @@ namespace Obstacles.Shooters.Projectiles
             }
         }
 
-        public void Activate(Vector3 bulletDirection, float bulletForce)
+        public void Activate(Vector3 pos, Vector3 bulletDirection, float bulletForce)
         {
+            transform.position = pos;
             if (bulletDirection == Vector3.right)
             {
                 // renderer.flipX = true;
@@ -62,7 +63,14 @@ namespace Obstacles.Shooters.Projectiles
 
         public void ResetToInitialState()
         {
-            Destroy(this.gameObject);
+            CoreManager.Instance.PoolManager.ReturnToPool(this);
+        }
+
+        public override void OnReturnToPool()
+        {
+            base.OnReturnToPool();
+            _rb.bodyType = RigidbodyType2D.Dynamic;
+            transform.rotation = Quaternion.identity;
         }
     }
 }

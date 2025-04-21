@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Managers;
 using Obstacles.Shooters.Projectiles;
 using UnityEngine.Serialization;
 
@@ -8,7 +9,7 @@ namespace Obstacles.Shooters
 
     public class Shooter : MonoBehaviour, IShooter
     {
-        [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private PoolEnum bulletType;
         [SerializeField] private Transform firePoint;
         [SerializeField] private Vector2 direction;
         [SerializeField] private float force;
@@ -25,9 +26,8 @@ namespace Obstacles.Shooters
 
         public void Shoot()
         {
-            Projectile projectile = Instantiate(bulletPrefab, firePoint ? firePoint.position : transform.position, Quaternion.identity)
-                .GetComponent<Projectile>();
-            projectile.Activate(direction, force);
+            Projectile projectile = CoreManager.Instance.PoolManager.GetFromPool<Projectile>(bulletType);
+            projectile.Activate(transform.position,direction, force);
         }
 
         private IEnumerator ChangeSpriteForShortDuration()

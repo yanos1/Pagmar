@@ -107,6 +107,7 @@ namespace NPC
                 actionIndex = index;
                 currentAction = actions[actionIndex];
                 currentAction.StartAction(this);
+                print($"12 starting action {currentAction} after reset");
             }
         }
         

@@ -20,6 +20,7 @@ namespace Triggers
         {
             if (recordedNpc is not null)
             {
+                print($"12 npc location after reset {recordedNpcPposition}");
                 recordedNpc.transform.position = recordedNpcPposition;
                 recordedNpc.RestoreStateFromIndex(recorededNpcCurrentActionIndex);
             }

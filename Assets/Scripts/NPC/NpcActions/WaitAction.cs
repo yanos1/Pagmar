@@ -1,5 +1,6 @@
 ﻿using System;
 using Triggers;
+using Unity.Android.Types;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -18,6 +19,7 @@ namespace NPC.NpcActions
         public override void StartAction(Npc npc)
         {
             base.StartAction(npc);
+            npc.SetState(NpcState.Idle);
             if (waitForDuration)
             {
                 // Reset the timer if waiting for a duration

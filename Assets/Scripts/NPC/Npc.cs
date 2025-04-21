@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Enemies;
@@ -54,10 +53,12 @@ namespace NPC
                 }
             }
 
-            if (state != NpcState.Jumping)
+            if (state != NpcState.Jumping && state != NpcState.Idle)
             {
                 isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance,
                     LayerMask.NameToLayer("Ground"));
+                Debug.DrawRay(transform.position, Vector2.down * groundCheckDistance, isGrounded? Color.green : Color.red);
+
 
                 if (!isGrounded)
                 {

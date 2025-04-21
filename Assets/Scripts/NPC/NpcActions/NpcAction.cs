@@ -43,6 +43,7 @@ namespace NPC.NpcActions
         {
             Debug.Log($"method called {afterActionCallback?.ToString()}");
             isCompleted = false;
+            npc.SetState(NpcState.Idle);
             afterActionCallback?.Invoke();
         }
     }

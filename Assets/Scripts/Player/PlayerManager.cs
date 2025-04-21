@@ -41,6 +41,7 @@ namespace Player
                     CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
                 }
             }
+        
         }
 
         public void SetFollowedBy([CanBeNull] Npc npc)

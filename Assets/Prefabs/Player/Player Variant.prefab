@@ -41,11 +41,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 256838444697489981, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 60.57
+      value: -26.6
       objectReference: {fileID: 0}
     - target: {fileID: 256838444697489981, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.99
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 256838444697489981, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -86,6 +86,10 @@ PrefabInstance:
     - target: {fileID: 5352698350638926221, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
       propertyPath: m_Name
       value: Player Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352698350638926221, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1225770563036835250, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
@@ -276,20 +280,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 300
   _rb: {fileID: 2739707248122857144}
-  jumpForce: 8
-  regularGravity: 1
-  WhenStopPressGravity: 3
-  maxFallingSpeed: -8
+  jumpForce: 13
+  regularGravity: 2.5
+  WhenStopPressGravity: 6
+  maxFallingSpeed: -10
   groundCheckPosition: {fileID: 5368563437033077608}
   checkSize: {x: 0.23, y: -0.02}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 904
   dashSpeed: 15
   dashAttackTime: 0.2
   dashEndTime: 0.15
   dashEndSpeed: 10
   dashCoolDownTime: 0.4
+  _cameraFollowObject: {fileID: 0}
   jumpIsPressed: 0
 --- !u!114 &8509487364657399828
 MonoBehaviour:

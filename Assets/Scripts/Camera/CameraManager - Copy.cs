@@ -66,7 +66,7 @@ namespace Camera
 
         public void LerpYDamping(bool isPlayerFalling)
         {
-            // _lerpYPanCoroutine = StartCoroutine(LerpYAction(isPlayerFalling));
+            _lerpYPanCoroutine = StartCoroutine(LerpYAction(isPlayerFalling));
         }
 
         private IEnumerator LerpYAction(bool isPlayerFalling)

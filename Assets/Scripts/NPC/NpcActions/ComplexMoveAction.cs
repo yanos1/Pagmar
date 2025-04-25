@@ -41,17 +41,21 @@ namespace NPC.NpcActions
                     : Vector2.left;
             }
 
-            protected bool IsGroundAhead(Npc npc)
+            protected bool IsGroundAhead(Npc npc, Vector2 dir)
             {
-                Vector2 origin = (GetMoveDirection(npc) == Vector2.right
-                                     ? new Vector3(0.5f, 0, 0)
-                                     : new Vector3(-0.5f, 0, 0))
+                Vector2 origin = (dir == Vector2.right
+                                     ? new Vector3(1.2f, 0, 0)
+                                     : new Vector3(-1.2f, 0, 0))
                                  + npc.transform.position + Vector3.down * 0.1f;
                 Vector2 direction = Vector2.down;
+
+                // Draw the ray in the Scene view
+                Debug.DrawRay(origin, direction * groundCheckDistance, Color.cyan);
 
                 RaycastHit2D hit = Physics2D.Raycast(origin, direction, groundCheckDistance, groundMask);
                 return hit.collider is not null;
             }
+
 
             protected Collider2D GetWallAhead(Npc npc)
             {
@@ -132,9 +136,15 @@ namespace NPC.NpcActions
 
             private IEnumerator WalkRoutine(Npc npc, Vector2 direction, float speed)
             {
+                direction = direction.normalized;
+
                 while (true)
                 {
-                    npc.transform.position += (Vector3)(direction * (speed * Time.deltaTime));
+                    Vector2 currentPos = npc.transform.position;
+                    Vector2 nextPos = currentPos + direction * (speed * Time.deltaTime);
+
+                    npc.transform.position = Vector2.MoveTowards(currentPos, nextPos, speed * Time.deltaTime);
+
                     yield return null;
                 }
             }
@@ -147,16 +157,28 @@ namespace NPC.NpcActions
 
             protected void PerformSpecialMovementIfNecessary(Npc npc)
             {
-                if (!IsGroundAhead(npc))
+                var currentDir = GetMoveDirection(npc);
+                if (!IsGroundAhead(npc, currentDir))
                 {
-                    StopWalking();
+                    Debug.Log("44 No Ground Ahead");
+                    
                     var landingSpot = FindNextPlatform(npc);
                     if (landingSpot.HasValue)
                     {
-                        if (npc.State == NpcState.Followed || npc.State == NpcState.Following &&
-                            CoreManager.Instance.Player.transform.position.x > landingSpot.Value.x)
+                        Debug.Log($"44 found landing spot: {landingSpot.Value.x} ");
+                        if ((npc.State == NpcState.Followed) || 
+                            (npc.State == NpcState.Following && IsPlayerBeyondLandingSpot(currentDir, landingSpot.Value.x)))
+
                         {
+                            Debug.Log($"44 player is not interrupting jump with pos {CoreManager.Instance.Player.transform.position.x} ");
+
                             PerformJump(npc, landingSpot.Value);
+                        }
+                        else
+                        {
+                            Debug.Log($"44 player is interrupting jump with pos {CoreManager.Instance.Player.transform.position.x} stopping");
+
+                            StopWalking();
                         }
                     }
                     else
@@ -185,6 +207,20 @@ namespace NPC.NpcActions
                         }
                 }
             }
+            
+            private bool IsPlayerBeyondLandingSpot(Vector2 currentDir, float landingX)
+            {
+                float playerX = CoreManager.Instance.Player.transform.position.x;
+
+                if (currentDir == Vector2.right)
+                    return playerX > landingX;
+
+                if (currentDir == Vector2.left)
+                    return playerX < landingX;
+
+                return false;
+            }
+
         }
     }
 }

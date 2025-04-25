@@ -151,7 +151,6 @@ namespace NPC
 
         public void SetState(NpcState newState)
         {
-            Debug.Log($"setting new state {newState}");
             state = newState;
         }
     }

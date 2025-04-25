@@ -14,7 +14,6 @@ namespace Triggers
 
         public override void OnTriggerEnter2D(Collider2D other) 
         {
-            print($"{other.tag} hit {gameObject.name}");
             if (other.CompareTag(trigger) && ++triggered == requiredTriggers)
             {
                 print($"{trigger} triggered {gameObject.name}");

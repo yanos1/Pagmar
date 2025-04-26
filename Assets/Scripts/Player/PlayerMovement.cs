@@ -9,18 +9,28 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float MovementSpeed = 200f;
     [SerializeField] private Rigidbody2D _rb;
-    
+
     [Header("Jump")]
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float regularGravity = 1.2f;
     [SerializeField] private float WhenStopPressGravity = 2.5f;
     [SerializeField] private float maxFallingSpeed = -10f;
     [SerializeField] private float graceJumpTime = 0.1f;
-    
+
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheckPosition;
     [SerializeField] private Vector2 checkSize = new Vector2(0.5f, 0.1f);
     [SerializeField] private LayerMask groundLayer;
+
+    [Header("Wall Jump & Slide")]
+    [SerializeField] private Transform wallCheckPosition;
+    [SerializeField] private Vector2 wallCheckSize = new Vector2(0.5f, 1f);
+    [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private float wallJumpForceX = 10f;
+    [SerializeField] private float wallJumpForceY = 12f;
+    [SerializeField] private float wallJumpTime = 0.2f;
+    [SerializeField] private float wallSlideSpeed = 3f;
+    [SerializeField] private float wallJumpGravity = 0.8f;
     
     [Header("Dash")]
     [SerializeField] private float dashSpeed = 150f;
@@ -28,11 +38,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashEndTime = 0.15f;
     [SerializeField] private float dashEndSpeed = 50f;
     [SerializeField] private float dashCoolDownTime = 1f;
-    
+
     [Header("CammeraFollowObject")]
     [SerializeField] private CameraFollowObject _cameraFollowObject;
-    
-    
+
     private bool isJumping = false;
     public bool jumpIsPressed = false;
     private float LastPressedJumpTime = 0f;
@@ -49,18 +58,23 @@ public class PlayerMovement : MonoBehaviour
     private bool _canDash = true;
     private float _fallSpeedYDampingChangeThreshold;
     public bool IsFacingRight => _isFacingRight;
-    
-    
     public bool IsDashing => _isDashing;
-    
+
+    private bool isTouchingWall = false;
+    private bool isWallJumping = false;
+    private float wallJumpDirection;
+    private float wallJumpCounter;
+    private bool hasWallJumped = false;
+    private bool isWallSliding = false;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         LastOnGroundTime = Time.time;
         LastPressedDashTime = Time.time;
         _isFacingRight = true;
-        
     }
+
     private void Start()
     {
         _rb.gravityScale = regularGravity;
@@ -72,9 +86,29 @@ public class PlayerMovement : MonoBehaviour
     {
         LastOnGroundTime+=Time.deltaTime;
 
-        Move();
+        if (!_isDashAttacking && !isWallJumping && !isWallSliding)
+            Move();
+
         CheckIfGrounded();
         CheckIfFalling();
+
+        isTouchingWall = IsTouchingWall();
+        // Disable dash when touching a wall
+        if (isTouchingWall)
+        {
+            _canDash = false;
+        }
+
+        if (isWallJumping)
+        {
+            wallJumpCounter -= Time.deltaTime;
+            if (wallJumpCounter <= 0)
+            {
+                isWallJumping = false;
+            }
+        }
+
+        WallSlide();
     }
 
     private void CheckIfFalling()
@@ -91,7 +125,6 @@ public class PlayerMovement : MonoBehaviour
             CameraManager.GetInstance().LerpedFromPlayerFalling = false;
             CameraManager.GetInstance().LerpYDamping(false);
         }
-        
     }
 
     private void CheckIfGrounded()
@@ -104,26 +137,33 @@ public class PlayerMovement : MonoBehaviour
                 isJumping = false;
                 _rb.gravityScale = regularGravity;
             }
+            if (isWallJumping && !hasWallJumped)
+            {
+                isWallJumping = false;
+                _rb.gravityScale = regularGravity;
+            }
+            hasWallJumped = false;
+            _rb.gravityScale = regularGravity;
         }
     }
+
     private void Move()
     {
-        if(_isDashAttacking) return;
-        _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed * Time.fixedDeltaTime,Mathf.Max(_rb.linearVelocity.y,maxFallingSpeed));
+        _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
     }
-    
+
     public void HandleMovment(InputAction.CallbackContext context)
     {
-         _moveInput = context.ReadValue<Vector2>();
+        _moveInput = context.ReadValue<Vector2>();
         _moveInputX = _moveInput.x;
         _moveInputY = _moveInput.y;
-        
+
         if (_moveInputX != 0)
         {
             HandleFlip(_moveInputX > 0);
         }
     }
-    
+
     public void HandleDash(InputAction.CallbackContext context)
     {
         if (context.started && CanDash())
@@ -136,29 +176,33 @@ public class PlayerMovement : MonoBehaviour
 
             _isDashing = true;
             isJumping = false;
-            // IsWallJumping = false;
-            // _isJumpCut = false;
 
             StartCoroutine(nameof(StartDash), _lastDashDir);
         }
-        
     }
+
     private bool CanDash()
     {
-        if (Time.time - LastPressedDashTime >= dashCoolDownTime && !_isDashing&&_canDash)
+        if (Time.time - LastPressedDashTime >= dashCoolDownTime && !_isDashing && _canDash)
         {
             LastPressedDashTime = Time.time;
             return true;
         }
         return false;
     }
-    
-    // Called from your InputAction for jump
+
     public void HandleJump(InputAction.CallbackContext context)
     {
-        if (context.started&&CanJump())
+        if (context.started)
         {
-            StartJumping();
+            if (isTouchingWall)
+            {
+                StartWallJump();
+            }
+            else if (CanJump())
+            {
+                StartJumping();
+            }
         }
         else if (context.canceled)
         {
@@ -166,6 +210,7 @@ public class PlayerMovement : MonoBehaviour
             _rb.gravityScale = WhenStopPressGravity;
         }
     }
+
     private void StartJumping()
     {
         LastPressedJumpTime = 0f;
@@ -173,8 +218,8 @@ public class PlayerMovement : MonoBehaviour
         jumpTimer = StartCoroutine(JumpTimeout(0.4f));
         _rb.gravityScale = regularGravity;
         Jump();
-        
     }
+
     private IEnumerator JumpTimeout(float duration)
     {
         yield return new WaitForSeconds(duration);
@@ -184,7 +229,7 @@ public class PlayerMovement : MonoBehaviour
             _rb.gravityScale = WhenStopPressGravity;
         }
     }
-    
+
     private void HandleFlip(bool isMovingRight)
     {
         if (isMovingRight != _isFacingRight)
@@ -192,7 +237,7 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
     }
-    
+
     private void Flip()
     {
         if (_isFacingRight)
@@ -207,10 +252,9 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(rotator);
             _cameraFollowObject.CallTurn();
         }
-
         _isFacingRight = !_isFacingRight;
     }
-    
+
     private bool IsGrounded()
     {
         if (Physics2D.OverlapBox(groundCheckPosition.position, checkSize, 0, groundLayer) != null)
@@ -218,46 +262,78 @@ public class PlayerMovement : MonoBehaviour
             LastOnGroundTime = 0f;
             return true;
         }
-
         return false;
     }
-    
+
+    private bool IsTouchingWall()
+    {
+        return Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0, wallLayer) != null;
+    }
+
+    private void WallSlide()
+    {
+        if (isTouchingWall && !IsGrounded() && !isWallJumping)
+        {
+            if (_rb.linearVelocity.y < 0)
+            {
+                isWallSliding = true;
+                _rb.linearVelocity = new Vector2(0, Mathf.Clamp(_rb.linearVelocity.y, -wallSlideSpeed, float.MaxValue));
+            }
+            else
+            {
+                isWallSliding = false;
+                _rb.linearVelocity = new Vector2(0, _rb.linearVelocity.y);
+            }
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(groundCheckPosition.position, checkSize);
+        Gizmos.color = Color.blue;
+        if (wallCheckPosition != null)
+            Gizmos.DrawWireCube(wallCheckPosition.position, wallCheckSize);
     }
-    
+
     private void Jump()
     {
         float force = jumpForce;
         if (_rb.linearVelocity.y < 0)
             force -= _rb.linearVelocity.y;
-        
+
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, _rb.linearVelocity.y + ((force + (0.5f * Time.fixedDeltaTime * -_rb.gravityScale)) / _rb.mass));
-        // _rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
         LastOnGroundTime = 0f;
         isJumping = true;
-
-
     }
-    
+
+    private void StartWallJump()
+    {
+        isWallJumping = true;
+        wallJumpCounter = wallJumpTime;
+        wallJumpDirection = _isFacingRight ? -1 : 1;
+        _rb.linearVelocity = new Vector2(wallJumpDirection * wallJumpForceX, wallJumpForceY);
+        _rb.gravityScale = wallJumpGravity;
+        hasWallJumped = true;
+    }
+
     private bool CanJump()
     {
-        return IsGrounded()||LastOnGroundTime <= graceJumpTime;
+        return IsGrounded() || LastOnGroundTime <= graceJumpTime;
     }
-    
+
     private IEnumerator StartDash(Vector2 dir)
     {
         _isDashing = true;
         _canDash = false;
 
         float startTime = Time.time;
-
         _isDashAttacking = true;
-
         _rb.gravityScale = 0;
-        
 
         while (Time.time - startTime <= dashAttackTime)
         {
@@ -266,18 +342,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         startTime = Time.time;
-
         _isDashAttacking = false;
-
         _rb.gravityScale = WhenStopPressGravity;
-        
         _rb.linearVelocity = dashEndSpeed * dir.normalized;
-        
+
         while (Time.time - startTime <= dashEndTime)
         {
             yield return null;
         }
         _isDashing = false;
-
     }
 }

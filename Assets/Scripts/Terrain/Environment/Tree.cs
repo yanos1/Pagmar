@@ -21,7 +21,7 @@ namespace Terrain.Environment
 
         private void Update()
         {
-            if (trigger.IsTriggered)
+            if (trigger.IsTriggered && rb.bodyType == RigidbodyType2D.Dynamic)
             {
                 StartCoroutine(UtilityFunctions.WaitAndInvokeAction(1f, () =>
                 {

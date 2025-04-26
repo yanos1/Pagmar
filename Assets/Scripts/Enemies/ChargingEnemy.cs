@@ -176,7 +176,7 @@ namespace Enemies
             src.Stop();
             rb.bodyType = RigidbodyType2D.Dynamic;
             rb.freezeRotation = false;
-            rb.AddForce(Vector2.right * 500f);
+            rb.AddForce(Vector2.right * 1200f);
         }
     }
 }

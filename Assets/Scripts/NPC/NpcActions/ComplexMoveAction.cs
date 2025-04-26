@@ -24,6 +24,11 @@ namespace NPC.NpcActions
             protected Coroutine walkRoutine;
 
 
+            public override void StartAction(Npc npc)
+            {
+                base.StartAction(npc);
+            }
+
             public override void UpdateAction(Npc npc)
             {
                 if (npc.Rb.linearVelocity.y < -3) // npc is falling
@@ -44,14 +49,14 @@ namespace NPC.NpcActions
             protected bool IsGroundAhead(Npc npc, Vector2 dir)
             {
                 Vector2 origin = (dir == Vector2.right
-                                     ? new Vector3(1.2f, 0, 0)
-                                     : new Vector3(-1.2f, 0, 0))
-                                 + npc.transform.position + Vector3.down * 0.1f;
+                                     ? new Vector3(1.5f, 0, 0)
+                                     : new Vector3(-1.5f, 0, 0))
+                                 + npc.transform.position;
                 Vector2 direction = Vector2.down;
 
                 // Draw the ray in the Scene view
-                Debug.DrawRay(origin, direction * groundCheckDistance, Color.cyan);
-
+                Debug.DrawRay(origin, direction * groundCheckDistance, Color.black);
+                Debug.Log(groundMask);
                 RaycastHit2D hit = Physics2D.Raycast(origin, direction, groundCheckDistance, groundMask);
                 return hit.collider is not null;
             }

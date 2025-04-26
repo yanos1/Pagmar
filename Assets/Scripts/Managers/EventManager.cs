@@ -50,6 +50,7 @@ namespace Managers
         StartNewScene =1,
         Die=2,
         ReachedCheckPoint=3,
+        PickUpFakeRune = 4,
         StartGame=4,
         EndGame=5,
         Falling = 6,
@@ -61,5 +62,6 @@ namespace Managers
         StartTimer=11,
 
         StartEndCutScene=12,
+        
     }
 }

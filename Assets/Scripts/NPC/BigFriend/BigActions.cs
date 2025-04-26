@@ -29,5 +29,15 @@ namespace NPC.BigFriend
             color.a = 1f;
             bigSpriteRenderer.color = color;        
         }
+
+        public void EnableHeadCollider()
+        {
+            GetComponent<CircleCollider2D>().isTrigger = false;
+        }
+
+        public void DisableHeadCollideR()
+        {
+            GetComponent<CircleCollider2D>().isTrigger = true;
+        }
     }
 }

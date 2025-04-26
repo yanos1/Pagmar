@@ -9,9 +9,10 @@ namespace Triggers
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.GetComponent<PlayerMovement>() is not null)
+            if (other.GetComponent<PlayerManager>() is not null)
             {
-                // int nextScene = CoreManager.Instance.SceneManager.LoadNextScene();
+                ScenesManager.Instance.LoadNextScene();
+                Destroy(gameObject);
             }
         }
     }

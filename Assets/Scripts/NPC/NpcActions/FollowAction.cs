@@ -16,7 +16,7 @@ namespace NPC.NpcActions
 
         private bool isFollowing;
         private Coroutine followCoroutine;
-
+        
         public override void StartAction(Npc npc)
         {
             base.StartAction(npc);
@@ -63,14 +63,14 @@ namespace NPC.NpcActions
                 {
                     if (walkRoutine is null)
                     {
+                        yield return new WaitForSeconds(Random.Range(0.2f, 0.6f));
                         PerformWalk(npc, GetMoveDirection(npc), npc.Speed);
-                        yield return new WaitForSeconds(Random.Range(0.4f, 1f));
                     }
                 }
 
                 PerformSpecialMovementIfNecessary(npc);
                 if (IsCompleted) yield break;
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.1f);
             }
         }
     }

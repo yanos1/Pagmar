@@ -423,6 +423,7 @@ MonoBehaviour:
   resetManager: {fileID: 599037292}
   uiManager: {fileID: 1111934041}
   poolManager: {fileID: 932550806}
+  scenesManager: {fileID: 0}
 --- !u!4 &1725129442
 Transform:
   m_ObjectHideFlags: 0

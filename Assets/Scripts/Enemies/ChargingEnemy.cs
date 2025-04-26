@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Managers;
+using NPC;
 using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -174,7 +175,8 @@ namespace Enemies
             hit = true;
             src.Stop();
             rb.bodyType = RigidbodyType2D.Dynamic;
-            rb.AddForce(Vector2.right * 200f);
+            rb.freezeRotation = false;
+            rb.AddForce(Vector2.right * 1200f);
         }
     }
 }

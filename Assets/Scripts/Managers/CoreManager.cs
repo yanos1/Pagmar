@@ -11,7 +11,6 @@ namespace Managers
         
         public EventManager EventManager;
         public InputManager InputManager;
-        public SceneManager SceneManager;
         public ResetManager ResetManager;
         public PoolManager PoolManager;
         public UiManager UiManager;

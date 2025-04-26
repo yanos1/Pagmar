@@ -9,14 +9,15 @@ namespace Managers
     public class ScenesManager : MonoBehaviour
     {
         [Tooltip("The name of the persistent scene.")]
-
+        public static ScenesManager Instance { get; private set; }
+        
         private string persistentSceneName = "PersistentScene";
         private string loaderSceneName = "Loader";
 
         private int numScenes;
 
         private int currentSceneIndex = 1; // Tracks the index of the currently active scene
-
+    
         private void RestartScene(object obj)
         {
             StartCoroutine(SwitchScene(currentSceneIndex));
@@ -24,16 +25,18 @@ namespace Managers
 
         private void Start()
         {
+            Instance ??= this;
             DontDestroyOnLoad(gameObject);
             numScenes = SceneManager.sceneCountInBuildSettings;
         }
 
         private void Update()
         {
-            if (Input.GetKey(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 LoadNextScene();
             }
+            print($"current scene index : {currentSceneIndex}");
         }
 
         public void LoadPersistentScene(Action onComplete)
@@ -84,15 +87,12 @@ namespace Managers
                 StartCoroutine(SwitchScene(0));
             }
 
-            public void ReloadLevel()
-            {
-                StartCoroutine(SwitchScene(2));
-            }
-
-            public IEnumerator SwitchScene(int newSceneIndex)
+            private IEnumerator SwitchScene(int newSceneIndex)
             {
                 if (newSceneIndex >= 0 && newSceneIndex < SceneManager.sceneCountInBuildSettings)
                 {
+                    print($"current scene is {currentSceneIndex} {SceneManager.GetActiveScene().name}");
+
                     CoreManager.Instance.UiManager.ShowLoadingScreen();
                     AsyncOperation loadOperation = SceneManager.LoadSceneAsync(newSceneIndex, LoadSceneMode.Additive);
                     while (!loadOperation.isDone)
@@ -123,6 +123,8 @@ namespace Managers
                 }
 
                 currentSceneIndex = newSceneIndex;
+                print($"current scene is {currentSceneIndex} {SceneManager.GetActiveScene()}");
+
             }
         }
 

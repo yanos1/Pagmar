@@ -37,7 +37,23 @@ namespace NPC.NpcActions
 
         public override void UpdateAction(Npc npc)
         {
+            if (npc == null || npc.transform == null)
+                return;
 
+            // Find the closest target (enemy or breakable object)
+            Transform closestTarget = FindClosestTarget(npc);
+
+            if (closestTarget != null)
+            {
+                float distanceToTarget = Vector2.Distance(npc.transform.position, closestTarget.position);
+
+                // Check if the enemy is within a certain distance and stop charging if necessary
+                if (distanceToTarget < obstacleCheckDistance)
+                {
+                    Debug.Log("Stopping charge due to nearby enemy.");
+                    isCompleted = true;
+                }
+            }
         }
 
         protected override void PerformMovement(Npc npc)

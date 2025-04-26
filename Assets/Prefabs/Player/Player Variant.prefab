@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3260621290955668129
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5133090912643750141}
+  m_Layer: 3
+  m_Name: wallCheckPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5133090912643750141
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3260621290955668129}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.431, y: 0.713, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4057480337948966328}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6020288500683680888
 GameObject:
   m_ObjectHideFlags: 0
@@ -25,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 6020288500683680888}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.012, y: -0.015, z: 0}
+  m_LocalPosition: {x: 0.012, y: -0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41,11 +72,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 256838444697489981, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -26.6
+      value: -25.7
       objectReference: {fileID: 0}
     - target: {fileID: 256838444697489981, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.7
+      value: 16.63
       objectReference: {fileID: 0}
     - target: {fileID: 256838444697489981, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -93,11 +124,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1225770563036835250, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5189023313459119369, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 256838444697489981, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5368563437033077608}
+    - targetCorrespondingSourceObject: {fileID: 256838444697489981, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5133090912643750141}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5352698350638926221, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
       insertIndex: -1
@@ -284,11 +319,22 @@ MonoBehaviour:
   regularGravity: 2.5
   WhenStopPressGravity: 6
   maxFallingSpeed: -10
+  graceJumpTime: 0.1
   groundCheckPosition: {fileID: 5368563437033077608}
   checkSize: {x: 0.23, y: -0.02}
   groundLayer:
     serializedVersion: 2
     m_Bits: 904
+  wallCheckPosition: {fileID: 5133090912643750141}
+  wallCheckSize: {x: 0.08, y: 0.38}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  wallJumpForceX: 7
+  wallJumpForceY: 9
+  wallJumpTime: 0.2
+  wallSlideSpeed: 3
+  wallJumpGravity: 1
   dashSpeed: 15
   dashAttackTime: 0.2
   dashEndTime: 0.15
@@ -296,6 +342,7 @@ MonoBehaviour:
   dashCoolDownTime: 0.4
   _cameraFollowObject: {fileID: 0}
   jumpIsPressed: 0
+  enableWallJump: 1
 --- !u!114 &8509487364657399828
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -66,6 +66,9 @@ public class PlayerMovement : MonoBehaviour
     private float wallJumpCounter;
     private bool hasWallJumped = false;
     private bool isWallSliding = false;
+    
+    [SerializeField] private bool enableWallJump = true;
+
 
     private void Awake()
     {
@@ -84,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void Update()
     {
-        LastOnGroundTime+=Time.deltaTime;
+        LastOnGroundTime += Time.deltaTime;
 
         if (!_isDashAttacking && !isWallJumping && !isWallSliding)
             Move();
@@ -94,17 +97,15 @@ public class PlayerMovement : MonoBehaviour
 
         isTouchingWall = IsTouchingWall();
         // Disable dash when touching a wall
-        if (isTouchingWall)
-        {
-            _canDash = false;
-        }
+        if (isTouchingWall) _canDash = false;
 
         if (isWallJumping)
         {
             wallJumpCounter -= Time.deltaTime;
-            if (wallJumpCounter <= 0)
+            if (wallJumpCounter <= 0 && _rb.linearVelocity.y > 0)
             {
                 isWallJumping = false;
+                _rb.gravityScale = regularGravity;
             }
         }
 
@@ -195,11 +196,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.started)
         {
-            if (isTouchingWall)
+            // If wall jumps are enabled and touching wall, do wall jump
+            if (enableWallJump && isTouchingWall)
             {
                 StartWallJump();
             }
-            else if (CanJump())
+            // Otherwise, do a normal jump if allowed
+            else if (CanJump() && !isWallJumping)
             {
                 StartJumping();
             }

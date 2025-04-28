@@ -191,17 +191,14 @@ public class PlayerMovement : MonoBehaviour
         }
         return false;
     }
-
     public void HandleJump(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            // If wall jumps are enabled and touching wall, do wall jump
-            if (enableWallJump && isTouchingWall)
+            if (enableWallJump && isTouchingWall && !IsGrounded())
             {
                 StartWallJump();
             }
-            // Otherwise, do a normal jump if allowed
             else if (CanJump() && !isWallJumping)
             {
                 StartJumping();

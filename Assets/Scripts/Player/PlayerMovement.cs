@@ -275,7 +275,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void WallSlide()
     {
-        if (isTouchingWall && !IsGrounded() && !isWallJumping)
+        if (isTouchingWall && !IsGrounded() && !isWallJumping &&((_isFacingRight && _moveInputX >0) || (!_isFacingRight && _moveInputX< 0)))
         {
             if (_rb.linearVelocity.y < 0)
             {

@@ -3969,6 +3969,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2746951127055160538, guid: 9ed48782d287b19418dbd0c313c94acd, type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4861331270303596639, guid: 9ed48782d287b19418dbd0c313c94acd, type: 3}
       propertyPath: m_Name
       value: BreakableTerrain (2)

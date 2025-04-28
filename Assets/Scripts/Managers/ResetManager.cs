@@ -55,6 +55,7 @@ namespace Managers
 
         private void FindResetAblesInScene(object obj)
         {
+            resettables.Clear();
             resettables.AddRange(FindObjectsOfType<MonoBehaviour>().OfType<IResettable>().ToList());
 
             var sceneName = "PersistentScene";

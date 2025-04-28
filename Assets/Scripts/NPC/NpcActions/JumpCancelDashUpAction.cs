@@ -10,12 +10,8 @@ namespace NPC.NpcActions
 {
     public class JumpCancelDashUpAction : NpcAction
     {
-        [SerializeField] private float jumpHeight = 2f;
-        [SerializeField] private float jumpDuration = 0.5f;
-        [SerializeField] private float cancelTime = 0.25f;
-
-        [SerializeField] private float dashHeight = 3f;
-        [SerializeField] private float dashDuration = 0.7f;
+        private float jumpDuration = 0.75f;
+        private float dashDuration = 0.84f;
         
         private Tween jumpTween;
         private Tween dashTween;
@@ -55,7 +51,7 @@ namespace NPC.NpcActions
             Vector3 jumpTarget = startPos + new Vector3(1.5f,npc.MaxJumpHeight);
 
             // Start jump
-            jumpTween = npc.transform.DOJump(npc.transform.position + new Vector3(0.7f,0.7f,0),2,1,jumpDuration).SetEase(Ease.OutQuad);
+            jumpTween = npc.transform.DOJump(npc.transform.position + new Vector3(1f,1.7f,0),3,1,jumpDuration).SetEase(Ease.OutQuad);
 
             // Wait for cancel time
             yield return new WaitForSeconds(npc.JumpDuration / 2);
@@ -67,7 +63,7 @@ namespace NPC.NpcActions
             yield return null; // safety
 
             // Dash upward
-            Vector3 dashTarget = npc.transform.position + new Vector3(1,1) * npc.DashDistance;
+            Vector3 dashTarget = npc.transform.position + new Vector3(1,1.3f) * npc.DashDistance;
             dashTween = npc.transform.DOMove(dashTarget, dashDuration).SetEase(Ease.OutExpo);
 
             yield return dashTween.WaitForCompletion();

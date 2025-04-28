@@ -1,4 +1,5 @@
 ﻿
+using Camera;
 using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,8 +17,9 @@ namespace Managers
         public UiManager UiManager;
         public MonoRunner Runner;
         public PlayerManager Player;
+        public CameraManager CameraManager;
 
-        public CoreManager(ResetManager resetManager, UiManager uiManager, PoolManager poolManager)
+        public CoreManager(ResetManager resetManager, UiManager uiManager, PoolManager poolManager,CameraManager cameraManager)
         {
             Instance ??= this;
             EventManager = new EventManager();
@@ -26,9 +28,11 @@ namespace Managers
             ResetManager = resetManager;
             PoolManager = poolManager;
             Runner = new GameObject("CoreManagerRunner").AddComponent<MonoRunner>();
+            CameraManager = cameraManager;
             
             uiManager.gameObject.SetActive(true); // this acticvates OnEnable which register the manager events to eventmanager after it has finished loading.
             resetManager.gameObject.SetActive(true);
+            CameraManager.gameObject.SetActive(true);
         }
     }
 }

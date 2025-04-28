@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Managers;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -43,6 +45,8 @@ namespace Camera
             if (instance == null)
             {
                 instance = this;
+                DontDestroyOnLoad(gameObject);
+                
             }
 
             for (int i = 0; i < _allVirtualCameras.Length; i++)
@@ -60,6 +64,11 @@ namespace Camera
             }
             
 
+        }
+
+        public void OnEnable()
+        {
+            CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, SetCamerasOfTheScene);
         }
 
         #region Lerp the Y Damping
@@ -104,6 +113,27 @@ namespace Camera
             }
 
             IsLerpingYDamping = false;
+        }
+
+        public void SetCamerasOfTheScene(object obj)
+        {
+            _allVirtualCameras = FindObjectsOfType<CinemachineCamera>();
+
+            foreach (var vc in _allVirtualCameras)
+            {
+                if (vc.isActiveAndEnabled)
+                {
+                    _currentCamera = vc;
+                    _framingTransposer = _currentCamera.GetComponentInParent<CinemachinePositionComposer>();
+                    _normYPanAmount = _framingTransposer.Damping.y;
+                    break;
+                }
+            }
+        }
+        
+        public void OnDisable()
+        {
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, SetCamerasOfTheScene);
         }
 
         #endregion

@@ -105,7 +105,7 @@ namespace NPC.NpcActions
         private Transform FindClosestTarget(Npc npc)
         {
             Transform npcTransform = npc.transform;
-            Vector2 origin = npcTransform.position + Vector3.up*2;
+            Vector2 origin = npcTransform.position + Vector3.up * 0.1f;
             float maxDistance = 20f; // Can adjust based on charge vision
             Transform closestTarget = null;
             float closestDistance = float.MaxValue;

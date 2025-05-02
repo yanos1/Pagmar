@@ -48,7 +48,7 @@ namespace Obstacles.Shooters
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.GetComponent<PlayerMovement>() is not null || other.GetComponent<PlayerMovement>() is not null)
+            if (other.GetComponent<PlayerManager>() is not null)
             {
                 if (cantShoot) return;
                 StartCoroutine(Shoot());
@@ -61,7 +61,7 @@ namespace Obstacles.Shooters
         {
             cantShoot = true;
             if(++timesActivated >= 2 ) yield break; 
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(2f);
             cantShoot = false;
         }
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine.Serialization;
+﻿using Unity.VisualScripting;
+using UnityEngine.Serialization;
 
 namespace NPC.NpcActions
 {
@@ -150,7 +151,7 @@ namespace NPC.NpcActions
 
                     npc.transform.position = Vector2.MoveTowards(currentPos, nextPos, speed * Time.deltaTime);
 
-                    yield return null;
+                    yield return new WaitForFixedUpdate();
                 }
             }
 

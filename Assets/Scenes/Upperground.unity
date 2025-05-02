@@ -1918,7 +1918,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 857027753}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d47c74b853b96be4dafc419bc1d6d86e, type: 3}
   m_Name: 
@@ -1989,7 +1989,7 @@ MonoBehaviour:
   WorldUpOverride: {fileID: 0}
   ChannelMask: -1
   UpdateMethod: 2
-  BlendUpdateMethod: 1
+  BlendUpdateMethod: 0
   LensModeOverride:
     Enabled: 0
     DefaultMode: 2
@@ -9905,7 +9905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7319296052497555078, guid: 1816e3d660f7c2f418f7a131f47e82c9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 150.36
+      value: 150.87
       objectReference: {fileID: 0}
     - target: {fileID: 7319296052497555078, guid: 1816e3d660f7c2f418f7a131f47e82c9, type: 3}
       propertyPath: m_LocalPosition.y

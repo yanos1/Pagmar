@@ -115,10 +115,13 @@ namespace NPC.NpcActions
 
             foreach (Vector2 dir in directions)
             {
+                // Draw ray for 1 second
+                Debug.DrawRay(origin, dir * maxDistance, Color.red, 1f);
+
                 RaycastHit2D[] hits = Physics2D.RaycastAll(origin, dir, maxDistance);
 
                 foreach (RaycastHit2D hit in hits)
-                {   
+                {
                     Debug.Log($"hit {hit.transform.gameObject.name}");
                     if (hit.collider == null) continue;
 
@@ -144,6 +147,7 @@ namespace NPC.NpcActions
 
             return closestTarget;
         }
+
 
     }
 }

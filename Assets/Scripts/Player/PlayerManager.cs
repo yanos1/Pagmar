@@ -7,6 +7,7 @@ using NPC;
 using NPC.NpcActions;
 using Obstacles.Shooters.Projectiles;
 using Terrain;
+using Terrain.Environment;
 using Unity.Collections;
 using UnityEngine;
 
@@ -41,6 +42,12 @@ namespace Player
                     CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
                 }
             }
+            else if (other.gameObject.GetComponent<FallingStone>() is { } stone)
+            {
+                CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
+                stone.HitPlayer();
+            }
+ 
         
         }
 

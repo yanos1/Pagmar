@@ -59,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
     private float _fallSpeedYDampingChangeThreshold;
     public bool IsFacingRight => _isFacingRight;
     public bool IsDashing => _isDashing;
+    public Vector2 DashDirection => _lastDashDir;
+    public Vector3 GroundCheckPos => groundCheckPosition.position;
 
     private bool isTouchingWall = false;
     private bool isWallJumping = false;

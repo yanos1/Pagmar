@@ -1,4 +1,5 @@
 ﻿using Managers;
+using MoreMountains.Feedbacks;
 using NPC;
 using Player;
 using Unity.VisualScripting;
@@ -15,7 +16,8 @@ namespace Triggers
         private int recorededNpcCurrentActionIndex;
         private Vector3 recordedNpcPposition;
         
-        
+        [SerializeField] MMF_Player checkpointFeedback;
+
         public void RestoreCheckpointState()
         {
             if (recordedNpc is not null)
@@ -49,10 +51,12 @@ namespace Triggers
                 }
                 print("recorded player");
                 recordedPlayerPposition = player.transform.position;
+                print("play feebacks");
+                checkpointFeedback?.PlayFeedbacks();
+                CoreManager.Instance.ResetManager.UpdateCheckPoint(this);
 
             }
 
-            CoreManager.Instance.ResetManager.UpdateCheckPoint(this);
         }
         
         

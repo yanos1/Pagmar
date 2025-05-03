@@ -30,9 +30,12 @@ namespace Terrain.Environment
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (hasCrumbled) return;
-            hasCrumbled = true;
-            Invoke(nameof(Crumble), crumbleDelay);
-            
+            if (collision.gameObject.transform.position.y > transform.position.y)
+            {
+                hasCrumbled = true;
+                Invoke(nameof(Crumble), crumbleDelay);
+            }
+
         }
 
         private void Crumble()
@@ -44,6 +47,8 @@ namespace Terrain.Environment
                 .SetEase(Ease.InQuad);
             sr.DOFade(0f, crumbleDuration).OnComplete(DisablePlatform);
             col.enabled = false;
+            Invoke(nameof(ResetToInitialState),6);
+            
         }
 
         private void DisablePlatform()

@@ -25,11 +25,12 @@ namespace Enemies
         private float attackTimeElapsed = 0f;
         private Vector3 attackDirection;
         private Vector3 previousToPlayerDir;
+        private float verticalVelocity = 1.3f;
 
 
         // New variables
         private Vector3 startPosition;
-        private float roamHeightLimit = 2f; // Limit to how much the enemy can float vertically
+        private float roamHeightLimit = 1.2f; // Limit to how much the enemy can float vertically
 
         public override void Start()
         {
@@ -120,13 +121,12 @@ namespace Enemies
             Vector3 toPlayer = (player.position - transform.position).normalized;
 
             // Check for sudden player position change
-            if (Vector3.Dot(toPlayer, previousToPlayerDir) < 0.5f && nextDirectionUpdateTime > 0.2f)
+            if ((toPlayer.x < 0 && chaseDirection.x > 0 || toPlayer.x > 0 && chaseDirection.x < 0)  && nextDirectionUpdateTime > 0.2f)
             {
                 print("332change dir");
                 nextDirectionUpdateTime = 0.2f;
             }
 
-            previousToPlayerDir = toPlayer;
 
             // Update direction
             chaseDirectionTimer += Time.deltaTime;
@@ -183,11 +183,16 @@ namespace Enemies
             nextDirectionUpdateTime = Random.Range(3f, 5f);
         }
 
+
         void ClampVerticalPosition()
         {
-            // Keep the Y position within the roaming limit
-            float clampedY = Mathf.Clamp(transform.position.y, startPosition.y - roamHeightLimit, startPosition.y + roamHeightLimit);
-            transform.position = new Vector3(transform.position.x, clampedY, transform.position.z);
+            float lowerBound = startPosition.y - roamHeightLimit;
+            float upperBound = startPosition.y + roamHeightLimit;
+            float targetY = Mathf.Clamp(transform.position.y, lowerBound, upperBound);
+
+            float smoothedY = Mathf.SmoothDamp(transform.position.y, targetY, ref verticalVelocity, 0.2f); // 0.2f is smooth time
+            transform.position = new Vector3(transform.position.x, smoothedY, transform.position.z);
         }
+
     }
 }

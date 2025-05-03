@@ -1236,7 +1236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  detectionRange: 20
+  detectionRange: 15
   chaseRange: 8
   roamSpeed: 1.5
   chaseSpeed: 2.5

@@ -16,11 +16,11 @@ namespace Enemies
         public float attackCooldown = 5f;
         public float floatMagnitude = 1f;
         public float attackDuration = 0.5f;
+        [SerializeField] private Transform player;
         private Vector3 chaseDirection;
         private float chaseDirectionTimer;
         private float nextDirectionUpdateTime;
 
-        private Transform player;
         private float attackTimer = 0f;
         private float attackTimeElapsed = 0f;
         private Vector3 attackDirection;
@@ -34,8 +34,7 @@ namespace Enemies
 
         public override void Start()
         {
-            base.Start();
-            player = CoreManager.Instance.Player.transform;
+            base.Start(); 
             startPosition = transform.position; // Initialize start position
         }
 
@@ -142,7 +141,7 @@ namespace Enemies
                 0f
             );
 
-            Vector3 movement = (chaseDirection + noise * 0.4f).normalized * chaseSpeed * Time.deltaTime;
+            Vector3 movement = (chaseDirection + noise * 0.4f).normalized * (chaseSpeed * Time.deltaTime);
             transform.position += movement;
 
             ClampVerticalPosition();

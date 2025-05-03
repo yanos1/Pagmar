@@ -171,7 +171,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.started && CanDash())
         {
-            Debug.Log("Dash");
             if (_moveInput != Vector2.zero)
                 _lastDashDir = _moveInput;
             else

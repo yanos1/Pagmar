@@ -19,6 +19,7 @@ namespace Camera
         public bool LerpedFromPlayerFalling { get;  set; }
 
         private Coroutine _lerpYPanCoroutine;
+        private Coroutine _panCameraCoroutine;
 
         private CinemachineCamera _currentCamera;
         private CinemachinePositionComposer _framingTransposer;
@@ -26,6 +27,7 @@ namespace Camera
         private static CameraManager instance;
         
         private float _normYPanAmount;
+        private Vector2 _startingTrackedObjectOffset;
 
         public static CameraManager GetInstance()
         {
@@ -58,10 +60,11 @@ namespace Camera
 
                     // Set the framing transposer
                     _framingTransposer = _currentCamera.GetComponentInParent<CinemachinePositionComposer>();
-                    _normYPanAmount = _framingTransposer.Damping.y;
-                    Debug.Log(_normYPanAmount);
+                    _normYPanAmount = _framingTransposer.Damping.y; 
+                    _startingTrackedObjectOffset = _framingTransposer.TargetOffset;
                 }
             }
+            
             
 
         }
@@ -126,6 +129,7 @@ namespace Camera
                     _currentCamera = vc;
                     _framingTransposer = _currentCamera.GetComponentInParent<CinemachinePositionComposer>();
                     _normYPanAmount = _framingTransposer.Damping.y;
+                    _startingTrackedObjectOffset = _framingTransposer.TargetOffset;
                     break;
                 }
             }
@@ -137,5 +141,57 @@ namespace Camera
         }
 
         #endregion
+        
+        public void PanCameraOnContact(float panDisntance, float panTime, PanDirection panDirection, bool panToStartingPos)
+        {
+           _panCameraCoroutine = StartCoroutine(PanCamera(panDisntance, panTime, panDirection, panToStartingPos));
+        }
+
+        private IEnumerator PanCamera(float panDisntance, float panTime, PanDirection panDirection, bool panToStartingPos)
+        {
+            Debug.Log(panToStartingPos);
+            Vector2 endPos = Vector2.zero;
+            Vector2 startPos = Vector2.zero;
+
+            if (!panToStartingPos)
+            {
+                switch (panDirection)
+                {
+                    case PanDirection.Up:
+                        endPos = Vector2.up;
+                        break;
+                    case PanDirection.Down:
+                        endPos = Vector2.down;
+                        break;
+                    case PanDirection.Left:
+                        endPos = Vector2.left;
+                        break;
+                    case PanDirection.Right:
+                        endPos = Vector2.right;
+                        break;
+                    default:
+                        break;
+                }
+                endPos *= panDisntance;
+                startPos = _startingTrackedObjectOffset;
+                endPos += startPos;
+            }
+            else
+            {
+                startPos = _framingTransposer.TargetOffset;
+                endPos = _startingTrackedObjectOffset;
+            }
+            float elapsedTime = 0f;
+            while (elapsedTime < panTime)
+            {
+                elapsedTime += Time.deltaTime;
+
+                Vector2 lerpedPos = Vector2.Lerp(startPos, endPos, (elapsedTime / panTime));
+                _framingTransposer.TargetOffset = lerpedPos;
+                
+                yield return null;
+            }
+            
+        }
     }
 }

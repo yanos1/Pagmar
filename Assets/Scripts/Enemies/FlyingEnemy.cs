@@ -98,7 +98,6 @@ namespace Enemies
                     Attack();
                     break;
             }
-            print(currentState);
         }
 
         void Roam()

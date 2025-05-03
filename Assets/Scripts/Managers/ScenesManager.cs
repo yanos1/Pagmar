@@ -36,7 +36,6 @@ namespace Managers
             {
                 LoadNextScene();
             }
-            print($"current scene index : {currentSceneIndex}");
         }
 
         public void LoadPersistentScene(Action onComplete)

@@ -7,17 +7,24 @@ namespace Terrain.Environment
 {
     public class MovingPlatform : MonoBehaviour
     {
+        [Header("Movement Settings")]
         [SerializeField] private Vector3 targetOffset;
         [SerializeField] private Vector3 triggerDirection;
         [SerializeField] private float moveDuration = 2f;
         [SerializeField] private AnimationCurve movementCurve;
         [SerializeField] private AnimationCurve returnMovementCurve;
-        [SerializeField] private UnityEvent nextPlatform;
         [SerializeField] private bool returnWhenDone;
+        [SerializeField] private UnityEvent nextPlatform;
+
+        [Header("Gentle Push Settings")]
+        [SerializeField] private float gentleMoveDistance = 0.17f;
+        [SerializeField] private float gentleMoveDuration = 0.3f;
+        [SerializeField] private AnimationCurve gentleMoveCurve;
+
         private Vector3 startPos;
         private Vector3 targetPos;
         private bool hasMoved = false;
-        
+        private bool isGentlyMoving = false;
 
         private void Start()
         {
@@ -29,6 +36,7 @@ namespace Terrain.Environment
         {
             StartCoroutine(MovePlatform());
         }
+
         private IEnumerator MovePlatform()
         {
             float timer = 0f;
@@ -38,15 +46,14 @@ namespace Terrain.Environment
                 float t = timer / moveDuration;
                 float easedT = movementCurve.Evaluate(t);
                 transform.position = Vector3.Lerp(startPos, targetPos, easedT);
-
                 timer += Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate();
             }
 
             transform.position = targetPos;
 
-            // Wait before returning
             yield return new WaitForSeconds(2f);
+
             if (returnWhenDone)
             {
                 yield return StartCoroutine(ReturnPlatform());
@@ -62,13 +69,12 @@ namespace Terrain.Environment
                 float t = timer / moveDuration;
                 float easedT = returnMovementCurve.Evaluate(t);
                 transform.position = Vector3.Lerp(targetPos, startPos, easedT);
-
                 timer += Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate();
             }
 
             transform.position = startPos;
-            hasMoved = false; // Allow the platform to be triggered again
+            hasMoved = false;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -81,9 +87,21 @@ namespace Terrain.Environment
             {
                 collision.collider.transform.SetParent(transform);
             }
-            // Check if dash conditions are met
-            if (hasMoved || !player.IsDashing) return;
 
+            // If not dashing, move gently
+            if (!player.IsDashing)
+            {
+                if (!isGentlyMoving)
+                {
+                    StartCoroutine(MoveDownGently());
+                }
+                return;
+            }
+
+            // Already moved? Skip
+            if (hasMoved) return;
+
+            // Check dash direction
             Vector3 dashDir = player.DashDirection;
             Vector3 playerPos = player.transform.position;
 
@@ -97,6 +115,40 @@ namespace Terrain.Environment
             StartCoroutine(MovePlatform());
             nextPlatform?.Invoke();
             hasMoved = true;
+        }
+
+        private IEnumerator MoveDownGently()
+        {
+            isGentlyMoving = true;
+
+            Vector3 originalPos = transform.position;
+            Vector3 downPos = originalPos + Vector3.down * gentleMoveDistance;
+
+            float timer = 0f;
+            while (timer < gentleMoveDuration)
+            {
+                float t = timer / gentleMoveDuration;
+                float easedT = gentleMoveCurve.Evaluate(t);
+                transform.position = Vector3.Lerp(originalPos, downPos, easedT);
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.position = downPos;
+
+            // Return
+            timer = 0f;
+            while (timer < gentleMoveDuration)
+            {
+                float t = timer / gentleMoveDuration;
+                float easedT = returnMovementCurve.Evaluate(t);
+                transform.position = Vector3.Lerp(downPos, originalPos, easedT);
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.position = originalPos;
+            isGentlyMoving = false;
         }
 
         private void OnCollisionExit2D(Collision2D collision)

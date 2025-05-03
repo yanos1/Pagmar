@@ -26,7 +26,8 @@ namespace Terrain.Environment
             {
                 fallFeedbacks?.PlayFeedbacks();
                 rb.bodyType = RigidbodyType2D.Dynamic;
-                rb.AddForce(Vector2.down * fallForce);
+                rb.gravityScale = 2;
+
             }
         }
 
@@ -34,12 +35,17 @@ namespace Terrain.Environment
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
+                print(other.gameObject.name);
                 // landFeedBacks?.PlayFeedbacks();
+                gameObject.SetActive(false);
             }
         }
 
         public void ResetToInitialState()
         {
+            gameObject.SetActive(true);
+            rb.linearVelocity = Vector2.zero;
+            rb.bodyType = RigidbodyType2D.Kinematic; 
             transform.position = startingPos;
         }
 

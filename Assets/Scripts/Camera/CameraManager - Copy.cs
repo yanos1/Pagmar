@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Managers;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Camera
@@ -10,13 +11,14 @@ namespace Camera
     {
         [SerializeField] private CinemachineCamera[] _allVirtualCameras;
 
-        [Header("Controls for lerping the Y Damping during player jump/fall")]
-        [SerializeField] private float _fallPanAmount = 0.25f;
+        [Header("Controls for lerping the Y Damping during player jump/fall")] [SerializeField]
+        private float _fallPanAmount = 0.25f;
+
         [SerializeField] private float _fallYPanTime = 0.35f;
         [SerializeField] public float _fallSpeedYDampingChangeThreshold = -5f;
 
         public bool IsLerpingYDamping { get; private set; }
-        public bool LerpedFromPlayerFalling { get;  set; }
+        public bool LerpedFromPlayerFalling { get; set; }
 
         private Coroutine _lerpYPanCoroutine;
         private Coroutine _panCameraCoroutine;
@@ -25,7 +27,7 @@ namespace Camera
         private CinemachinePositionComposer _framingTransposer;
 
         private static CameraManager instance;
-        
+
         private float _normYPanAmount;
         private Vector2 _startingTrackedObjectOffset;
 
@@ -39,8 +41,11 @@ namespace Camera
 
             return instance;
         }
-        
-        public float FallSpeedYDampingChangeThreshold {get => _fallSpeedYDampingChangeThreshold; }
+
+        public float FallSpeedYDampingChangeThreshold
+        {
+            get => _fallSpeedYDampingChangeThreshold;
+        }
 
         private void Awake()
         {
@@ -48,7 +53,7 @@ namespace Camera
             {
                 instance = this;
                 DontDestroyOnLoad(gameObject);
-                
+
             }
 
             for (int i = 0; i < _allVirtualCameras.Length; i++)
@@ -60,12 +65,12 @@ namespace Camera
 
                     // Set the framing transposer
                     _framingTransposer = _currentCamera.GetComponentInParent<CinemachinePositionComposer>();
-                    _normYPanAmount = _framingTransposer.Damping.y; 
+                    _normYPanAmount = _framingTransposer.Damping.y;
                     _startingTrackedObjectOffset = _framingTransposer.TargetOffset;
                 }
             }
-            
-            
+
+
 
         }
 
@@ -82,7 +87,7 @@ namespace Camera
         }
 
         private IEnumerator LerpYAction(bool isPlayerFalling)
-        { 
+        {
             IsLerpingYDamping = true;
 
             // Grab the starting damping amount
@@ -107,11 +112,11 @@ namespace Camera
                 elapsedTime += Time.deltaTime;
 
                 float lerpedPanAmount = Mathf.Lerp(startDampAmount, endDampAmount, (elapsedTime / _fallYPanTime));
-                
+
                 Vector3 damping = _framingTransposer.Damping;
                 damping.y = lerpedPanAmount;
                 _framingTransposer.Damping = damping;
-                
+
                 yield return null;
             }
 
@@ -121,7 +126,7 @@ namespace Camera
         public void SetCamerasOfTheScene(object obj)
         {
             _allVirtualCameras = FindObjectsOfType<CinemachineCamera>();
-
+            
             foreach (var vc in _allVirtualCameras)
             {
                 if (vc.isActiveAndEnabled)
@@ -134,20 +139,22 @@ namespace Camera
                 }
             }
         }
-        
+
         public void OnDisable()
         {
             CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, SetCamerasOfTheScene);
         }
 
         #endregion
-        
-        public void PanCameraOnContact(float panDisntance, float panTime, PanDirection panDirection, bool panToStartingPos)
+
+        public void PanCameraOnContact(float panDisntance, float panTime, PanDirection panDirection,
+            bool panToStartingPos)
         {
-           _panCameraCoroutine = StartCoroutine(PanCamera(panDisntance, panTime, panDirection, panToStartingPos));
+            _panCameraCoroutine = StartCoroutine(PanCamera(panDisntance, panTime, panDirection, panToStartingPos));
         }
 
-        private IEnumerator PanCamera(float panDisntance, float panTime, PanDirection panDirection, bool panToStartingPos)
+        private IEnumerator PanCamera(float panDisntance, float panTime, PanDirection panDirection,
+            bool panToStartingPos)
         {
             Debug.Log(panToStartingPos);
             Vector2 endPos = Vector2.zero;
@@ -172,6 +179,7 @@ namespace Camera
                     default:
                         break;
                 }
+
                 endPos *= panDisntance;
                 startPos = _startingTrackedObjectOffset;
                 endPos += startPos;
@@ -181,6 +189,7 @@ namespace Camera
                 startPos = _framingTransposer.TargetOffset;
                 endPos = _startingTrackedObjectOffset;
             }
+
             float elapsedTime = 0f;
             while (elapsedTime < panTime)
             {
@@ -188,10 +197,61 @@ namespace Camera
 
                 Vector2 lerpedPos = Vector2.Lerp(startPos, endPos, (elapsedTime / panTime));
                 _framingTransposer.TargetOffset = lerpedPos;
-                
+
                 yield return null;
             }
-            
+
+        }
+
+        public void SwapCamera(CinemachineCamera cameraFromEnter, CinemachineCamera cameraFromExit,
+            Vector2 triggerExitDirection, bool isVerticalSwap)
+        {
+            if (!isVerticalSwap)
+            {
+                if (_currentCamera == cameraFromEnter && triggerExitDirection.x > 0f)
+                {
+                    cameraFromExit.enabled = true;
+
+                    cameraFromEnter.enabled = false;
+
+                    _currentCamera = cameraFromExit;
+
+                    _framingTransposer = _currentCamera.GetComponentInParent<CinemachinePositionComposer>();
+                }
+                else if (_currentCamera == cameraFromExit && triggerExitDirection.x < 0f)
+                {
+                    cameraFromEnter.enabled = true;
+
+                    cameraFromExit.enabled = false;
+
+                    _currentCamera = cameraFromEnter;
+
+                    _framingTransposer = _currentCamera.GetComponentInParent<CinemachinePositionComposer>();
+                }
+            }
+            else
+            {
+                if (_currentCamera == cameraFromEnter && triggerExitDirection.y < 0f)
+                {
+                    cameraFromExit.enabled = true;
+
+                    cameraFromEnter.enabled = false;
+
+                    _currentCamera = cameraFromExit;
+
+                    _framingTransposer = _currentCamera.GetComponentInParent<CinemachinePositionComposer>();
+                }
+                else if (_currentCamera == cameraFromExit && triggerExitDirection.y > 0f)
+                {
+                    cameraFromEnter.enabled = true;
+
+                    cameraFromExit.enabled = false;
+
+                    _currentCamera = cameraFromEnter;
+
+                    _framingTransposer = _currentCamera.GetComponentInParent<CinemachinePositionComposer>();
+                }
+            }
         }
     }
 }

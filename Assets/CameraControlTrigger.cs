@@ -29,9 +29,21 @@ public class CameraControlTrigger : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Exit");
+        
         if(other.gameObject.CompareTag("Player"))
         {
+            Vector2 exitDirection = (other.transform.position - _collider2D.bounds.center).normalized;
+            
+            if(customInspectorObjects.swapCameras && customInspectorObjects.cameraOnLeft != null && customInspectorObjects.cameraOnRight != null)
+            {
+                Debug.Log("Swap cameras left and right");
+                CameraManager.GetInstance().SwapCamera(customInspectorObjects.cameraOnLeft,customInspectorObjects.cameraOnRight,exitDirection,false);
+            }
+            else if(customInspectorObjects.swapCameras && customInspectorObjects.cameraOnUp != null && customInspectorObjects.cameraOnDown != null)
+            {
+                Debug.Log("Swap cameras up and down");
+                CameraManager.GetInstance().SwapCamera(customInspectorObjects.cameraOnUp,customInspectorObjects.cameraOnDown,exitDirection,true);
+            }
             if (customInspectorObjects.panCameraOnContact)
             {
                 CameraManager.GetInstance().PanCameraOnContact(customInspectorObjects.panDistance,customInspectorObjects.panTime,customInspectorObjects.panDirection,true);
@@ -49,6 +61,8 @@ public class CustomInspectorObjects
 
     [HideInInspector] public CinemachineCamera cameraOnLeft;
     [HideInInspector] public CinemachineCamera cameraOnRight;
+    [HideInInspector] public CinemachineCamera cameraOnUp;
+    [HideInInspector] public CinemachineCamera cameraOnDown;
 
     [HideInInspector] public PanDirection panDirection;
     [HideInInspector] public float panDistance = 3f;
@@ -71,9 +85,12 @@ public class MyScriptEditors : Editor
     SerializedProperty panCameraOnContact;
     SerializedProperty cameraOnLeft;
     SerializedProperty cameraOnRight;
+    SerializedProperty cameraOnUp;
+    SerializedProperty cameraOnDown;
     SerializedProperty panDirection;
     SerializedProperty panDistance;
     SerializedProperty panTime;
+    
 
     private void OnEnable()
     {
@@ -81,6 +98,8 @@ public class MyScriptEditors : Editor
         panCameraOnContact  = serializedObject.FindProperty("customInspectorObjects.panCameraOnContact");
         cameraOnLeft        = serializedObject.FindProperty("customInspectorObjects.cameraOnLeft");
         cameraOnRight       = serializedObject.FindProperty("customInspectorObjects.cameraOnRight");
+        cameraOnUp          = serializedObject.FindProperty("customInspectorObjects.cameraOnUp");
+        cameraOnDown        = serializedObject.FindProperty("customInspectorObjects.cameraOnDown");
         panDirection        = serializedObject.FindProperty("customInspectorObjects.panDirection");
         panDistance         = serializedObject.FindProperty("customInspectorObjects.panDistance");
         panTime             = serializedObject.FindProperty("customInspectorObjects.panTime");
@@ -95,6 +114,8 @@ public class MyScriptEditors : Editor
         {
             EditorGUILayout.PropertyField(cameraOnLeft, new GUIContent("Camera on Left"));
             EditorGUILayout.PropertyField(cameraOnRight, new GUIContent("Camera on Right"));
+            EditorGUILayout.PropertyField(cameraOnUp, new GUIContent("Camera on Up"));
+            EditorGUILayout.PropertyField(cameraOnDown, new GUIContent("Camera on Down"));
         }
 
         EditorGUILayout.PropertyField(panCameraOnContact);

@@ -6,12 +6,11 @@ using UnityEngine;
 
 namespace Terrain.Environment
 {
-    public class FallingStone : MonoBehaviour, IResettable
+    public class FallingStone : MonoBehaviour, IResettable, IKillPlayer
     {
-        [SerializeField] private float fallForce;
         [SerializeField] private MMF_Player fallFeedbacks;
         [SerializeField] private MMF_Player landFeedBacks;
-        private Rigidbody2D rb;
+        protected Rigidbody2D rb;
         private Vector3 startingPos;
 
         private void Start()
@@ -26,16 +25,15 @@ namespace Terrain.Environment
             {
                 fallFeedbacks?.PlayFeedbacks();
                 rb.bodyType = RigidbodyType2D.Dynamic;
-                rb.gravityScale = 2;
+                rb.gravityScale = 1.5f;
 
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        public virtual void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
-                print(other.gameObject.name);
                 // landFeedBacks?.PlayFeedbacks();
                 gameObject.SetActive(false);
             }
@@ -52,6 +50,12 @@ namespace Terrain.Environment
         public void HitPlayer()
         {
             // landFeedBacks?.PlayFeedbacks();
+        }
+
+        public virtual bool IsDeadly()
+        {
+            print("445 kill player");
+            return true;
         }
     }
 }

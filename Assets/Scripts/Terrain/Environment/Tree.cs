@@ -23,7 +23,7 @@ namespace Terrain.Environment
         {
             if (trigger.IsTriggered && rb.bodyType == RigidbodyType2D.Dynamic)
             {
-                StartCoroutine(UtilityFunctions.WaitAndInvokeAction(1f, () =>
+                StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.3f, () =>
                 {
                     rb.linearVelocity = Vector2.zero;
                     rb.bodyType = RigidbodyType2D.Static;

@@ -53,7 +53,7 @@ namespace Player
                 breakable.OnHit((other.transform.position - gameObject.transform.position).normalized);
             }
 
-            if (other.gameObject.GetComponent<Enemy>() is { } enemy && enemy.IsDeadly())
+            if (other.gameObject.GetComponent<IKillPlayer>() is { } killPlayer && killPlayer.IsDeadly())
             {
                 CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
             }
@@ -65,13 +65,15 @@ namespace Player
                     CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
                 }
             }
-            else if (other.gameObject.GetComponent<FallingStone>() is { } stone)
+        
+        }
+
+        private void Update()
+        {
+            if (Input.GetKey(KeyCode.D))
             {
                 CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
-                stone.HitPlayer();
             }
- 
-        
         }
 
         public void SetFollowedBy([CanBeNull] Npc npc)

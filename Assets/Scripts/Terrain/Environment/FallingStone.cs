@@ -26,7 +26,7 @@ namespace Terrain.Environment
             {
                 fallFeedbacks?.PlayFeedbacks();
                 rb.bodyType = RigidbodyType2D.Dynamic;
-                rb.gravityScale = 2;
+                rb.gravityScale = 1.5f;
 
             }
         }

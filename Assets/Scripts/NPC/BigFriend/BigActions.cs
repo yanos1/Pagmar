@@ -1,4 +1,5 @@
 using DG.Tweening;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -33,11 +34,15 @@ namespace NPC.BigFriend
         public void EnableHeadCollider()
         {
             GetComponent<CircleCollider2D>().isTrigger = false;
+            gameObject.layer = LayerMask.NameToLayer("Ground");
+
         }
 
         public void DisableHeadCollideR()
         {
             GetComponent<CircleCollider2D>().isTrigger = true;
+            gameObject.layer = LayerMask.NameToLayer("Default");
+
         }
     }
 }

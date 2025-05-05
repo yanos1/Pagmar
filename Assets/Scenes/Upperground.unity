@@ -2092,7 +2092,7 @@ GameObject:
   - component: {fileID: 946855285}
   - component: {fileID: 946855286}
   - component: {fileID: 946855287}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Big
   m_TagString: Big
   m_Icon: {fileID: 0}
@@ -2874,7 +2874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.18
+      value: 1.24
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9153,7 +9153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1768889558}
   - component: {fileID: 1768889559}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: question mark_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

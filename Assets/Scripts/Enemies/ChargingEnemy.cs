@@ -95,7 +95,7 @@ namespace Enemies
 
         public override bool IsDeadly()
         {
-            return isCharging && player.transform.position.y -1f  < transform.position.y;
+            return isCharging && player.transform.position.y -2.2f  < transform.position.y;
         }
 
         IEnumerator PrepareCharge()

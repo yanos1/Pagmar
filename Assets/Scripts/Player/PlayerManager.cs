@@ -105,6 +105,7 @@ namespace Player
 
         public enum PlayerStage
         {
+            None,
             Young,
             Teen,
             Adult,

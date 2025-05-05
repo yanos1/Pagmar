@@ -26,7 +26,11 @@
              if (other.gameObject.GetComponent<IBreakable>() is { } breakable)
              {
                  breakable.OnHit(Vector2.right);
-                 
+                 rb.linearVelocity = Vector2.zero;
+                 print(rb.linearVelocity + " linear vel 447");
+                 rb.angularVelocity = 0f;
+                 rb.AddForce(rollForce*7);
+
              }
          }
  
@@ -39,6 +43,15 @@
          {
              print($"445 kill player : {isDeadly== true} magnitude {rb.linearVelocity.magnitude}");
              return isDeadly || rb.linearVelocity.magnitude > 1;
+         }
+
+         public override void ResetToInitialState()
+         {
+             base.ResetToInitialState();
+             rb.angularVelocity = 0f;
+             rb.linearVelocity = Vector2.zero;
+
+             print("reset big stone");
          }
      }
  }

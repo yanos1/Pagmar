@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Enemies
 {
-    public abstract class Enemy : MonoBehaviour, IResettable
+    public abstract class Enemy : MonoBehaviour, IResettable, IKillPlayer
     {
         protected Vector3 startingPos;
 
@@ -20,5 +20,6 @@ namespace Enemies
         }
 
         public abstract bool IsDeadly();
+
     }
 }

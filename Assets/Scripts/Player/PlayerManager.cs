@@ -17,10 +17,33 @@ namespace Player
     {
         private PlayerMovement _playerMovement;
         private Npc followedBy;
+
+        [SerializeField] 
+        private PlayerStage _playerStage = PlayerStage.Young;
+
+        public PlayerStage playerStage
+        {
+            get => _playerStage;
+            set
+            {
+                if (_playerStage == value) return;
+                _playerStage = value;
+                ApplyScaleForStage(_playerStage);
+            }
+        }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            ApplyScaleForStage(_playerStage);
+        }
+#endif
+
         private void Start()
         {
             CoreManager.Instance.Player = this;
             _playerMovement = GetComponent<PlayerMovement>();
+            ApplyScaleForStage(_playerStage);
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -56,9 +79,34 @@ namespace Player
             followedBy = npc;
         }
 
-        public Npc GetFollowedBy()
+        public Npc GetFollowedBy() => followedBy;
+        
+        
+
+        public void SetPlayerStage(PlayerStage stage)
         {
-            return followedBy;
+            playerStage = stage;
+        }
+
+        private void ApplyScaleForStage(PlayerStage stage)
+        {
+            Debug.Log($"Player stage: {stage}");
+            transform.localScale = stage switch
+            {
+                PlayerStage.Young  => new Vector3(0.83f,    0.83f,    1f),
+                PlayerStage.Teen   => new Vector3(1f, 1f, 1f),
+                PlayerStage.Adult  => new Vector3(1.5f,  1.5f,  1f),
+                PlayerStage.Elder  => new Vector3(1.25f, 1.25f, 1f),
+                _                  => transform.localScale
+            };
+        }
+
+        public enum PlayerStage
+        {
+            Young,
+            Teen,
+            Adult,
+            Elder
         }
     }
 }

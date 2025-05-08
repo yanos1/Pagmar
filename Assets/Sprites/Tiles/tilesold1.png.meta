@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: dc7a20df844f8f447bebd96d9c69cfd7
+guid: 380e59e26c6030541b70d5bb32c3486a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5113850848988359095
-    second: platform_0
+      213: 4155715029299024090
+    second: tilesold1_0
+  - first:
+      213: -4897654579366797591
+    second: tilesold1_1
+  - first:
+      213: 5623765424915213778
+    second: tilesold1_2
+  - first:
+      213: -9209181063469761537
+    second: tilesold1_3
+  - first:
+      213: 8279599317954524975
+    second: tilesold1_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,43 +108,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: platform_0
+      name: tilesold1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 378
-        height: 138
+        x: 42
+        y: 301
+        width: 171
+        height: 679
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +127,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 94618b74fb3f709b0800000000000000
-      internalID: -5113850848988359095
+      spriteID: ad0de1d1dc01ca930800000000000000
+      internalID: 4155715029299024090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tilesold1_1
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 289
+        width: 424
+        height: 692
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9eed644eb19080cb0800000000000000
+      internalID: -4897654579366797591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tilesold1_2
+      rect:
+        serializedVersion: 2
+        x: 767
+        y: 0
+        width: 2305
+        height: 1024
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2dde134abd0ab0e40800000000000000
+      internalID: 5623765424915213778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tilesold1_3
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 3
+        width: 681
+        height: 208
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffb71a77d9a623080800000000000000
+      internalID: -9209181063469761537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tilesold1_4
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 13
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f27fe3566bb07e270800000000000000
+      internalID: 8279599317954524975
       vertices: []
       indices: 
       edges: []
@@ -160,8 +234,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      platform_0: -5113850848988359095
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

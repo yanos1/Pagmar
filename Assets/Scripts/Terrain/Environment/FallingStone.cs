@@ -25,7 +25,7 @@ namespace Terrain.Environment
             {
                 fallFeedbacks?.PlayFeedbacks();
                 rb.bodyType = RigidbodyType2D.Dynamic;
-                rb.gravityScale = 2.2f;
+                rb.gravityScale = 1.5f;
 
             }
         }
@@ -45,7 +45,6 @@ namespace Terrain.Environment
             rb.linearVelocity = Vector2.zero;
             rb.bodyType = RigidbodyType2D.Kinematic; 
             transform.position = startingPos;
-            transform.rotation = Quaternion.identity;
         }
 
         public void HitPlayer()

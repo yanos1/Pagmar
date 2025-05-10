@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Camera;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheckPosition;
     [SerializeField] private Vector2 checkSize = new Vector2(0.5f, 0.1f);
-    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private List<LayerMask> groundLayers;
 
     [Header("Wall Jump & Slide")]
     [SerializeField] private Transform wallCheckPosition;
@@ -258,14 +259,16 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
-        if (Physics2D.OverlapBox(groundCheckPosition.position, checkSize, 0, groundLayer) != null)
+        foreach (LayerMask layer in groundLayers)
         {
-            LastOnGroundTime = 0f;
-            return true;
+            if (Physics2D.OverlapBox(groundCheckPosition.position, checkSize, 0, layer) != null)
+            {
+                LastOnGroundTime = 0f;
+                return true;
+            }
         }
         return false;
     }
-
     private bool IsTouchingWall()
     {
         return Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0, wallLayer) != null;

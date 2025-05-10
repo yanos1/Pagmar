@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4891376195761757699}
   - component: {fileID: 7410195224697973870}
   - component: {fileID: 757123809884918018}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Elevetor (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,6 +151,7 @@ MonoBehaviour:
   targetOffset: {x: 0, y: -5, z: 0}
   triggerDirection: {x: 0, y: -1, z: 0}
   moveDuration: 2
+  secondsBeforeReturn: 0
   movementCurve:
     serializedVersion: 2
     m_Curve:
@@ -199,10 +200,18 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  returnWhenDone: 0
   nextPlatform:
     m_PersistentCalls:
       m_Calls: []
-  returnWhenDone: 0
+  gentleMoveDistance: 0.17
+  gentleMoveDuration: 0.3
+  gentleMoveCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8850491491335796936
 GameObject:
   m_ObjectHideFlags: 0

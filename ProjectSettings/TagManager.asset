@@ -8,6 +8,12 @@ TagManager:
   - Quicksand
   - Big
   - Enemy
+  - ground
+  - Obstacle
+  - BombPickup
+  - ExplosionFX
+  - Bullet
+  - HealthBar
   layers:
   - Default
   - TransparentFX
@@ -21,9 +27,9 @@ TagManager:
   - Environment
   - Back
   - Front
-  - 
-  - 
-  - 
+  - Debree
+  - NoParticleCollision
+  - Background
   - 
   - 
   - 
@@ -42,6 +48,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: background
+    uniqueID: 2202730591
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

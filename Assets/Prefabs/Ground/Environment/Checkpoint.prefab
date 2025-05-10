@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8497006901885509765}
   - component: {fileID: 2441315751401867947}
   - component: {fileID: 1446747246893698919}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Checkpoint
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1804e1a9b54412193ac4c058d77bd8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newStage: 0
   checkpointFeedback: {fileID: 1446747246893698919}
 --- !u!114 &1446747246893698919
 MonoBehaviour:

@@ -11,6 +11,7 @@ namespace Terrain.Environment
         [SerializeField] private Vector3 targetOffset;
         [SerializeField] private Vector3 triggerDirection;
         [SerializeField] private float moveDuration = 2f;
+        [SerializeField] private float secondsBeforeReturn;
         [SerializeField] private AnimationCurve movementCurve;
         [SerializeField] private AnimationCurve returnMovementCurve;
         [SerializeField] private bool returnWhenDone;
@@ -25,6 +26,7 @@ namespace Terrain.Environment
         private Vector3 targetPos;
         private bool hasMoved = false;
         private bool isGentlyMoving = false;
+        private bool isLooping = false;
 
         private void Start()
         {
@@ -52,7 +54,7 @@ namespace Terrain.Environment
 
             transform.position = targetPos;
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(secondsBeforeReturn);
 
             if (returnWhenDone)
             {
@@ -80,41 +82,68 @@ namespace Terrain.Environment
         private void OnCollisionEnter2D(Collision2D collision)
         {
             PlayerMovement player = collision.collider.GetComponent<PlayerMovement>();
-            if (player == null) return;
+            if (player is not null)
+            {
 
-            // Attach player to platform
-            if (player.GroundCheckPos.y > transform.position.y)
+                // Attach player to platform
+                if (player.GroundCheckPos.y > transform.position.y)
+                {
+                    collision.collider.transform.SetParent(transform);
+                }
+
+                // If not dashing, move gently
+                if (!player.IsDashing)
+                {
+                    if (!isGentlyMoving)
+                    {
+                        StartCoroutine(MoveDownGently());
+                    }
+
+                    return;
+                }
+
+                if (hasMoved) return;
+
+                // Check dash direction
+                Vector3 dashDir = player.DashDirection;
+                Vector3 playerPos = player.transform.position;
+
+                if (Vector3.Dot(dashDir.normalized, triggerDirection.normalized) < 0.9f)
+                    return;
+
+                Vector3 fromDirection = (transform.position - playerPos).normalized;
+                if (Vector3.Dot(fromDirection, triggerDirection.normalized) < 0.5f)
+                    return;
+
+                StartCoroutine(MovePlatform());
+                nextPlatform?.Invoke();
+                hasMoved = true;
+            }
+
+            Box box = collision.collider.GetComponent<Box>();
+
+            if (box != null)
             {
                 collision.collider.transform.SetParent(transform);
             }
 
-            // If not dashing, move gently
-            if (!player.IsDashing)
+      
+        }
+
+        private void OnTriggerEnter2D(Collider2D col)
+        {
+            if(isLooping) return;
+            
+            StartCoroutine(MoveEternally());
+            isLooping = true;
+        }
+
+        private IEnumerator MoveEternally()
+        {
+            while (true)
             {
-                if (!isGentlyMoving)
-                {
-                    StartCoroutine(MoveDownGently());
-                }
-                return;
+                yield return MovePlatform();
             }
-
-            // Already moved? Skip
-            if (hasMoved) return;
-
-            // Check dash direction
-            Vector3 dashDir = player.DashDirection;
-            Vector3 playerPos = player.transform.position;
-
-            if (Vector3.Dot(dashDir.normalized, triggerDirection.normalized) < 0.9f)
-                return;
-
-            Vector3 fromDirection = (transform.position - playerPos).normalized;
-            if (Vector3.Dot(fromDirection, triggerDirection.normalized) < 0.5f)
-                return;
-
-            StartCoroutine(MovePlatform());
-            nextPlatform?.Invoke();
-            hasMoved = true;
         }
 
         private IEnumerator MoveDownGently()
@@ -155,6 +184,12 @@ namespace Terrain.Environment
         {
             PlayerManager player = collision.collider.GetComponent<PlayerManager>();
             if (player)
+            {
+                collision.collider.transform.SetParent(null);
+            }
+            
+            Box box = collision.collider.GetComponent<Box>();
+            if (box)
             {
                 collision.collider.transform.SetParent(null);
             }

@@ -41,7 +41,11 @@ namespace Player
 
         private void Start()
         {
-            CoreManager.Instance.Player = this;
+            if (CoreManager.Instance != null)
+            {
+                CoreManager.Instance.Player = this;
+            }
+
             _playerMovement = GetComponent<PlayerMovement>();
             ApplyScaleForStage(_playerStage);
         }
@@ -59,19 +63,19 @@ namespace Player
                 CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
             }
             
-            if (other.gameObject.GetComponent<Projectile>() is { } proj)
-            {
-                if (proj.IsDeadlyProjectile())
-                {
-                    CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
-                }
-            }
+            // if (other.gameObject.GetComponent<Projectile>() is { } proj)
+            // {
+            //     if (proj.IsDeadlyProjectile())
+            //     {
+            //         CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
+            //     }
+            // }
         
         }
 
         private void Update()
         {
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.F12))
             {
                 CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
             }

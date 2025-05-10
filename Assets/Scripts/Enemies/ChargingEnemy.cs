@@ -28,7 +28,7 @@ namespace Enemies
         private float rotationTimer = 0f;
         private SpriteRenderer spriteRenderer;
         private Rigidbody2D rb;
-        private Vector2 currentDirection = Vector2.left;
+        private Vector2 currentDirection = Vector2.right;
         private bool hit = false;
 
         public override void Start()
@@ -90,7 +90,7 @@ namespace Enemies
 
             // Reset timers and direction
             rotationTimer = 0f;
-            currentDirection = Vector2.left;
+            currentDirection = Vector2.right;
         }
 
         public override bool IsDeadly()

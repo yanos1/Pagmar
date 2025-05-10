@@ -10,6 +10,7 @@ namespace Triggers
             {
                 if (other.GetComponent<PlayerMovement>() is { } player)
                 {
+                    print("enter death zone");
                     CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
                 }
             }

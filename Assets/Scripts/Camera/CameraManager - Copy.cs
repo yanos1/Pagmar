@@ -156,6 +156,7 @@ namespace Camera
         private IEnumerator PanCamera(float panDisntance, float panTime, PanDirection panDirection,
             bool panToStartingPos)
         {
+
             Debug.Log(panToStartingPos);
             Vector2 endPos = Vector2.zero;
             Vector2 startPos = Vector2.zero;

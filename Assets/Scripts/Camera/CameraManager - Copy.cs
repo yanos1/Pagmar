@@ -125,6 +125,7 @@ namespace Camera
 
         public void SetCamerasOfTheScene(object obj)
         {
+            print("set new cameras");
             _allVirtualCameras = FindObjectsOfType<CinemachineCamera>();
             
             foreach (var vc in _allVirtualCameras)

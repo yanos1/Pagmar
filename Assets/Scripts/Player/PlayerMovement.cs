@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Camera;
+using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -71,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isWallSliding = false;
     
     [SerializeField] private bool enableWallJump = true;
-
+    private PlayerManager player;
 
     private void Awake()
     {
@@ -79,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
         LastOnGroundTime = Time.time;
         LastPressedDashTime = Time.time;
         _isFacingRight = true;
+        player = GetComponent<PlayerManager>();
     }
 
     private void Start()
@@ -92,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
     {
         LastOnGroundTime += Time.deltaTime;
 
-        if (!_isDashAttacking && !isWallJumping && !isWallSliding)
+        if (!_isDashAttacking && !isWallJumping && !isWallSliding && player.InputEnabled)
             Move();
 
         CheckIfGrounded();
@@ -153,11 +155,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
+        if (player.IsInjured)
+        {
+            _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed*0.5f * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
+            print("moving injured 78");
+        }
         _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
     }
 
     public void HandleMovment(InputAction.CallbackContext context)
     {
+        if(player.InputEnabled == false) return;
         _moveInput = context.ReadValue<Vector2>();
         _moveInputX = _moveInput.x;
         _moveInputY = _moveInput.y;
@@ -170,6 +178,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void HandleDash(InputAction.CallbackContext context)
     {
+        if(player.InputEnabled == false) return;
+
         if (context.started && CanDash())
         {
             if (_moveInput != Vector2.zero)
@@ -195,6 +205,8 @@ public class PlayerMovement : MonoBehaviour
     }
     public void HandleJump(InputAction.CallbackContext context)
     {
+        if(player.InputEnabled == false) return;
+
         if (context.started)
         {
             if (enableWallJump && isTouchingWall && !IsGrounded())
@@ -234,6 +246,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleFlip(bool isMovingRight)
     {
+        if(player.InputEnabled == false) return;
         if (isMovingRight != _isFacingRight)
         {
             Flip();
@@ -305,8 +318,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Jump()
-    {
+    {   
         float force = jumpForce;
+        if (player.IsInjured)
+        {
+            force = jumpForce * 0.8f;
+        }
         if (_rb.linearVelocity.y < 0)
             force -= _rb.linearVelocity.y;
 
@@ -334,7 +351,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _isDashing = true;
         _canDash = false;
-
+        player.SetForce();
         float startTime = Time.time;
         _isDashAttacking = true;
         _rb.gravityScale = 0;
@@ -354,6 +371,7 @@ public class PlayerMovement : MonoBehaviour
         {
             yield return null;
         }
+        player.ResetForce();
         _isDashing = false;
     }
 }

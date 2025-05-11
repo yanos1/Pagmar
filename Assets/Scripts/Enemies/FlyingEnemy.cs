@@ -38,12 +38,12 @@ namespace Enemies
             startPosition = transform.position; // Initialize start position
         }
 
-        public override void OnRam()
+        public void OnRam()
         {
             gameObject.SetActive(false);
         }
 
-        public override bool IsDeadly()
+        public bool IsDeadly()
         {
             return currentState == State.Attacking;
         }
@@ -192,5 +192,19 @@ namespace Enemies
             transform.position = new Vector3(transform.position.x, smoothedY, transform.position.z);
         }
 
+        public override void OnRam(float againstForce)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void OnRammed(float fromForce)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void ApplyKnockback(Vector2 direction, float force)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

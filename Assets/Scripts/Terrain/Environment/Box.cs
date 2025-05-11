@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using Obstacles;
 using UnityEngine;
 
 namespace Terrain.Environment
@@ -15,6 +16,8 @@ namespace Terrain.Environment
         [SerializeField] private AudioClip boxHit;
         [SerializeField] private AudioClip boxPush;
         [SerializeField] private AudioClip boxDrop;
+        [SerializeField] private Explodable e;
+        [SerializeField] private ExplosionForce f;
         
 
         private void Start()
@@ -43,6 +46,12 @@ namespace Terrain.Environment
                     PlaySound(boxPush, loop: true);
                     isMoving = true;
                 }
+            }
+
+            if (other.gameObject.GetComponent<GuillotineTrap>() is not null)
+            {
+                e.explode();
+                f.doExplosion(transform.position);
             }
         }
 

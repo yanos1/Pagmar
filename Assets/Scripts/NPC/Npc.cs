@@ -141,11 +141,11 @@ namespace NPC
                 return;
             }
 
-            Enemy enemy = other.GetComponent<Enemy>();
+            ChargingEnemy enemy = other.GetComponent<ChargingEnemy>();
             if (enemy is not null)
             {
                 print("RAM ENEMY");
-                enemy.OnRam();
+                enemy.SpecialNpcRam();
             }
         }
 

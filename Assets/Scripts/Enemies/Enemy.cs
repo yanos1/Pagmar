@@ -1,10 +1,11 @@
 ﻿using System;
 using Interfaces;
+using Managers;
 using UnityEngine;
 
 namespace Enemies
 {
-    public abstract class Enemy : MonoBehaviour, IResettable, IKillPlayer
+    public abstract class Enemy : Rammer, IResettable
     {
         protected Vector3 startingPos;
 
@@ -13,13 +14,9 @@ namespace Enemies
             startingPos = transform.position;
         }
 
-        public abstract void OnRam();
         public virtual void ResetToInitialState()
         {
             transform.position = startingPos;
         }
-
-        public abstract bool IsDeadly();
-
     }
 }

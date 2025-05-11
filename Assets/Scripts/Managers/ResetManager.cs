@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Interfaces;
 using Triggers;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Windows;
+using Input = UnityEngine.Input;
 
 namespace Managers
 {
@@ -21,26 +23,36 @@ namespace Managers
         
         private void OnEnable()
         {
-            CoreManager.Instance.EventManager.AddListener(EventNames.Die, ResetAll);
+            CoreManager.Instance.EventManager.AddListener(EventNames.Die, (object o) => ResetAll(o));
             CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, FindResetAblesInScene);
         }
         
         private void OnDisable()
         {
-            CoreManager.Instance.EventManager.RemoveListener(EventNames.Die, ResetAll);
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.Die, (object o) => ResetAll(o));
             CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, FindResetAblesInScene);
         }
 
-       
+        private void Update()
+        {
+            if (Input.GetKey(KeyCode.F11))
+            {
+                ResetAll(null,false);
+            }
+        }
 
-        public void ResetAll(object obj)
+
+        public void ResetAll(object obj, bool restoreCheckpoint = true)
         {
             foreach (var r in resettables)
             {
                 r.ResetToInitialState();
             }
-            
-            RestoreCheckPoint();
+
+            if (restoreCheckpoint)
+            {
+                RestoreCheckPoint();
+            }
         }
 
         public void UpdateCheckPoint(Checkpoint checkpoint)

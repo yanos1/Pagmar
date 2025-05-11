@@ -39,7 +39,7 @@ namespace SpongeScene
         }
 
         public static IEnumerator FadeImage(Renderer renderer, float startValue, float endValue,
-            float imageFadeDuration)
+            float imageFadeDuration, [CanBeNull] Action callBack)
         {
             float elapsedTime = 0f;
 
@@ -59,6 +59,7 @@ namespace SpongeScene
 
             color.a = endValue;
             renderer.material.color = color;
+            callBack?.Invoke();
         }
 
         // ReSharper disable Unity.PerformanceAnalysis

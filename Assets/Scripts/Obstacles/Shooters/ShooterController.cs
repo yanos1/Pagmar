@@ -35,7 +35,7 @@ namespace Obstacles.Shooters
                 src.clip = warning;
                 src.Play();
                 yield return StartCoroutine(UtilityFunctions.FadeImage(warningRenderer, 0.6f, 0,
-                    warningDuration));
+                    warningDuration, null));
                 src.clip = shoot;
                 src.Play();
                 foreach (var shooter in shooters)

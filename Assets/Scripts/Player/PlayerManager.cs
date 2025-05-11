@@ -1,25 +1,29 @@
-﻿using System;
-using Enemies;
-using Interfaces;
+﻿using Interfaces;
 using JetBrains.Annotations;
 using Managers;
 using NPC;
-using NPC.NpcActions;
-using Obstacles.Shooters.Projectiles;
-using Terrain;
-using Terrain.Environment;
-using Unity.Collections;
 using UnityEngine;
+using System.Collections;
 
 namespace Player
 {
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : Rammer
     {
         private PlayerMovement _playerMovement;
         private Npc followedBy;
 
-        [SerializeField] 
-        private PlayerStage _playerStage = PlayerStage.Young;
+        [SerializeField] private PlayerStage _playerStage = PlayerStage.Young;
+        [SerializeField] private float knockbackStrength = 50f;
+        [SerializeField] private float injuredDuration = 5f;
+
+        private Rigidbody2D _rb;
+        private Coroutine injuryCoroutine;
+        private bool isInjured = false;
+
+        public bool InputEnabled = true;
+        public void DisableInput() => InputEnabled = false;
+        public void EnableInput() => InputEnabled = true;
+        public bool IsInjured => isInjured;
 
         public PlayerStage playerStage
         {
@@ -41,36 +45,42 @@ namespace Player
 
         private void Start()
         {
+            CurrentForce = 0;
+            _rb = GetComponent<Rigidbody2D>();
+            _playerMovement = GetComponent<PlayerMovement>();
+
             if (CoreManager.Instance != null)
             {
                 CoreManager.Instance.Player = this;
             }
 
-            _playerMovement = GetComponent<PlayerMovement>();
             ApplyScaleForStage(_playerStage);
         }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            var a = other.gameObject.GetComponent<IBreakable>();
-            if (a is not null && _playerMovement.IsDashing)
+            var breakable = other.gameObject.GetComponent<IBreakable>();
+            if (breakable is not null && _playerMovement.IsDashing)
             {
-                a.OnHit((other.transform.position - gameObject.transform.position).normalized);
+                breakable.OnHit((other.transform.position - transform.position).normalized);
             }
 
             if (other.gameObject.GetComponent<IKillPlayer>() is { } killPlayer && killPlayer.IsDeadly())
             {
                 CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
+                return;
             }
-            
-            // if (other.gameObject.GetComponent<Projectile>() is { } proj)
-            // {
-            //     if (proj.IsDeadlyProjectile())
-            //     {
-            //         CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
-            //     }
-            // }
-        
+
+            if (other.gameObject.GetComponent<Rammer>() is { } rammer)
+            {
+                Vector2 directionToPlayer = (transform.position - rammer.transform.position).normalized;
+                float dot = Mathf.Abs(Vector2.Dot(directionToPlayer, Vector2.right));
+
+                if (dot > 0.8f) // horizontal impact check
+                {
+                    RammerManager.Instance.ResolveRam(this, rammer);
+                }
+            }
         }
 
         private void Update()
@@ -78,6 +88,11 @@ namespace Player
             if (Input.GetKey(KeyCode.F12))
             {
                 CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
+            }
+
+            if (!InputEnabled && _rb.linearVelocity.magnitude < 2f)
+            {
+                EnableInput();
             }
         }
 
@@ -87,8 +102,6 @@ namespace Player
         }
 
         public Npc GetFollowedBy() => followedBy;
-        
-        
 
         public void SetPlayerStage(PlayerStage stage)
         {
@@ -100,12 +113,81 @@ namespace Player
             Debug.Log($"Player stage: {stage}");
             transform.localScale = stage switch
             {
-                PlayerStage.Young  => new Vector3(0.83f,    0.83f,    1f),
-                PlayerStage.Teen   => new Vector3(1f, 1f, 1f),
-                PlayerStage.Adult  => new Vector3(1.5f,  1.5f,  1f),
-                PlayerStage.Elder  => new Vector3(1.25f, 1.25f, 1f),
-                _                  => transform.localScale
+                PlayerStage.Young => new Vector3(0.83f, 0.83f, 1f),
+                PlayerStage.Teen => new Vector3(1f, 1f, 1f),
+                PlayerStage.Adult => new Vector3(1.5f, 1.5f, 1f),
+                _ => transform.localScale
             };
+        }
+
+        // === Rammer Implementation ===
+        public override void OnRam(float againstForce)
+        {
+            Debug.Log($"Player rammed with force against {againstForce}");
+            CurrentForce = Mathf.Max(0, CurrentForce - againstForce * 0.5f);
+        }
+
+        public override void OnRammed(float fromForce)
+        {
+            DisableInput();
+            Debug.Log($"Player got rammed with force {fromForce}");
+
+            if (isInjured)
+            {
+                StartCoroutine(DieAfterDelay());
+                return;
+            }
+
+            if (injuryCoroutine != null)
+                StopCoroutine(injuryCoroutine);
+
+            injuryCoroutine = StartCoroutine(InjuryTimer());
+        }
+
+        private IEnumerator DieAfterDelay()
+        {
+            DisableInput();
+            yield return new WaitForSeconds(2f);
+            CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
+            EnableInput();
+            isInjured = false;
+        }
+
+        private IEnumerator InjuryTimer()
+        {
+            isInjured = true;
+            Debug.Log("Player is injured!");
+
+            yield return new WaitForSeconds(injuredDuration);
+
+            isInjured = false;
+            injuryCoroutine = null;
+            Debug.Log("Player has recovered from injury.");
+        }
+
+        public override void ApplyKnockback(Vector2 direction, float force)
+        {
+            if (_rb != null)
+            {
+                _rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
+                Debug.Log($"Add force on player: {force} in dir {direction.normalized}");
+            }
+            Debug.Log("Called knockback on player");
+        }
+
+        public void SetForce()
+        {
+            CurrentForce = playerStage switch
+            {
+                PlayerStage.Teen => 1f,
+                PlayerStage.Adult => 2f,
+                _ => 0f
+            };
+        }
+
+        public override void ResetForce()
+        {
+            CurrentForce = 0f;
         }
 
         public enum PlayerStage
@@ -114,7 +196,6 @@ namespace Player
             Young,
             Teen,
             Adult,
-            Elder
         }
     }
 }

@@ -3,8 +3,11 @@ using System.Collections;
 using Managers;
 using NPC;
 using Player;
+using SpongeScene;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace Enemies
 {
@@ -13,29 +16,34 @@ namespace Enemies
         public float detectionRange;
         public float chargeSpeed;
         public float chargeDelay;
-        public float chargeCooldown;
+        public float chargeDuration;
         public float rotationAmount = 10f;
         public float rotationSpeed = 5f;
         public float minDistanceActivation = 3f;
         public Transform player;
+
         [SerializeField] private AudioSource src;
         [SerializeField] private AudioClip charge;
         [SerializeField] private AudioClip growl;
-        
+
+        [Header("Ground Detection")] [SerializeField]
+        private LayerMask groundLayer;
+        [SerializeField] private float groundCheckDistance = 1f;
 
         private bool isCharging = false;
         private bool isPreparingCharge = false;
         private float rotationTimer = 0f;
         private SpriteRenderer spriteRenderer;
-        private Rigidbody2D rb;
+        private Rigidbody2D _rb;
         private Vector2 currentDirection = Vector2.right;
         private bool hit = false;
 
         public override void Start()
         {
             base.Start();
+            CurrentForce = 0f;
             spriteRenderer = GetComponent<SpriteRenderer>();
-            rb = GetComponent<Rigidbody2D>();
+            _rb = GetComponent<Rigidbody2D>();
         }
 
         void Update()
@@ -45,19 +53,20 @@ namespace Enemies
                 Debug.LogWarning("Player reference is missing!");
                 return;
             }
-            
-            if (Mathf.Abs(transform.position.x -player.position.x) > 1)
+
+            if (Mathf.Abs(transform.position.x - player.position.x) > 1)
             {
                 FlipSprite(currentDirection);
-            } else if (Mathf.Abs(transform.position.x - player.position.x) < -1)
+            }
+            else if (Mathf.Abs(transform.position.x - player.position.x) < -1)
             {
                 FlipSprite(currentDirection);
             }
 
             float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-    
+
             if (distanceToPlayer > minDistanceActivation && distanceToPlayer < detectionRange && !isCharging &&
-                !isPreparingCharge && player.transform.position.y < transform.position.y  +0.5f && !hit)
+                !isPreparingCharge && player.transform.position.y < transform.position.y + 0.5f && !hit)
             {
                 print($"preparing charge since distance is {distanceToPlayer} and detection range is {detectionRange}");
                 StartCoroutine(PrepareCharge());
@@ -68,35 +77,29 @@ namespace Enemies
         {
             base.ResetToInitialState();
 
-            // Stop audio
             src.Stop();
             src.clip = null;
 
-            // Reset flags
             isCharging = false;
             isPreparingCharge = false;
             hit = false;
 
-            // Reset physics
-            if (rb != null)
+            if (_rb != null)
             {
-                rb.linearVelocity = Vector2.zero;
-                rb.angularVelocity = 0f;
-                rb.bodyType = RigidbodyType2D.Kinematic;
+                _rb.linearVelocity = Vector2.zero;
+                _rb.angularVelocity = 0f;
+                _rb.bodyType = RigidbodyType2D.Kinematic;
             }
 
-            // Reset transform rotation
             transform.rotation = Quaternion.identity;
-
-            // Reset timers and direction
             rotationTimer = 0f;
             currentDirection = Vector2.right;
         }
 
-        public override bool IsDeadly()
-        {
-            return isCharging && player.transform.position.y -2.2f  < transform.position.y;
-        }
+        // public override bool IsDeadly()
+        // {
+        //     return isCharging && player.transform.position.y - 2.2f < transform.position.y;
+        // }
 
         IEnumerator PrepareCharge()
         {
@@ -111,13 +114,15 @@ namespace Enemies
             src.clip = charge;
             src.Play();
             isCharging = true;
+            CurrentForce = 1;
             StartCoroutine(ChargeCooldown());
         }
 
         IEnumerator ChargeCooldown()
         {
-            yield return new WaitForSeconds(chargeCooldown);
+            yield return new WaitForSeconds(chargeDuration);
             isCharging = false;
+            CurrentForce = 0;
         }
 
         void FixedUpdate()
@@ -128,12 +133,10 @@ namespace Enemies
             {
                 transform.position += (Vector3)currentDirection * (chargeSpeed * Time.fixedDeltaTime);
                 RotateEnemy();
-                if (Math.Abs(player.position.x - transform.position.x) < 1)
-                {
-                    isCharging = false;
-                    src.Stop();
-                }
+                
             }
+
+            CheckForGround();
         }
 
         void RotateEnemy()
@@ -144,20 +147,31 @@ namespace Enemies
         }
 
         void FlipSprite(Vector2 direction)
-        {   
+        {
             if (spriteRenderer != null)
             {
                 spriteRenderer.flipX = direction.x > 0;
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D col)
+        private void CheckForGround()
         {
-            if (col.gameObject.GetComponent<PlayerMovement>() is not null)
+            RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
+            if (!hitInfo.collider)
             {
-                if (player.position.y < transform.position.y)
+                if (_rb.bodyType != RigidbodyType2D.Dynamic)
                 {
-                    // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                    _rb.bodyType = RigidbodyType2D.Dynamic;
+                    isCharging = false;
+                    CurrentForce = 0;
+                    isPreparingCharge = false;
+                }
+            }
+            else
+            {
+                if (_rb.bodyType != RigidbodyType2D.Kinematic)
+                {
+                    _rb.bodyType = RigidbodyType2D.Kinematic;
                 }
             }
         }
@@ -166,17 +180,57 @@ namespace Enemies
         {
             src.clip = growl;
             src.Play();
-            
         }
-
-        public override void OnRam()
+        
+        // this func should be replecad when possible. its a placeholder
+        public void SpecialNpcRam()
         {
             isCharging = false;
             hit = true;
             src.Stop();
-            rb.bodyType = RigidbodyType2D.Dynamic;
-            rb.freezeRotation = false;
-            rb.AddForce(Vector2.right * 1200f);
+           _rb.bodyType = RigidbodyType2D.Dynamic;
+           _rb.freezeRotation = false;
+           _rb.AddForce(Vector2.right * 1200f);
+        }
+
+        public override void OnRam(float againstForce)
+        {
+            isCharging = false;
+            src.Stop();
+            CurrentForce = 0;
+        }
+
+        public override void OnRammed(float fromForce)
+        {
+            Debug.Log($"Enemy rammed with force {fromForce}");
+            
+            isCharging = false;
+            isPreparingCharge = false;
+            StopAllCoroutines();
+            
+            // Disable collider
+            Collider2D col = GetComponent<Collider2D>();
+            if (col != null)
+            {
+                col.enabled = false;
+            }
+
+            // Start fade-out coroutine
+            StartCoroutine(UtilityFunctions.FadeImage(gameObject.GetComponent<SpriteRenderer>(),1, 0.5f, 0.5f,
+                () =>
+                {
+                    StartCoroutine(UtilityFunctions.FadeImage(gameObject.GetComponent<SpriteRenderer>(), 0.5f, 1f, 0.5f,
+                        () =>    col.enabled = true));
+                }));
+        }
+
+
+        public override void ApplyKnockback(Vector2 direction, float force)
+        {
+            if (_rb != null)
+            {
+                _rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
+            }
         }
     }
 }

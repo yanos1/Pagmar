@@ -40,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashEndTime = 0.15f;
     [SerializeField] private float dashEndSpeed = 50f;
     [SerializeField] private float dashCoolDownTime = 1f;
+    [SerializeField] private bool enableDash = true;
+    [SerializeField] private bool enableAdvancedDash = false;
 
     [Header("CammeraFollowObject")]
     [SerializeField] private CameraFollowObject _cameraFollowObject;
@@ -181,21 +183,34 @@ public class PlayerMovement : MonoBehaviour
 
     public void HandleDash(InputAction.CallbackContext context)
     {
-        if(player.InputEnabled == false) return;
+        if (!player.InputEnabled || !enableDash) return;
 
         if (context.started && CanDash())
         {
-            if (_moveInput != Vector2.zero)
-                _lastDashDir = _moveInput;
-            else
-                _lastDashDir = _isFacingRight ? Vector2.right : Vector2.left;
+            Vector2 dir = _isFacingRight ? Vector2.right : Vector2.left;
 
+            if (_moveInput != Vector2.zero)
+            {
+                if (enableAdvancedDash)
+                {
+                    dir = _moveInput;
+                }
+                else if (_moveInput.x != 0)
+                {
+                    dir = new Vector2(_moveInput.x, 0f);
+                }
+            }
+
+            _lastDashDir = dir.normalized;
             _isDashing = true;
             isJumping = false;
 
             StartCoroutine(nameof(StartDash), _lastDashDir);
         }
     }
+
+
+
 
     private bool CanDash()
     {

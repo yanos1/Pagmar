@@ -9,7 +9,6 @@ public class ExplodableEditor : Editor {
     public override void OnInspectorGUI()
     {
         Explodable myTarget = (Explodable)target;
-        myTarget.allowRuntimeFragmentation = EditorGUILayout.Toggle("Allow Runtime Fragmentation", myTarget.allowRuntimeFragmentation);
         myTarget.shatterType = (Explodable.ShatterType)EditorGUILayout.EnumPopup("Shatter Type", myTarget.shatterType);
         myTarget.extraPoints = EditorGUILayout.IntField("Extra Points", myTarget.extraPoints);
         myTarget.subshatterSteps = EditorGUILayout.IntField("Subshatter Steps",myTarget.subshatterSteps);

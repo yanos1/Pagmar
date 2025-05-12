@@ -9,7 +9,6 @@ public class Explodable : MonoBehaviour, IResettable
 {
     public System.Action<List<GameObject>> OnFragmentsGenerated;
 
-    public bool allowRuntimeFragmentation = false;
     public int extraPoints = 0;
     public int subshatterSteps = 0;
 
@@ -32,7 +31,7 @@ public class Explodable : MonoBehaviour, IResettable
     public void explode()
     {
         //if fragments were not created before runtime then create them now
-        if (fragments.Count == 0 && allowRuntimeFragmentation)
+        if (fragments.Count == 0)
         {
             generateFragments();
         }
@@ -50,6 +49,8 @@ public class Explodable : MonoBehaviour, IResettable
         {
             print("ORIGINAL COLLIDER TURN OFF");
             GetComponent<Collider2D>().enabled = false;
+            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+            
             // make invis
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
             if (sr != null)
@@ -82,14 +83,7 @@ public class Explodable : MonoBehaviour, IResettable
     {
         foreach (GameObject frag in fragments)
         {
-            if (Application.isEditor)
-            {
-                DestroyImmediate(frag);
-            }
-            else
-            {
-                Destroy(frag);
-            }
+            Destroy(frag);
         }
         fragments.Clear();
         polygons.Clear();
@@ -120,6 +114,8 @@ public class Explodable : MonoBehaviour, IResettable
                 p.layer = LayerMask.NameToLayer(fragmentLayer);
                 p.GetComponent<Renderer>().sortingLayerName = sortingLayerName;
                 p.GetComponent<Renderer>().sortingOrder = orderInLayer;
+                p.transform.SetParent(transform);
+                p.SetActive(false);
             }
         }
 
@@ -189,7 +185,7 @@ public class Explodable : MonoBehaviour, IResettable
     public void ResetToInitialState()
     {
         GetComponent<Collider2D>().enabled = true;
-
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         // make colorful again
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (sr != null)
@@ -200,6 +196,7 @@ public class Explodable : MonoBehaviour, IResettable
         }
 
         deleteFragments();
+        generateFragments();
     }
 
 }

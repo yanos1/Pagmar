@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Xml.Schema;
+using Interfaces;
 using Player;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,7 +8,7 @@ using UnityEngine.Serialization;
 
 namespace Terrain.Environment
 {
-    public class MovingPlatform : MonoBehaviour
+    public class MovingPlatform : MonoBehaviour, IResettable
     {
         [Header("Movement Settings")] 
         [SerializeField] private Vector3 targetOffset;
@@ -37,6 +39,7 @@ namespace Terrain.Environment
         {
             startPos = transform.position;
             targetPos = startPos + targetOffset;
+            
         }
 
         public void MovePlatformExternally()
@@ -50,6 +53,10 @@ namespace Terrain.Environment
         }
         private IEnumerator MovePlatform()
         {
+            if (moveslightlyCor != null)
+            {
+                StopCoroutine(moveslightlyCor);
+            }
             float timer = 0f;
 
             while (timer < moveDuration)
@@ -101,7 +108,7 @@ namespace Terrain.Environment
                 }
 
                 // If not dashing, move gently
-                if (!player.IsDashing)
+                if (!player.IsDashing && moveCoroutine is null)
                 {
                     if (!isGentlyMoving)
                     {
@@ -125,7 +132,7 @@ namespace Terrain.Environment
                     return;
                 
                 if (moveslightlyCor is not null) StopCoroutine(moveslightlyCor);
-                StartCoroutine(MovePlatform());
+                moveCoroutine = StartCoroutine(MovePlatform());
                 nextPlatformMove?.Invoke();
                 hasMoved = true;
             }
@@ -158,9 +165,8 @@ namespace Terrain.Environment
 
         private IEnumerator MoveGentlyDown()
         {
-          
             isGentlyMoving = true;
-
+            nextPlatformMoveGently?.Invoke();
             Vector3 originalPos = transform.position;
             Vector3 downPos = originalPos + Vector3.down * gentleMoveDistance;
 
@@ -170,6 +176,7 @@ namespace Terrain.Environment
                 float t = timer / gentleMoveDuration;
                 float easedT = gentleMoveCurve.Evaluate(t);
                 transform.position = Vector3.Lerp(originalPos, downPos, easedT);
+                print($"lerp pos {transform.position} eased t {easedT} timer {timer} move duration {gentleMoveDuration} % { t}");
                 timer += Time.deltaTime;
                 yield return null;
             }
@@ -193,23 +200,24 @@ namespace Terrain.Environment
         
         private IEnumerator MoveGentlyUp()
         {
-          
+            if (moveCoroutine is not null) yield break;
+
             isGentlyMoving = true;
 
             Vector3 originalPos = transform.position;
-            Vector3 downPos = originalPos + Vector3.down * gentleMoveDistance;
+            Vector3 destination = originalPos + Vector3.up * gentleMoveDistance;
 
             float timer = 0f;
             while (timer < gentleMoveDuration)
             {
                 float t = timer / gentleMoveDuration;
                 float easedT = gentleMoveCurve.Evaluate(t);
-                transform.position = Vector3.Lerp(originalPos, downPos, easedT);
+                transform.position = Vector3.Lerp(originalPos, destination, easedT);
                 timer += Time.deltaTime;
                 yield return null;
             }
 
-            transform.position = downPos;
+            transform.position = destination;
 
             // Return
             timer = 0f;
@@ -217,7 +225,7 @@ namespace Terrain.Environment
             {
                 float t = timer / gentleMoveDuration;
                 float easedT = returnMovementCurve.Evaluate(t);
-                transform.position = Vector3.Lerp(downPos, originalPos, easedT);
+                transform.position = Vector3.Lerp(destination, originalPos, easedT);
                 timer += Time.deltaTime;
                 yield return null;
             }
@@ -241,6 +249,15 @@ namespace Terrain.Environment
             {
                 collision.collider.transform.SetParent(null);
             }
+        }
+
+        public void ResetToInitialState()
+        {
+            StopAllCoroutines();
+            moveCoroutine = null;
+            moveslightlyCor = null;
+            hasMoved = false;
+            transform.position = startPos;
         }
     }
 }

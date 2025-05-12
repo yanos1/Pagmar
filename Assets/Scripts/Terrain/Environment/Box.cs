@@ -48,7 +48,7 @@ namespace Terrain.Environment
                 }
             }
 
-            if (other.gameObject.GetComponent<GuillotineTrap>() is not null)
+            if (other.gameObject.GetComponent<GuillotineTrap>() is { } guil && guil.IsDeadly())
             {
                 e.explode();
                 f.doExplosion(transform.position);

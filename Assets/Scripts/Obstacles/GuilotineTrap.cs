@@ -53,15 +53,13 @@ namespace Obstacles
             {
                 // Go Down (Fast)
                 print(" guil go down!!!");
-
-                currentTween = transform.DOMoveY(transform.position.y - downY, downDuration)
-                    .SetEase(Ease.InQuad); // Fast, snappy drop
                 isGoingDown = true;
+                currentTween = transform.DOMoveY(transform.position.y - downY, downDuration)
+                    .SetEase(Ease.InQuad).OnComplete(() => isGoingDown = false); // Fast, snappy drop
 
                 yield return currentTween.WaitForCompletion();
                 yield return new WaitForSeconds(delayBetweenCycles);
 
-                isGoingDown = false;
                 currentTween = transform.DOMoveY(transform.position.y + upY, upDuration)
                     .SetEase(Ease.OutQuad); // Smooth slow return
                 yield return currentTween.WaitForCompletion();

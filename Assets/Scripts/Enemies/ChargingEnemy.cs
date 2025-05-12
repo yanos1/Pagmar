@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using Managers;
+using Obstacles;
 using Player;
 using SpongeScene;
 using UnityEngine;
@@ -25,6 +27,8 @@ namespace Enemies
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private float groundCheckDistance = 1f;
         [SerializeField] private float wallDetectionDistance = 0.5f;
+        [SerializeField] private Explodable e;
+        [SerializeField] private ExplosionForce f;
 
         private bool isCharging = false;
         private bool isPreparingCharge = false;
@@ -62,6 +66,14 @@ namespace Enemies
                 currentDirection = transform.position.x > player.transform.position.x ? Vector2.left : Vector2.right;
                 StartCoroutine(PrepareCharge(currentDirection));
             }
+
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 1, groundLayer);
+            if (hit.collider is not null && hit.collider.gameObject.GetComponent<GuillotineTrap>() is not null)
+            {
+                e.explode();
+                f.doExplosion(transform.position);
+                ResetToInitialState();
+            }
         }
 
         private bool ShouldPrepareCharge(float distanceToPlayer)
@@ -71,7 +83,7 @@ namespace Enemies
                    !isCharging &&
                    !isPreparingCharge &&
                    player.transform.position.y < transform.position.y + 0.5f &&
-                   !hit;
+                   !hit && !player.IsDead;
         }
 
         private void FlipTowardsPlayer()

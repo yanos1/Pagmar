@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using Interfaces;
@@ -19,9 +20,9 @@ namespace Obstacles
         public float delayBetweenCycles = 1f;
 
         [SerializeField] private Trigger _trigger;
-
         private bool isActive = false;
-        private Coroutine routine;
+        private Coroutine moveRoutine;
+        private Coroutine waitRoutine;
         private Tween currentTween;
         private Vector3 startingPos;
         private bool isGoingDown = false;
@@ -29,9 +30,8 @@ namespace Obstacles
         private void Start()
         {
             startingPos = transform.position;
-            StartCoroutine(WaitTrigger());
+           waitRoutine =  StartCoroutine(WaitTrigger());
         }
-
         private IEnumerator WaitTrigger()
         {
             while (!isActive)
@@ -42,7 +42,7 @@ namespace Obstacles
                 {
                     print("activate guil!!!");
                     isActive = true;
-                    this.StopAndStartCoroutine(ref routine, GuillotineCycle());
+                    this.StopAndStartCoroutine(ref moveRoutine, GuillotineCycle());
                 }
             }
         }
@@ -80,15 +80,19 @@ namespace Obstacles
 
         public void ResetToInitialState()
         {
-            if (routine is not null)
+            if (moveRoutine is not null)
             {
-                StopCoroutine(routine);
-                routine = null;
+                StopCoroutine(moveRoutine);
+                moveRoutine = null;
             }
             
             currentTween?.Kill();
             isActive = false;
             transform.position = startingPos;
+            if (waitRoutine is not null)
+            {
+                StopCoroutine(waitRoutine);
+            }
             StartCoroutine(WaitTrigger());
         }
     }

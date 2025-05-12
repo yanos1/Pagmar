@@ -27,7 +27,7 @@ namespace Managers
             {
                 print("no winner no loser! 55");
                 Vector2 dirA = (a.transform.position - b.transform.position).normalized;
-                dirA = new Vector2(dirA.x, 0);
+                dirA = new Vector2(dirA.x, 0.3f);
                 Vector2 dirB = -dirA;
 
                 a.ApplyKnockback(dirA, baseForce);

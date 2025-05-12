@@ -20,6 +20,12 @@ namespace Triggers
                 isTriggered = true;
             }
         }
+
+        public override void ResetToInitialState()
+        {
+            base.ResetToInitialState();
+            triggered = 0;
+        }
     }
     
 }

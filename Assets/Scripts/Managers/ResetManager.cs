@@ -44,6 +44,7 @@ namespace Managers
 
         public void ResetAll(object obj, bool restoreCheckpoint = true)
         {
+            print("reset all !!!!!");
             foreach (var r in resettables)
             {
                 r.ResetToInitialState();

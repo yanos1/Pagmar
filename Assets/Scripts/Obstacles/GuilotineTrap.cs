@@ -1,6 +1,8 @@
 using System.Collections;
 using DG.Tweening;
 using Interfaces;
+using SpongeScene;
+using Triggers;
 using UnityEngine;
 
 // From Feel/DoTween
@@ -16,10 +18,10 @@ namespace Obstacles
         public float upDuration = 1.5f;
         public float delayBetweenCycles = 1f;
 
-        [Header("Trigger Settings")]
-        public string triggeringTag = "Player";
+        [SerializeField] private Trigger _trigger;
 
         private bool isActive = false;
+        private Coroutine routine;
         private Tween currentTween;
         private Vector3 startingPos;
         private bool isGoingDown = false;
@@ -27,22 +29,31 @@ namespace Obstacles
         private void Start()
         {
             startingPos = transform.position;
+            StartCoroutine(WaitTrigger());
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private IEnumerator WaitTrigger()
         {
-            if (!isActive && collision.CompareTag(triggeringTag))
+            while (!isActive)
             {
-                isActive = true;
-                StartCoroutine(GuillotineCycle());
+                yield return new WaitForSeconds(0.5f);
+                print($"triggered: {_trigger.IsTriggered}");
+                if (_trigger.IsTriggered)
+                {
+                    print("activate guil!!!");
+                    isActive = true;
+                    this.StopAndStartCoroutine(ref routine, GuillotineCycle());
+                }
             }
         }
-
+        
         IEnumerator GuillotineCycle()
         {
             while (isActive)
             {
                 // Go Down (Fast)
+                print(" guil go down!!!");
+
                 currentTween = transform.DOMoveY(transform.position.y - downY, downDuration)
                     .SetEase(Ease.InQuad); // Fast, snappy drop
                 isGoingDown = true;
@@ -66,13 +77,21 @@ namespace Obstacles
 
         public bool IsDeadly()
         {
-            return isActive;
+            return isGoingDown;
         }
 
         public void ResetToInitialState()
         {
+            if (routine is not null)
+            {
+                StopCoroutine(routine);
+                routine = null;
+            }
+            
+            currentTween?.Kill();
             isActive = false;
             transform.position = startingPos;
+            StartCoroutine(WaitTrigger());
         }
     }
 }

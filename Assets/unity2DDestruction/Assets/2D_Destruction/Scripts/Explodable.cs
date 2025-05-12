@@ -50,7 +50,15 @@ public class Explodable : MonoBehaviour, IResettable
         {
             print("ORIGINAL COLLIDER TURN OFF");
             GetComponent<Collider2D>().enabled = false;
-            GetComponent<SpriteRenderer>().color = Color.clear;
+            // make invis
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            if (sr != null)
+            {
+                Color c = sr.color;
+                c.a = 0f;
+                sr.color = c;
+            }
+
         }
     }
     /// <summary>
@@ -181,8 +189,17 @@ public class Explodable : MonoBehaviour, IResettable
     public void ResetToInitialState()
     {
         GetComponent<Collider2D>().enabled = true;
-        GetComponent<SpriteRenderer>().color = Color.grey;
+
+        // make colorful again
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            Color c = sr.color;
+            c.a = 1f;
+            sr.color = c;
+        }
 
         deleteFragments();
     }
+
 }

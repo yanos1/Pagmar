@@ -1,10 +1,11 @@
 ﻿using System;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Triggers
 {
-    public abstract class Trigger : MonoBehaviour
+    public abstract class Trigger : MonoBehaviour, IResettable
     {
         protected bool isTriggered;
         [SerializeField] protected String trigger;
@@ -18,6 +19,10 @@ namespace Triggers
         }
 
         public bool IsTriggered => isTriggered;
-        
+
+        public virtual void ResetToInitialState()
+        {
+            isTriggered = false;
+        }
     }
 }

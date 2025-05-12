@@ -75583,6 +75583,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8579202147556003344, guid: e42973d1f177733428d3cba30208dc40, type: 3}
+      propertyPath: newStage
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5599913365577674347, guid: e42973d1f177733428d3cba30208dc40, type: 3}
@@ -76098,6 +76102,10 @@ PrefabInstance:
     - target: {fileID: 1446747246893698919, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
       propertyPath: managedReferences[5373309001589850398].AnimatePositionTarget
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2441315751401867947, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
+      propertyPath: newStage
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3586867183549839425, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
       propertyPath: m_Name

@@ -111,6 +111,10 @@ namespace Player
         public void SetPlayerStage(PlayerStage stage)
         {
             playerStage = stage;
+            if (stage == PlayerStage.Teen)
+            {
+                _playerMovement.enableAdvancedDash = true;
+            }
         }
 
         private void ApplyScaleForStage(PlayerStage stage)

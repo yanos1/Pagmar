@@ -40,8 +40,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashEndTime = 0.15f;
     [SerializeField] private float dashEndSpeed = 50f;
     [SerializeField] private float dashCoolDownTime = 1f;
-    [SerializeField] private bool enableDash = true;
-    [SerializeField] private bool enableAdvancedDash = false;
+    public bool enableDash = true;
+    public bool enableAdvancedDash = false;
 
     [Header("CammeraFollowObject")]
     [SerializeField] private CameraFollowObject _cameraFollowObject;

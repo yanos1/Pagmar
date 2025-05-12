@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 using JetBrains.Annotations;
 using Managers;
 using NPC;
@@ -56,6 +57,7 @@ namespace Player
             if (CoreManager.Instance != null)
             {
                 CoreManager.Instance.Player = this;
+                print("player 9- in position");
             }
 
             ApplyScaleForStage(_playerStage);
@@ -85,6 +87,14 @@ namespace Player
                     RammerManager.Instance.ResolveRam(this, rammer);
                     print("{ram!! 987");
                 }
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.GetComponent<IKillPlayer>() is { } killPlayer && killPlayer.IsDeadly())
+            {
+                CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
             }
         }
 

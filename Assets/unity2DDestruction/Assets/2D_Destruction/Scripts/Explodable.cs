@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Interfaces;
 using UnityEditor;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Explodable : MonoBehaviour
+public class Explodable : MonoBehaviour, IResettable
 {
     public System.Action<List<GameObject>> OnFragmentsGenerated;
 
@@ -47,7 +48,9 @@ public class Explodable : MonoBehaviour
         //if fragments exist destroy the original
         if (fragments.Count > 0)
         {
-            gameObject.SetActive(false);
+            print("ORIGINAL COLLIDER TURN OFF");
+            GetComponent<Collider2D>().enabled = false;
+            GetComponent<SpriteRenderer>().color = Color.clear;
         }
     }
     /// <summary>
@@ -173,5 +176,13 @@ public class Explodable : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ResetToInitialState()
+    {
+        GetComponent<Collider2D>().enabled = true;
+        GetComponent<SpriteRenderer>().color = Color.grey;
+
+        deleteFragments();
     }
 }

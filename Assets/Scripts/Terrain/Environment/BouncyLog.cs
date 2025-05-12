@@ -46,9 +46,11 @@ namespace Terrain.Environment
 
         public void ResetToInitialState()
         {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0;
+            transform.rotation = Quaternion.identity;
             rb.bodyType = RigidbodyType2D.Kinematic;
             transform.position = startingPos;
-            transform.rotation = Quaternion.identity;
         }
     }
 }

@@ -21,15 +21,14 @@ namespace Terrain.Environment
             startingPos = transform.position;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.GetComponent<PlayerMovement>() is { } player && player.IsDashing)
-            {
-                rb.bodyType = RigidbodyType2D.Dynamic;
-                rb.gravityScale = 1.5f;
-                StartCoroutine(ApplyTemporaryVelocity(Vector2.left, 1f, 0.5f));
-            }
-        }
+        // private void OnTriggerEnter2D(Collider2D other)
+        // {
+        //     if (other.GetComponent<PlayerMovement>() is { } player && player.IsDashing)
+        //     {
+        //         rb.bodyType = RigidbodyType2D.Dynamic;
+        //         rb.gravityScale = 1.5f;
+        //     }
+        // }
 
         private System.Collections.IEnumerator ApplyTemporaryVelocity(Vector2 direction, float speed, float duration)
         {
@@ -57,10 +56,9 @@ namespace Terrain.Environment
         public virtual void ResetToInitialState()
         {
             
-            gameObject.SetActive(true);
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
-            rb.bodyType = RigidbodyType2D.Kinematic; 
+            // rb.bodyType = RigidbodyType2D.Kinematic; 
             transform.position = startingPos;
             transform.rotation = Quaternion.identity;
         }

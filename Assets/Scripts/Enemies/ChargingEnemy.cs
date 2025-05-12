@@ -15,7 +15,7 @@ namespace Enemies
         public float rotationAmount = 10f;
         public float rotationSpeed = 5f;
         public float minDistanceActivation = 3f;
-        private PlayerManager player;
+       [SerializeField] private PlayerManager player;
 
         [SerializeField] private AudioSource src;
         [SerializeField] private AudioClip charge;
@@ -37,7 +37,6 @@ namespace Enemies
         public override void Start()
         {
             base.Start();
-            player = CoreManager.Instance.Player;
             CurrentForce = 0f;
             spriteRenderer = GetComponent<SpriteRenderer>();
             _rb = GetComponent<Rigidbody2D>();
@@ -45,21 +44,21 @@ namespace Enemies
 
         void Update()
         {
-            if (player == null)
+            if (player is null)
             {
-                Debug.LogWarning("Player reference is missing!");
                 return;
             }
-
+            
             if (!isCharging)
             {
                 FlipTowardsPlayer();
             }
 
             float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-
+            print($"distance to player is {distanceToPlayer} 9-");
             if (ShouldPrepareCharge(distanceToPlayer))
             {
+                print("should prepare charge 9-");
                 currentDirection = transform.position.x > player.transform.position.x ? Vector2.left : Vector2.right;
                 StartCoroutine(PrepareCharge(currentDirection));
             }
@@ -91,7 +90,7 @@ namespace Enemies
         IEnumerator PrepareCharge(Vector2 dir)
         {
             if (isPreparingCharge) yield break;
-            print("prepare charge");
+            print("prepare charge 9-");
             isPreparingCharge = true;
             yield return new WaitForSeconds(chargeDelay);
             isPreparingCharge = false;
@@ -123,7 +122,7 @@ namespace Enemies
 
         private void StartCharging()
         {
-            print("start charge");
+            print("start charge 9-");
 
             src.clip = charge;
             src.Play();

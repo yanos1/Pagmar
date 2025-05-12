@@ -13,7 +13,8 @@ public class ExplosionForce : MonoBehaviour {
     /// </summary>
     /// <param name="position">location of the explosion</param>
 	public void doExplosion(Vector3 position){
-		transform.localPosition = position;
+		// transform.localPosition = position;
+		print("try explode!!");
 		StartCoroutine(waitAndExplode());
 	}
 
@@ -23,12 +24,17 @@ public class ExplosionForce : MonoBehaviour {
     /// <returns></returns>
 	private IEnumerator waitAndExplode(){
 		yield return new WaitForFixedUpdate();
-		
+	    print("rry explode levle 2 !!");
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position,radius);
-     
+		print($"found {colliders.Length} colliders to explode!!");
 		foreach(Collider2D coll in colliders){
 			if(coll.GetComponent<Rigidbody2D>()&&coll.name!="hero"){
+				print("can explode!!");
                 AddExplosionForce(coll.GetComponent<Rigidbody2D>(), force, transform.position, radius, upliftModifer);
+			}
+			else
+			{
+				print( "cant explode!!");
 			}
 		}
 	}
@@ -43,6 +49,7 @@ public class ExplosionForce : MonoBehaviour {
     /// <param name="upliftModifier">factor of additional upward force</param>
     private void AddExplosionForce(Rigidbody2D body, float explosionForce, Vector3 explosionPosition, float explosionRadius, float upliftModifier = 0)
 	{
+		print("EXPLODE!!!");
 		var dir = (body.transform.position - explosionPosition);	
 		float wearoff = 1 - (dir.magnitude / explosionRadius);
         Vector3 baseForce = dir.normalized * explosionForce * wearoff;

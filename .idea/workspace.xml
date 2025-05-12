@@ -5,26 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d3d910bc-5473-41e6-afe0-169400ccc020" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/CameraControlTrigger.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/CameraControlTrigger.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Editor.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Camera/CameraControlTrigger.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Camera/CameraControlTrigger.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Background/BurntTree_0.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Background/BurntTree_0.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Background/FallingStone (1).prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Background/FallingStone (1).prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Background/logbig_0.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Background/logbig_0.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Terrain/Environment/ShakyTree.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Terrain/Environment/ShakyTree.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/PlaceHolders/BurntTree.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/PlaceHolders/BurntTree.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Ground/Environment/FallingStone.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Ground/Environment/FallingStone.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Interactables.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Environment.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Interactables/BreakableTerrain.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Environment/BreakableTerrain.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Interactables/BreakableTerrain.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Environment/BreakableTerrain.prefab.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Underground.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Underground.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Camera/CameraManager - Copy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Camera/CameraManager - Copy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/bigrock.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/bigrock.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/branch1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/branch1.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/branch2.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/branch2.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/grass1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/grass1.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/grass2.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/grass2.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/grass3.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/grass3.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/grass4.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/grass4.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/grass5.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/grass5.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/midrock.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/midrock.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/platform.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Environment/underground/platform.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/ChargingEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/ChargingEnemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Terrain/Environment/BouncyLog.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Terrain/Environment/BouncyLog.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Terrain/Environment/FallingStone.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Terrain/Environment/FallingStone.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/PlaceHolders/logbig.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/PlaceHolders/logbig.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/unity2DDestruction/Assets/2D_Destruction/Demo/Demo Scripts/ExplosionForce.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/unity2DDestruction/Assets/2D_Destruction/Demo/Demo Scripts/ExplosionForce.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/unity2DDestruction/Assets/2D_Destruction/Scripts/Explodable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/unity2DDestruction/Assets/2D_Destruction/Scripts/Explodable.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,27 +39,27 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2wbZUz4I3f1E1nDX5XOWLk1OK8x" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Merging main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Merging main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -67,6 +69,7 @@
       <option name="presentableId" value="Default" />
       <updated>1746312256162</updated>
       <workItem from="1746312258878" duration="332000" />
+      <workItem from="1747053601429" duration="8000" />
     </task>
     <servers />
   </component>

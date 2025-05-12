@@ -4484,6 +4484,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+--- !u!114 &633010210 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8509487364657399828, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+  m_PrefabInstance: {fileID: 633010209}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 090d62f9f4094954b0269c4730549eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &645415388
 GameObject:
   m_ObjectHideFlags: 0
@@ -7179,7 +7190,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.09, y: 1.2}
+    oldSize: {x: 6.283951, y: 1.4814814}
     newSize: {x: 5.09, y: 1.2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -69336,7 +69347,7 @@ PrefabInstance:
     - target: {fileID: 8573938395430417148, guid: 1816e3d660f7c2f418f7a131f47e82c9, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 470456556}
+      objectReference: {fileID: 633010210}
     - target: {fileID: 8573938395430417148, guid: 1816e3d660f7c2f418f7a131f47e82c9, type: 3}
       propertyPath: chargeDelay
       value: 2
@@ -73904,7 +73915,7 @@ PrefabInstance:
     - target: {fileID: 8573938395430417148, guid: 1816e3d660f7c2f418f7a131f47e82c9, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 470456556}
+      objectReference: {fileID: 633010210}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

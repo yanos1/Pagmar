@@ -19,11 +19,15 @@ namespace Player
         private Rigidbody2D _rb;
         private Coroutine injuryCoroutine;
         private bool isInjured = false;
-
-        public bool InputEnabled = true;
-        public void DisableInput() => InputEnabled = false;
-        public void EnableInput() => InputEnabled = true;
+        private bool isDead = false;
+        private bool inputEnabled = true;
+        public bool InputEnabled => inputEnabled;
+        public void DisableInput() => inputEnabled = false;
+        public void EnableInput() => inputEnabled = true;
         public bool IsInjured => isInjured;
+        
+        public bool IsDead => isDead;
+
 
         public PlayerStage playerStage
         {
@@ -79,6 +83,7 @@ namespace Player
                 if (dot > 0.8f) // horizontal impact check
                 {
                     RammerManager.Instance.ResolveRam(this, rammer);
+                    print("{ram!! 987");
                 }
             }
         }
@@ -90,7 +95,7 @@ namespace Player
                 CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
             }
 
-            if (!InputEnabled && _rb.linearVelocity.magnitude < 2f)
+            if (!isDead && !InputEnabled && _rb.linearVelocity.magnitude < 2f)
             {
                 EnableInput();
             }
@@ -147,10 +152,14 @@ namespace Player
         private IEnumerator DieAfterDelay()
         {
             DisableInput();
+            isDead = true;
+            print($"input enabled: {InputEnabled}");
             yield return new WaitForSeconds(2f);
             CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
             EnableInput();
+            print($"input enabled: {InputEnabled}");
             isInjured = false;
+            isDead = false;
         }
 
         private IEnumerator InjuryTimer()
@@ -169,16 +178,17 @@ namespace Player
         {
             if (_rb != null)
             {
+                _rb.linearVelocity = Vector2.zero;
                 _rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
                 Debug.Log($"Add force on player: {force} in dir {direction.normalized}");
             }
-            Debug.Log("Called knockback on player");
         }
 
         public void SetForce()
         {
             CurrentForce = playerStage switch
             {
+                PlayerStage.Young => 0f,
                 PlayerStage.Teen => 1f,
                 PlayerStage.Adult => 2f,
                 _ => 0f

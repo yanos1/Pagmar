@@ -272,6 +272,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090d62f9f4094954b0269c4730549eec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerStage: 1
+  knockbackStrength: 50
+  injuredDuration: 5
+  InputEnabled: 1
 --- !u!1 &61674883
 GameObject:
   m_ObjectHideFlags: 0
@@ -1889,6 +1893,18 @@ PrefabInstance:
       propertyPath: _cameraFollowObject
       value: 
       objectReference: {fileID: 647972400}
+    - target: {fileID: 5662022951266685875, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: groundLayers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662022951266685875, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: groundLayers.Array.data[0].m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662022951266685875, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: groundLayers.Array.data[1].m_Bits
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8185278169048737288, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_Name
       value: Player Variant

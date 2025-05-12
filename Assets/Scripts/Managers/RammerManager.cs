@@ -21,16 +21,17 @@ namespace Managers
         {
             float forceA = a.CurrentForce;
             float forceB = b.CurrentForce;
-
+            print($"{a.CurrentForce} {b.CurrentForce}");
             // If same force, both knockback
             if (Mathf.Approximately(forceA, forceB))
             {
+                print("no winner no loser! 55");
                 Vector2 dirA = (a.transform.position - b.transform.position).normalized;
                 dirA = new Vector2(dirA.x, 0);
                 Vector2 dirB = -dirA;
 
-                a.ApplyKnockback(dirA, forceA * baseForce);
-                b.ApplyKnockback(dirB, forceB * baseForce);
+                a.ApplyKnockback(dirA, baseForce);
+                b.ApplyKnockback(dirB, baseForce);
 
                 return;
             }
@@ -39,7 +40,7 @@ namespace Managers
             Rammer winner = forceA > forceB ? a : b;
             Rammer loser = forceA > forceB ? b : a;
             print($"rammer is {winner} 55 ");
-            print($"rammed is {winner} 55");
+            print($"rammed is {loser} 55");
             float winnerForce = Mathf.Max(forceA, forceB);
             float loserForce = Mathf.Min(forceA, forceB);
 

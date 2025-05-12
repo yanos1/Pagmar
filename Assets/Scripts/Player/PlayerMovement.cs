@@ -95,7 +95,10 @@ public class PlayerMovement : MonoBehaviour
         LastOnGroundTime += Time.deltaTime;
 
         if (!_isDashAttacking && !isWallJumping && !isWallSliding && player.InputEnabled)
+        {
+            print($"input enabled: {player.InputEnabled} so i can move!");
             Move();
+        }
 
         CheckIfGrounded();
         CheckIfFalling();

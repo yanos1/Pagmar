@@ -2033,6 +2033,7 @@ Transform:
   - {fileID: 541852779}
   - {fileID: 1959318647}
   - {fileID: 1464128270}
+  - {fileID: 1935539104}
   - {fileID: 1192590205}
   - {fileID: 648587597}
   - {fileID: 1053549314}
@@ -73242,6 +73243,96 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!1001 &1935539103
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 346865825}
+    m_Modifications:
+    - target: {fileID: 1241087269404042041, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: m_Size.y
+      value: 6.0599203
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241087269404042041, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: m_Offset.y
+      value: 1.0417476
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648803552949502452, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: m_Name
+      value: CameraControlTriggerAfterSheep
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598407459085447982, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: customInspectorObjects.cameraOnUp
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598407459085447982, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: customInspectorObjects.swapCameras
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598407459085447982, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: customInspectorObjects.cameraOnDown
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598407459085447982, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: customInspectorObjects.cameraOnLeft
+      value: 
+      objectReference: {fileID: 1008127275}
+    - target: {fileID: 6598407459085447982, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: customInspectorObjects.cameraOnRight
+      value: 
+      objectReference: {fileID: 937769048}
+    - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 122.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -60.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -49.161873
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+--- !u!4 &1935539104 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
+  m_PrefabInstance: {fileID: 1935539103}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1938948131
 Mesh:
   m_ObjectHideFlags: 0
@@ -73451,7 +73542,7 @@ PrefabInstance:
     - target: {fileID: 6598407459085447982, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: customInspectorObjects.cameraOnDown
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 937769048}
     - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 152.28903

@@ -97,17 +97,13 @@ public class PlayerMovement : MonoBehaviour
         LastOnGroundTime += Time.deltaTime;
 
         if (!_isDashAttacking && !isWallJumping && !isWallSliding && player.InputEnabled)
-        {
-            print($"input enabled: {player.InputEnabled} so i can move!");
             Move();
-        }
 
         CheckIfGrounded();
         CheckIfFalling();
 
         isTouchingWall = IsTouchingWall();
-        // Disable dash when touching a wall
-        if (isTouchingWall) _canDash = false;
+        WallSlide();
 
         if (isWallJumping)
         {
@@ -118,9 +114,8 @@ public class PlayerMovement : MonoBehaviour
                 _rb.gravityScale = regularGravity;
             }
         }
-
-        WallSlide();
     }
+
 
     private void CheckIfFalling()
     {
@@ -185,6 +180,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!player.InputEnabled || !enableDash) return;
 
+        bool isBlockedWallSlide = isWallSliding && Mathf.Abs(_moveInputX) > 0.1f && _rb.linearVelocity.y < -1f;
+        if (isBlockedWallSlide) return;
+
         if (context.started && CanDash())
         {
             Vector2 dir = _isFacingRight ? Vector2.right : Vector2.left;
@@ -208,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(nameof(StartDash), _lastDashDir);
         }
     }
+
 
 
 

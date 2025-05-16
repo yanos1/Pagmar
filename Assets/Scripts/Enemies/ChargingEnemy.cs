@@ -17,26 +17,32 @@ namespace Enemies
         public float rotationAmount = 10f;
         public float rotationSpeed = 5f;
         public float minDistanceActivation = 3f;
-       [SerializeField] private PlayerManager player;
+        [SerializeField] private PlayerManager player;
 
         [SerializeField] private AudioSource src;
         [SerializeField] private AudioClip charge;
         [SerializeField] private AudioClip growl;
 
-        [Header("Ground Detection")]
-        [SerializeField] private LayerMask groundLayer;
+        [Header("Ground Detection")] [SerializeField]
+        private LayerMask groundLayer;
+
         [SerializeField] private float groundCheckDistance = 1f;
         [SerializeField] private float wallDetectionDistance = 0.5f;
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
 
-        private bool isCharging = false;
+
         private bool isPreparingCharge = false;
         private float rotationTimer = 0f;
         private SpriteRenderer spriteRenderer;
         private Rigidbody2D _rb;
+        private Collider2D _col;
+        private Coroutine flipCoroutine;
+        private Coroutine chargeCoroutine;
+        private int currentColIndex = 0;
         private Vector2 currentDirection;
         private bool hit = false;
+        private bool isKnockbacked = false;
 
         public override void Start()
         {
@@ -44,6 +50,7 @@ namespace Enemies
             CurrentForce = 0f;
             spriteRenderer = GetComponent<SpriteRenderer>();
             _rb = GetComponent<Rigidbody2D>();
+            _col = GetComponent<BoxCollider2D>();
         }
 
         void Update()
@@ -52,17 +59,17 @@ namespace Enemies
             {
                 return;
             }
-            
-            if (!isCharging)
+
+
+            float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+            if (!IsCharging && distanceToPlayer < detectionRange * 1.5f)
             {
                 FlipTowardsPlayer();
             }
 
-            float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-            print($"distance to player is {distanceToPlayer} 9-");
             if (ShouldPrepareCharge(distanceToPlayer))
             {
-                print("should prepare charge 9-");
+                isPreparingCharge = true;
                 currentDirection = transform.position.x > player.transform.position.x ? Vector2.left : Vector2.right;
                 StartCoroutine(PrepareCharge(currentDirection));
             }
@@ -80,10 +87,10 @@ namespace Enemies
         {
             return distanceToPlayer > minDistanceActivation &&
                    distanceToPlayer < detectionRange &&
-                   !isCharging &&
+                   !IsCharging &&
                    !isPreparingCharge &&
                    player.transform.position.y < transform.position.y + 0.5f &&
-                   !hit && !player.IsDead;
+                   !hit && !player.IsDead && !isKnockbacked;
         }
 
         private void FlipTowardsPlayer()
@@ -95,28 +102,41 @@ namespace Enemies
 
         private void FlipSprite(Vector2 direction)
         {
-            if (spriteRenderer != null)
-                spriteRenderer.flipX = direction.x > 0;
+            bool newFlipX = direction.x > 0;
+
+            // Only apply flip logic if it actually changes
+            if (spriteRenderer.flipX != newFlipX && flipCoroutine is null)
+            {
+                flipCoroutine = StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.5f, () =>
+                {
+                    print($"old 87 {_col.offset}");
+                    spriteRenderer.flipX = newFlipX;
+                    var currentOffset = _col.offset;
+                    currentOffset.x *= -1;
+                    _col.offset = currentOffset;
+                    print($"new 87 {_col.offset}");
+                    flipCoroutine = null;
+                }));
+            }
         }
 
         IEnumerator PrepareCharge(Vector2 dir)
         {
-            if (isPreparingCharge) yield break;
-            print("prepare charge 9-");
-            isPreparingCharge = true;
             yield return new WaitForSeconds(chargeDelay);
+            print("READY TO CHARGE AGAIN -9");
             isPreparingCharge = false;
-            StartCoroutine(PerformCharge(dir));
+
+            this.StopAndStartCoroutine(ref chargeCoroutine, PerformCharge(dir));
         }
 
         IEnumerator PerformCharge(Vector2 dir)
         {
+            print("perofrming charge");
             StartCharging();
             float timer = 0f;
 
-            while (isCharging && timer < chargeDuration && !HitWall())
-            { 
-                
+            while (IsCharging && timer < chargeDuration && !HitWall())
+            {
                 MoveAndRotate(dir);
                 timer += Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate();
@@ -127,6 +147,7 @@ namespace Enemies
                     break;
                 }
             }
+
             print("exited while loop ");
             print($"timer : {timer} charge time {chargeDuration}");
             StopCharging();
@@ -138,28 +159,27 @@ namespace Enemies
 
             src.clip = charge;
             src.Play();
-            isCharging = true;
+            IsCharging = true;
             CurrentForce = 1;
         }
 
         private void StopCharging()
         {
             print("stop charge");
-            isCharging = false;
+            IsCharging = false;
             CurrentForce = 0;
             transform.rotation = Quaternion.identity;
         }
 
         private bool HitWall()
         {
-            Vector2 origin = (Vector2)transform.position + Vector2.up  + currentDirection * 0.5f;
+            Vector2 origin = (Vector2)transform.position + Vector2.up + currentDirection;
             RaycastHit2D hit = Physics2D.Raycast(origin, currentDirection, wallDetectionDistance, groundLayer);
             return hit.collider != null;
         }
 
         private void MoveAndRotate(Vector2 dir)
         {
-            print("move!");
             transform.position += (Vector3)dir * (chargeSpeed * Time.fixedDeltaTime);
             RotateEnemy();
         }
@@ -167,7 +187,20 @@ namespace Enemies
         void FixedUpdate()
         {
             if (player != null && player.IsDead) StopAllCoroutines();
-            if (!isCharging) CheckForGround();
+            if (!IsCharging && !isKnockbacked) CheckForGround();
+            ResetIfKnockbackOver();
+        }
+
+        private void ResetIfKnockbackOver()
+        {
+            if (isKnockbacked && _rb.linearVelocity.magnitude < 1)
+            {
+                _rb.linearVelocity = Vector2.zero;
+                _rb.angularVelocity = 0;
+
+                _rb.bodyType = RigidbodyType2D.Kinematic;
+                isKnockbacked = false;
+            }
         }
 
         private void RotateEnemy()
@@ -179,7 +212,8 @@ namespace Enemies
 
         private void CheckForGround()
         {
-            RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
+            RaycastHit2D hitInfo =
+                Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
             if (!hitInfo.collider)
             {
                 _rb.bodyType = RigidbodyType2D.Dynamic;
@@ -196,11 +230,11 @@ namespace Enemies
         public override void ResetToInitialState()
         {
             base.ResetToInitialState();
-
+            CurrentForce = 0;
             src.Stop();
             src.clip = null;
 
-            isCharging = false;
+            IsCharging = false;
             isPreparingCharge = false;
             hit = false;
 
@@ -223,7 +257,7 @@ namespace Enemies
 
         public void SpecialNpcRam()
         {
-            isCharging = false;
+            IsCharging = false;
             hit = true;
             src.Stop();
             _rb.bodyType = RigidbodyType2D.Dynamic;
@@ -245,22 +279,25 @@ namespace Enemies
             isPreparingCharge = false;
             StopAllCoroutines();
 
-            var col = GetComponent<Collider2D>();
-            if (col != null)
-                col.enabled = false;
 
-            StartCoroutine(UtilityFunctions.FadeImage(spriteRenderer, 1, 0.5f, 0.5f, () =>
-            {
-                StartCoroutine(UtilityFunctions.FadeImage(spriteRenderer, 0.5f, 1f, 0.5f, () =>
+            _col.enabled = false;
+
+            StartCoroutine(UtilityFunctions.FadeImage(spriteRenderer, 1, 0.5f, 0.5f,
+                () =>
                 {
-                    if (col != null) col.enabled = true;
+                    StartCoroutine(UtilityFunctions.FadeImage(spriteRenderer, 0.5f, 1f, 0.5f,
+                        () => { _col.enabled = true; }));
                 }));
-            }));
         }
 
         public override void ApplyKnockback(Vector2 direction, float force)
         {
-            print($"add force to enemy {force } dir: {direction.normalized}");
+            print($"add force to enemy {force} dir: {direction.normalized}");
+            StopCharging();
+            isKnockbacked = true;
+            _col.enabled = false;
+            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.07f, () => _col.enabled = true));
+            _rb.bodyType = RigidbodyType2D.Dynamic;
             _rb?.AddForce(direction.normalized * force, ForceMode2D.Impulse);
         }
     }

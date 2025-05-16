@@ -133,7 +133,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.64, y: 0.49}
+  m_Size: {x: 0.4, y: 0.49}
   m_EdgeRadius: 0
 --- !u!114 &4529694694190258477
 MonoBehaviour:
@@ -148,4 +148,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beamSprite: {fileID: 9205617780519560054}
+  delayBeforeFirstBeam: 0
   interval: 2.5

@@ -9,8 +9,8 @@ namespace Managers
     public class RammerManager : MonoBehaviour
     {
         public static RammerManager Instance;
-        
-        [SerializeField] private float baseForce = 30f;
+
+        [SerializeField] private float baseForce;
 
         private void Awake()
         {
@@ -27,8 +27,8 @@ namespace Managers
             {
                 print("no winner no loser! 55");
                 Vector2 dirA = (a.transform.position - b.transform.position).normalized;
-                dirA = new Vector2(dirA.x, 0.3f);
-                Vector2 dirB = -dirA;
+                dirA = new Vector2(dirA.x, 0.5f);
+                Vector2 dirB = new Vector2(-dirA.x, 0.5f);
 
                 a.ApplyKnockback(dirA, baseForce);
                 b.ApplyKnockback(dirB, baseForce);
@@ -50,7 +50,7 @@ namespace Managers
             
             // Knockback loser
             Vector2 direction = (loser.transform.position - winner.transform.position).normalized;
-            loser.ApplyKnockback(new Vector2(direction.x, 0), (winnerForce-loserForce) * baseForce);
+            loser.ApplyKnockback(new Vector2(direction.x, 0.5f), (winnerForce-loserForce) * baseForce);
         }
     }
 

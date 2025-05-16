@@ -21,11 +21,13 @@ namespace Player
         private Coroutine injuryCoroutine;
         private bool isInjured = false;
         private bool isDead = false;
+        private bool isKnockbacked = false;
         private bool inputEnabled = true;
         public bool InputEnabled => inputEnabled;
         public void DisableInput() => inputEnabled = false;
         public void EnableInput() => inputEnabled = true;
         public bool IsInjured => isInjured;
+        public bool IsKnockBacked => isKnockbacked;
         
         public bool IsDead => isDead;
 
@@ -50,6 +52,7 @@ namespace Player
 
         private void Start()
         {
+            
             CurrentForce = 0;
             _rb = GetComponent<Rigidbody2D>();
             _playerMovement = GetComponent<PlayerMovement>();
@@ -77,12 +80,22 @@ namespace Player
                 return;
             }
 
-            if (other.gameObject.GetComponent<Rammer>() is { } rammer)
+            CheckForRam(other);
+        }
+
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            CheckForRam(other);
+        }
+
+        private void CheckForRam(Collision2D other)
+        {
+            if (other.gameObject.GetComponent<Rammer>() is { } rammer && rammer.IsCharging)
             {
                 Vector2 directionToPlayer = (transform.position - rammer.transform.position).normalized;
                 float dot = Mathf.Abs(Vector2.Dot(directionToPlayer, Vector2.right));
 
-                if (dot > 0.8f) // horizontal impact check
+                if (dot > 0.4f) // horizontal impact check
                 {
                     RammerManager.Instance.ResolveRam(this, rammer);
                     print("{ram!! 987");
@@ -105,9 +118,20 @@ namespace Player
                 CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
             }
 
-            if (!isDead && !InputEnabled && _rb.linearVelocity.magnitude < 2f)
+            else if (Input.GetKey(KeyCode.F1))
+            {
+                _playerStage = PlayerStage.Teen;
+            }
+            else if (Input.GetKey(KeyCode.F2))
+            {
+                _playerStage = PlayerStage.Adult;
+            }
+            
+            if (!isDead && !InputEnabled && _rb.linearVelocity.magnitude < 5f)
             {
                 EnableInput();
+                isKnockbacked = false;
+
             }
         }
 
@@ -148,7 +172,6 @@ namespace Player
 
         public override void OnRammed(float fromForce)
         {
-            DisableInput();
             Debug.Log($"Player got rammed with force {fromForce}");
 
             if (isInjured)
@@ -174,6 +197,9 @@ namespace Player
             print($"input enabled: {InputEnabled}");
             isInjured = false;
             isDead = false;
+            isKnockbacked = false;
+            _rb.linearVelocity = Vector2.zero;
+
         }
 
         private IEnumerator InjuryTimer()
@@ -189,13 +215,13 @@ namespace Player
         }
 
         public override void ApplyKnockback(Vector2 direction, float force)
-        {
-            if (_rb != null)
-            {
-                _rb.linearVelocity = Vector2.zero;
-                _rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
-                Debug.Log($"Add force on player: {force} in dir {direction.normalized}");
-            }
+        {            
+            DisableInput();
+            isKnockbacked = true;
+            _rb.linearVelocity = Vector2.zero;
+            _rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
+            Debug.Log($"Add force on player: {force} in dir {direction.normalized}");
+            
         }
 
         public void SetForce()

@@ -167,10 +167,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Obtained Charge
+  m_text: 'Obtained Multi Direction Charge
 
 
-    Press R2 To Charge Forward'
+    Press R2 + RightStick to charge
+    at a given direction'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -251,11 +252,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 880877048866091969, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 31.26
+      value: 110.08
       objectReference: {fileID: 0}
     - target: {fileID: 880877048866091969, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.06
+      value: -56.28
       objectReference: {fileID: 0}
     - target: {fileID: 880877048866091969, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -296,6 +297,10 @@ PrefabInstance:
     - target: {fileID: 3586867183549839425, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
       propertyPath: m_Name
       value: UpgradingCheckpoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 5575066530499713250, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5575066530499713250, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
       propertyPath: m_Color.b

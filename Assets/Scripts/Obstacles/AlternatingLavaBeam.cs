@@ -1,4 +1,6 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
+using Terrain.Environment;
 
 namespace Obstacles
 {
@@ -7,7 +9,7 @@ namespace Obstacles
     public class AlternatingLavaBeam : MonoBehaviour, IKillPlayer
     {
         [SerializeField] private SpriteRenderer beamSprite;
-        
+        [SerializeField] private float delayBeforeFirstBeam;
         [SerializeField] private float interval = 3f;
         private Collider2D col;
         private void Start()
@@ -21,11 +23,12 @@ namespace Obstacles
 
         private System.Collections.IEnumerator ToggleBeam()
         {
+            yield return new WaitForSeconds(delayBeforeFirstBeam);
             while (true)
-            {
+            {                
+                yield return new WaitForSeconds(interval);
                 beamSprite.enabled = !beamSprite.enabled;
                 col.enabled = !col.enabled;
-                yield return new WaitForSeconds(interval);
             }
         }
 
@@ -33,6 +36,7 @@ namespace Obstacles
         {
             return true;
         }
+        
     }
 
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Interfaces;
+using MoreMountains.Feedbacks;
 using SpongeScene;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,6 +12,7 @@ namespace Terrain.Environment
 
         private Rigidbody2D rb;
         [SerializeField] private BoxCollider2D branchCollider;
+        [SerializeField] private MMF_Player hitFeedbacks;
 
         private void Start()
         {
@@ -21,7 +23,7 @@ namespace Terrain.Environment
         {
             if (other.gameObject.GetComponent<PlayerMovement>() is { } player && player.IsDashing)
             {
-                StartCoroutine(UtilityFunctions.ShakeObject(rb, 0.1f, 0.1f,true,false));
+                hitFeedbacks?.PlayFeedbacks();
                 StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.5f, () => branchCollider.enabled = false));
             }
         }

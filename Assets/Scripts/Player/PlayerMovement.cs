@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Camera;
 using Player;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -155,10 +156,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
+        if(player.IsKnockBacked) return;
         if (player.IsInjured)
         {
-            _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed*0.5f * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
-            print("moving injured 78");
+            _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed*0.4f * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
         }
         _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
     }
@@ -299,7 +300,7 @@ public class PlayerMovement : MonoBehaviour
         }
         return false;
     }
-    private bool IsTouchingWall()
+    private bool IsTouchingWall()  
     {
         return Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0, wallLayer) != null;
     }
@@ -337,10 +338,6 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {   
         float force = jumpForce;
-        if (player.IsInjured)
-        {
-            force = jumpForce * 0.8f;
-        }
         if (_rb.linearVelocity.y < 0)
             force -= _rb.linearVelocity.y;
 
@@ -375,6 +372,17 @@ public class PlayerMovement : MonoBehaviour
 
         while (Time.time - startTime <= dashAttackTime)
         {
+            if (player.IsKnockBacked)
+            {
+                _isDashAttacking = false;
+                _rb.gravityScale = WhenStopPressGravity;
+                player.ResetForce();
+                _isDashing = false;
+                print($"stopping dash with {_rb.linearVelocity} vel 90");
+                yield break;
+            }
+            print($"got here 90");
+
             _rb.linearVelocity = dir.normalized * dashSpeed;
             yield return null;
         }

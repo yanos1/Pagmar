@@ -49,7 +49,6 @@ public class Explodable : MonoBehaviour, IResettable
         {
             print("ORIGINAL COLLIDER TURN OFF");
             GetComponent<Collider2D>().enabled = false;
-            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
             
             // make invis
             SpriteRenderer sr = GetComponent<SpriteRenderer>();

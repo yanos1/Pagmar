@@ -52,6 +52,7 @@ namespace Enemies
         private const float visibilityThreshold = 0.4f;
         private float visibiliyTimer = 0f;
         private bool falling = false;
+        private float chargeCooldown;
 
         public override void Start()
         {
@@ -68,6 +69,8 @@ namespace Enemies
             {
                 return;
             }
+
+            if (chargeCooldown > 0) chargeCooldown -= Time.deltaTime;
             IncrementPlayerVisibleTimer();
             
             float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
@@ -76,7 +79,7 @@ namespace Enemies
                 FlipTowardsPlayer();
             }
             
-            if (!IsCharging && !isPreparingCharge && Mathf.Abs(player.transform.position.y- transform.position.y) >1 && !falling)
+            if (chargeCooldown <= 0 && !IsCharging && !isPreparingCharge && Mathf.Abs(player.transform.position.y- transform.position.y) >1 && !falling)
             {
                 Roam();
             }
@@ -173,6 +176,7 @@ namespace Enemies
             yield return new WaitForSeconds(chargeDelay);
             print("READY TO CHARGE AGAIN -9");
             isPreparingCharge = false;
+            currentDirection = dir;
 
             this.StopAndStartCoroutine(ref chargeCoroutine, PerformCharge(dir));
         }
@@ -229,12 +233,13 @@ namespace Enemies
             IsCharging = false;
             CurrentForce = 0;
             transform.rotation = Quaternion.identity;
+            chargeCooldown = chargeDelay + 0.5f;
         }
 
         private bool HitWall()
         {
             
-            Vector2 origin = (Vector2)transform.position + Vector2.up + currentDirection;
+            Vector2 origin = (Vector2)transform.position + Vector2.up*2 + currentDirection;
             RaycastHit2D hit = Physics2D.Raycast(origin, currentDirection, wallDetectionDistance, groundLayer);
 
             // Draw the ray in the Scene view

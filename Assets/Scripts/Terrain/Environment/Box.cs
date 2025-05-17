@@ -1,5 +1,7 @@
 ﻿using Interfaces;
+using Managers;
 using Obstacles;
+using Player;
 using UnityEngine;
 
 namespace Terrain.Environment
@@ -30,12 +32,23 @@ namespace Terrain.Environment
         {
             PlayerMovement playerMovement2 = other.gameObject.GetComponent<PlayerMovement>();
 
-            if (playerMovement2 != null || playerMovement2 != null)
+            if (playerMovement2 is not  null)
             {
                 Vector2 hitDirection = (transform.position - other.transform.position).normalized;
 
                 if (playerMovement2 != null && playerMovement2.IsDashing) // && player.isBig => then break
                 {
+                    switch (CoreManager.Instance.Player.playerStage)
+                    {
+                        case PlayerManager.PlayerStage.Young:
+                            break;
+                        case PlayerManager.PlayerStage.Teen:
+                            hitDirection.x += 1.5f;
+                            break;
+                        case PlayerManager.PlayerStage.Adult:
+                            hitDirection.x += 2f;
+                            break;
+                    }
                     PlaySound(boxHit);
                     OnHit(hitDirection);
 
@@ -52,6 +65,7 @@ namespace Terrain.Environment
             {
                 e.explode();
                 f.doExplosion(transform.position);
+                print("explode");
             }
         }
 

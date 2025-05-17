@@ -24,7 +24,7 @@ namespace Terrain.Environment
         {
             print("Shrink !!");
             var current = transform.localScale;
-            current.x = current.x - 0.5f;
+            current.x = Mathf.Max(0, current.x - 0.3f);
             transform.localScale = current;
             if (Mathf.Approximately(transform.localScale.x, 0f))
             {

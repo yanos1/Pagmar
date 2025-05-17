@@ -153,6 +153,8 @@ MonoBehaviour:
   boxHit: {fileID: 8300000, guid: eb417e6b0f7d3b24196b748cabb7300b, type: 3}
   boxPush: {fileID: 8300000, guid: 6d5b3588b3564b248b20d483cf51e54a, type: 3}
   boxDrop: {fileID: 8300000, guid: d18699675dadb7140946262431623169, type: 3}
+  e: {fileID: 0}
+  f: {fileID: 0}
 --- !u!50 &2746951127055160538
 Rigidbody2D:
   serializedVersion: 5
@@ -202,7 +204,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 6.0328064
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

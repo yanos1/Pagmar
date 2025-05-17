@@ -2,6 +2,7 @@
 using System.Xml.Schema;
 using Interfaces;
 using Player;
+using SpongeScene;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -77,6 +78,31 @@ namespace Terrain.Environment
                 yield return StartCoroutine(ReturnPlatform());
             }
         }
+        
+        
+        
+        private IEnumerator MovePlatformHalfwayFast()
+        {
+            if (moveslightlyCor != null)
+                StopCoroutine(moveslightlyCor);
+
+            float fastDuration = moveDuration / 1.5f;
+            Vector3 halfTarget = transform.position + targetOffset * 0.5f;
+
+            float timer = 0f;
+            while (timer < fastDuration)
+            {
+                float t = timer / fastDuration;
+                float easedT = movementCurve.Evaluate(t);
+                transform.position = Vector3.Lerp(transform.position, halfTarget, easedT);
+                timer += Time.fixedDeltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+
+            transform.position = halfTarget;
+            hasMoved = false;
+        }
+
 
         private IEnumerator ReturnPlatform()
         {
@@ -94,9 +120,21 @@ namespace Terrain.Environment
             transform.position = startPos;
             hasMoved = false;
         }
+        
+        
+        
+        
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            
+            FallingStone rock = collision.collider.GetComponent<FallingStone>();
+            if (rock != null)
+            {
+                this.StopAndStartCoroutine(ref moveCoroutine, MovePlatformHalfwayFast());
+                return;
+            }
+            
             PlayerMovement player = collision.collider.GetComponent<PlayerMovement>();
             if (player is not null)
             {

@@ -21,15 +21,6 @@ namespace Terrain.Environment
             startingPos = transform.position;
         }
 
-        // private void OnTriggerEnter2D(Collider2D other)
-        // {
-        //     if (other.GetComponent<PlayerMovement>() is { } player && player.IsDashing)
-        //     {
-        //         rb.bodyType = RigidbodyType2D.Dynamic;
-        //         rb.gravityScale = 1.5f;
-        //     }
-        // }
-
         private System.Collections.IEnumerator ApplyTemporaryVelocity(Vector2 direction, float speed, float duration)
         {
             float timer = 0f;
@@ -41,21 +32,24 @@ namespace Terrain.Environment
             }
 
             // Optionally reset velocity if needed
-            rb.linearVelocity = Vector2.zero;
         }
 
         public virtual void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.GetComponent<BouncyLog>())
+            if (other.gameObject.GetComponent<MovingPlatform>())
             {
+                if (e is not null)
                 e.explode();
+                if (f is not null)
                 f.doExplosion(transform.position);
             }
         }
 
         public virtual void ResetToInitialState()
         {
-            
+            print("reset stone 77");
+            gameObject.SetActive(true);
+            rb.bodyType = RigidbodyType2D.Kinematic;
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
             // rb.bodyType = RigidbodyType2D.Kinematic; 

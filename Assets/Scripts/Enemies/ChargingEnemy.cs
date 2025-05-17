@@ -26,8 +26,14 @@ namespace Enemies
         [Header("Ground Detection")] [SerializeField]
         private LayerMask groundLayer;
 
+        [Header("Roaming Settings")]
+    
+        private Vector2 roamDirection = Vector2.left;
+        private bool isRoaming = true;
+        
+        
         [SerializeField] private float groundCheckDistance = 1f;
-        [SerializeField] private float wallDetectionDistance = 0.5f;
+        [SerializeField] private float wallDetectionDistance = 1f;
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
 
@@ -40,9 +46,12 @@ namespace Enemies
         private Coroutine flipCoroutine;
         private Coroutine chargeCoroutine;
         private int currentColIndex = 0;
-        private Vector2 currentDirection;
+        private Vector2 currentDirection = Vector2.left;
         private bool hit = false;
         private bool isKnockbacked = false;
+        private const float visibilityThreshold = 0.4f;
+        private float visibiliyTimer = 0f;
+        private bool falling = false;
 
         public override void Start()
         {
@@ -59,12 +68,17 @@ namespace Enemies
             {
                 return;
             }
-
-
+            IncrementPlayerVisibleTimer();
+            
             float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-            if (!IsCharging && distanceToPlayer < detectionRange * 1.5f)
+            if (!IsCharging && distanceToPlayer < detectionRange && Mathf.Abs(player.transform.position.y- transform.position.y) < 1)
             {
                 FlipTowardsPlayer();
+            }
+            
+            if (!IsCharging && !isPreparingCharge && Mathf.Abs(player.transform.position.y- transform.position.y) >1 && !falling)
+            {
+                Roam();
             }
 
             if (ShouldPrepareCharge(distanceToPlayer))
@@ -75,32 +89,59 @@ namespace Enemies
             }
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 1, groundLayer);
-            if (hit.collider is not null && hit.collider.gameObject.GetComponent<GuillotineTrap>() is not null)
+            if (hit.collider is not null && (hit.collider.gameObject.GetComponent<GuillotineTrap>() is not null))
             {
                 e.explode();
                 f.doExplosion(transform.position);
-                ResetToInitialState();
             }
         }
 
-        private bool ShouldPrepareCharge(float distanceToPlayer)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            return distanceToPlayer > minDistanceActivation &&
+            if (other.GetComponent<AlternatingLavaBeam>() is not null)
+            {
+                e.explode();
+                print($"explosion at {transform.position}");
+                f.doExplosion(transform.position);
+            }
+        }
+
+        private void Roam()
+        {
+
+            if (HitWall() || !GroundAhead())
+            {
+                roamDirection = -roamDirection;
+                FlipSprite(roamDirection.x > 0);
+            }
+
+            transform.position += (Vector3)roamDirection * (chargeSpeed/3 * Time.deltaTime);
+        }
+
+
+        private bool  ShouldPrepareCharge(float distanceToPlayer)
+        {
+            return chargeCoroutine is null && distanceToPlayer > minDistanceActivation &&
                    distanceToPlayer < detectionRange &&
                    !IsCharging &&
                    !isPreparingCharge &&
-                   player.transform.position.y < transform.position.y + 0.5f &&
+                   IsPlayerVisibleLongEnough() &&
                    !hit && !player.IsDead && !isKnockbacked;
+        }
+
+        private bool IsPlayerVisibleLongEnough()
+        {
+            return visibiliyTimer >= visibilityThreshold;
         }
 
         private void FlipTowardsPlayer()
         {
             float diffX = player.transform.position.x - transform.position.x;
             Vector2 dir = diffX > 0 ? Vector2.right : Vector2.left;
-            FlipSprite(dir);
+            FlipSpriteWithDelay(dir);
         }
 
-        private void FlipSprite(Vector2 direction)
+        private void FlipSpriteWithDelay(Vector2 direction)
         {
             bool newFlipX = direction.x > 0;
 
@@ -109,19 +150,26 @@ namespace Enemies
             {
                 flipCoroutine = StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.5f, () =>
                 {
-                    print($"old 87 {_col.offset}");
-                    spriteRenderer.flipX = newFlipX;
-                    var currentOffset = _col.offset;
-                    currentOffset.x *= -1;
-                    _col.offset = currentOffset;
-                    print($"new 87 {_col.offset}");
-                    flipCoroutine = null;
+                    FlipSprite(newFlipX);
                 }));
             }
         }
 
+        private void FlipSprite(bool newFlipX)
+        {
+            print($"old 87 {_col.offset}");
+            spriteRenderer.flipX = newFlipX;
+            var currentOffset = _col.offset;
+            currentOffset.x *= -1;
+            _col.offset = currentOffset;
+            print($"new 87 {_col.offset}");
+            flipCoroutine = null;
+            currentDirection *= -1;
+        }
+
         IEnumerator PrepareCharge(Vector2 dir)
         {
+            StartCharging();
             yield return new WaitForSeconds(chargeDelay);
             print("READY TO CHARGE AGAIN -9");
             isPreparingCharge = false;
@@ -131,10 +179,8 @@ namespace Enemies
 
         IEnumerator PerformCharge(Vector2 dir)
         {
-            print("perofrming charge");
-            StartCharging();
             float timer = 0f;
-
+            
             while (IsCharging && timer < chargeDuration && !HitWall())
             {
                 MoveAndRotate(dir);
@@ -148,9 +194,22 @@ namespace Enemies
                 }
             }
 
-            print("exited while loop ");
+            print($"exited while loop , is charging :{IsCharging}, hit wall {HitWall()}");
             print($"timer : {timer} charge time {chargeDuration}");
             StopCharging();
+        }
+
+
+        private void IncrementPlayerVisibleTimer()
+        {
+            if (  Mathf.Abs(player.transform.position.y - transform.position.y) < 0.5f)
+            {
+                visibiliyTimer += Time.deltaTime;
+            }
+            else
+            {
+                visibiliyTimer = 0f;
+            }
         }
 
         private void StartCharging()
@@ -166,6 +225,7 @@ namespace Enemies
         private void StopCharging()
         {
             print("stop charge");
+            chargeCoroutine = null;
             IsCharging = false;
             CurrentForce = 0;
             transform.rotation = Quaternion.identity;
@@ -173,8 +233,21 @@ namespace Enemies
 
         private bool HitWall()
         {
+            
             Vector2 origin = (Vector2)transform.position + Vector2.up + currentDirection;
             RaycastHit2D hit = Physics2D.Raycast(origin, currentDirection, wallDetectionDistance, groundLayer);
+
+            // Draw the ray in the Scene view
+            Debug.DrawRay(origin, currentDirection * wallDetectionDistance, hit.collider ? Color.red : Color.green);
+
+            return hit.collider != null;
+        }
+
+        
+        private bool GroundAhead()
+        {
+            Vector2 origin = (Vector2)transform.position + roamDirection;
+            RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, groundCheckDistance + 0.1f, groundLayer);
             return hit.collider != null;
         }
 
@@ -187,7 +260,7 @@ namespace Enemies
         void FixedUpdate()
         {
             if (player != null && player.IsDead) StopAllCoroutines();
-            if (!IsCharging && !isKnockbacked) CheckForGround();
+            if (IsCharging && !isKnockbacked) CheckForGround();
             ResetIfKnockbackOver();
         }
 
@@ -212,18 +285,20 @@ namespace Enemies
 
         private void CheckForGround()
         {
-            RaycastHit2D hitInfo =
-                Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
-            if (!hitInfo.collider)
+            var ground = GroundAhead();
+            if (!ground && _rb.bodyType == RigidbodyType2D.Kinematic)
             {
                 _rb.bodyType = RigidbodyType2D.Dynamic;
                 StopCharging();
                 isPreparingCharge = false;
+                falling = true;
                 print("stopped because of no ground");
             }
-            else if (_rb.bodyType != RigidbodyType2D.Kinematic)
+            
+            if(ground && _rb.bodyType != RigidbodyType2D.Kinematic)
             {
                 _rb.bodyType = RigidbodyType2D.Kinematic;
+                falling = false;
             }
         }
 
@@ -237,6 +312,7 @@ namespace Enemies
             IsCharging = false;
             isPreparingCharge = false;
             hit = false;
+            falling = false;
 
             if (_rb != null)
             {
@@ -299,6 +375,7 @@ namespace Enemies
             StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.07f, () => _col.enabled = true));
             _rb.bodyType = RigidbodyType2D.Dynamic;
             _rb?.AddForce(direction.normalized * force, ForceMode2D.Impulse);
+            currentDirection = Vector2.left;
         }
     }
 }

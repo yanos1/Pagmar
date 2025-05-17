@@ -81,6 +81,7 @@ public class Explodable : MonoBehaviour, IResettable
     }
     public void deleteFragments()
     {
+        print("delete fragments");
         foreach (GameObject frag in fragments)
         {
             Destroy(frag);
@@ -184,8 +185,8 @@ public class Explodable : MonoBehaviour, IResettable
 
     public void ResetToInitialState()
     {
+        print("reset explodlble");
         GetComponent<Collider2D>().enabled = true;
-        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         // make colorful again
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (sr != null)

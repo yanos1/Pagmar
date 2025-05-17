@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using MoreMountains.Feedbacks;
 using SpongeScene;
 
 namespace Terrain.Environment
@@ -14,7 +15,8 @@ namespace Terrain.Environment
         private bool isShaking = false;
         [SerializeField] private Rigidbody2D objectOnTop;
         [SerializeField] private float force;
-        [SerializeField] private float shakeMagnitude;
+        [SerializeField] private MMF_Player hitFeedbacks;
+        [SerializeField] private Vector2 dir;
 
         private void Awake()
         {
@@ -28,11 +30,11 @@ namespace Terrain.Environment
 
         public void OnHit(Vector2 hitDir)
         {
-            StartCoroutine(UtilityFunctions.ShakeObject(_rb,0.12f,shakeMagnitude,true,false));
+            hitFeedbacks?.PlayFeedbacks();
             if (objectOnTop is not null)
             {
                 print($"adding force {force}");
-                objectOnTop.AddForce(Vector2.left * force);
+                objectOnTop.AddForce(dir * force);
             }
         }
     }

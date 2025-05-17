@@ -39,7 +39,7 @@ namespace SpongeScene
         }
 
         public static IEnumerator FadeImage(Renderer renderer, float startValue, float endValue,
-            float imageFadeDuration, [CanBeNull] Action callBack)
+            float imageFadeDuration, [CanBeNull] Action callBack = null)
         {
             float elapsedTime = 0f;
 
@@ -59,6 +59,30 @@ namespace SpongeScene
 
             color.a = endValue;
             renderer.material.color = color;
+            callBack?.Invoke();
+        }
+        
+        public static IEnumerator FadeImage(SpriteRenderer renderer, float startValue, float endValue,
+            float imageFadeDuration, [CanBeNull] Action callBack = null)
+        {
+            float elapsedTime = 0f;
+
+            Color color = renderer.color;
+
+            while (elapsedTime < imageFadeDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                float currentAlpha = Mathf.Lerp(startValue, endValue, elapsedTime / imageFadeDuration);
+
+                color.a = currentAlpha;
+
+                renderer.color = color;
+
+                yield return null;
+            }
+
+            color.a = endValue;
+            renderer.color = color;
             callBack?.Invoke();
         }
 

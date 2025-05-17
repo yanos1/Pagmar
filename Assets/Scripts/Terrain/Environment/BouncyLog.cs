@@ -1,5 +1,6 @@
 ﻿using System;
 using Interfaces;
+using MoreMountains.Feedbacks;
 using Player;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace Terrain.Environment
         private Vector3 startingPos;
         
         [SerializeField] private float force;
+        [SerializeField] private MMF_Player hitFeedbacks;
         
         private void Start()
         {
@@ -33,8 +35,7 @@ namespace Terrain.Environment
         {
             if (other.gameObject.GetComponent<FallingStone>() is not null)
             {
-                rb.bodyType = RigidbodyType2D.Dynamic;
-                
+                hitFeedbacks?.PlayFeedbacks();
                 Invoke(nameof(AddForceToPlayer), 0.1f );
             }
         }
@@ -48,8 +49,8 @@ namespace Terrain.Environment
         {
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0;
-            transform.rotation = Quaternion.identity;
             rb.bodyType = RigidbodyType2D.Kinematic;
+            transform.rotation = Quaternion.identity;
             transform.position = startingPos;
         }
     }

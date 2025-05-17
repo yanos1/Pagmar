@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7178597637800812667}
   - component: {fileID: 1241087269404042041}
   - component: {fileID: 6598407459085447982}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: CameraControlTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,6 +96,8 @@ MonoBehaviour:
     panCameraOnContact: 0
     cameraOnLeft: {fileID: 0}
     cameraOnRight: {fileID: 0}
+    cameraOnUp: {fileID: 0}
+    cameraOnDown: {fileID: 0}
     panDirection: 0
     panDistance: 3
     panTime: 0.35

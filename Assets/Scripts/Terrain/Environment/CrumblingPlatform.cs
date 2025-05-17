@@ -47,18 +47,17 @@ namespace Terrain.Environment
                 .SetEase(Ease.InQuad);
             sr.DOFade(0f, crumbleDuration).OnComplete(DisablePlatform);
             col.enabled = false;
-            Invoke(nameof(ResetToInitialState),6);
             
         }
 
         private void DisablePlatform()
         {
-            gameObject.SetActive(false); // Or any other way to handle it
+            col.enabled = false;
         }
 
-        public void ResetToInitialState()
+        public virtual void ResetToInitialState()
         {
-            gameObject.SetActive(true);
+            
             hasCrumbled = false;
             transform.position = initialPosition;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);

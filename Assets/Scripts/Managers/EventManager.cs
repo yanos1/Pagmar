@@ -62,6 +62,7 @@ namespace Managers
         StartTimer=11,
 
         StartEndCutScene=12,
-        
+
+        GayserFinished=13,
     }
 }

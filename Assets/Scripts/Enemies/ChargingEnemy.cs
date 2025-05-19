@@ -194,7 +194,7 @@ namespace Enemies
         IEnumerator PerformCharge(Vector2 dir)
         {
             float timer = 0f;
-            
+            IsCharging = true;
             while (IsCharging && timer < chargeDuration && !HitWall())
             {
                 MoveAndRotate(dir);
@@ -232,7 +232,6 @@ namespace Enemies
 
             src.clip = charge;
             src.Play();
-            IsCharging = true;
             CurrentForce = 1;
         }
 
@@ -339,6 +338,7 @@ namespace Enemies
             transform.rotation = Quaternion.identity;
             rotationTimer = 0f;
             flipCooldownTimer = 0f;
+            _col.enabled = true;
         }
 
         public void Growl()
@@ -366,12 +366,13 @@ namespace Enemies
         public override void OnRammed(float fromForce)
         {
             Debug.Log($"Enemy rammed with force {fromForce}");
-            hitFeedbacks?.PlayFeedbacks();
 
             if (++hitCounter == hitsToKill)
             {
                 gameObject.SetActive(false);
             }
+            hitFeedbacks?.PlayFeedbacks();
+
             StopCharging();
             isPreparingCharge = false;
             StopAllCoroutines();
@@ -387,7 +388,10 @@ namespace Enemies
             StopCharging();
             isKnockbacked = true;
             _col.enabled = false;
-            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.07f, () => _col.enabled = true));
+            if (gameObject.activeInHierarchy)
+            {
+                StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.07f, () => _col.enabled = true));
+            }
             _rb.bodyType = RigidbodyType2D.Dynamic;
             _rb?.AddForce(direction.normalized * force, ForceMode2D.Impulse);
         }

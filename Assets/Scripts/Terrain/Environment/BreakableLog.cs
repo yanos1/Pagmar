@@ -11,6 +11,7 @@ namespace Terrain.Environment
         private const int maxHits = 5;
         private Vector3 startingPos;
         private Rigidbody2D rb;
+        private bool firstHit = true;
 
         [SerializeField] private MMF_Player hitFeedback;
         [SerializeField] private Explodable e;
@@ -24,8 +25,9 @@ namespace Terrain.Environment
         private void OnCollisionEnter2D(Collision2D collision)
         {
 
-            if (collision.gameObject.GetComponent<PlayerMovement>() is { } player && player.IsDashing)
+            if (collision.gameObject.GetComponent<PlayerMovement>() is { } player && (player.IsDashing || firstHit))
             {
+                firstHit = false;
                 hitFeedback?.PlayFeedbacks();
                 if (++hitCount == maxHits)
                 {
@@ -51,6 +53,7 @@ namespace Terrain.Environment
         public void ResetToInitialState()
         {
             gameObject.SetActive(true);
+            firstHit = true;
             hitCount = 0;
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;

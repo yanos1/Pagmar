@@ -90,7 +90,7 @@ namespace Player
 
         private void CheckForRam(Collision2D other)
         {
-            if (other.gameObject.GetComponent<Rammer>() is { } rammer && rammer.IsCharging)
+            if (other.gameObject.GetComponent<Rammer>() is { } rammer)
             {
                 Vector2 directionToPlayer = (transform.position - rammer.transform.position).normalized;
                 float dot = Mathf.Abs(Vector2.Dot(directionToPlayer, Vector2.right));

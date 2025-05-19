@@ -9,7 +9,7 @@ namespace Terrain.Environment
     public class Box : MonoBehaviour, IResettable, IBreakable
     {
         private Rigidbody2D rb;
-        private float hitForce = 40f; // this is a dummy value that will be obtained from the player.
+        private float hitForce = 30f; // this is a dummy value that will be obtained from the player.
         private bool isMoving;
         private bool isDropping;
         private Vector3 startingPosition;
@@ -20,41 +20,33 @@ namespace Terrain.Environment
         [SerializeField] private AudioClip boxDrop;
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
-        
+        private float hitCooldownTimer = 0f;
+        private const float hitCooldownDuration = 0.5f;
 
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
             startingPosition = transform.position;
         }
-
+        
         private void OnCollisionEnter2D(Collision2D other)
         {
             PlayerMovement playerMovement2 = other.gameObject.GetComponent<PlayerMovement>();
 
-            if (playerMovement2 is not  null)
+            if (playerMovement2 != null)
             {
                 Vector2 hitDirection = (transform.position - other.transform.position).normalized;
 
-                if (playerMovement2 != null && playerMovement2.IsDashing) // && player.isBig => then break
+                if (playerMovement2.IsDashing)
                 {
-                    switch (CoreManager.Instance.Player.playerStage)
+                    if (hitCooldownTimer <= 0f)
                     {
-                        case PlayerManager.PlayerStage.Young:
-                            break;
-                        case PlayerManager.PlayerStage.Teen:
-                            hitDirection.x += 1.5f;
-                            break;
-                        case PlayerManager.PlayerStage.Adult:
-                            hitDirection.x += 2f;
-                            break;
+                        PlaySound(boxHit);
+                        OnHit(hitDirection);
+                        hitCooldownTimer = hitCooldownDuration;
                     }
-                    PlaySound(boxHit);
-                    OnHit(hitDirection);
-
-                    // OnBreak();
                 }
-                else if (playerMovement2 != null && !playerMovement2.IsDashing)  // && player.isSmall => move it
+                else // not dashing
                 {
                     PlaySound(boxPush, loop: true);
                     isMoving = true;
@@ -84,6 +76,9 @@ namespace Terrain.Environment
 
         private void Update()
         {
+            if (hitCooldownTimer > 0f)
+                hitCooldownTimer -= Time.deltaTime;
+            
             if (isMoving && rb.linearVelocity.magnitude < 0.1f)
             {
                 isMoving = false;
@@ -126,7 +121,10 @@ namespace Terrain.Environment
 
         public void ResetToInitialState()
         {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0;
             transform.position = startingPosition;
+            hitCooldownTimer = 0;
         }
     }
 }

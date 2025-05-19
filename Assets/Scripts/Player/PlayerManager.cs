@@ -95,7 +95,7 @@ namespace Player
                 Vector2 directionToPlayer = (transform.position - rammer.transform.position).normalized;
                 float dot = Mathf.Abs(Vector2.Dot(directionToPlayer, Vector2.right));
 
-                if (dot > 0.4f) // horizontal impact check
+                if (dot > 0.5f) // horizontal impact check
                 {
                     RammerManager.Instance.ResolveRam(this, rammer);
                     print("{ram!! 987");

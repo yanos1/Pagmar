@@ -174,15 +174,6 @@ namespace Terrain.Environment
                 nextPlatformMove?.Invoke();
                 hasMoved = true;
             }
-
-            Box box = collision.collider.GetComponent<Box>();
-
-            if (box != null)
-            {
-                collision.collider.transform.SetParent(transform);
-            }
-
-      
         }
 
         private void OnTriggerEnter2D(Collider2D col)

@@ -24,12 +24,8 @@ namespace Terrain.Environment
         {
             print("Shrink !!");
             var current = transform.localScale;
-            current.x = Mathf.Max(0, current.x - 0.3f);
+            current.x = Mathf.Max(0.7f, current.x - 0.3f);
             transform.localScale = current;
-            if (Mathf.Approximately(transform.localScale.x, 0f))
-            {
-                CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
-            }
         }
 
         public override void ResetToInitialState()

@@ -167,7 +167,7 @@ namespace Player
         public override void OnRam(float againstForce)
         {
             Debug.Log($"Player rammed with force against {againstForce}");
-            CurrentForce = Mathf.Max(0, CurrentForce - againstForce * 0.5f);
+            // CurrentForce = Mathf.Max(0, CurrentForce - againstForce * 0.5f);
         }
 
         public override void OnRammed(float fromForce)

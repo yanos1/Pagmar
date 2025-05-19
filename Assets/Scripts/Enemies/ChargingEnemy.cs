@@ -193,6 +193,7 @@ namespace Enemies
 
         IEnumerator PerformCharge(Vector2 dir)
         {
+            CurrentForce = 1;
             float timer = 0f;
             IsCharging = true;
             while (IsCharging && timer < chargeDuration && !HitWall())
@@ -232,7 +233,6 @@ namespace Enemies
 
             src.clip = charge;
             src.Play();
-            CurrentForce = 1;
         }
 
         private void StopCharging()
@@ -280,7 +280,7 @@ namespace Enemies
 
         private void ResetIfKnockbackOver()
         {
-            if (isKnockbacked && _rb.linearVelocity.magnitude < 1)
+            if (isKnockbacked && _rb.linearVelocity.magnitude < 1 && GroundAhead())
             {
                 _rb.linearVelocity = Vector2.zero;
                 _rb.angularVelocity = 0;

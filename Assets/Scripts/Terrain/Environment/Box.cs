@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 using Managers;
 using Obstacles;
 using Player;
@@ -53,11 +54,20 @@ namespace Terrain.Environment
                 }
             }
 
-            if (other.gameObject.GetComponent<GuillotineTrap>() is { } guil && guil.IsDeadly())
+            if ((other.gameObject.GetComponent<GuillotineTrap>() is { } guil && guil.IsDeadly()))
             {
                 e.explode();
                 f.doExplosion(transform.position);
                 print("explode");
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.GetComponent<AlternatingLavaBeam>() is not null)
+            {
+                e.explode();
+                f.doExplosion(transform.position);
             }
         }
 

@@ -55,7 +55,7 @@ namespace Managers
             {
                 Vector2 dir = (winner.transform.position - loser.transform.position).normalized;
 
-                loser.ApplyKnockback(new Vector2(dir.x, 0.5f), (winnerForce-loserForce) * baseForce * 0.9f);
+                winner.ApplyKnockback(new Vector2(dir.x, 0.5f), (winnerForce-loserForce) * baseForce * 0.9f);
 
             }
             // Knockback loser

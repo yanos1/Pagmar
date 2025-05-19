@@ -1,6 +1,7 @@
 ﻿using System;
 using Interfaces;
 using Player;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
 namespace Managers
@@ -26,14 +27,21 @@ namespace Managers
             // If same force, both knockback
             if (Mathf.Approximately(forceA, forceB))
             {
-                print("no winner no loser! 55");
                 Vector2 dirA = (a.transform.position - b.transform.position).normalized;
                 dirA = new Vector2(dirA.x, 0.5f);
-                Vector2 dirB = new Vector2(-dirA.x, 0.5f);
+                if (forceA > 0)
+                {
+                    print("no winner no loser! 55");
+               
+                    Vector2 dirB = new Vector2(-dirA.x, 0.5f);
 
-                a.ApplyKnockback(dirA, baseForce);
-                b.ApplyKnockback(dirB, baseForce);
-
+                    a.ApplyKnockback(dirA, baseForce);
+                    b.ApplyKnockback(dirB, baseForce);
+                }
+                else
+                {
+                    a.ApplyKnockback(dirA, baseForce/2);
+                }
                 return;
             }
 

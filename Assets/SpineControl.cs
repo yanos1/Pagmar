@@ -17,6 +17,7 @@ public class SpineControl : MonoBehaviour
 
     public void PlayAnimation(string animationName, bool loop = false, string fallbackAnimation = "idle")
     {
+        Debug.Log(animationName);
         if (string.IsNullOrEmpty(animationName)) return;
         if (currentActionAnimation == animationName) return;
 
@@ -33,6 +34,18 @@ public class SpineControl : MonoBehaviour
                 {
                     skeletonAnimation.AnimationState.SetEmptyAnimation(2, 0.1f); // Smooth blend-out
                 }
+            };
+        }
+    }
+    
+    public void PlayAnimationOnBaseTrack(string animationName, bool loop = false, string fallback = "idle") {
+        if (string.IsNullOrEmpty(animationName)) return;
+    
+        var entry = skeletonAnimation.AnimationState.SetAnimation(0, animationName, loop);
+        if (!loop) {
+            entry.Complete += _ => {
+                // when hit is done, go back to idle on track 0
+                skeletonAnimation.AnimationState.SetAnimation(0, fallback, true);
             };
         }
     }

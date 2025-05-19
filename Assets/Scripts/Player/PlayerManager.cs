@@ -12,7 +12,7 @@ namespace Player
     {
         private PlayerMovement _playerMovement;
         private Npc followedBy;
-
+        [SerializeField] private SpineControl spineControl;
         [SerializeField] private PlayerStage _playerStage = PlayerStage.Young;
         [SerializeField] private float knockbackStrength = 50f;
         [SerializeField] private float injuredDuration = 5f;
@@ -173,7 +173,7 @@ namespace Player
         public override void OnRammed(float fromForce)
         {
             Debug.Log($"Player got rammed with force {fromForce}");
-
+            spineControl.PlayAnimationOnBaseTrack("hit", false);
             if (isInjured)
             {
                 StartCoroutine(DieAfterDelay());

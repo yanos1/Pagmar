@@ -76,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField] private bool enableWallJump = true;
     private PlayerManager player;
+    [SerializeField] SpineControl spineControl;
 
     private void Awake()
     {
@@ -115,6 +116,7 @@ public class PlayerMovement : MonoBehaviour
                 _rb.gravityScale = regularGravity;
             }
         }
+        UpdateAnimation();  
     }
 
 
@@ -360,9 +362,34 @@ public class PlayerMovement : MonoBehaviour
     {
         return IsGrounded() || LastOnGroundTime <= graceJumpTime;
     }
+    
+    private void UpdateAnimation()
+    {
+        if (_isDashing)
+        {
+            return;
+        }
+        if (IsGrounded() && Mathf.Abs(_moveInputX) > 0.1f)
+        {
+            spineControl.PlayAnimation("run", true);
+        }
+        else if (IsGrounded())
+        {
+            spineControl.PlayAnimation("idle", true);
+        }
+        else
+        {
+            // If in air and not dashing, you can play jump or fall animation if you want
+            // For example:
+            // spineControl.PlayAnimation("jump", false);
+            // Or do nothing and keep last animation
+        }
+    }
+
 
     private IEnumerator StartDash(Vector2 dir)
     {
+        spineControl.PlayAnimation("dash", false);
         _isDashing = true;
         _canDash = false;
         player.SetForce();

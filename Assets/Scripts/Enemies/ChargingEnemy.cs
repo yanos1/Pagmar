@@ -371,15 +371,12 @@ namespace Enemies
             {
                 gameObject.SetActive(false);
             }
+
             hitFeedbacks?.PlayFeedbacks();
 
             StopCharging();
             isPreparingCharge = false;
             StopAllCoroutines();
-
-            
-            _col.enabled = false;
-
         }
 
         public override void ApplyKnockback(Vector2 direction, float force)

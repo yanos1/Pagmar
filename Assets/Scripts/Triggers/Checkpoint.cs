@@ -52,7 +52,7 @@ namespace Triggers
                     recordedNpcPposition = recordedNpc.transform.position;
                 }
                 print("recorded player");
-                recordedPlayerPposition = player.transform.position;
+                recordedPlayerPposition = transform.position;
                 print("play feebacks");
                 checkpointFeedback?.PlayFeedbacks();
                 CoreManager.Instance.ResetManager.UpdateCheckPoint(this);

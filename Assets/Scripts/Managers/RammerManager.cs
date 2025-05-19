@@ -1,5 +1,6 @@
 ﻿using System;
 using Interfaces;
+using Player;
 using UnityEngine.Serialization;
 
 namespace Managers
@@ -48,6 +49,15 @@ namespace Managers
             winner.OnRam(loserForce);
             loser.OnRammed(winnerForce);
             
+            // kmockback player of lower states
+            if (winner.gameObject.GetComponent<PlayerManager>() is { } player &&
+                player.playerStage != PlayerManager.PlayerStage.Adult)
+            {
+                Vector2 dir = (winner.transform.position - loser.transform.position).normalized;
+
+                winner.ApplyKnockback(new Vector2(dir.x, 0.5f), (winnerForce-loserForce) * baseForce * 0.9f);
+
+            }
             // Knockback loser
             Vector2 direction = (loser.transform.position - winner.transform.position).normalized;
             loser.ApplyKnockback(new Vector2(direction.x, 0.5f), (winnerForce-loserForce) * baseForce);

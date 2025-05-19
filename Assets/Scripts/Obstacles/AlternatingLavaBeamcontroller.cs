@@ -19,7 +19,7 @@ namespace Obstacles.Shooters
         [SerializeField] private SpriteRenderer[] warningRenderers;
         [SerializeField] private GameObject warningPrefab;
         private bool triggered = false;
-        
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.GetComponent<PlayerManager>() is not null && !triggered)

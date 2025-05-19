@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Managers;
+using MoreMountains.Feedbacks;
 using Obstacles;
 using Player;
 using SpongeScene;
@@ -17,6 +18,8 @@ namespace Enemies
         public float rotationAmount = 10f;
         public float rotationSpeed = 5f;
         public float minDistanceActivation = 3f;
+        
+        [SerializeField] private bool canRoam = true;
         [SerializeField] private PlayerManager player;
 
         [SerializeField] private AudioSource src;
@@ -27,15 +30,12 @@ namespace Enemies
         private LayerMask groundLayer;
 
         [Header("Roaming Settings")]
-    
-        private Vector2 roamDirection = Vector2.left;
-        private bool isRoaming = true;
-        
         
         [SerializeField] private float groundCheckDistance = 1f;
         [SerializeField] private float wallDetectionDistance = 1f;
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
+        [SerializeField] private MMF_Player hitFeedbacks;
 
 
         private bool isPreparingCharge = false;
@@ -53,6 +53,10 @@ namespace Enemies
         private float visibiliyTimer = 0f;
         private bool falling = false;
         private float chargeCooldown;
+        private float flipCooldownTimer = 0f;
+        private const float flipCooldownDuration = 0.5f;
+        private int hitCounter = 0;
+        private int hitsToKill = 2;
 
         public override void Start()
         {
@@ -69,17 +73,20 @@ namespace Enemies
             {
                 return;
             }
-
+            
+            if (flipCooldownTimer > 0f)
+                flipCooldownTimer -= Time.deltaTime;
+            
             if (chargeCooldown > 0) chargeCooldown -= Time.deltaTime;
             IncrementPlayerVisibleTimer();
             
             float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-            if (!IsCharging && distanceToPlayer < detectionRange && Mathf.Abs(player.transform.position.y- transform.position.y) < 1)
+            if (!IsCharging && !isPreparingCharge && distanceToPlayer < detectionRange && Mathf.Abs(player.transform.position.y- transform.position.y) < 1)
             {
                 FlipTowardsPlayer();
             }
             
-            if (chargeCooldown <= 0 && !IsCharging && !isPreparingCharge && Mathf.Abs(player.transform.position.y- transform.position.y) >1 && !falling)
+            if (canRoam && chargeCooldown <= 0 && !IsCharging && !isPreparingCharge && Mathf.Abs(player.transform.position.y- transform.position.y) >1 && !falling)
             {
                 Roam();
             }
@@ -112,13 +119,17 @@ namespace Enemies
         private void Roam()
         {
 
-            if (HitWall() || !GroundAhead())
+            if ((HitWall() || !GroundAhead()) && flipCooldownTimer <= 0)
             {
-                roamDirection = -roamDirection;
-                FlipSprite(roamDirection.x > 0);
+                print("time to switch direction 97");
+                flipCooldownTimer = flipCooldownDuration;
+                print($"old dir = {currentDirection} new {-currentDirection}");
+
+                currentDirection = -currentDirection;
+                FlipSprite(currentDirection.x > 0);
             }
 
-            transform.position += (Vector3)roamDirection * (chargeSpeed/3 * Time.deltaTime);
+            transform.position += (Vector3)currentDirection * (chargeSpeed/3 * Time.deltaTime);
         }
 
 
@@ -167,7 +178,6 @@ namespace Enemies
             _col.offset = currentOffset;
             print($"new 87 {_col.offset}");
             flipCoroutine = null;
-            currentDirection *= -1;
         }
 
         IEnumerator PrepareCharge(Vector2 dir)
@@ -184,7 +194,7 @@ namespace Enemies
         IEnumerator PerformCharge(Vector2 dir)
         {
             float timer = 0f;
-            
+            IsCharging = true;
             while (IsCharging && timer < chargeDuration && !HitWall())
             {
                 MoveAndRotate(dir);
@@ -222,7 +232,6 @@ namespace Enemies
 
             src.clip = charge;
             src.Play();
-            IsCharging = true;
             CurrentForce = 1;
         }
 
@@ -251,7 +260,7 @@ namespace Enemies
         
         private bool GroundAhead()
         {
-            Vector2 origin = (Vector2)transform.position + roamDirection;
+            Vector2 origin = (Vector2)transform.position + currentDirection;
             RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, groundCheckDistance + 0.1f, groundLayer);
             return hit.collider != null;
         }
@@ -328,6 +337,8 @@ namespace Enemies
 
             transform.rotation = Quaternion.identity;
             rotationTimer = 0f;
+            flipCooldownTimer = 0f;
+            _col.enabled = true;
         }
 
         public void Growl()
@@ -356,19 +367,19 @@ namespace Enemies
         {
             Debug.Log($"Enemy rammed with force {fromForce}");
 
+            if (++hitCounter == hitsToKill)
+            {
+                gameObject.SetActive(false);
+            }
+            hitFeedbacks?.PlayFeedbacks();
+
             StopCharging();
             isPreparingCharge = false;
             StopAllCoroutines();
 
-
+            
             _col.enabled = false;
 
-            StartCoroutine(UtilityFunctions.FadeImage(spriteRenderer, 1, 0.5f, 0.5f,
-                () =>
-                {
-                    StartCoroutine(UtilityFunctions.FadeImage(spriteRenderer, 0.5f, 1f, 0.5f,
-                        () => { _col.enabled = true; }));
-                }));
         }
 
         public override void ApplyKnockback(Vector2 direction, float force)
@@ -377,10 +388,12 @@ namespace Enemies
             StopCharging();
             isKnockbacked = true;
             _col.enabled = false;
-            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.07f, () => _col.enabled = true));
+            if (gameObject.activeInHierarchy)
+            {
+                StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.07f, () => _col.enabled = true));
+            }
             _rb.bodyType = RigidbodyType2D.Dynamic;
             _rb?.AddForce(direction.normalized * force, ForceMode2D.Impulse);
-            currentDirection = Vector2.left;
         }
     }
 }

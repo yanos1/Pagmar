@@ -34,6 +34,8 @@ namespace Terrain.Environment
             {
                 hasCrumbled = true;
                 Invoke(nameof(Crumble), crumbleDelay);
+                Invoke(nameof(ResetToInitialState),5);
+
             }
 
         }

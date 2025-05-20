@@ -8,7 +8,7 @@ namespace Terrain.Environment
     public class BreakableLog : MonoBehaviour, IResettable
     {
         private int hitCount = 0;
-        private const int maxHits = 5;
+        private const int maxHits = 7;
         private Vector3 startingPos;
         private Rigidbody2D rb;
         private bool firstHit = true;

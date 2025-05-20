@@ -260,7 +260,7 @@ namespace Enemies
         
         private bool GroundAhead()
         {
-            Vector2 origin = (Vector2)transform.position + currentDirection;
+            Vector2 origin = (Vector2)transform.position + currentDirection* 0.2f;
             RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, groundCheckDistance + 0.1f, groundLayer);
             return hit.collider != null;
         }

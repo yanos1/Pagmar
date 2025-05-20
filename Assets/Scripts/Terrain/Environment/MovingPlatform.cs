@@ -140,7 +140,7 @@ namespace Terrain.Environment
             {
 
                 // Attach player to platform
-                if (player.GroundCheckPos.y > transform.position.y)
+                if (player.GroundCheckPos.y -0.2f> transform.position.y )
                 {
                     collision.collider.transform.SetParent(transform);
                 }

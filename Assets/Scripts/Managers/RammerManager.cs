@@ -23,6 +23,10 @@ namespace Managers
         {
             float forceA = a.CurrentForce;
             float forceB = b.CurrentForce;
+            if (forceA ==0 && forceB == 0)
+            {
+                return;
+            }
             print($"{a.CurrentForce} {b.CurrentForce}");
             // If same force, both knockback
             if (Mathf.Approximately(forceA, forceB))

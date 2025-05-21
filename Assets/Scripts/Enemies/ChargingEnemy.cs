@@ -46,7 +46,7 @@ namespace Enemies
         private Coroutine flipCoroutine;
         private Coroutine chargeCoroutine;
         private int currentColIndex = 0;
-        private Vector2 currentDirection = Vector2.left;
+        [SerializeField] private Vector2 currentDirection = Vector2.left;
         private bool hit = false;
         private bool isKnockbacked = false;
         private const float visibilityThreshold = 0.4f;
@@ -58,7 +58,7 @@ namespace Enemies
         private int hitCounter = 0;
         private int hitsToKill = 2;
 
-        public override void Start()
+        public void OnEnable()
         {
             base.Start();
             CurrentForce = 0f;
@@ -73,25 +73,31 @@ namespace Enemies
             {
                 return;
             }
-            
+
             if (flipCooldownTimer > 0f)
                 flipCooldownTimer -= Time.deltaTime;
-            
+
             if (chargeCooldown > 0) chargeCooldown -= Time.deltaTime;
             IncrementPlayerVisibleTimer();
-            
+
             float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-            if (!IsCharging && !isPreparingCharge && distanceToPlayer < detectionRange && Mathf.Abs(player.transform.position.y- transform.position.y) < 1)
+            if (!IsCharging && !isPreparingCharge && distanceToPlayer < detectionRange &&
+                Mathf.Abs(player.transform.position.y - transform.position.y) < 1)
             {
                 FlipTowardsPlayer();
             }
-            
-            if (canRoam && chargeCooldown <= 0 && !IsCharging && !isPreparingCharge && Mathf.Abs(player.transform.position.y- transform.position.y) >1 && !falling)
+           
+            if (canRoam && chargeCooldown <= 0 && !IsCharging && !isPreparingCharge && !falling)
             {
                 Roam();
             }
+            else
+            {
+                print("cant roam");
+            }
 
-            if (ShouldPrepareCharge(distanceToPlayer))
+
+        if (ShouldPrepareCharge(distanceToPlayer))
             {
                 isPreparingCharge = true;
                 currentDirection = transform.position.x > player.transform.position.x ? Vector2.left : Vector2.right;
@@ -238,6 +244,7 @@ namespace Enemies
         private void StopCharging()
         {
             print("stop charge");
+            detectionRange = 40f; // once charged, knows where to fijnd plyer from a distance
             chargeCoroutine = null;
             IsCharging = false;
             CurrentForce = 0;

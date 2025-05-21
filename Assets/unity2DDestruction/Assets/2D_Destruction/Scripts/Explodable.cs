@@ -83,7 +83,7 @@ public class Explodable : MonoBehaviour, IResettable
         print("delete fragments");
         foreach (GameObject frag in fragments)
         {
-            Destroy(frag);
+            DestroyImmediate(frag);
         }
         fragments.Clear();
         polygons.Clear();

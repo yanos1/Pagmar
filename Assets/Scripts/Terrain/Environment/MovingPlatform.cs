@@ -30,7 +30,7 @@ namespace Terrain.Environment
         
         private Vector3 startPos;
         private Vector3 targetPos;
-        private bool hasMoved = false;
+        protected bool hasMoved = false;
         private bool isGentlyMoving = false;
         private bool isLooping = false;
         private Coroutine moveslightlyCor;
@@ -54,6 +54,9 @@ namespace Terrain.Environment
         }
         private IEnumerator MovePlatform()
         {
+            if (hasMoved) yield break;
+            hasMoved = true;
+            
             if (moveslightlyCor != null)
             {
                 StopCoroutine(moveslightlyCor);
@@ -172,7 +175,6 @@ namespace Terrain.Environment
                 if (moveslightlyCor is not null) StopCoroutine(moveslightlyCor);
                 moveCoroutine = StartCoroutine(MovePlatform());
                 nextPlatformMove?.Invoke();
-                hasMoved = true;
             }
         }
 
@@ -265,7 +267,7 @@ namespace Terrain.Environment
         
         
 
-        private void OnCollisionExit2D(Collision2D collision)
+        public virtual void OnCollisionExit2D(Collision2D collision)
         {
             PlayerManager player = collision.collider.GetComponent<PlayerManager>();
             if (player)

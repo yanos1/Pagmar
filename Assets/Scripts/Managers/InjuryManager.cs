@@ -5,16 +5,24 @@ namespace Managers
 {
     public class InjuryManager : MonoBehaviour
     {
-
         public static InjuryManager Instance;
+        
         [Range(0, 1)] public float injuryMagnitude = 0f;
         public CanvasGroup redVignetteCanvasGroup;
         public AudioSource injuryAudioSource;
 
         [Header("Settings")]
         public AnimationCurve vignetteCurve; // Curve to control vignette intensity over injuryMagnitude
-        public AnimationCurve pitchCurve;    // Curve to control pitch over injuryMagnitude
-        public AnimationCurve volumeCurve;   // Curve to control volume over injuryMagnitude
+
+        public AnimationCurve pitchCurve; // Curve to control pitch over injuryMagnitude
+        public AnimationCurve volumeCurve; // Curve to control volume over injuryMagnitude
+
+        [Header("Healing Settings")] public bool enablePassiveHealing = true;
+        public float passiveHealingRate = 0.13f; // heals 12% per second
+        public float healingDelay = 2f; // time after damage before healing begins
+
+        private float lastDamageTime;
+
 
         private void Awake()
         {
@@ -25,14 +33,14 @@ namespace Managers
         {
             UpdateVisualFeedback();
             UpdateAudioFeedback();
+            HandlePassiveHealing();
         }
 
         void UpdateVisualFeedback()
         {
             if (redVignetteCanvasGroup)
             {
-                float alpha = vignetteCurve.Evaluate(injuryMagnitude);
-                redVignetteCanvasGroup.alpha = alpha;
+                redVignetteCanvasGroup.alpha = injuryMagnitude/7;
             }
         }
 
@@ -45,15 +53,34 @@ namespace Managers
             }
         }
 
+
         public void ApplyDamage(float amount)
         {
+            lastDamageTime = Time.time; // reset healing delay
+            if (amount + injuryMagnitude > 0.9)
+            {
+                CoreManager.Instance.Player.Die();
+                return;
+            }
             injuryMagnitude = Mathf.Clamp01(injuryMagnitude + amount);
+
         }
 
-        public void Heal(float amount)
+
+        public void Heal(float amount = 1)
         {
             injuryMagnitude = Mathf.Clamp01(injuryMagnitude - amount);
         }
-    }
 
+        void HandlePassiveHealing()
+        {
+            if (!enablePassiveHealing) return;
+
+            // Wait for delay after last damage
+            if (Time.time - lastDamageTime >= healingDelay && injuryMagnitude > 0f)
+            {
+                Heal(passiveHealingRate * Time.deltaTime);
+            }
+        }
+    }
 }

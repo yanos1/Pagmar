@@ -15,18 +15,15 @@ namespace Player
         [SerializeField] private SpineControl spineControl;
         [SerializeField] private PlayerStage _playerStage = PlayerStage.Young;
         [SerializeField] private float knockbackStrength = 50f;
-        [SerializeField] private float injuredDuration = 5f;
 
         private Rigidbody2D _rb;
-        private Coroutine injuryCoroutine;
-        private bool isInjured = false;
         private bool isDead = false;
         private bool isKnockbacked = false;
         private bool inputEnabled = true;
+        private float hitDamage = 0.5f;
         public bool InputEnabled => inputEnabled;
         public void DisableInput() => inputEnabled = false;
         public void EnableInput() => inputEnabled = true;
-        public bool IsInjured => isInjured;
         public bool IsKnockBacked => isKnockbacked;
         
         public bool IsDead => isDead;
@@ -49,7 +46,7 @@ namespace Player
             ApplyScaleForStage(_playerStage);
         }
 #endif
-
+        
         private void Start()
         {
             
@@ -161,6 +158,12 @@ namespace Player
                 PlayerStage.Adult => new Vector3(1.5f, 1.5f, 1f),
                 _ => transform.localScale
             };
+            hitDamage = stage switch
+            {
+                PlayerStage.Teen => 0.4f,
+                PlayerStage.Adult => 0.25f,
+                _ => 0.5f
+            }; 
         }
 
         // === Rammer Implementation ===
@@ -173,47 +176,26 @@ namespace Player
         public override void OnRammed(float fromForce)
         {
             Debug.Log($"Player got rammed with force {fromForce}");
+            InjuryManager.Instance.ApplyDamage(hitDamage);
             spineControl.PlayAnimationOnBaseTrack("hit", false);
-            if (isInjured)
-            {
-                StartCoroutine(DieAfterDelay());
-                return;
-            }
 
-            if (injuryCoroutine != null)
-                StopCoroutine(injuryCoroutine);
-
-            injuryCoroutine = StartCoroutine(InjuryTimer());
         }
 
-        private IEnumerator DieAfterDelay()
+        public IEnumerator DieAfterDelay()
         {
             DisableInput();
             isDead = true;
             print($"input enabled: {InputEnabled}");
             yield return new WaitForSeconds(2f);
             CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
+            InjuryManager.Instance.Heal();
             EnableInput();
             print($"input enabled: {InputEnabled}");
-            isInjured = false;
             isDead = false;
             isKnockbacked = false;
             _rb.linearVelocity = Vector2.zero;
 
         }
-
-        private IEnumerator InjuryTimer()
-        {
-            isInjured = true;
-            Debug.Log("Player is injured!");
-
-            yield return new WaitForSeconds(injuredDuration);
-
-            isInjured = false;
-            injuryCoroutine = null;
-            Debug.Log("Player has recovered from injury.");
-        }
-
         public override void ApplyKnockback(Vector2 direction, float force)
         {            
             DisableInput();
@@ -246,6 +228,11 @@ namespace Player
             Young,
             Teen,
             Adult,
+        }
+
+        public void Die()
+        {
+            StartCoroutine(DieAfterDelay());
         }
     }
 }

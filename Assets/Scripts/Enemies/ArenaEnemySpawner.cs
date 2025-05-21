@@ -12,7 +12,8 @@ namespace Enemies
         [SerializeField] private List<ChargingEnemy> enemies;
         private bool triggered = false;
         private void OnTriggerEnter2D(Collider2D other)
-        {
+        {   
+            if(triggered) return;
             if (other.GetComponent<PlayerManager>() is not null)
             {
                 SpawnEnemies();

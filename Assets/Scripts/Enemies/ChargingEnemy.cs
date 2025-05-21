@@ -104,7 +104,7 @@ namespace Enemies
                 StartCoroutine(PrepareCharge(currentDirection));
             }
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 1, groundLayer);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 2, groundLayer);
             if (hit.collider is not null && (hit.collider.gameObject.GetComponent<GuillotineTrap>() is not null))
             {
                 e.explode();

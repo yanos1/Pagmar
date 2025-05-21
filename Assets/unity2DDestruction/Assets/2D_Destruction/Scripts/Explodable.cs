@@ -15,7 +15,7 @@ public class Explodable : MonoBehaviour, IResettable
     public string fragmentLayer = "Default";
     public string sortingLayerName = "Default";
     public int orderInLayer = 0;
-
+    private bool hasExploded = false;
     public enum ShatterType
     {
         Triangle,
@@ -30,6 +30,7 @@ public class Explodable : MonoBehaviour, IResettable
     /// </summary>
     public void explode()
     {
+        hasExploded = true;
         //if fragments were not created before runtime then create them now
         if (fragments.Count == 0)
         {
@@ -80,11 +81,16 @@ public class Explodable : MonoBehaviour, IResettable
     }
     public void deleteFragments()
     {
-        print("delete fragments");
+        bool calledFromUI = !Application.isPlaying;
+
         foreach (GameObject frag in fragments)
         {
-            DestroyImmediate(frag);
+            if (calledFromUI)
+                DestroyImmediate(frag);
+            else
+                Destroy(frag);
         }
+
         fragments.Clear();
         polygons.Clear();
     }
@@ -195,8 +201,12 @@ public class Explodable : MonoBehaviour, IResettable
             sr.color = c;
         }
 
-        deleteFragments();
-        generateFragments();
+        if (hasExploded)
+        {
+            deleteFragments();
+            generateFragments();
+        }
+        hasExploded = false;
     }
 
 }

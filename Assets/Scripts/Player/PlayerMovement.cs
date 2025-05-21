@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Camera;
+using Managers;
 using Player;
 using UnityEditor.Rendering;
 using UnityEngine;
@@ -159,11 +160,9 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         if(player.IsKnockBacked) return;
-        if (player.IsInjured)
-        {
-            _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed*0.4f * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
-        }
-        _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
+        
+        _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed*(1-InjuryManager.Instance.injuryMagnitude/1.3f) * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
+        
     }
 
     public void HandleMovment(InputAction.CallbackContext context)

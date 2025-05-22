@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
     private bool hasWallJumped = false;
     private bool isWallSliding = false;
     
-    [SerializeField] private bool enableWallJump = true;
+    [SerializeField] public bool enableWallJump;
     private PlayerManager player;
     [SerializeField] SpineControl spineControl;
 

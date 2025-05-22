@@ -276,7 +276,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5345460813292254675}
   - component: {fileID: 1301212134652483202}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: image-removebg-preview (1)_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

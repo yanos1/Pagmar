@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Terrain.Environment
 {
-    public class UpgradePlayerCheckpoint : MonoBehaviour
+    public class UpgradePlayerCheckpoint2 : MonoBehaviour
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.GetComponent<PlayerMovement>() is { } player)
             {
-                player.enableAdvancedDash = true;
+                player.enableWallJump = true;
             }
         }
     }

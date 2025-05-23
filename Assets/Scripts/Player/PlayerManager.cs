@@ -5,6 +5,7 @@ using Managers;
 using NPC;
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 namespace Player
 {
@@ -68,7 +69,7 @@ namespace Player
             var breakable = other.gameObject.GetComponent<IBreakable>();
             if (breakable is not null && _playerMovement.IsDashing)
             {
-                breakable.OnHit((other.transform.position - transform.position).normalized);
+                breakable.OnHit((other.transform.position - transform.position).normalized, playerStage);
             }
 
             if (other.gameObject.GetComponent<IKillPlayer>() is { } killPlayer && killPlayer.IsDeadly())
@@ -97,11 +98,21 @@ namespace Player
                     RammerManager.Instance.ResolveRam(this, rammer);
                     print("{ram!! 987");
                 }
+
+                if (rammer.GetComponent<ChasingEnemy>() is not null)
+                {
+                    print("chasing enemy got me 76");
+                    RammerManager.Instance.ResolveRam(this,rammer);
+                }
             }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (other.gameObject.GetComponent<IKillPlayer>() is not null)
+            {
+                print($"collided with {other.gameObject.name} 13");
+            }
             if (other.gameObject.GetComponent<IKillPlayer>() is { } killPlayer && killPlayer.IsDeadly())
             {
                 CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
@@ -130,6 +141,7 @@ namespace Player
                 isKnockbacked = false;
 
             }
+            
         }
 
         public void SetFollowedBy([CanBeNull] Npc npc)
@@ -155,13 +167,13 @@ namespace Player
             {
                 PlayerStage.Young => new Vector3(0.83f, 0.83f, 1f),
                 PlayerStage.Teen => new Vector3(1f, 1f, 1f),
-                PlayerStage.Adult => new Vector3(1.5f, 1.5f, 1f),
+                PlayerStage.Adult => new Vector3(1.2f, 1.2f, 1f),
                 _ => transform.localScale
             };
             hitDamage = stage switch
             {
-                PlayerStage.Teen => 0.4f,
-                PlayerStage.Adult => 0.25f,
+                PlayerStage.Teen => 0.25f,
+                PlayerStage.Adult => 0.17f,
                 _ => 0.5f
             }; 
         }
@@ -176,7 +188,7 @@ namespace Player
         public override void OnRammed(float fromForce)
         {
             Debug.Log($"Player got rammed with force {fromForce}");
-            InjuryManager.Instance.ApplyDamage(hitDamage);
+            InjuryManager.Instance.ApplyDamage(hitDamage* fromForce);
             spineControl.PlayAnimationOnBaseTrack("hit", false);
 
         }

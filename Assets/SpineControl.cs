@@ -17,7 +17,6 @@ public class SpineControl : MonoBehaviour
 
     public void PlayAnimation(string animationName, bool loop = false, string fallbackAnimation = "idle")
     {
-        Debug.Log(animationName);
         if (string.IsNullOrEmpty(animationName)) return;
         if (currentActionAnimation == animationName) return;
 

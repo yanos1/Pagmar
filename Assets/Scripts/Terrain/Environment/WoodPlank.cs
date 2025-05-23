@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using Player;
 using UnityEngine;
 
 namespace Terrain.Environment
@@ -13,7 +14,7 @@ namespace Terrain.Environment
           // gameObject.SetActive(false);
         }
 
-        public void OnHit(Vector2 hitDir)
+        public void OnHit(Vector2 hitDir, PlayerManager.PlayerStage stage)
         {
             rb.bodyType = RigidbodyType2D.Dynamic;
             hinge.enabled = true;

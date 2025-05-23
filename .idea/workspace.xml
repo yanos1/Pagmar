@@ -5,28 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d3d910bc-5473-41e6-afe0-169400ccc020" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Background/BurntTree_0.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Background/BurntTree_0.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Background/FallingStone (1).prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Background/FallingStone (1).prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Background/logbig_0.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Background/logbig_0.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Terrain/Environment/ShakyTree.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Terrain/Environment/ShakyTree.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/PlaceHolders/BurntTree.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/PlaceHolders/BurntTree.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Ground/Environment/FallingStone.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Ground/Environment/FallingStone.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Interactables.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Environment.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Interactables/BreakableTerrain.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Environment/BreakableTerrain.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Interactables/BreakableTerrain.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Environment/BreakableTerrain.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Underground.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Underground.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/ChargingEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/ChargingEnemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Terrain/Environment/BouncyLog.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Terrain/Environment/BouncyLog.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Terrain/Environment/FallingStone.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Terrain/Environment/FallingStone.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/PlaceHolders/logbig.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/PlaceHolders/logbig.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/unity2DDestruction/Assets/2D_Destruction/Demo/Demo Scripts/ExplosionForce.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/unity2DDestruction/Assets/2D_Destruction/Demo/Demo Scripts/ExplosionForce.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/unity2DDestruction/Assets/2D_Destruction/Scripts/Explodable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/unity2DDestruction/Assets/2D_Destruction/Scripts/Explodable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Light/Light 2D (1).prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Light/Light 2D (1).prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +50,7 @@
       <updated>1746312256162</updated>
       <workItem from="1746312258878" duration="332000" />
       <workItem from="1747053601429" duration="8000" />
+      <workItem from="1747937370361" duration="1000" />
     </task>
     <servers />
   </component>

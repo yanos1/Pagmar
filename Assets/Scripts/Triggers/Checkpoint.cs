@@ -3,6 +3,7 @@ using Managers;
 using MoreMountains.Feedbacks;
 using NPC;
 using Player;
+using SpongeScene;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -17,8 +18,11 @@ namespace Triggers
         private Npc recordedNpc;
         private int recorededNpcCurrentActionIndex;
         private Vector3 recordedNpcPposition;
+        private bool triggered;
         
         [SerializeField] MMF_Player checkpointFeedback;
+        [SerializeField] private bool callEventOnReach;
+        [SerializeField] private EventNames onReached;
 
         public void RestoreCheckpointState()
         {
@@ -40,9 +44,18 @@ namespace Triggers
         private void OnTriggerEnter2D(Collider2D other)
         {
             print("reched checkpoint");
+           
             PlayerManager player = other.GetComponent<PlayerManager>();
-            if (player is not null)
+            if (player is not null && !player.IsDead)
             {
+                if( triggered ) return;
+                triggered = true;
+                CoreManager.Instance.EventManager.InvokeEvent(EventNames.ReachedCheckPoint, player.transform.position);
+
+                if (callEventOnReach)
+                {
+                    StartCoroutine(UtilityFunctions.WaitAndInvokeAction(4f,()=> CoreManager.Instance.EventManager.InvokeEvent(onReached, null)));
+                }
                 
                 recordedNpc = player.GetFollowedBy();
                 if (recordedNpc is not null)

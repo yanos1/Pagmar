@@ -2,6 +2,7 @@
 using System;
 using Interfaces;
 using NPC;
+using Player;
 using SpongeScene;
 using Triggers;
 using UnityEngine;
@@ -36,9 +37,10 @@ namespace Terrain.Environment
             rb.AddForce(Vector2.left * power);
         }
 
-        public void OnHit(Vector2 hitDir)
+        public void OnHit(Vector2 hitDir, PlayerManager.PlayerStage stage)
         {
             return;
         }
+        
     }
 }

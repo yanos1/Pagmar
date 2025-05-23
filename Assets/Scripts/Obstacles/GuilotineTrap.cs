@@ -1,6 +1,7 @@
 using System.Collections;
 using DG.Tweening;
 using Interfaces;
+using Player;
 using SpongeScene;
 using Triggers;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace Obstacles
         Y
     }
 
-    public class GuillotineTrap : MonoBehaviour, IKillPlayer, IResettable
+    public class GuillotineTrap : MonoBehaviour, IKillPlayer, IResettable,IBreakable
     {
         [Header("Movement Settings")]
         [SerializeField] private MoveDirection moveDirection = MoveDirection.Y;
@@ -107,6 +108,16 @@ namespace Obstacles
             }
 
             waitRoutine = StartCoroutine(WaitForTrigger());
+        }
+
+        public void OnBreak()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnHit(Vector2 hitDir, PlayerManager.PlayerStage stage)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

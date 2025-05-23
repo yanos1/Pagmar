@@ -111,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         if (isWallJumping)
         {
             wallJumpCounter -= Time.deltaTime;
-            if (wallJumpCounter <= 0 && _rb.linearVelocity.y > 0)
+            if (wallJumpCounter <= 0)  //&& _rb.linearVelocity.y > 0 ?? why was this in the if statement?
             {
                 isWallJumping = false;
                 _rb.gravityScale = regularGravity;
@@ -120,7 +120,10 @@ public class PlayerMovement : MonoBehaviour
         UpdateAnimation();  
     }
 
-
+    public Vector3 GetVelocity()
+    {
+        return _rb.linearVelocity;
+    }
     private void CheckIfFalling()
     {
         if (_rb.linearVelocity.y < _fallSpeedYDampingChangeThreshold &&
@@ -161,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(player.IsKnockBacked) return;
         
-        _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed*(1-InjuryManager.Instance.injuryMagnitude/1.3f) * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
+        _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed*(1-InjuryManager.Instance.injuryMagnitude/1.7f) * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
         
     }
 

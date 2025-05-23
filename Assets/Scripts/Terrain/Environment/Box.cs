@@ -10,7 +10,7 @@ namespace Terrain.Environment
     public class Box : MonoBehaviour, IResettable, IBreakable
     {
         private Rigidbody2D rb;
-        private float hitForce = 30f; // this is a dummy value that will be obtained from the player.
+        private float hitForce = 20; // this is a dummy value that will be obtained from the player.
         private bool isMoving;
         private bool isDropping;
         private Vector3 startingPosition;
@@ -43,7 +43,7 @@ namespace Terrain.Environment
                     if (hitCooldownTimer <= 0f)
                     {
                         PlaySound(boxHit);
-                        OnHit(hitDirection);
+                        OnHit(hitDirection, CoreManager.Instance.Player.playerStage);
                         hitCooldownTimer = hitCooldownDuration;
                     }
                 }
@@ -66,20 +66,26 @@ namespace Terrain.Environment
         {
             if (other.GetComponent<AlternatingLavaBeam>() is not null)
             {
-                e.explode();
-                f.doExplosion(transform.position);
+               OnBreak();
             }
         }
 
         public void OnBreak()
         {
-            gameObject.SetActive(false);
+            e.explode();
+            f.doExplosion(transform.position);
         }
 
-        public void OnHit(Vector2 hitDirection)
+        public void OnHit(Vector2 hitDirection, PlayerManager.PlayerStage stage)
         {
-            if (rb != null)
+            print("box hit 88");
+            if (stage == PlayerManager.PlayerStage.Adult)
             {
+                print("box break 88");
+                OnBreak();
+            }
+            else{
+                
                 rb.AddForce(hitDirection * hitForce, ForceMode2D.Impulse);
             }
         }

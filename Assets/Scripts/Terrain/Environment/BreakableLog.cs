@@ -1,5 +1,6 @@
 ﻿using System;
 using Interfaces;
+using Managers;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace Terrain.Environment
     public class BreakableLog : MonoBehaviour, IResettable
     {
         private int hitCount = 0;
-        private const int maxHits = 7;
+        [SerializeField]private int maxHits = 7;
         private Vector3 startingPos;
         private Rigidbody2D rb;
 
@@ -23,10 +24,10 @@ namespace Terrain.Environment
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
-        {
-
-            if (collision.gameObject.GetComponent<PlayerMovement>() is { } player && (player.IsDashing))
+        {   
+            if (collision.gameObject.GetComponent<PlayerMovement>() is { } player && player.IsDashing && Mathf.Abs(player.DashDirection.y) > 0.3f)
             {
+                print("hit tree 86");
                 hitFeedback?.PlayFeedbacks();
                 if (++hitCount == maxHits)
                 {

@@ -1,3 +1,4 @@
+using Player;
 using UnityEngine;
 
 namespace Interfaces
@@ -5,6 +6,6 @@ namespace Interfaces
     public interface IBreakable
     {
         public void OnBreak();
-        public void OnHit(Vector2 hitDir);
+        public void OnHit(Vector2 hitDir, PlayerManager.PlayerStage stage);
     }
 }

@@ -91,10 +91,6 @@ namespace Enemies
             {
                 Roam();
             }
-            else
-            {
-                print("cant roam");
-            }
 
 
         if (ShouldPrepareCharge(distanceToPlayer))

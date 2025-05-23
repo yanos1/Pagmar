@@ -64,5 +64,6 @@ namespace Managers
         StartEndCutScene=12,
 
         GayserFinished=13,
+        StartEnemyChase=14,
     }
 }

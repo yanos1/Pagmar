@@ -5,6 +5,7 @@ using Managers;
 using NPC;
 using UnityEngine;
 using System.Collections;
+using Obstacles;
 using Unity.VisualScripting;
 
 namespace Player
@@ -76,11 +77,15 @@ namespace Player
                 breakable.OnHit((other.transform.position - transform.position).normalized, playerStage);
             }
 
+            if (other.gameObject.GetComponent<IKillPlayer>() is not null)
+            {
+                print($"collided with {other.gameObject.name} 13");
+            }
             if (other.gameObject.GetComponent<IKillPlayer>() is { } killPlayer && killPlayer.IsDeadly())
             {
                 CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
                 return;
-            }
+            }  
 
             CheckForRam(other);
         }
@@ -143,11 +148,9 @@ namespace Player
             {
                 EnableInput();
                 isKnockbacked = false;
-
             }
 
             currentGround = groundDetector.GetGroundMaterial() ?? -1;
-
         }
 
         public void SetFollowedBy([CanBeNull] Npc npc)

@@ -77,8 +77,7 @@ namespace Enemies
             IncrementPlayerVisibleTimer();
 
             float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-            if (!IsCharging && !isPreparingCharge && distanceToPlayer < detectionRange &&
-                Mathf.Abs(player.transform.position.y - transform.position.y) < 1)
+            if (!IsCharging && isPreparingCharge && distanceToPlayer < detectionRange)
             {
                 FlipTowardsPlayer();
             }
@@ -97,6 +96,8 @@ namespace Enemies
             }
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 2, groundLayer);
+            Debug.DrawRay(transform.position, Vector2.up* 2, hit.collider ? Color.red : Color.green);
+
             if (hit.collider is not null && (hit.collider.gameObject.GetComponent<GuillotineTrap>() is not null))
             {
                 e.explode();

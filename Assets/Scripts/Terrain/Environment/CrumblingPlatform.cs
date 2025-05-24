@@ -30,7 +30,8 @@ namespace Terrain.Environment
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (hasCrumbled) return;
-            if (collision.gameObject.transform.position.y > transform.position.y)
+            
+            if (collision.gameObject.GetComponent<PlayerMovement>() is not null && collision.gameObject.transform.position.y > transform.position.y)
             {
                 hasCrumbled = true;
                 Invoke(nameof(Crumble), crumbleDelay);

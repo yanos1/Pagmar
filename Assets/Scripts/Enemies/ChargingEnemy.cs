@@ -22,10 +22,6 @@ namespace Enemies
         [SerializeField] private bool canRoam = true;
         [SerializeField] private PlayerManager player;
 
-        [SerializeField] private AudioSource src;
-        [SerializeField] private AudioClip charge;
-        [SerializeField] private AudioClip growl;
-
         [Header("Ground Detection")] [SerializeField]
         private LayerMask groundLayer;
 
@@ -233,8 +229,6 @@ namespace Enemies
         {
             print("start charge 9-");
 
-            src.clip = charge;
-            src.Play();
         }
 
         private void StopCharging()
@@ -323,8 +317,6 @@ namespace Enemies
         {
             base.ResetToInitialState();
             CurrentForce = 0;
-            src.Stop();
-            src.clip = null;
 
             IsCharging = false;
             isPreparingCharge = false;
@@ -346,15 +338,12 @@ namespace Enemies
 
         public void Growl()
         {
-            src.clip = growl;
-            src.Play();
         }
 
         public void SpecialNpcRam()
         {
             IsCharging = false;
             hit = true;
-            src.Stop();
             _rb.bodyType = RigidbodyType2D.Dynamic;
             _rb.freezeRotation = false;
             _rb.AddForce(Vector2.right * 1200f);
@@ -363,7 +352,6 @@ namespace Enemies
         public override void OnRam(float againstForce)
         {
             StopCharging();
-            src.Stop();
         }
 
         public override void OnRammed(float fromForce)

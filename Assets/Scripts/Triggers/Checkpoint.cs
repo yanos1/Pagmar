@@ -11,7 +11,7 @@ namespace Triggers
 {
     public class Checkpoint : MonoBehaviour
     {
-        [SerializeField] private PlayerManager.PlayerStage newStage;
+        [SerializeField] private PlayerStage newStage;
         private Vector3 recordedPlayerVelocity;
         private Vector3 recordedPlayerPposition;
         
@@ -69,7 +69,7 @@ namespace Triggers
                 print("play feebacks");
                 checkpointFeedback?.PlayFeedbacks();
                 CoreManager.Instance.ResetManager.UpdateCheckPoint(this);
-                if (newStage != PlayerManager.PlayerStage.None)
+                if (newStage != PlayerStage.None)
                 {
                     player.SetPlayerStage(newStage);
                 }

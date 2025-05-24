@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 377d4be2bd60451c8f982503c0a740db, type: 3}
+  m_Name: PlayerSounds
+  m_EditorClassIdentifier: 
+  jumpSound:
+    Guid:
+      Data1: -772418952
+      Data2: 1282738318
+      Data3: -888294767
+      Data4: -196798405
+    Path: event:/Player/PlayerJump
+  walkSound:
+    Guid:
+      Data1: -401077193
+      Data2: 1277706423
+      Data3: -1528542579
+      Data4: -1871443246
+    Path: event:/Player/PlayerFootsteps
+  landSound:
+    Guid:
+      Data1: 1752811557
+      Data2: 1146822522
+      Data3: 328544956
+      Data4: 529261551
+    Path: event:/Player/PlayerLand
+  damageSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  deathSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  attackSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  jumpVolume: 1
+  landVolume: 1
+  damageVolume: 1
+  deathVolume: 1
+  attackVolume: 1

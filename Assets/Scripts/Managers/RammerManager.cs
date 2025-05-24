@@ -63,7 +63,7 @@ namespace Managers
             
             // kmockback player of lower states
             if (winner.gameObject.GetComponent<PlayerManager>() is { } player &&
-                player.playerStage != PlayerManager.PlayerStage.Adult)
+                player.playerStage != PlayerStage.Adult)
             {
                 Vector2 dir = (winner.transform.position - loser.transform.position).normalized;
 

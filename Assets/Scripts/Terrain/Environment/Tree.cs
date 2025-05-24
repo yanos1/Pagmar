@@ -37,7 +37,7 @@ namespace Terrain.Environment
             rb.AddForce(Vector2.left * power);
         }
 
-        public void OnHit(Vector2 hitDir, PlayerManager.PlayerStage stage)
+        public void OnHit(Vector2 hitDir, PlayerStage stage)
         {
             return;
         }

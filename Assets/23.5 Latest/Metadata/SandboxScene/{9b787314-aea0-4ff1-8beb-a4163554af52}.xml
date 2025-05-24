@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="SandboxScene" id="{9b787314-aea0-4ff1-8beb-a4163554af52}">
+		<property name="name">
+			<value>New Scene</value>
+		</property>
+		<relationship name="folder">
+			<destination>{499d1895-71f6-4749-965c-eca880af9b53}</destination>
+		</relationship>
+		<relationship name="markerTracks">
+			<destination>{c3cda0d5-20c2-492e-a9cc-d3a7dc92c9fb}</destination>
+		</relationship>
+		<relationship name="timeline">
+			<destination>{20ec6c1f-72e3-4e50-a29e-c233217820aa}</destination>
+		</relationship>
+		<relationship name="emitters">
+			<destination>{b2ff175a-415f-4be7-93c1-f62ee1586881}</destination>
+			<destination>{5f8efc9e-44f8-4d6e-9a97-6c7d8fe803b9}</destination>
+			<destination>{3398aa85-5d38-49ad-9cdf-02c09ffb716e}</destination>
+		</relationship>
+	</object>
+	<object class="MarkerTrack" id="{c3cda0d5-20c2-492e-a9cc-d3a7dc92c9fb}" />
+	<object class="Timeline" id="{20ec6c1f-72e3-4e50-a29e-c233217820aa}" />
+	<object class="SandboxEmitter" id="{b2ff175a-415f-4be7-93c1-f62ee1586881}">
+		<property name="positionX">
+			<value>-4.0999999</value>
+		</property>
+		<property name="positionZ">
+			<value>2.54999995</value>
+		</property>
+		<property name="rotationY">
+			<value>-91.7939377</value>
+		</property>
+		<relationship name="event">
+			<destination>{6879c825-1f7a-445b-bc32-9513efe38b1f}</destination>
+		</relationship>
+	</object>
+	<object class="SandboxEmitter" id="{5f8efc9e-44f8-4d6e-9a97-6c7d8fe803b9}">
+		<property name="positionX">
+			<value>0.425000012</value>
+		</property>
+		<property name="positionZ">
+			<value>5.625</value>
+		</property>
+		<relationship name="sandboxParameters">
+			<destination>{b9906c73-55c6-4004-b198-177591c8a640}</destination>
+		</relationship>
+		<relationship name="event">
+			<destination>{e8180c37-40b7-4c28-8d4a-e4a4d20a7490}</destination>
+		</relationship>
+	</object>
+	<object class="SandboxEmitter" id="{3398aa85-5d38-49ad-9cdf-02c09ffb716e}">
+		<property name="positionX">
+			<value>-11.8000002</value>
+		</property>
+		<property name="positionZ">
+			<value>3.5250001</value>
+		</property>
+		<relationship name="event">
+			<destination>{e2a91290-c83a-4eaa-abb6-a04ab7d85af2}</destination>
+		</relationship>
+	</object>
+	<object class="SandboxParameter" id="{b9906c73-55c6-4004-b198-177591c8a640}">
+		<property name="parameterValue">
+			<value>3</value>
+		</property>
+		<relationship name="parameter">
+			<destination>{673479f8-4f3b-407f-90b1-b7236d3e4d99}</destination>
+		</relationship>
+	</object>
+</objects>

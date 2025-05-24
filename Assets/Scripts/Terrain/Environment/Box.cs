@@ -76,10 +76,10 @@ namespace Terrain.Environment
             f.doExplosion(transform.position);
         }
 
-        public void OnHit(Vector2 hitDirection, PlayerManager.PlayerStage stage)
+        public void OnHit(Vector2 hitDirection, PlayerStage stage)
         {
             print("box hit 88");
-            if (stage == PlayerManager.PlayerStage.Adult)
+            if (stage == PlayerStage.Adult)
             {
                 print("box break 88");
                 OnBreak();

@@ -13,6 +13,8 @@ namespace Player
     {
         private PlayerMovement _playerMovement;
         private Npc followedBy;
+
+        [SerializeField] private GroundDetector groundDetector;
         [SerializeField] private SpineControl spineControl;
         [SerializeField] private PlayerStage _playerStage = PlayerStage.Young;
         [SerializeField] private float knockbackStrength = 50f;
@@ -22,6 +24,7 @@ namespace Player
         private bool isKnockbacked = false;
         private bool inputEnabled = true;
         private float hitDamage = 0.5f;
+        private int currentGround = -1; // no ground (num 0-6 gives other types)
         public bool InputEnabled => inputEnabled;
         public void DisableInput() => inputEnabled = false;
         public void EnableInput() => inputEnabled = true;
@@ -29,6 +32,7 @@ namespace Player
         
         public bool IsDead => isDead;
 
+        public int CurrentGround => currentGround;
 
         public PlayerStage playerStage
         {
@@ -141,7 +145,9 @@ namespace Player
                 isKnockbacked = false;
 
             }
-            
+
+            currentGround = groundDetector.GetGroundMaterial() ?? -1;
+
         }
 
         public void SetFollowedBy([CanBeNull] Npc npc)
@@ -234,17 +240,18 @@ namespace Player
             CurrentForce = 0f;
         }
 
-        public enum PlayerStage
-        {
-            None,
-            Young,
-            Teen,
-            Adult,
-        }
+      
 
         public void Die()
         {
             StartCoroutine(DieAfterDelay());
         }
+    }
+    public enum PlayerStage
+    {
+        None,
+        Young,
+        Teen,
+        Adult,
     }
 }

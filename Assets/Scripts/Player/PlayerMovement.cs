@@ -2,8 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Camera;
+using FMOD.Studio;
+using FMODUnity;
 using Managers;
 using Player;
+using ScripableObjects;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -47,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("CammeraFollowObject")]
     [SerializeField] private CameraFollowObject _cameraFollowObject;
+
+    [SerializeField] private PlayerSounds playerSounds;
 
     private bool isJumping = false;
     public bool jumpIsPressed = false;
@@ -163,7 +168,12 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         if(player.IsKnockBacked) return;
-        
+        if (Mathf.Abs(_moveInputX) > 0.1)
+        {
+            // EventInstance instance = CoreManager.Instance.AudioManager.CreateEveneInstance(playerSounds.walkSound, "Material", player.CurrentGround);
+            // instance.
+            
+        }
         _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed*(1-InjuryManager.Instance.injuryMagnitude/1.7f) * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
         
     }
@@ -231,6 +241,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (context.started)
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.jumpSound, transform.position);
             if (enableWallJump && isTouchingWall && !IsGrounded())
             {
                 StartWallJump();
@@ -341,10 +352,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {   
+        
         float force = jumpForce;
         if (_rb.linearVelocity.y < 0)
             force -= _rb.linearVelocity.y;
-
+        // CoreManager.Instance.AudioManager.PlayOneShot(co);
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, _rb.linearVelocity.y + ((force + (0.5f * Time.fixedDeltaTime * -_rb.gravityScale)) / _rb.mass));
         LastOnGroundTime = 0f;
         isJumping = true;

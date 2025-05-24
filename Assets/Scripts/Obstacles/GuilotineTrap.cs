@@ -115,7 +115,7 @@ namespace Obstacles
             throw new System.NotImplementedException();
         }
 
-        public void OnHit(Vector2 hitDir, PlayerManager.PlayerStage stage)
+        public void OnHit(Vector2 hitDir, PlayerStage stage)
         {
             throw new System.NotImplementedException();
         }

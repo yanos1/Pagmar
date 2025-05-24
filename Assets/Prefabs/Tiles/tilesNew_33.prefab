@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8584065245572900898}
   m_Layer: 3
   m_Name: tilesNew_33
-  m_TagString: Untagged
+  m_TagString: Rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

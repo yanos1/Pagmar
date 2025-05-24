@@ -86,7 +86,7 @@ namespace Terrain.Environment
             }
         }
 
-        public void OnHit(Vector2 hitDir, PlayerManager.PlayerStage playerStage)
+        public void OnHit(Vector2 hitDir, PlayerStage playerStage)
         {
             hitFeedbacks?.PlayFeedbacks();
 
@@ -98,7 +98,7 @@ namespace Terrain.Environment
                 accumulatedForce += addedForce;
             }
 
-            if (playerStage == PlayerManager.PlayerStage.Adult)
+            if (playerStage == PlayerStage.Adult)
             {
                 OnBreak();
             }

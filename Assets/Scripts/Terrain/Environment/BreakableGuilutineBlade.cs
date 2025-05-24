@@ -20,7 +20,7 @@ public class BreakableGuilutineBlade : MonoBehaviour,IBreakable,IResettable
         f.doExplosion(f.transform.position);
     }
 
-    public void OnHit(Vector2 hitDir, PlayerManager.PlayerStage stage)
+    public void OnHit(Vector2 hitDir, PlayerStage stage)
     {
         OnBreak();
     }

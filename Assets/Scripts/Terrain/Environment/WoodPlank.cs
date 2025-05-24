@@ -14,7 +14,7 @@ namespace Terrain.Environment
           // gameObject.SetActive(false);
         }
 
-        public void OnHit(Vector2 hitDir, PlayerManager.PlayerStage stage)
+        public void OnHit(Vector2 hitDir, PlayerStage stage)
         {
             rb.bodyType = RigidbodyType2D.Dynamic;
             hinge.enabled = true;

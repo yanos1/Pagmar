@@ -11,9 +11,10 @@ namespace Loader
         [SerializeField] private UiManager uiManager;
         [SerializeField] private PoolManager poolManager;
         [SerializeField] private CameraManager cameraManager;
+        [SerializeField] private AudioManager audioManager;
         private void Awake()
         {
-            new CoreManager(resetManager, uiManager, poolManager,cameraManager);
+            new CoreManager(resetManager, uiManager, poolManager,cameraManager, audioManager);
         }
     }
 }

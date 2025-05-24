@@ -27,6 +27,10 @@ namespace Player
         public void HandleGroundSound()
         {
             var newGround = GetGroundMaterial();
+            if (newGround == -1)
+            {
+                return;
+            }
             print($"new ground mat is {newGround}");
             if (currentGround != newGround || noSoundPlaying)
             { 
@@ -92,6 +96,7 @@ namespace Player
             if (collider.CompareTag("Bone")) return 4;
             if (collider.CompareTag("TreeBranches")) return 5;
             if (collider.CompareTag("Wood")) return 6;
+            print(collider.gameObject.tag + "wasnt found!");
             return -1;
         }
         

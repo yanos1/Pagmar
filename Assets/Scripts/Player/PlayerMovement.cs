@@ -52,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CameraFollowObject _cameraFollowObject;
 
     [SerializeField] private PlayerSounds playerSounds;
+    [SerializeField] private PlayerGroundHandler playerGroundHandler;
+
 
     private bool isJumping = false;
     public bool jumpIsPressed = false;
@@ -170,11 +172,13 @@ public class PlayerMovement : MonoBehaviour
         if(player.IsKnockBacked) return;
         if (Mathf.Abs(_moveInputX) > 0.1)
         {
-            // EventInstance instance = CoreManager.Instance.AudioManager.CreateEveneInstance(playerSounds.walkSound, "Material", player.CurrentGround);
-            // instance.
-            
+            playerGroundHandler.HandleGroundSound(); 
         }
-        _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed*(1-InjuryManager.Instance.injuryMagnitude/1.7f) * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
+        else
+        {
+            playerGroundHandler.StopGroundSound();
+        }
+        _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed*(1-InjuryManager.Instance.injuryMagnitude/2f) * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
         
     }
 

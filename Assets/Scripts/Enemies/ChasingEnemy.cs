@@ -12,16 +12,6 @@ public class ChasingEnemy : Rammer, IResettable
     private NavMeshAgent agent;
     private float rotationSpeed = 3f;
     private Collider2D col;
-
-    private struct TimedPosition
-    {
-        public float time;
-        public Vector3 position;
-    }
-
-    private float positionLogInterval = 0.1f;
-    private float maxMemoryTime = 4f;
-    private float timeSinceLastLog = 0f;
     private Vector3 startingPosition;
     private Vector3 resetPosition;
     private bool chase = false;
@@ -105,7 +95,7 @@ public class ChasingEnemy : Rammer, IResettable
 
     public void ResetToInitialState()
     {
-        float smallestTimeDiff = float.MaxValue;
+        if(!chase) return;
         agent.Warp(resetPosition);
         agent.isStopped = false;
     }

@@ -112,9 +112,6 @@ MonoBehaviour:
   minDistanceActivation: 2
   canRoam: 1
   player: {fileID: 0}
-  src: {fileID: 0}
-  charge: {fileID: 8300000, guid: b1d8bb02d9ac77b44a6466cd15777e77, type: 3}
-  growl: {fileID: 8300000, guid: 481966e3ef72675458bf4ab5d3683c82, type: 3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -137,9 +134,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 1
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

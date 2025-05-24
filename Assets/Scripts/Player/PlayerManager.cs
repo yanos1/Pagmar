@@ -7,6 +7,7 @@ using UnityEngine;
 using System.Collections;
 using Obstacles;
 using Unity.VisualScripting;
+using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -15,26 +16,21 @@ namespace Player
         private PlayerMovement _playerMovement;
         private Npc followedBy;
 
-        [SerializeField] private GroundDetector groundDetector;
         [SerializeField] private SpineControl spineControl;
         [SerializeField] private PlayerStage _playerStage = PlayerStage.Young;
-        [SerializeField] private float knockbackStrength = 50f;
 
         private Rigidbody2D _rb;
         private bool isDead = false;
         private bool isKnockbacked = false;
         private bool inputEnabled = true;
         private float hitDamage = 0.5f;
-        private int currentGround = -1; // no ground (num 0-6 gives other types)
         public bool InputEnabled => inputEnabled;
         public void DisableInput() => inputEnabled = false;
         public void EnableInput() => inputEnabled = true;
         public bool IsKnockBacked => isKnockbacked;
         
         public bool IsDead => isDead;
-
-        public int CurrentGround => currentGround;
-
+        
         public PlayerStage playerStage
         {
             get => _playerStage;
@@ -149,8 +145,6 @@ namespace Player
                 EnableInput();
                 isKnockbacked = false;
             }
-
-            currentGround = groundDetector.GetGroundMaterial() ?? -1;
         }
 
         public void SetFollowedBy([CanBeNull] Npc npc)

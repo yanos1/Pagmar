@@ -77,7 +77,7 @@ namespace Enemies
             IncrementPlayerVisibleTimer();
 
             float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-            if (!IsCharging && isPreparingCharge && distanceToPlayer < detectionRange)
+            if (!IsCharging && distanceToPlayer < detectionRange)
             {
                 FlipTowardsPlayer();
             }
@@ -95,8 +95,8 @@ namespace Enemies
                 StartCoroutine(PrepareCharge(currentDirection));
             }
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 2, groundLayer);
-            Debug.DrawRay(transform.position, Vector2.up* 2, hit.collider ? Color.red : Color.green);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 2.8f, groundLayer);
+            Debug.DrawRay(transform.position, Vector2.up* 2.8f, hit.collider ? Color.red : Color.green);
 
             if (hit.collider is not null && (hit.collider.gameObject.GetComponent<GuillotineTrap>() is not null))
             {
@@ -171,6 +171,7 @@ namespace Enemies
         private void FlipSprite(bool newFlipX)
         {
             print($"old 87 {_col.offset}");
+            
             spriteRenderer.flipX = newFlipX;
             var currentOffset = _col.offset;
             currentOffset.x *= -1;
@@ -379,7 +380,7 @@ namespace Enemies
             _col.enabled = false;
             if (gameObject.activeInHierarchy)
             {
-                StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.07f, () => _col.enabled = true));
+                StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.05f, () => _col.enabled = true));
             }
             _rb.bodyType = RigidbodyType2D.Dynamic;
             _rb?.AddForce(direction.normalized * force, ForceMode2D.Impulse);

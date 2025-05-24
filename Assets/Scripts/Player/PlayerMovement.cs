@@ -5,6 +5,7 @@ using Camera;
 using FMOD.Studio;
 using FMODUnity;
 using Managers;
+using MoreMountains.Feedbacks;
 using Player;
 using ScripableObjects;
 using UnityEditor.Rendering;
@@ -82,6 +83,13 @@ public class PlayerMovement : MonoBehaviour
     private bool _wasGroundedLastFrame = false;
     private bool _playedStartJump = false;
     private bool _preventAnimOverride = false;
+    
+    
+    [Header("MM Feedback")]
+    [SerializeField] private MMF_Player jumpFeedback;
+    [SerializeField] private MMF_Player landFeedback;
+    [SerializeField] private MMF_Player dashFeedback;
+    
 
     
     [SerializeField] public bool enableWallJump;
@@ -268,6 +276,7 @@ public class PlayerMovement : MonoBehaviour
         jumpIsPressed = true;
         jumpTimer = StartCoroutine(JumpTimeout(0.4f));
         _rb.gravityScale = regularGravity;
+        jumpFeedback?.PlayFeedbacks();
         Jump();
     }
 
@@ -392,6 +401,7 @@ public class PlayerMovement : MonoBehaviour
         if (!_wasGroundedLastFrame && isCurrentlyGrounded)
         {
             Debug.Log("Player landed");
+            landFeedback?.PlayFeedbacks();
             spineControl.PlayAnimation("jump-land", false,"", true);
             _playedStartJump = false;
         }
@@ -427,6 +437,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator StartDash(Vector2 dir)
     {
+        dashFeedback?.PlayFeedbacks();
         spineControl.ClearActionAnimation(); // Cancel jump/land/start-jump
         spineControl.PlayAnimation("dash", false);
         _isDashing = true;

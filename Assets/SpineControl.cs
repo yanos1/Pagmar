@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Spine.Unity;
 
@@ -15,10 +16,16 @@ public class SpineControl : MonoBehaviour
         skeletonAnimation.AnimationState.SetAnimation(1, "idle", true);
     }
 
-    public void PlayAnimation(string animationName, bool loop = false, string fallbackAnimation = "idle")
+    public void PlayAnimation(string animationName, bool loop = false, string fallbackAnimation = "idle", bool force = false)
     {
         if (string.IsNullOrEmpty(animationName)) return;
-        if (currentActionAnimation == animationName) return;
+        // Prevent idle from overriding "jump-land" if it's playing
+        if (!force && currentActionAnimation == "jump-land" && animationName == "idle"&& skeletonAnimation.AnimationState.GetCurrent(2) != null)
+            return;
+        // Prevent same animation from restarting
+        if (!force && currentActionAnimation == animationName)
+            return;
+
 
         currentActionAnimation = animationName;
 
@@ -31,11 +38,15 @@ public class SpineControl : MonoBehaviour
                 currentActionAnimation = "";
                 if (!string.IsNullOrEmpty(fallbackAnimation))
                 {
-                    skeletonAnimation.AnimationState.SetEmptyAnimation(2, 0.1f); // Smooth blend-out
+                    skeletonAnimation.AnimationState.AddAnimation(2, fallbackAnimation, true, 0f);
                 }
             };
+
         }
+
     }
+
+
     
     public void PlayAnimationOnBaseTrack(string animationName, bool loop = false, string fallback = "idle") {
         if (string.IsNullOrEmpty(animationName)) return;

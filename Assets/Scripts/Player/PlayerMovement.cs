@@ -79,6 +79,10 @@ public class PlayerMovement : MonoBehaviour
     private float wallJumpCounter;
     private bool hasWallJumped = false;
     private bool isWallSliding = false;
+    private bool _wasGroundedLastFrame = false;
+    private bool _playedStartJump = false;
+    private bool _preventAnimOverride = false;
+
     
     [SerializeField] public bool enableWallJump;
     private PlayerManager player;
@@ -352,7 +356,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {   
-        
+        spineControl.PlayAnimation("jump", false);
+        _playedStartJump = true;
         float force = jumpForce;
         if (_rb.linearVelocity.y < 0)
             force -= _rb.linearVelocity.y;
@@ -379,30 +384,50 @@ public class PlayerMovement : MonoBehaviour
     
     private void UpdateAnimation()
     {
-        if (_isDashing)
-        {
+        if (_preventAnimOverride)
             return;
-        }
-        if (IsGrounded() && Mathf.Abs(_moveInputX) > 0.1f)
+
+        bool isCurrentlyGrounded = IsGrounded();
+
+        if (!_wasGroundedLastFrame && isCurrentlyGrounded)
         {
-            spineControl.PlayAnimation("run", true);
+            Debug.Log("Player landed");
+            spineControl.PlayAnimation("jump-land", false,"", true);
+            _playedStartJump = false;
         }
-        else if (IsGrounded())
+        else if (_rb.linearVelocity.y < 0 && !isCurrentlyGrounded && !_isDashing&& ! isWallJumping && ! isWallSliding)
         {
-            spineControl.PlayAnimation("idle", true);
+            spineControl.PlayAnimation("jump-air", true);
         }
-        else
+        else if (!_isDashing && !_preventAnimOverride && !_playedStartJump)
         {
-            // If in air and not dashing, you can play jump or fall animation if you want
-            // For example:
-            // spineControl.PlayAnimation("jump", false);
-            // Or do nothing and keep last animation
+            if (isCurrentlyGrounded && Mathf.Abs(_moveInputX) > 0.1f)
+            {
+                spineControl.PlayAnimation("run", true);
+            }
+            else if (isCurrentlyGrounded && Mathf.Abs(_moveInputX) <= 0.1f)
+            {
+                spineControl.PlayAnimation("idle", true);
+            }
         }
+
+
+        _wasGroundedLastFrame = isCurrentlyGrounded;
+
     }
+    private IEnumerator PreventOverrideForSeconds(float seconds)
+    {
+        _preventAnimOverride = true;
+        yield return new WaitForSeconds(seconds);
+        _preventAnimOverride = false;
+    }
+
+
 
 
     private IEnumerator StartDash(Vector2 dir)
     {
+        spineControl.ClearActionAnimation(); // Cancel jump/land/start-jump
         spineControl.PlayAnimation("dash", false);
         _isDashing = true;
         _canDash = false;

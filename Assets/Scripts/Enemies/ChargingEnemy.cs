@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
+using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
 using Obstacles;
 using Player;
 using SpongeScene;
+using Terrain.Environment;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Enemies
 {
@@ -18,9 +21,14 @@ namespace Enemies
         public float rotationAmount = 10f;
         public float rotationSpeed = 5f;
         public float minDistanceActivation = 3f;
-        
+
+        [SerializeField] private bool sleepAtStart;
         [SerializeField] private bool canRoam = true;
+        private bool isRoaming = true;
+        private bool isSleeping;
         [SerializeField] private PlayerManager player;
+
+        [FormerlySerializedAs("sleeping")] [SerializeField] private GameObject sleepingImage;
 
         [Header("Ground Detection")] [SerializeField]
         private LayerMask groundLayer;
@@ -45,7 +53,7 @@ namespace Enemies
         [SerializeField] private Vector2 currentDirection = Vector2.left;
         private bool hit = false;
         private bool isKnockbacked = false;
-        private const float visibilityThreshold = 0.4f;
+        private const float visibilityThreshold = 0.6f;
         private float visibiliyTimer = 0f;
         private bool falling = false;
         private float chargeCooldown;
@@ -53,19 +61,23 @@ namespace Enemies
         private const float flipCooldownDuration = 0.5f;
         private int hitCounter = 0;
         private int hitsToKill = 2;
+        private float startDetectionRange;
+        
 
         public void OnEnable()
         {
             base.Start();
             CurrentForce = 0f;
+            startDetectionRange = detectionRange;
             spriteRenderer = GetComponent<SpriteRenderer>();
             _rb = GetComponent<Rigidbody2D>();
             _col = GetComponent<BoxCollider2D>();
+            if (sleepAtStart) isSleeping = true;
         }
 
         void Update()
         {
-            if (player is null)
+            if (player is null || isSleeping)
             {
                 return;
             }
@@ -77,14 +89,19 @@ namespace Enemies
             IncrementPlayerVisibleTimer();
 
             float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-            if (!IsCharging && distanceToPlayer < detectionRange)
+            if (!isSleeping && !isRoaming && !IsCharging && !isPreparingCharge && distanceToPlayer < detectionRange && IsPlayerVisibleLongEnough())
             {
                 FlipTowardsPlayer();
             }
            
             if (canRoam && chargeCooldown <= 0 && !IsCharging && !isPreparingCharge && !falling)
             {
+                
                 Roam();
+            }
+            else
+            {
+                isRoaming = false;
             }
 
 
@@ -114,10 +131,24 @@ namespace Enemies
                 f.doExplosion(transform.position);
             }
         }
+        
+        private void OnCollisionEnter2D(Collision2D col)
+        {
+            print($"enemy collided with {col.gameObject.name} l0");
+            if (sleepAtStart  && col.gameObject.GetComponent<PlayerMovement>() is { } player && player.IsDashing)
+            {
+                isSleeping = false;
+                if (sleepingImage)
+                { 
+                    sleepingImage.SetActive(false);
+                }
+            }
+            
+        }
 
         private void Roam()
         {
-
+            isRoaming = true;
             if ((HitWall() || !GroundAhead()) && flipCooldownTimer <= 0)
             {
                 flipCooldownTimer = flipCooldownDuration;
@@ -181,10 +212,11 @@ namespace Enemies
         IEnumerator PrepareCharge(Vector2 dir)
         {
             StartCharging();
+            
+            FlipTowardsPlayer();
             yield return new WaitForSeconds(chargeDelay);
             print("READY TO CHARGE AGAIN -9");
             isPreparingCharge = false;
-            currentDirection = dir;
 
             this.StopAndStartCoroutine(ref chargeCoroutine, PerformCharge(dir));
         }
@@ -234,7 +266,7 @@ namespace Enemies
         private void StopCharging()
         {
             print("stop charge");
-            detectionRange = 40f; // once charged, knows where to fijnd plyer from a distance
+            detectionRange = 60f; // once charged, knows where to fijnd plyer from a distance
             chargeCoroutine = null;
             IsCharging = false;
             CurrentForce = 0;
@@ -250,8 +282,17 @@ namespace Enemies
 
             // Draw the ray in the Scene view
             Debug.DrawRay(origin, currentDirection * wallDetectionDistance, hit.collider ? Color.red : Color.green);
-
-            return hit.collider != null;
+            if (hit.collider)
+            {
+                print($"collider is {hit.collider}");
+            }
+            if (hit.collider is not null && hit.collider.gameObject.GetComponent<IBreakable>() is { } breakable)
+            {
+                print("break!");
+                breakable.OnBreak();
+                gameObject.SetActive(false);
+            }
+            return hit.collider is not null;
         }
 
         
@@ -316,19 +357,24 @@ namespace Enemies
         public override void ResetToInitialState()
         {
             base.ResetToInitialState();
+            gameObject.SetActive(true);
             CurrentForce = 0;
-
+            detectionRange = startDetectionRange;
             IsCharging = false;
             isPreparingCharge = false;
             hit = false;
             falling = false;
-
-            if (_rb != null)
+            if (sleepAtStart)
             {
-                _rb.linearVelocity = Vector2.zero;
-                _rb.angularVelocity = 0f;
-                _rb.bodyType = RigidbodyType2D.Kinematic;
+                sleepingImage.SetActive(true);
+                isSleeping = true;
             }
+
+            
+            _rb.linearVelocity = Vector2.zero;
+            _rb.angularVelocity = 0f;
+            _rb.bodyType = RigidbodyType2D.Kinematic;
+            
 
             transform.rotation = Quaternion.identity;
             rotationTimer = 0f;

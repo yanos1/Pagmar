@@ -8,7 +8,9 @@ namespace ScripableObjects
     {
         public EventReference jumpSound;
         public EventReference walkSound;
+        public EventReference fallSound;
         public EventReference landSound;
+        public EventReference heavyLandSound;
         public EventReference damageSound;
         public EventReference deathSound;
         public EventReference attackSound;

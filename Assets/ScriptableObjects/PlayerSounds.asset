@@ -26,6 +26,13 @@ MonoBehaviour:
       Data3: -1528542579
       Data4: -1871443246
     Path: event:/Player/PlayerFootsteps
+  fallSound:
+    Guid:
+      Data1: -608954980
+      Data2: 1240071925
+      Data3: -1507031883
+      Data4: -1616035619
+    Path: event:/Player/PlayerFalling
   landSound:
     Guid:
       Data1: 1752811557
@@ -33,6 +40,13 @@ MonoBehaviour:
       Data3: 328544956
       Data4: 529261551
     Path: event:/Player/PlayerLand
+  heavyLandSound:
+    Guid:
+      Data1: -492236144
+      Data2: 1319815226
+      Data3: 1252046507
+      Data4: -228927305
+    Path: event:/Player/PlayerLandHeavy
   damageSound:
     Guid:
       Data1: 0

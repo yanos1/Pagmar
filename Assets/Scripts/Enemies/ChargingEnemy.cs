@@ -120,9 +120,7 @@ namespace Enemies
 
             if ((HitWall() || !GroundAhead()) && flipCooldownTimer <= 0)
             {
-                print("time to switch direction 97");
                 flipCooldownTimer = flipCooldownDuration;
-                print($"old dir = {currentDirection} new {-currentDirection}");
 
                 currentDirection = -currentDirection;
                 FlipSprite(currentDirection.x > 0);

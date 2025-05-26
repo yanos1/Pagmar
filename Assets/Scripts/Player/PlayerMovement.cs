@@ -11,6 +11,7 @@ using ScripableObjects;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -53,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CameraFollowObject _cameraFollowObject;
 
     [SerializeField] private PlayerSounds playerSounds;
-    [SerializeField] private PlayerGroundHandler playerGroundHandler;
+    private PlayerSoundHandler playerSoundHandler;
 
 
     private bool isJumping = false;
@@ -85,6 +86,8 @@ public class PlayerMovement : MonoBehaviour
     private bool _wasGroundedLastFrame = false;
     private bool _playedStartJump = false;
     private bool _preventAnimOverride = false;
+    private bool isFalling;
+    private float timeFalling;
     
     
     [Header("MM Feedback")]
@@ -97,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public bool enableWallJump;
     private PlayerManager player;
     [SerializeField] SpineControl spineControl;
+ 
 
     private void Awake()
     {
@@ -105,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
         LastPressedDashTime = Time.time;
         _isFacingRight = true;
         player = GetComponent<PlayerManager>();
+        playerSoundHandler = GetComponent<PlayerSoundHandler>();
     }
 
     private void Start()
@@ -149,13 +154,46 @@ public class PlayerMovement : MonoBehaviour
             !CameraManager.GetInstance().IsLerpingYDamping && !CameraManager.GetInstance().LerpedFromPlayerFalling)
         {
             CameraManager.GetInstance().LerpYDamping(true);
+         
         }
 
+        if (_rb.linearVelocity.y < -1)
+        {
+            if (!isFalling)
+            {
+                CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.fallSound, transform.position);
+            }
+            isFalling = true;
+        }
+        if (isFalling)
+        {
+            timeFalling += Time.deltaTime;
+        }
         if (_rb.linearVelocity.y >= 0 &&
             !CameraManager.GetInstance().IsLerpingYDamping && CameraManager.GetInstance().LerpedFromPlayerFalling)
         {
             CameraManager.GetInstance().LerpedFromPlayerFalling = false;
             CameraManager.GetInstance().LerpYDamping(false);
+            print("LANDED !!!");
+        
+        }
+        if (isFalling && _rb.linearVelocity.y >= 0)
+        {
+            if (timeFalling > 1.2f)
+            {
+                print("PLAY LAND HEAVY!!!");
+
+                CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.heavyLandSound, transform.position);
+            }
+            else
+            {
+                print("PLAY LAND!!!");
+                CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.landSound, transform.position);
+
+            }
+
+            isFalling = false;
+            timeFalling = 0f;
         }
     }
 
@@ -184,11 +222,11 @@ public class PlayerMovement : MonoBehaviour
         if(player.IsKnockBacked) return;
         if (Mathf.Abs(_moveInputX) > 0.1)
         {
-            playerGroundHandler.HandleGroundSound(); 
+            playerSoundHandler.HandleGroundSound(); 
         }
         else
         {
-            playerGroundHandler.StopGroundSound();
+            playerSoundHandler.StopGroundSound();
         }
         _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed*(1-InjuryManager.Instance.injuryMagnitude/2f) * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
         

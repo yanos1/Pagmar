@@ -25,6 +25,12 @@ namespace Managers
            return instance;
 
         }
+        
+        public void SetGlobalParameter(string parameter, float value)
+        {
+            RuntimeManager.StudioSystem.setParameterByName(parameter, value);
+
+        }
     }
     
    

@@ -14,6 +14,7 @@ namespace Player
     public class PlayerManager : Rammer
     {
         private PlayerMovement _playerMovement;
+        private PlayerSoundHandler soundHandler;
         private Npc followedBy;
 
         [SerializeField] private SpineControl spineControl;
@@ -63,6 +64,7 @@ namespace Player
             }
 
             ApplyScaleForStage(_playerStage);
+            CoreManager.Instance.AudioManager.SetGlobalParameter("Evolution", 0);
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -157,10 +159,8 @@ namespace Player
         public void SetPlayerStage(PlayerStage stage)
         {
             playerStage = stage;
-            if (stage == PlayerStage.Teen)
-            {
-                _playerMovement.enableAdvancedDash = true;
-            }
+            CoreManager.Instance.AudioManager.SetGlobalParameter("Evolution", (int) stage);
+
         }
 
         private void ApplyScaleForStage(PlayerStage stage)
@@ -247,8 +247,8 @@ namespace Player
     public enum PlayerStage
     {
         None,
-        Young,
-        Teen,
-        Adult,
+        Young = 0,
+        Teen = 1,
+        Adult = 2,
     }
 }

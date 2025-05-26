@@ -5,6 +5,7 @@ using Managers;
 using NPC;
 using UnityEngine;
 using System.Collections;
+using MoreMountains.Feedbacks;
 using Obstacles;
 using Unity.VisualScripting;
 using UnityEngine.Serialization;
@@ -19,6 +20,7 @@ namespace Player
 
         [SerializeField] private SpineControl spineControl;
         [SerializeField] private PlayerStage _playerStage = PlayerStage.Young;
+        [SerializeField] private MMF_Player hitFeedback;
 
         private Rigidbody2D _rb;
         private bool isDead = false;

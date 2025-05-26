@@ -110,8 +110,10 @@ MonoBehaviour:
   rotationAmount: 10
   rotationSpeed: 20
   minDistanceActivation: 2
+  sleepAtStart: 0
   canRoam: 1
   player: {fileID: 0}
+  sleepingImage: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

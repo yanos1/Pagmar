@@ -65,5 +65,6 @@ namespace Managers
 
         GayserFinished=13,
         StartEnemyChase=14,
+        PickupBoneHeal=15,
     }
 }

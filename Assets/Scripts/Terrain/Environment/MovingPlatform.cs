@@ -274,12 +274,6 @@ namespace Terrain.Environment
             {
                 collision.collider.transform.SetParent(null);
             }
-            
-            Box box = collision.collider.GetComponent<Box>();
-            if (box)
-            {
-                collision.collider.transform.SetParent(null);
-            }
         }
 
         public void ResetToInitialState()

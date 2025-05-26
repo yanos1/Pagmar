@@ -83,7 +83,7 @@ public class ChasingEnemy : Rammer, IResettable
 
 
 
-    public override void OnRam(float againstForce)
+    public override void OnRam(Vector2 ramDirNegative, float againstForce)
     {
         agent.isStopped = true;
         agent.velocity = Vector3.zero;

@@ -44,6 +44,7 @@ namespace Enemies
             triggered = false;
             foreach (var enemy in enemies)
             {
+                enemy.ResetToInitialState();
                 enemy.gameObject.SetActive(false);
             }
         }

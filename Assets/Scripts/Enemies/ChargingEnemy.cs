@@ -395,7 +395,7 @@ namespace Enemies
             _rb.AddForce(Vector2.right * 1200f);
         }
 
-        public override void OnRam(float againstForce)
+        public override void OnRam(Vector2 ramDiNegative, float againstForce)
         {
             StopCharging();
         }

@@ -1,9 +1,11 @@
-﻿using MoreMountains.Feedbacks;
+﻿using Interfaces;
+using MoreMountains.Feedbacks;
+using Player;
 using UnityEngine;
 
 namespace Terrain.Environment
 {
-    public class ShakyFallingTree : MonoBehaviour
+    public class ShakyFallingTree : MonoBehaviour, IBreakable
     {
         public int hitThreshold = 3;
         public float fallForce = 30f;
@@ -16,6 +18,7 @@ namespace Terrain.Environment
         private Rigidbody2D rb2D;
         [SerializeField] private MMF_Player hitFeedbacks;
         [SerializeField] private ExplosionForce f;
+        [SerializeField] private Explodable e;
 
         void Start()
         {
@@ -42,12 +45,6 @@ namespace Terrain.Environment
                     FallRight();
                 }
             }
-            
-            else if (collision.gameObject.GetComponent<OneTimeBeam>() is not null)
-            {
-                print("collided with one time beam 90");
-                // f.doExplosion(f.transform.position);
-            }
         }
 
         private System.Collections.IEnumerator HitCooldownCoroutine()
@@ -65,6 +62,17 @@ namespace Terrain.Environment
                 rb2D.bodyType = RigidbodyType2D.Dynamic;
                 rb2D.AddForce(Vector2.right * fallForce, ForceMode2D.Impulse);
             }
+        }
+
+        public void OnBreak()
+        {
+            e.explode();
+            f.doExplosion(f.transform.position);
+        }
+
+        public void OnHit(Vector2 hitDir, PlayerStage stage)
+        {
+            return;
         }
     }
 }

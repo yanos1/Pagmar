@@ -148,6 +148,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beamSprite: {fileID: 9205617780519560054}
+  warning: {fileID: 0}
+  warningTime: 1.5
   delayBeforeFirstBeam: 0
-  interval: 5
+  offTime: 3
+  onTime: 1.8
   onFinished: 0

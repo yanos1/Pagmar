@@ -102,7 +102,7 @@ namespace Player
                 Vector2 directionToPlayer = (transform.position - rammer.transform.position).normalized;
                 float dot = Mathf.Abs(Vector2.Dot(directionToPlayer, Vector2.right));
 
-                if (dot > 0.5f) // horizontal impact check
+                if (dot > 0.6f) // horizontal impact check
                 {
                     RammerManager.Instance.ResolveRam(this, rammer);
                     print("{ram!! 987");
@@ -184,10 +184,11 @@ namespace Player
         }
 
         // === Rammer Implementation ===
-        public override void OnRam(float againstForce)
+        public override void OnRam(Vector2 ramDirNegative, float againstForce)
         {
             Debug.Log($"Player rammed with force against {againstForce}");
             // CurrentForce = Mathf.Max(0, CurrentForce - againstForce * 0.5f);
+            ApplyKnockback(ramDirNegative, againstForce/3);  // we are ramming, take 1/3 of the knockback
         }
 
         public override void OnRammed(float fromForce)

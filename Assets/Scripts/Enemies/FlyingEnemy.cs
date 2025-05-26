@@ -192,7 +192,7 @@ namespace Enemies
             transform.position = new Vector3(transform.position.x, smoothedY, transform.position.z);
         }
 
-        public override void OnRam(float againstForce)
+        public override void OnRam(Vector2 ramDirNegative, float againstForce)
         {
             throw new System.NotImplementedException();
         }

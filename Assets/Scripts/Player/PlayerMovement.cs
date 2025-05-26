@@ -49,11 +49,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashCoolDownTime = 1f;
     public bool enableDash = true;
     public bool enableAdvancedDash = false;
+    [SerializeField] private LayerMask enemyLayer;
+    
 
     [Header("CammeraFollowObject")]
     [SerializeField] private CameraFollowObject _cameraFollowObject;
 
     [SerializeField] private PlayerSounds playerSounds;
+    [SerializeField] private Transform cielingCheckPos;
     private PlayerSoundHandler playerSoundHandler;
 
 
@@ -99,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField] public bool enableWallJump;
     private PlayerManager player;
+    private PlayerHornDamageHandler hornDamageHandler;
     [SerializeField] SpineControl spineControl;
  
 
@@ -110,6 +114,7 @@ public class PlayerMovement : MonoBehaviour
         _isFacingRight = true;
         player = GetComponent<PlayerManager>();
         playerSoundHandler = GetComponent<PlayerSoundHandler>();
+        hornDamageHandler = GetComponent<PlayerHornDamageHandler>();
     }
 
     private void Start()
@@ -295,13 +300,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (context.started)
         {
-            CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.jumpSound, transform.position);
             if (enableWallJump && isTouchingWall && !IsGrounded())
             {
+                CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.jumpSound, transform.position);
+
                 StartWallJump();
             }
             else if (CanJump() && !isWallJumping)
             {
+                CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.jumpSound, transform.position);
+
                 StartJumping();
             }
         }
@@ -373,6 +381,25 @@ public class PlayerMovement : MonoBehaviour
     private bool IsTouchingWall()  
     {
         return Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0, wallLayer) != null;
+    }
+
+    private bool IsHittingSomething(Vector2 dir)
+    {
+        // Draw wall ray
+        var enemyRay = Physics2D.Raycast(wallCheckPosition.position, dir.normalized, 0.35f, enemyLayer); // enemies hit are too quick for 0.1 distance for some reason
+        print($"enemy collider: {enemyRay.collider}");
+        var hitWallRay = Physics2D.Raycast(wallCheckPosition.position, dir.normalized, 0.1f);
+        Debug.DrawRay(wallCheckPosition.position, dir.normalized * 0.1f,hitWallRay.collider? Color.green : Color.red);
+
+        bool wallRayHit = hitWallRay.collider != null && hitWallRay.collider.gameObject.layer != LayerMask.NameToLayer("Trigger");
+
+        // Draw ceiling ray
+        Debug.DrawRay(cielingCheckPos.position, Vector2.up * 0.1f, Color.green);
+
+        var hitCeilingRay = Physics2D.Raycast(cielingCheckPos.position, Vector2.up, 0.1f);
+        bool ceilingHit = hitCeilingRay.collider != null && hitCeilingRay.collider.gameObject.layer != LayerMask.NameToLayer("Trigger");
+
+        return enemyRay.collider is not null || wallRayHit || ceilingHit;
     }
 
     private void WallSlide()
@@ -491,8 +518,15 @@ public class PlayerMovement : MonoBehaviour
 
         while (Time.time - startTime <= dashAttackTime)
         {
+            if (HornDamageManager.Instance.allowHornDamage && IsHittingSomething(dir))
+            {
+                print("DEAL DAMAGE!");
+                hornDamageHandler.AddDamage(player.playerStage);
+            }
+            
             if (player.IsKnockBacked)
             {
+                print("STOP DASH");
                 _isDashAttacking = false;
                 _rb.gravityScale = WhenStopPressGravity;
                 player.ResetForce();
@@ -500,9 +534,9 @@ public class PlayerMovement : MonoBehaviour
                 print($"stopping dash with {_rb.linearVelocity} vel 90");
                 yield break;
             }
-            print($"got here 90");
 
             _rb.linearVelocity = dir.normalized * dashSpeed;
+         
             yield return null;
         }
 

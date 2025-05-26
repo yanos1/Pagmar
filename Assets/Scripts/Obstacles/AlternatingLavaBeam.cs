@@ -90,6 +90,14 @@ namespace Obstacles
             isFirst = true;
             isOff = true;
         }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.GetComponent<IBreakable>() is { } breakable)
+            {
+                breakable.OnBreak();
+            } 
+        }
     }
 
 }

@@ -62,14 +62,6 @@ namespace Terrain.Environment
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.GetComponent<AlternatingLavaBeam>() is not null)
-            {
-               OnBreak();
-            }
-        }
-
         public void OnBreak()
         {
             e.explode();

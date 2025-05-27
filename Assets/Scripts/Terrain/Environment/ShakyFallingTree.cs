@@ -11,6 +11,10 @@ namespace Terrain.Environment
         public float fallForce = 30f;
         public float hitCooldown = 0.5f; // seconds between valid hits
 
+        // New particle hit threshold and counter
+        public int particleHitThreshold = 200;
+        private int particleHitCount = 0;
+
         private int hitCount = 0;
         private bool hasFallen = false;
         private bool canBeHit = true;
@@ -61,6 +65,20 @@ namespace Terrain.Environment
             {
                 rb2D.bodyType = RigidbodyType2D.Dynamic;
                 rb2D.AddForce(Vector2.right * fallForce, ForceMode2D.Impulse);
+            }
+        }
+
+        // Particle collision counting here:
+        void OnParticleCollision(GameObject other)
+        {
+            if (hasFallen) return;  // Already fallen, no need to count further
+
+            particleHitCount++;
+
+            if (particleHitCount >= particleHitThreshold)
+            {
+                OnBreak();
+                hasFallen = true; // prevent multiple breaks
             }
         }
 

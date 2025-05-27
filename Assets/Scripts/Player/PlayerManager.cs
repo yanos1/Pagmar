@@ -95,6 +95,11 @@ namespace Player
             CheckForRam(other);
         }
 
+        private void OnParticleCollision(GameObject other)
+        {
+            CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
+        }
+
         private void CheckForRam(Collision2D other)
         {
             if (other.gameObject.GetComponent<Rammer>() is { } rammer)

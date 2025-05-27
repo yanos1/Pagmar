@@ -34,6 +34,7 @@ namespace Enemies
             yield return new WaitForSeconds(2f);
             foreach (var enemy in enemies)
             {
+                print("set enemy activate");
                 enemy.gameObject.SetActive(true);
             }
         }

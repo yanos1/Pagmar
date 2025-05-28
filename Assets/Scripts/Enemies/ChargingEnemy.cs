@@ -63,8 +63,12 @@ namespace Enemies
         private int hitsToKill = 2;
         private float startDetectionRange;
         private Vector2 baseDir;
-        private bool baseFlip;
-        
+        private bool baseFlip = false;
+
+        private void OnEnable()
+        {
+            Start();
+        }
 
         public override void Start()
         {
@@ -248,7 +252,7 @@ namespace Enemies
             CurrentForce = 1;
             float timer = 0f;
             IsCharging = true;
-            while (IsCharging && timer < chargeDuration && !HitWall())
+            while ( !HitWall() && IsCharging && timer < chargeDuration)
             {
                 MoveAndRotate(dir);
                 timer += Time.fixedDeltaTime;
@@ -300,10 +304,10 @@ namespace Enemies
         {
             var hitSomething = false;
             Vector2 origin = (Vector2)transform.position + Vector2.up + currentDirection;
-            RaycastHit2D raycast = Physics2D.Raycast(origin, currentDirection, wallDetectionDistance);
+            RaycastHit2D raycast = Physics2D.Raycast(origin, currentDirection, wallDetectionDistance, groundLayer);
 
             Debug.DrawRay(origin, currentDirection * wallDetectionDistance, raycast.collider ? Color.red : Color.green);
-            if (raycast.collider && raycast.collider.gameObject.layer != LayerMask.NameToLayer("Enemy") && raycast.collider.gameObject.layer != LayerMask.NameToLayer("Trigger"))
+            if (raycast.collider)
             {
                 print($"collider is {raycast.collider}");
                 hitSomething = true;

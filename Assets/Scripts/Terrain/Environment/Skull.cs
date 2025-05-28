@@ -1,4 +1,6 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
+using Obstacles;
 using UnityEngine;
 
 namespace Terrain.Environment
@@ -18,6 +20,15 @@ namespace Terrain.Environment
         {
             initialPosition = transform.position;
             initialRotation = transform.rotation;
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.GetComponent<AlternatingLavaBeam>() is not null)
+            {
+                if (e != null) e.explode();
+                if (f != null) f.doExplosion(f.transform.position);
+            }
         }
 
         private void OnParticleCollision(GameObject other)

@@ -50,7 +50,7 @@ namespace Enemies
         private Coroutine flipCoroutine;
         private Coroutine chargeCoroutine;
         private int currentColIndex = 0;
-        [SerializeField] private Vector2 currentDirection = Vector2.left;
+        [SerializeField] private Vector2 currentDirection;
         private bool hit = false;
         private bool isKnockbacked = false;
         private const float visibilityThreshold = 0.6f;
@@ -62,9 +62,11 @@ namespace Enemies
         private int hitCounter = 0;
         private int hitsToKill = 2;
         private float startDetectionRange;
+        private Vector2 baseDir;
+        private bool baseFlip;
         
 
-        public void OnEnable()
+        public override void Start()
         {
             base.Start();
             CurrentForce = 0f;
@@ -73,6 +75,8 @@ namespace Enemies
             _rb = GetComponent<Rigidbody2D>();
             _col = GetComponent<BoxCollider2D>();
             if (sleepAtStart) isSleeping = true;
+            baseDir = currentDirection;
+            baseFlip = spriteRenderer.flipX;
         }
 
         void Update()
@@ -149,7 +153,7 @@ namespace Enemies
         private void Roam()
         {
             isRoaming = true;
-            if ((HitWall() || !GroundAhead()) && flipCooldownTimer <= 0)
+            if ((HitWall() || !GroundAhead() || CheckPlayerInRoamDirection()) && flipCooldownTimer <= 0)
             {
                 flipCooldownTimer = flipCooldownDuration;
 
@@ -174,6 +178,24 @@ namespace Enemies
         private bool IsPlayerVisibleLongEnough()
         {
             return visibiliyTimer >= visibilityThreshold;
+        }
+        
+        private bool CheckPlayerInRoamDirection()
+        {
+            if (CoreManager.Instance.Player is  null) return false;
+            var distanceToPlayer = Vector2.Distance(CoreManager.Instance.Player.transform.position, transform.position);
+            if (distanceToPlayer > minDistanceActivation) return false;
+            Vector2 toPlayer = CoreManager.Instance.Player.transform.position - transform.position;
+            
+            float dot = Vector2.Dot(toPlayer.normalized, currentDirection.normalized);
+
+            // dot > 0 means player is in the current direction (in front)
+            if (dot > 0.5f) // adjust tolerance as needed
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void FlipTowardsPlayer()
@@ -276,25 +298,26 @@ namespace Enemies
 
         private bool HitWall()
         {
-            
-            Vector2 origin = (Vector2)transform.position + Vector2.up*2 + currentDirection;
-            RaycastHit2D hit = Physics2D.Raycast(origin, currentDirection, wallDetectionDistance, groundLayer);
+            var hitSomething = false;
+            Vector2 origin = (Vector2)transform.position + Vector2.up + currentDirection;
+            RaycastHit2D raycast = Physics2D.Raycast(origin, currentDirection, wallDetectionDistance);
 
-            // Draw the ray in the Scene view
-            Debug.DrawRay(origin, currentDirection * wallDetectionDistance, hit.collider ? Color.red : Color.green);
-            if (hit.collider)
+            Debug.DrawRay(origin, currentDirection * wallDetectionDistance, raycast.collider ? Color.red : Color.green);
+            if (raycast.collider && raycast.collider.gameObject.layer != LayerMask.NameToLayer("Enemy") && raycast.collider.gameObject.layer != LayerMask.NameToLayer("Trigger"))
             {
-                print($"collider is {hit.collider}");
+                print($"collider is {raycast.collider}");
+                hitSomething = true;
             }
-            if (hit.collider is not null && hit.collider.gameObject.GetComponent<IBreakable>() is { } breakable)
+            if (raycast.collider is not null && raycast.collider.gameObject.GetComponent<IBreakable>() is { } breakable)
             {
                 print("break!");
                 breakable.OnBreak();
                 gameObject.SetActive(false);
             }
-            return hit.collider is not null;
-        }
 
+            return hitSomething;
+
+        }
         
         private bool GroundAhead()
         {
@@ -359,16 +382,20 @@ namespace Enemies
             base.ResetToInitialState();
             gameObject.SetActive(true);
             CurrentForce = 0;
+            spriteRenderer.flipX = baseFlip;
+            currentDirection = baseDir;
             detectionRange = startDetectionRange;
             IsCharging = false;
             isPreparingCharge = false;
             hit = false;
+            hitCounter = 0;
             falling = false;
             if (sleepAtStart)
             {
                 sleepingImage.SetActive(true);
                 isSleeping = true;
             }
+            hitFeedbacks?.StopFeedbacks();
 
             
             _rb.linearVelocity = Vector2.zero;
@@ -379,6 +406,7 @@ namespace Enemies
             transform.rotation = Quaternion.identity;
             rotationTimer = 0f;
             flipCooldownTimer = 0f;
+            chargeCooldown = 0f;
             _col.enabled = true;
         }
 
@@ -407,6 +435,7 @@ namespace Enemies
             if (++hitCounter == hitsToKill)
             {
                 gameObject.SetActive(false);
+                return;
             }
 
             hitFeedbacks?.PlayFeedbacks();

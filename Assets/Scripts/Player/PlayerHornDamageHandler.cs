@@ -41,7 +41,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         }
     }
 
-    public void AddDamage(PlayerStage stage)
+    public void AddDamage(float addedDamage = 15)
     {
         if (isDead) return;
         
@@ -49,9 +49,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         if (Time.time - lastDamageTime < damageCooldown)
             return;
 
-        float damageToAdd = 15f;
-
-        currentDamage += damageToAdd;
+        currentDamage += addedDamage;
         currentDamage = Mathf.Clamp(currentDamage, 0f, 100f);
         damageUI?.UpdateUI(currentDamage);
 

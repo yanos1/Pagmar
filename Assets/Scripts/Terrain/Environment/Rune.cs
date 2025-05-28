@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using Managers;
+using Player;
 
 namespace Terrain.Environment
 {
@@ -29,7 +30,10 @@ namespace Terrain.Environment
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            OnPick();
+            if (other.GetComponent<PlayerManager>() is not null)
+            {
+                OnPick();
+            }
         }
 
         public void OnPick()

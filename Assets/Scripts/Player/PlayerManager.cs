@@ -15,6 +15,7 @@ namespace Player
     public class PlayerManager : Rammer
     {
         private PlayerMovement _playerMovement;
+        private PlayerHornDamageHandler _damageHandler;
         private PlayerSoundHandler soundHandler;
         private Npc followedBy;
 
@@ -58,6 +59,7 @@ namespace Player
             CurrentForce = 0;
             _rb = GetComponent<Rigidbody2D>();
             _playerMovement = GetComponent<PlayerMovement>();
+            _damageHandler = GetComponent<PlayerHornDamageHandler>();
 
             if (CoreManager.Instance != null)
             {
@@ -200,6 +202,7 @@ namespace Player
         {
             Debug.Log($"Player got rammed with force {fromForce}");
             InjuryManager.Instance.ApplyDamage(hitDamage* fromForce);
+            _damageHandler.AddDamage(hitDamage*100);
             spineControl.PlayAnimationOnBaseTrack("hit", false);
 
         }

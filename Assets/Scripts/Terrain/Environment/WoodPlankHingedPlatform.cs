@@ -2,6 +2,7 @@
 using Player;
 using UnityEngine;
 using System.Collections.Generic;
+using Managers;
 
 namespace Terrain.Environment
 {
@@ -17,7 +18,7 @@ namespace Terrain.Environment
         [SerializeField] private float angleThreshold = 87.2f;
 
         [SerializeField] private LayerMask groundLayer;
-
+        [SerializeField] private bool playerMustBeFromLeft = false;
         private float initialRotation;
         private bool isFalling = false;
         private Vector3 spawnPoint;
@@ -60,7 +61,7 @@ namespace Terrain.Environment
 
         public void OnHit(Vector2 hitDir, PlayerStage stage)
         {
-            if (isFalling) return;
+            if (isFalling || playerMustBeFromLeft && CoreManager.Instance.Player.transform.position.x -0.1f > transform.position.x) return;
 
             isFalling = true;
             hinge.enabled = true;

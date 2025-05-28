@@ -521,7 +521,7 @@ public class PlayerMovement : MonoBehaviour
             if (HornDamageManager.Instance.allowHornDamage && IsHittingSomething(dir))
             {
                 print("DEAL DAMAGE!");
-                hornDamageHandler.AddDamage(player.playerStage);
+                hornDamageHandler.AddDamage();
             }
             
             if (player.IsKnockBacked)

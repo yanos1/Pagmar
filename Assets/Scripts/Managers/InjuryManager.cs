@@ -57,11 +57,11 @@ namespace Managers
         public void ApplyDamage(float amount)
         {
             lastDamageTime = Time.time; // reset healing delay
-            if (amount + injuryMagnitude > 0.9)
-            {
-                CoreManager.Instance.Player.Die();
-                return;
-            }
+            // if (amount + injuryMagnitude > 0.9)
+            // {
+            //     CoreManager.Instance.Player.Die();
+            //     return;
+            // }
             injuryMagnitude = Mathf.Clamp01(injuryMagnitude + amount);
 
         }

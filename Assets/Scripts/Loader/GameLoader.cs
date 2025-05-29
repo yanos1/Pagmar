@@ -14,7 +14,7 @@ namespace Loader
             [SerializeField] private ScenesManager sceneManager;
 
             private Animator animator;
-            private float loadSpeed = 0.01f;
+            private float loadSpeed = 0.005f;
 
             private void Start()
             {

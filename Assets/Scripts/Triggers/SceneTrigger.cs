@@ -11,6 +11,7 @@ namespace Triggers
     {
         [Header("Trigger Settings")] private int triggered = 0;
         [SerializeField] private int requiredTriggers;
+        
 
         public override void OnTriggerEnter2D(Collider2D other) 
         {

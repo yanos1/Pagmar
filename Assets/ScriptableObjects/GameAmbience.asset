@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8253622bc6724a769d90881c9a1895fe, type: 3}
+  m_Name: GameAmbience
+  m_EditorClassIdentifier: 
+  _ambiences:
+  - type: 1
+    ambience:
+      Guid:
+        Data1: 2083765475
+        Data2: 1125145727
+        Data3: 658621319
+        Data4: 1275937501
+      Path: event:/Ambience/ForestAmb
+  - type: 2
+    ambience:
+      Guid:
+        Data1: -713063695
+        Data2: 1090447425
+        Data3: -1055913548
+        Data4: 1565194610
+      Path: event:/Ambience/UndergroundAmb

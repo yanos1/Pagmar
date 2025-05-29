@@ -182,6 +182,7 @@ public class PlayerMovement : MonoBehaviour
             print("LANDED !!!");
         
         }
+        print($"vel {_rb.linearVelocity.y}");
         if (isFalling && _rb.linearVelocity.y >= 0)
         {
             if (timeFalling > 1.2f)
@@ -474,7 +475,7 @@ public class PlayerMovement : MonoBehaviour
             spineControl.PlayAnimation("jump-land", false,"", true);
             _playedStartJump = false;
         }
-        else if (_rb.linearVelocity.y < 0 && !isCurrentlyGrounded && !_isDashing&& ! isWallJumping && ! isWallSliding)
+        else if (_rb.linearVelocity.y < -0.2f && !isCurrentlyGrounded && !_isDashing&& ! isWallJumping && ! isWallSliding)
         {
             spineControl.PlayAnimation("jump-air", true);
         }

@@ -27,7 +27,7 @@ namespace Terrain.Environment
 
         private IEnumerator Break(object obj)
         {
-            yield return StartCoroutine(UtilityFunctions.ShakeObject(rb, 0.4f, 0.17f));
+            yield return StartCoroutine(UtilityFunctions.ShakeObject(rb, 0.4f, 0.17f, 0.17f));
             gameObject.SetActive(false);
         }
     }

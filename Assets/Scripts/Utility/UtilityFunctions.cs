@@ -130,21 +130,22 @@ namespace SpongeScene
         }
 
 
-        public static IEnumerator ShakeObject(Rigidbody2D rb, float shakeDuration = 0.4f, float magnitude = 0.1f, bool moveX = true, bool moveY = true)
+        public static IEnumerator ShakeObject(Rigidbody2D rb, float shakeDuration = 0.4f, float magnitudex = 0.1f, float magnitudey =0.1f, bool moveX = true, bool moveY = true, [CanBeNull] Action onComplete = null)
         {
             float elapsed = 0f;
             while (elapsed < shakeDuration)
             {
                 float xOffset = 0;
                 float yOffset = 0;
-                if (moveX)  xOffset = Random.Range(-1f, 1f) * magnitude;
-                if (moveY)  yOffset = Random.Range(-1f, 1f) * magnitude;
+                if (moveX)  xOffset = Random.Range(-1f, 1f) * magnitudex;
+                if (moveY)  yOffset = Random.Range(-1f, 1f) * magnitudey;
 
                 rb.MovePosition( rb.position + new Vector2(xOffset, yOffset));
 
                 elapsed += Time.deltaTime;
                 yield return null;
             }
+            onComplete?.Invoke();
         }
         
         public static IEnumerator ShakeObject(Transform objectToShake, float duration = 0.4f, float magnitude = 0.1f)

@@ -105,7 +105,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
     {
         isDead = false;
         currentDamage = 0f;
-        damageUI.UpdateUI(currentDamage);
+        damageUI?.UpdateUI(currentDamage);
         if (healingCoroutine is not null)
         {
             StopCoroutine(healingCoroutine);

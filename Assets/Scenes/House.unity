@@ -10215,6 +10215,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerTransform: {fileID: 920217985}
+  _bigTransform: {fileID: 0}
+  _followOffset: {x: 8, y: 0, z: 0}
+  _transitionDuration: 0.5
   _flipYRotationTime: 0.5
 --- !u!4 &647972401
 Transform:
@@ -13338,11 +13341,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7449684060580053844, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: Gamepad
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7449684060580053844, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_NeverAutoSwitchControlSchemes
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7533727172426430629, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_Mesh

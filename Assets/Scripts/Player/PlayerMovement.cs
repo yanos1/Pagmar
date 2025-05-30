@@ -179,21 +179,17 @@ public class PlayerMovement : MonoBehaviour
         {
             CameraManager.GetInstance().LerpedFromPlayerFalling = false;
             CameraManager.GetInstance().LerpYDamping(false);
-            print("LANDED !!!");
         
         }
-        print($"vel {_rb.linearVelocity.y}");
         if (isFalling && _rb.linearVelocity.y >= 0)
         {
             if (timeFalling > 1.2f)
             {
-                print("PLAY LAND HEAVY!!!");
 
                 CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.heavyLandSound, transform.position);
             }
             else
             {
-                print("PLAY LAND!!!");
                 CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.landSound, transform.position);
 
             }
@@ -244,7 +240,6 @@ public class PlayerMovement : MonoBehaviour
         _moveInput = context.ReadValue<Vector2>();
         _moveInputX = _moveInput.x;
         _moveInputY = _moveInput.y;
-        print($"move with {_moveInput}");
 
 
         if (_moveInputX != 0)
@@ -390,7 +385,6 @@ public class PlayerMovement : MonoBehaviour
     {
         // Draw wall ray
         var enemyRay = Physics2D.Raycast(wallCheckPosition.position, dir.normalized, 0.35f, enemyLayer); // enemies hit are too quick for 0.1 distance for some reason
-        print($"enemy collider: {enemyRay.collider}");
         var hitWallRay = Physics2D.Raycast(wallCheckPosition.position, dir.normalized, 0.1f);
         Debug.DrawRay(wallCheckPosition.position, dir.normalized * 0.1f,hitWallRay.collider? Color.green : Color.red);
 
@@ -523,18 +517,15 @@ public class PlayerMovement : MonoBehaviour
         {
             if (HornDamageManager.Instance.allowHornDamage && IsHittingSomething(dir))
             {
-                print("DEAL DAMAGE!");
                 hornDamageHandler.AddDamage();
             }
             
             if (player.IsKnockBacked)
             {
-                print("STOP DASH");
                 _isDashAttacking = false;
                 _rb.gravityScale = WhenStopPressGravity;
                 player.ResetForce();
                 _isDashing = false;
-                print($"stopping dash with {_rb.linearVelocity} vel 90");
                 yield break;
             }
 

@@ -61,7 +61,7 @@ namespace Managers
         ToMainMenu=10,
         StartTimer=11,
 
-        StartEndCutScene=12,
+        EnterCutScene=12,
 
         GayserFinished=13,
         StartEnemyChase=14,

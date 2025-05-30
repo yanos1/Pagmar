@@ -37,6 +37,10 @@ namespace NPC
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
+        }
+
+        public void StartSequence()
+        {
             NextAction();
         }
 

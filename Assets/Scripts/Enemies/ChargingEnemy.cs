@@ -399,7 +399,7 @@ namespace Enemies
                 sleepingImage.SetActive(true);
                 isSleeping = true;
             }
-            hitFeedbacks?.StopFeedbacks();
+            // hitFeedbacks?.StopFeedbacks(); // return to this!
 
             
             _rb.linearVelocity = Vector2.zero;

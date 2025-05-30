@@ -18,7 +18,7 @@ namespace Player
         private PlayerHornDamageHandler _damageHandler;
         private PlayerSoundHandler soundHandler;
         private Npc followedBy;
-
+        
         [SerializeField] private SpineControl spineControl;
         [SerializeField] private PlayerStage _playerStage = PlayerStage.Young;
         [SerializeField] private MMF_Player hitFeedback;
@@ -52,10 +52,18 @@ namespace Player
             ApplyScaleForStage(_playerStage);
         }
 #endif
-        
+
+        private void OnEnable()
+        {
+            CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, (o => DisableInput()));
+        }
+
+        private void OnDisable()
+        {
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, (o => DisableInput()));  // do we actually remove the function?
+        }
         private void Start()
         {
-            
             CurrentForce = 0;
             _rb = GetComponent<Rigidbody2D>();
             _playerMovement = GetComponent<PlayerMovement>();
@@ -96,12 +104,6 @@ namespace Player
         {
             CheckForRam(other);
         }
-
-        private void OnParticleCollision(GameObject other)
-        {
-            CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
-        }
-
         private void CheckForRam(Collision2D other)
         {
             if (other.gameObject.GetComponent<Rammer>() is { } rammer)

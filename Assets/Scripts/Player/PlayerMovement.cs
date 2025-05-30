@@ -244,6 +244,8 @@ public class PlayerMovement : MonoBehaviour
         _moveInput = context.ReadValue<Vector2>();
         _moveInputX = _moveInput.x;
         _moveInputY = _moveInput.y;
+        print($"move with {_moveInput}");
+
 
         if (_moveInputX != 0)
         {

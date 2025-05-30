@@ -2601,11 +2601,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4057480337948966328, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -82.78
+      value: -83.09
       objectReference: {fileID: 0}
     - target: {fileID: 4057480337948966328, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.36
+      value: -7.01
       objectReference: {fileID: 0}
     - target: {fileID: 4057480337948966328, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2659,6 +2659,14 @@ PrefabInstance:
       propertyPath: groundLayers.Array.data[1].m_Bits
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7449684060580053844, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Gamepad
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449684060580053844, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: m_NeverAutoSwitchControlSchemes
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7533727172426430629, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -2666,6 +2674,10 @@ PrefabInstance:
     - target: {fileID: 8185278169048737288, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_Name
       value: Player Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185278169048737288, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8185278169048737288, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_TagString

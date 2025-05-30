@@ -2,6 +2,7 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace Managers
@@ -90,6 +91,10 @@ namespace Managers
             {
                 if (newSceneIndex >= 0 && newSceneIndex < SceneManager.sceneCountInBuildSettings)
                 {
+                    if (CoreManager.Instance.Player is not null)
+                    {
+                        CoreManager.Instance.Player.GetComponent<PlayerInput>().gameObject.SetActive(false);   // fixes a bug in in input system
+                    }
                     print($"current scene is {currentSceneIndex} {SceneManager.GetActiveScene().name}");
 
                     CoreManager.Instance.UiManager.ShowLoadingScreen();
@@ -115,7 +120,7 @@ namespace Managers
                     {
                         yield return null;
                     }
-
+                    
                     CoreManager.Instance.UiManager.HideLoadingScreen();
                     CoreManager.Instance.EventManager.InvokeEvent(EventNames.StartNewScene, currentSceneIndex + 1);
 

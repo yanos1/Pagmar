@@ -13274,11 +13274,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4057480337948966328, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -83.14
+      value: -85
       objectReference: {fileID: 0}
     - target: {fileID: 4057480337948966328, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.86
+      value: -8.5
       objectReference: {fileID: 0}
     - target: {fileID: 4057480337948966328, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_LocalPosition.z
@@ -13330,6 +13330,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5662022951266685875, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: groundLayers.Array.data[1].m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449684060580053844, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449684060580053844, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Gamepad
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449684060580053844, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: m_NeverAutoSwitchControlSchemes
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7533727172426430629, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
@@ -16746,7 +16758,7 @@ MonoBehaviour:
               m_PostInfinity: 2
               m_RotationOrder: 4
             AttackTime: 6
-            SustainTime: 6
+            SustainTime: 1000
             DecayTime: 0
             ScaleWithImpact: 1
             HoldForever: 0
@@ -23012,7 +23024,7 @@ MonoBehaviour:
               m_PreInfinity: 2
               m_PostInfinity: 2
               m_RotationOrder: 4
-            AttackTime: 6
+            AttackTime: 1000
             SustainTime: 0
             DecayTime: 0
             ScaleWithImpact: 1

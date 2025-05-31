@@ -487,6 +487,7 @@ public class PlayerMovement : MonoBehaviour
 
         else if (!_wasGroundedLastFrame && isCurrentlyGrounded)
         {
+            
             landParticlePosition.position = landFeedback.gameObject.transform.position;
             landFeedback?.PlayFeedbacks();
             spineControl.PlayAnimation("jump-land", false,"", true);

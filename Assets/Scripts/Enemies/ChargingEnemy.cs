@@ -113,7 +113,7 @@ namespace Enemies
             }
 
 
-        if (ShouldPrepareCharge(distanceToPlayer))
+            if (ShouldPrepareCharge(distanceToPlayer))
             {
                 isPreparingCharge = true;
                 currentDirection = transform.position.x > player.transform.position.x ? Vector2.left : Vector2.right;

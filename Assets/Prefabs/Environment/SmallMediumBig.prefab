@@ -266,7 +266,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1486392575546559284}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SmallMediumBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -668,7 +668,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3188450953159711387}
   - component: {fileID: 3431146930951560128}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: image-removebg-preview (1)_0 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -755,7 +755,7 @@ GameObject:
   m_Component:
   - component: {fileID: 716628071959273326}
   - component: {fileID: 7049170338599350576}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: image-removebg-preview (1)_0 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

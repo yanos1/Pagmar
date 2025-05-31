@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8444030512703093349}
   - component: {fileID: 5528093591723567676}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: image-removebg-preview (1)_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 4891376195761757699}
   - component: {fileID: 7410195224697973870}
   - component: {fileID: 757123809884918018}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Elevetor (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7666281019218268494}
   - component: {fileID: 4789698847896679558}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

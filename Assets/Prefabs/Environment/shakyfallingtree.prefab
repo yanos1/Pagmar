@@ -2648,8 +2648,10 @@ MonoBehaviour:
   hitThreshold: 3
   fallForce: 10
   hitCooldown: 0.5
+  particleHitThreshold: 200
   hitFeedbacks: {fileID: 1796233998765932772}
   f: {fileID: 5039294424297900843}
+  e: {fileID: 0}
 --- !u!114 &1796233998765932772
 MonoBehaviour:
   m_ObjectHideFlags: 0

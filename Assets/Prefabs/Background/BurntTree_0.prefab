@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   branchCollider: {fileID: 6141900166440744044}
+  hitFeedbacks: {fileID: 0}
 --- !u!50 &8262615732543571498
 Rigidbody2D:
   serializedVersion: 5

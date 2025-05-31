@@ -434,7 +434,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {   
-        spineControl.PlayAnimation("jump", false);
+        spineControl.PlayAnimation("jumpv2", false);
         _playedStartJump = true;
         float force = jumpForce;
         if (_rb.linearVelocity.y < 0)

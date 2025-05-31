@@ -1,0 +1,780 @@
+fileFormatVersion: 2
+guid: a68e795c3d0d744ff8323dc2e64d834b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8238735592225252127
+    second: creat-ph1_0
+  - first:
+      213: -5049985712777132082
+    second: creat-ph1_1
+  - first:
+      213: 937827803489969114
+    second: creat-ph1_2
+  - first:
+      213: -4645615693977347210
+    second: creat-ph1_3
+  - first:
+      213: 5105239310883468268
+    second: creat-ph1_4
+  - first:
+      213: -5915704758015059927
+    second: creat-ph1_5
+  - first:
+      213: -8298571555866247897
+    second: creat-ph1_6
+  - first:
+      213: -4207362721373212661
+    second: creat-ph1_7
+  - first:
+      213: 2050313268688009246
+    second: creat-ph1_8
+  - first:
+      213: -7092657724732203601
+    second: creat-ph1_9
+  - first:
+      213: -7059212554898493668
+    second: creat-ph1_10
+  - first:
+      213: -3035656201029682951
+    second: creat-ph1_11
+  - first:
+      213: -4538801898911829599
+    second: creat-ph1_12
+  - first:
+      213: 5845277795556146778
+    second: creat-ph1_13
+  - first:
+      213: 2625531603288086595
+    second: creat-ph1_14
+  - first:
+      213: 5660282634661661261
+    second: creat-ph1_15
+  - first:
+      213: -5739056797442249482
+    second: creat-ph1_16
+  - first:
+      213: -7846694140087181976
+    second: creat-ph1_17
+  - first:
+      213: -7827019803280936957
+    second: creat-ph1_18
+  - first:
+      213: -7738615874988145422
+    second: creat-ph1_19
+  - first:
+      213: 5096703786049526693
+    second: creat-ph1_20
+  - first:
+      213: -7781749918252889034
+    second: creat-ph1_21
+  - first:
+      213: -4212678262601246862
+    second: creat-ph1_22
+  - first:
+      213: 6546607825397794499
+    second: creat-ph1_23
+  - first:
+      213: 3879777414010765435
+    second: creat-ph1_24
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 0
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: creat-ph1_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 289
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1324f4de5ed55270800000000000000
+      internalID: 8238735592225252127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_1
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 217
+        width: 52
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec70f1d00c8dae9b0800000000000000
+      internalID: -5049985712777132082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_2
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 233
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad3218f1b65d30d00800000000000000
+      internalID: 937827803489969114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_3
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 179
+        width: 40
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67b108dc325778fb0800000000000000
+      internalID: -4645615693977347210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_4
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 183
+        width: 31
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce3b192ca1479d640800000000000000
+      internalID: 5105239310883468268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_5
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 180
+        width: 110
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9289c668dd137eda0800000000000000
+      internalID: -5915704758015059927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_6
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 158
+        width: 101
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72d7e6d332d85dc80800000000000000
+      internalID: -8298571555866247897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_7
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 158
+        width: 96
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b00345f75e17c95c0800000000000000
+      internalID: -4207362721373212661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_8
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 153
+        width: 48
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e183b6a0e0d247c10800000000000000
+      internalID: 2050313268688009246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_9
+      rect:
+        serializedVersion: 2
+        x: 950
+        y: 153
+        width: 52
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fad18ebb061d19d90800000000000000
+      internalID: -7092657724732203601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_10
+      rect:
+        serializedVersion: 2
+        x: 1262
+        y: 147
+        width: 137
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1f2c472593a80e90800000000000000
+      internalID: -7059212554898493668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_11
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 217
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f8f96dc4ce2fd5d0800000000000000
+      internalID: -3035656201029682951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_12
+      rect:
+        serializedVersion: 2
+        x: 1004
+        y: 154
+        width: 37
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a1fd7578bfe201c0800000000000000
+      internalID: -4538801898911829599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_13
+      rect:
+        serializedVersion: 2
+        x: 1115
+        y: 152
+        width: 146
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5e3a997f299e1150800000000000000
+      internalID: 5845277795556146778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_14
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 2
+        width: 198
+        height: 213
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3485c802513cf6420800000000000000
+      internalID: 2625531603288086595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_15
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 2
+        width: 154
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4a0257111d5d8e40800000000000000
+      internalID: 5660282634661661261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_16
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 2
+        width: 119
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fce9a2ef36ca50b0800000000000000
+      internalID: -5739056797442249482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_17
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 2
+        width: 101
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86dd6fec041fa1390800000000000000
+      internalID: -7846694140087181976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_18
+      rect:
+        serializedVersion: 2
+        x: 1079
+        y: 153
+        width: 35
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 300fd7f45f6d06390800000000000000
+      internalID: -7827019803280936957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_19
+      rect:
+        serializedVersion: 2
+        x: 871
+        y: 2
+        width: 132
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f40226dcd9ea9490800000000000000
+      internalID: -7738615874988145422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_20
+      rect:
+        serializedVersion: 2
+        x: 1005
+        y: 2
+        width: 132
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5abded407112bb640800000000000000
+      internalID: 5096703786049526693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_21
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 2
+        width: 102
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63c8c97cdaba10490800000000000000
+      internalID: -7781749918252889034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_22
+      rect:
+        serializedVersion: 2
+        x: 1242
+        y: 1
+        width: 116
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27794ac907f8985c0800000000000000
+      internalID: -4212678262601246862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_23
+      rect:
+        serializedVersion: 2
+        x: 1367
+        y: 71
+        width: 54
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c6c0acb1293ada50800000000000000
+      internalID: 6546607825397794499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creat-ph1_24
+      rect:
+        serializedVersion: 2
+        x: 1358
+        y: 1
+        width: 54
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7002b9800db7d530800000000000000
+      internalID: 3879777414010765435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      creat-ph1_0: 8238735592225252127
+      creat-ph1_1: -5049985712777132082
+      creat-ph1_10: -7059212554898493668
+      creat-ph1_11: -3035656201029682951
+      creat-ph1_12: -4538801898911829599
+      creat-ph1_13: 5845277795556146778
+      creat-ph1_14: 2625531603288086595
+      creat-ph1_15: 5660282634661661261
+      creat-ph1_16: -5739056797442249482
+      creat-ph1_17: -7846694140087181976
+      creat-ph1_18: -7827019803280936957
+      creat-ph1_19: -7738615874988145422
+      creat-ph1_2: 937827803489969114
+      creat-ph1_20: 5096703786049526693
+      creat-ph1_21: -7781749918252889034
+      creat-ph1_22: -4212678262601246862
+      creat-ph1_23: 6546607825397794499
+      creat-ph1_24: 3879777414010765435
+      creat-ph1_3: -4645615693977347210
+      creat-ph1_4: 5105239310883468268
+      creat-ph1_5: -5915704758015059927
+      creat-ph1_6: -8298571555866247897
+      creat-ph1_7: -4207362721373212661
+      creat-ph1_8: 2050313268688009246
+      creat-ph1_9: -7092657724732203601
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

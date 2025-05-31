@@ -21,7 +21,7 @@ namespace Player
         
         [SerializeField] private SpineControl spineControl;
         [SerializeField] private PlayerStage _playerStage = PlayerStage.Young;
-        [SerializeField] private MMF_Player hitFeedback;
+        [SerializeField] private SpineControl _spineControl;
 
         private Rigidbody2D _rb;
         private bool isDead = false;
@@ -43,6 +43,7 @@ namespace Player
                 if (_playerStage == value) return;
                 _playerStage = value;
                 ApplyScaleForStage(_playerStage);
+                _spineControl.changeSkelatonAnimation(_playerStage);
             }
         }
 
@@ -50,6 +51,7 @@ namespace Player
         private void OnValidate()
         {
             ApplyScaleForStage(_playerStage);
+            _spineControl.changeSkelatonAnimation(_playerStage);
         }
 #endif
 

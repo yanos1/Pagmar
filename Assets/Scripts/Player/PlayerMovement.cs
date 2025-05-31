@@ -483,7 +483,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (isCurrentlyGrounded && Mathf.Abs(_moveInputX) <= 0.1f)
             {
-                spineControl.PlayAnimation("idle", true);
+                spineControl.PlayAnimation("idlev2", true);
             }
         }
 

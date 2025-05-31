@@ -91,6 +91,8 @@ public class PlayerMovement : MonoBehaviour
     private bool _preventAnimOverride = false;
     private bool isFalling;
     private float timeFalling;
+    private bool _isPlayingWallJumpLand = false;
+
     
     
     [Header("MM Feedback")]
@@ -459,38 +461,50 @@ public class PlayerMovement : MonoBehaviour
     
     private void UpdateAnimation()
     {
-        if (_preventAnimOverride)
-            return;
+        if (_preventAnimOverride) return;
 
         bool isCurrentlyGrounded = IsGrounded();
 
-        if (!_wasGroundedLastFrame && isCurrentlyGrounded)
+        if (isWallSliding && !_isPlayingWallJumpLand)
         {
-            Debug.Log("Player landed");
+            spineControl.PlayAnimation("wallslide", true);
+        }
+        else if (isWallJumping && wallJumpCounter > wallJumpTime - 0.1f)
+        {
+            spineControl.PlayAnimation("walljump-jump", false, "", true);
+        }
+        else if (hasWallJumped && isCurrentlyGrounded)
+        {
+            hasWallJumped = false;
+            _isPlayingWallJumpLand = true;
+
+            spineControl.PlayAnimation("walljump-land-turn", false, "", true, () =>
+            {
+                _isPlayingWallJumpLand = false; 
+            });
+        }
+
+        else if (!_wasGroundedLastFrame && isCurrentlyGrounded)
+        {
             landFeedback?.PlayFeedbacks();
             spineControl.PlayAnimation("jump-land", false,"", true);
             _playedStartJump = false;
         }
-        else if (_rb.linearVelocity.y < -0.2f && !isCurrentlyGrounded && !_isDashing&& ! isWallJumping && ! isWallSliding)
+        else if (_rb.linearVelocity.y < -0.2f && !isCurrentlyGrounded && !_isDashing && !isWallJumping && !isWallSliding)
         {
             spineControl.PlayAnimation("jump-air", true);
         }
         else if (!_isDashing && !_preventAnimOverride && !_playedStartJump)
         {
             if (isCurrentlyGrounded && Mathf.Abs(_moveInputX) > 0.1f)
-            {
                 spineControl.PlayAnimation("run", true);
-            }
-            else if (isCurrentlyGrounded && Mathf.Abs(_moveInputX) <= 0.1f)
-            {
+            else if (isCurrentlyGrounded)
                 spineControl.PlayAnimation("idlev2", true);
-            }
         }
 
-
         _wasGroundedLastFrame = isCurrentlyGrounded;
-
     }
+
     private IEnumerator PreventOverrideForSeconds(float seconds)
     {
         _preventAnimOverride = true;
@@ -505,7 +519,7 @@ public class PlayerMovement : MonoBehaviour
     {
         dashFeedback?.PlayFeedbacks();
         spineControl.ClearActionAnimation(); // Cancel jump/land/start-jump
-        spineControl.PlayAnimation("dash", false);
+        spineControl.PlayAnimation("dashv2", false);
         _isDashing = true;
         _canDash = false;
         player.SetForce();

@@ -22,17 +22,16 @@ public class SpineControl : MonoBehaviour
         skeletonAnimation.AnimationState.SetAnimation(1, "idlev2", true);
     }
 
-    public void PlayAnimation(string animationName, bool loop = false, string fallbackAnimation = "idlev2", bool force = false)
+    public void PlayAnimation(string animationName, bool loop = false, string fallbackAnimation = "idlev2", bool force = false, Action onComplete = null)
     {
         if (string.IsNullOrEmpty(animationName)) return;
-        // Prevent idle from overriding "jump-land" if it's playing
-        if (!force && currentActionAnimation == "jump-land" && animationName == "idlev2"&& skeletonAnimation.AnimationState.GetCurrent(2) != null)
+
+        if (!force && currentActionAnimation == "jump-land" && animationName == "idlev2" && skeletonAnimation.AnimationState.GetCurrent(2) != null)
             return;
-        // Prevent same animation from restarting
+
         if (!force && currentActionAnimation == animationName)
             return;
 
-        
         currentActionAnimation = animationName;
 
         var entry = skeletonAnimation.AnimationState.SetAnimation(2, animationName, loop);
@@ -42,15 +41,21 @@ public class SpineControl : MonoBehaviour
             entry.Complete += _ =>
             {
                 currentActionAnimation = "";
-                if (!string.IsNullOrEmpty(fallbackAnimation))
+
+                if (animationName == "walljump-jump")
+                {
+                    skeletonAnimation.AnimationState.AddAnimation(2, "walljump-air", true, 0f);
+                }
+                else if (!string.IsNullOrEmpty(fallbackAnimation))
                 {
                     skeletonAnimation.AnimationState.AddAnimation(2, fallbackAnimation, true, 0f);
                 }
+
+                onComplete?.Invoke();
             };
-
         }
-
     }
+
 
 
     
@@ -64,6 +69,12 @@ public class SpineControl : MonoBehaviour
                 skeletonAnimation.AnimationState.SetAnimation(0, fallback, true);
             };
         }
+    }
+    
+    public bool IsCurrentActionAnimationPlaying(string animationName)
+    {
+        var currentEntry = skeletonAnimation.AnimationState.GetCurrent(2);
+        return currentActionAnimation == animationName && currentEntry != null && !currentEntry.IsComplete;
     }
 
 

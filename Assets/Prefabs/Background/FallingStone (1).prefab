@@ -1442,7 +1442,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75953d6b31f574644be1238b08e89b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowRuntimeFragmentation: 0
   extraPoints: 1
   subshatterSteps: 0
   fragmentLayer: Debree

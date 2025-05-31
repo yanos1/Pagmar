@@ -19,6 +19,7 @@ namespace NPC.NpcActions
         public override void StartAction(Npc npc)
         {
             base.StartAction(npc);
+            npc.SetState(NpcState.Walking);
             PerformMovement(npc);
         }
 

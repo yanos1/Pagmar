@@ -28,6 +28,7 @@ namespace Terrain.Environment
                 {
                     rb.linearVelocity = Vector2.zero;
                     rb.bodyType = RigidbodyType2D.Static;
+                    gameObject.layer = 3; // ground layer
                 }));
             }
         }

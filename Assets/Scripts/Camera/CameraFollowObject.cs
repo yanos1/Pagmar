@@ -28,7 +28,7 @@ public class CameraFollowObject : MonoBehaviour
         _currentTarget = _playerTransform;
 
         transform.rotation = Quaternion.Euler(0f, _isFacingRight ? 180f : 0f, 0f);
-        transform.position = _currentTarget.position + _followOffset;
+        transform.position = _currentTarget.position;
     }
 
     private void LateUpdate()
@@ -53,8 +53,9 @@ public class CameraFollowObject : MonoBehaviour
 
     public void SetFollower()
     {
+        print("set follower is called");
         Transform newTarget = _currentTarget == _playerTransform ? _bigTransform : _playerTransform;
-
+        _currentTarget = newTarget;
         if (_transitionCoroutine != null)
             StopCoroutine(_transitionCoroutine);
 
@@ -78,7 +79,6 @@ public class CameraFollowObject : MonoBehaviour
             yield return null;
         }
 
-        _currentTarget = newTarget;
         _isTransitioning = false;
     }
 

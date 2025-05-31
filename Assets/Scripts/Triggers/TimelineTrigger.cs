@@ -19,6 +19,7 @@ namespace Triggers
 
         public override void OnTriggerEnter2D(Collider2D other) 
         {
+            print($"trigged timeline by {other.gameObject.name}");
             if (other.CompareTag(trigger) && ++triggered == requiredTriggers)
             {
                 isTriggered = true;

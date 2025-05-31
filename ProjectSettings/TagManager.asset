@@ -21,6 +21,7 @@ TagManager:
   - TreeBranches
   - Metal
   - Bone
+  - Trigger
   layers:
   - Default
   - TransparentFX

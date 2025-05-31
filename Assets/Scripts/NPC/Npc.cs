@@ -26,6 +26,7 @@ namespace NPC
         [SerializeField] private float maxJumpHeight;
         [SerializeField] private float jumpDuration;
         [SerializeField] private float dashDistance;
+        public LayerMask groundLayer;
 
         public float MaxJumpHeight => maxJumpHeight;
         public float JumpDuration => jumpDuration;
@@ -92,7 +93,7 @@ namespace NPC
                     currentAction.ResetAction(this);
                 }
                 currentAction = actions[actionIndex++];
-                print(currentAction);
+                print($"start action {currentAction}");
                 currentAction.StartAction(this);
             }
             else
@@ -132,15 +133,9 @@ namespace NPC
         private void OnTriggerEnter2D(Collider2D other)
         {
             IBreakable breakable = other.GetComponent<IBreakable>();
-            print($"triggered hit on {other.gameObject.name}");
-            if (breakable is not null)
-            {
-                print("triggered hit on breakkable!");
-                print($"npc state is {state}");
-            }
+         
             if (breakable is not null && state == NpcState.Charging)
             {
-                print("triggeredBreakable");
                 breakable.OnBreak();
                 return;
             }

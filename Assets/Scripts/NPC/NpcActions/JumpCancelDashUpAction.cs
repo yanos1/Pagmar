@@ -1,18 +1,24 @@
 ﻿using Managers;
 
-namespace NPC.NpcActions
-{
-  using System.Collections;
+
+using System.Collections;
 using DG.Tweening;
+using NPC.NpcActions;
 using UnityEngine;
 
 namespace NPC.NpcActions
 {
+    [System.Serializable]
     public class JumpCancelDashUpAction : NpcAction
     {
-        private float jumpDuration = 0.75f;
-        private float dashDuration = 0.84f;
-        
+
+        [SerializeField] private float jumpDuration;
+        [SerializeField] private float dashDuration;
+        [SerializeField] private Vector3 jumpTarget;
+        [SerializeField] private int jumpPower;
+
+        [SerializeField] private Vector3 dashTarget;
+       
         private Tween jumpTween;
         private Tween dashTween;
 
@@ -47,14 +53,13 @@ namespace NPC.NpcActions
 
         private IEnumerator JumpDashRoutine(Npc npc)
         {
-            Vector3 startPos = npc.transform.position;
-            Vector3 jumpTarget = startPos + new Vector3(1.5f,npc.MaxJumpHeight);
+            Vector3 jumpT = npc.transform.position + jumpTarget;
 
             // Start jump
-            jumpTween = npc.transform.DOJump(npc.transform.position + new Vector3(1f,1.7f,0),3,1,jumpDuration).SetEase(Ease.OutQuad);
+            jumpTween = npc.transform.DOJump(jumpT,jumpPower,1,jumpDuration).SetEase(Ease.OutQuad);
 
             // Wait for cancel time
-            yield return new WaitForSeconds(npc.JumpDuration / 2);
+            yield return new WaitForSeconds(jumpDuration / 2);
 
             // Cancel jump
             if (jumpTween != null && jumpTween.IsActive())
@@ -63,8 +68,8 @@ namespace NPC.NpcActions
             yield return null; // safety
 
             // Dash upward
-            Vector3 dashTarget = npc.transform.position + new Vector3(1,1.3f) * npc.DashDistance;
-            dashTween = npc.transform.DOMove(dashTarget, dashDuration).SetEase(Ease.OutExpo);
+            Vector3 dashT = npc.transform.position + dashTarget;
+            dashTween = npc.transform.DOMove(dashT, dashDuration).SetEase(Ease.OutExpo);
 
             yield return dashTween.WaitForCompletion();
             isCompleted = true;
@@ -73,4 +78,3 @@ namespace NPC.NpcActions
     }
 }
 
-}

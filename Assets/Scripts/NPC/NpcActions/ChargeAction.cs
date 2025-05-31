@@ -4,7 +4,9 @@ using Enemies;
 using Interfaces;
 using Player;
 using Terrain;
+using Unity.VisualScripting;
 using UnityEngine;
+using Sequence = DG.Tweening.Sequence;
 
 namespace NPC.NpcActions
 {
@@ -37,23 +39,7 @@ namespace NPC.NpcActions
 
         public override void UpdateAction(Npc npc)
         {
-            if (npc == null || npc.transform == null)
-                return;
-
-            // Find the closest target (enemy or breakable object)
-            Transform closestTarget = FindClosestTarget(npc);
-
-            if (closestTarget != null)
-            {
-                float distanceToTarget = Vector2.Distance(npc.transform.position, closestTarget.position);
-
-                // Check if the enemy is within a certain distance and stop charging if necessary
-                if (distanceToTarget < obstacleCheckDistance)
-                {
-                    Debug.Log("Stopping charge due to nearby enemy.");
-                    isCompleted = true;
-                }
-            }
+           
         }
 
         protected override void PerformMovement(Npc npc)
@@ -105,7 +91,7 @@ namespace NPC.NpcActions
         private Transform FindClosestTarget(Npc npc)
         {
             Transform npcTransform = npc.transform;
-            Vector2 origin = npcTransform.position + Vector3.up * 0.1f;
+            Vector2 origin = npcTransform.position + Vector3.up * 0.5f;
             float maxDistance = 20f; // Can adjust based on charge vision
             Transform closestTarget = null;
             float closestDistance = float.MaxValue;
@@ -125,14 +111,13 @@ namespace NPC.NpcActions
                     Debug.Log($"hit {hit.transform.gameObject.name}");
                     if (hit.collider == null) continue;
 
-                    var target = hit.collider.GetComponent<MonoBehaviour>();
-                    if (target == null || target.transform == npcTransform) continue;
-
-                    bool isBreakable = target is IBreakable;
-                    bool isEnemy = target.GetType().IsSubclassOf(typeof(Enemy));
-
-                    if (isBreakable || isEnemy)
+                    var breakable = hit.collider.gameObject.GetComponent<MonoBehaviour>();
+                    bool isEnemy = hit.GetType().IsSubclassOf(typeof(Enemy));
+                    bool isBreakbale = breakable is IBreakable;
+                    
+                    if (isBreakbale || isEnemy)
                     {
+                        Debug.Log("target found 1!");
                         float distance = Vector2.Distance(origin, hit.point);
 
                         if (distance < closestDistance)
@@ -144,7 +129,6 @@ namespace NPC.NpcActions
                     }
                 }
             }
-
             return closestTarget;
         }
 

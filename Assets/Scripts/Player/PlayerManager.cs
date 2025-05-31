@@ -29,7 +29,13 @@ namespace Player
         private bool inputEnabled = true;
         private float hitDamage = 0.5f;
         public bool InputEnabled => inputEnabled;
-        public void DisableInput() => inputEnabled = false;
+        public void DisableInput()
+        {
+            
+            print("inpuut disabled!");
+            inputEnabled = false;
+        }
+
         public void EnableInput() => inputEnabled = true;
         public bool IsKnockBacked => isKnockbacked;
         
@@ -55,12 +61,19 @@ namespace Player
 
         private void OnEnable()
         {
-            CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, (o => DisableInput()));
+            print("player listen to cut scen");
+            CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, OnEnterCutScene);
         }
 
         private void OnDisable()
         {
-            CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, (o => DisableInput()));  // do we actually remove the function?
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, OnEnterCutScene);  
+        }
+
+        private void OnEnterCutScene(object o)
+        {
+            // currently not working since we turn uinput on in update.
+            DisableInput();
         }
         private void Start()
         {

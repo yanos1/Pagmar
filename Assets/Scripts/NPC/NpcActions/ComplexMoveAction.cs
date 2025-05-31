@@ -32,10 +32,10 @@ namespace NPC.NpcActions
 
             public override void UpdateAction(Npc npc)
             {
-                if (npc.Rb.linearVelocity.y < -3) // npc is falling
-                {
-                    isCompleted = true; 
-                }
+                // if (npc.Rb.linearVelocity.y < -3) // npc is falling
+                // {
+                //     isCompleted = true; 
+                // }
             }
 
             protected Vector2 GetMoveDirection(Npc npc)
@@ -49,6 +49,8 @@ namespace NPC.NpcActions
 
             protected bool IsGroundAhead(Npc npc, Vector2 dir)
             {
+                Debug.Log($"npc dir {dir}");
+                Debug.Log($"ground mask {groundMask}");
                 Vector2 origin = (dir == Vector2.right
                                      ? new Vector3(1.5f, 0, 0)
                                      : new Vector3(-1.5f, 0, 0))
@@ -56,8 +58,7 @@ namespace NPC.NpcActions
                 Vector2 direction = Vector2.down;
 
                 // Draw the ray in the Scene view
-                Debug.DrawRay(origin, direction * groundCheckDistance, Color.black);
-                Debug.Log(groundMask);
+                Debug.DrawRay(origin, direction * groundCheckDistance, Color.black,5);
                 RaycastHit2D hit = Physics2D.Raycast(origin, direction, groundCheckDistance, groundMask);
                 return hit.collider is not null;
             }
@@ -70,6 +71,7 @@ namespace NPC.NpcActions
                 RaycastHit2D hit = Physics2D.Raycast(origin, direction, wallCheckDistance, groundMask);
                 if (hit.collider is not null)
                 {
+                    Debug.Log("There is wall ahead !");
                     return hit.collider;
                 }
 
@@ -197,16 +199,20 @@ namespace NPC.NpcActions
                 Collider2D wallAhead = GetWallAhead(npc);
                 if (wallAhead)
                 {
+                    Debug.Log("There is wall so continue !");
+
                     float wallAheadHeight = wallAhead.bounds.max.y - npc.transform.position.y;
 
                     if (npc.State == NpcState.Followed || npc.State == NpcState.Following &&
-                        CoreManager.Instance.Player.transform.position.y > wallAhead.bounds.max.y)
+                        CoreManager.Instance.Player.transform.position.y  +0.2f > wallAhead.bounds.max.y)
                         if (wallAheadHeight > npc.MaxJumpHeight)
                         {
                             PerformJumpCancelDashUp(npc);
                         }
                         else if (wallAheadHeight > 0)
                         {
+                            Debug.Log("Perform jump to overcome !");
+
                             PerformJump(npc,
                                 npc.transform.position + new Vector3(wallCheckDistance + Random.Range(0.5f, 1f),
                                     wallAheadHeight, 0));

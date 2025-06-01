@@ -9,10 +9,11 @@ namespace Triggers
     {
         protected bool isTriggered;
         [SerializeField] protected String trigger;
+        [SerializeField] protected String trigger1;
 
         public virtual void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag(trigger))
+            if (other.CompareTag(trigger) || other.CompareTag(trigger1))
             {
                 isTriggered = true;
             }

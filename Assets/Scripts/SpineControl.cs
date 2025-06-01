@@ -9,9 +9,12 @@ public class SpineControl : MonoBehaviour
     [SerializeField] private SkeletonAnimation skeletonAnimationYoung;
     [SerializeField] private SkeletonAnimation skeletonAnimationTeen;
     [SerializeField] private SkeletonAnimation skeletonAnimationAdult;
-    private SkeletonAnimation skeletonAnimation;
     
+    private SkeletonAnimation skeletonAnimation;
     private string currentActionAnimation = "";
+    
+    [Tooltip("If true, all animations are locked to idle + blink.")]
+    [SerializeField] private bool _lockIdleState = false;
 
     private void Awake()
     {
@@ -24,6 +27,8 @@ public class SpineControl : MonoBehaviour
 
     public void PlayAnimation(string animationName, bool loop = false, string fallbackAnimation = "idlev2", bool force = false, Action onComplete = null)
     {
+        if (_lockIdleState) return;
+        
         if (string.IsNullOrEmpty(animationName)) return;
 
         if (!force && currentActionAnimation == "jump-land" && animationName == "idlev2" && skeletonAnimation.AnimationState.GetCurrent(2) != null)
@@ -60,6 +65,9 @@ public class SpineControl : MonoBehaviour
 
     
     public void PlayAnimationOnBaseTrack(string animationName, bool loop = false, string fallback = "idlev2") {
+        
+        if (_lockIdleState) return;
+        
         if (string.IsNullOrEmpty(animationName)) return;
     
         var entry = skeletonAnimation.AnimationState.SetAnimation(0, animationName, loop);
@@ -109,4 +117,17 @@ public class SpineControl : MonoBehaviour
         skeletonAnimation.AnimationState.SetAnimation(0, "blink", true);
         skeletonAnimation.AnimationState.SetAnimation(1, "idlev2", true);
     }
+    public void SetIdleLock(bool value)
+    {
+        _lockIdleState = value;
+
+        if (value)
+        {
+            skeletonAnimation.AnimationState.ClearTrack(2);
+            currentActionAnimation = "";
+            skeletonAnimation.AnimationState.SetAnimation(0, "blink", true);
+            skeletonAnimation.AnimationState.SetAnimation(1, "idlev2", true);
+        }
+    }
+
 }

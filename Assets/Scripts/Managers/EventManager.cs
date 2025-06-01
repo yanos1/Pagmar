@@ -67,5 +67,8 @@ namespace Managers
         StartEnemyChase=14,
         PickupBoneHeal=15,
         ChangeAmbience=16,
+        AllowCutSceneInput=17,
+
+        EndCutScene=18,
     }
 }

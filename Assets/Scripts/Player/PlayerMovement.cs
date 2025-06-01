@@ -107,7 +107,17 @@ public class PlayerMovement : MonoBehaviour
     private PlayerManager player;
     private PlayerHornDamageHandler hornDamageHandler;
     [SerializeField] SpineControl spineControl;
- 
+
+    private void OnEnable()
+    {
+        CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, OnEnterCutScene);
+    }
+
+    private void OnDisable()
+    {
+        CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, OnEnterCutScene);
+    }
+    
 
     private void Awake()
     {
@@ -131,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
     {
         LastOnGroundTime += Time.deltaTime;
 
-        if (!_isDashAttacking && !isWallJumping && !isWallSliding && player.InputEnabled)
+        if (!_isDashAttacking && !isWallJumping && !isWallSliding)
             Move();
 
         CheckIfGrounded();
@@ -152,6 +162,14 @@ public class PlayerMovement : MonoBehaviour
         UpdateAnimation();  
     }
 
+    private void OnEnterCutScene(object obj)
+    {
+        _rb.linearVelocity = Vector2.zero;
+        _moveInputX = 0;
+        _moveInputY = 0;
+        _moveInput = Vector2.zero;
+    }
+    
     public Vector3 GetVelocity()
     {
         return _rb.linearVelocity;
@@ -233,8 +251,11 @@ public class PlayerMovement : MonoBehaviour
         {
             playerSoundHandler.StopGroundSound();
         }
-        _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed*(1-InjuryManager.Instance.injuryMagnitude/2f) * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
-        
+
+        if (player.InputEnabled)
+        {
+            _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed*(1-InjuryManager.Instance.injuryMagnitude/2f) * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
+        }
     }
 
     public void HandleMovment(InputAction.CallbackContext context)
@@ -281,9 +302,6 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(nameof(StartDash), _lastDashDir);
         }
     }
-
-
-
 
 
     private bool CanDash()

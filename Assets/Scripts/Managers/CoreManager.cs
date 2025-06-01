@@ -20,10 +20,12 @@ namespace Managers
         public CameraManager CameraManager;
         public AudioManager AudioManager;
         public PlayerPositionManager PositionManager;
-        
+        public GameManager GameManager;
+
 
         public CoreManager(ResetManager resetManager, UiManager uiManager, PoolManager poolManager,
-            CameraManager cameraManager, AudioManager audioManager)
+            CameraManager cameraManager, AudioManager audioManager, GameManager gameManager)
+
         {
             Instance ??= this;
             EventManager = new EventManager();
@@ -34,11 +36,14 @@ namespace Managers
             AudioManager = audioManager;
             Runner = new GameObject("CoreManagerRunner").AddComponent<MonoRunner>();
             CameraManager = cameraManager;
-            
-            uiManager.gameObject.SetActive(true); // this acticvates OnEnable which register the manager events to eventmanager after it has finished loading.
+            GameManager = gameManager;
+
+            uiManager.gameObject
+                .SetActive(true); // this acticvates OnEnable which register the manager events to eventmanager after it has finished loading.
             resetManager.gameObject.SetActive(true);
             cameraManager.gameObject.SetActive(true);
             audioManager.gameObject.SetActive(true);
+            gameManager.gameObject.SetActive(true);
         }
     }
 }

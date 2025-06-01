@@ -25,7 +25,7 @@ namespace Triggers
                 isTriggered = true;
                 StartCoroutine(UtilityFunctions.WaitAndInvokeAction(delayBeforeStartCutscene, () =>
                 {
-                    CoreManager.Instance.EventManager.InvokeEvent(EventNames.EnterCutScene, null);
+                    CoreManager.Instance.EventManager.InvokeEvent(EventNames.EnterCutScene, cutScene.tag);
                     cutScene.Play();
                     print("cut scene start");
                 }));

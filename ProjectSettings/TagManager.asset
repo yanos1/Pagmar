@@ -22,6 +22,8 @@ TagManager:
   - Metal
   - Bone
   - Trigger
+  - NightTransition
+  - MeetBig
   layers:
   - Default
   - TransparentFX

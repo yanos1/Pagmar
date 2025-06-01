@@ -17,7 +17,7 @@ namespace NPC.NpcActions
 
         private Tween chargeTween;
         private bool jumpInserted = false;
-
+        private float targetOffset;
         public override void StartAction(Npc npc)
         {
             base.StartAction(npc);
@@ -31,8 +31,7 @@ namespace NPC.NpcActions
                 return;
             }
 
-            Vector3 directionToTarget = target.position - npc.transform.position;
-            targetPosition = new Vector3(directionToTarget.x, 0f, 0f); // Only horizontal charge
+            targetOffset = target.position.x - npc.transform.position.x;
             PerformMovement(npc);
 
         }
@@ -44,14 +43,14 @@ namespace NPC.NpcActions
 
         protected override void PerformMovement(Npc npc)
         {
-            int chargeDir = targetPosition.x > 0 ? -1 : 1;
+            int chargeDir = targetOffset > 0 ? -1 : 1;
             Vector3 targetRotation = new Vector3(0f, 0f, chargeDir * 30f);
 
             Sequence chargeSequence = DOTween.Sequence();
 
             chargeSequence.Append(npc.transform.DORotate(targetRotation, 0.2f));
 
-            chargeSequence.Append(npc.transform.DOMove(npc.transform.position + targetPosition, duration)
+            chargeSequence.Append(npc.transform.DOMove(npc.transform.position + Vector3.right*(targetOffset + chargeDir*3), duration)
                 .SetEase(easeType));
 
             chargeSequence.Append(npc.transform.DORotate(Vector3.zero, 0.2f));

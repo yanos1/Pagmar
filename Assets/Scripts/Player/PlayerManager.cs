@@ -31,12 +31,16 @@ namespace Player
         public bool InputEnabled => inputEnabled;
         public void DisableInput()
         {
-            
             print("inpuut disabled!");
             inputEnabled = false;
         }
 
-        public void EnableInput() => inputEnabled = true;
+        public void EnableInput()
+        {
+            print("input enabled");
+            inputEnabled = true;
+        }
+
         public bool IsKnockBacked => isKnockbacked;
         
         public bool IsDead => isDead;
@@ -72,10 +76,26 @@ namespace Player
             CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, OnEnterCutScene);  
         }
 
+        public void UnlockAnimations()
+        {
+            spineControl.SetIdleLock(false);
+        }
+        
+        public void LockAnimations()
+        {
+            spineControl.SetIdleLock(true);
+        }
         private void OnEnterCutScene(object o)
         {
-            // currently not working since we turn uinput on in update.
             DisableInput();
+            print("enter cut scnee");
+            
+            LockAnimations();
+            
+            // turn elft
+            var rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(rotator);
+
         }
         private void Start()
         {
@@ -142,10 +162,6 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.GetComponent<IKillPlayer>() is not null)
-            {
-                print($"collided with {other.gameObject.name} 13");
-            }
             if (other.gameObject.GetComponent<IKillPlayer>() is { } killPlayer && killPlayer.IsDeadly())
             {
                 CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
@@ -168,7 +184,7 @@ namespace Player
                 _playerStage = PlayerStage.Adult;
             }
             
-            if (!isDead && !InputEnabled && _rb.linearVelocity.magnitude < 5f)
+            if (CoreManager.Instance.GameManager.AllowPlayerInput && !isDead && !InputEnabled && _rb.linearVelocity.magnitude < 5f)
             {
                 EnableInput();
                 isKnockbacked = false;
@@ -270,6 +286,14 @@ namespace Player
         public void Die()
         {
             StartCoroutine(DieAfterDelay());
+        }
+
+        public void GetMounted()
+        {
+            _rb.bodyType = RigidbodyType2D.Kinematic;
+            // turn right
+            var rotator = new Vector3(transform.rotation.x, 0, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(rotator);
         }
     }
     public enum PlayerStage

@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Upperground.unity
     guid: f6ba66f992b0f9f46bc06c4c68f71e83
   - enabled: 1
+    path: Assets/Scenes/Falldown.unity
+    guid: fc09b3d5342432f4e8150495783a8274
+  - enabled: 1
     path: Assets/Scenes/Underground.unity
     guid: 50ff6be3d2cee5b49b0bbdfd3179c96d
   m_configObjects:

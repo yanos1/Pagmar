@@ -26,6 +26,7 @@ namespace NPC
         [SerializeField] private float maxJumpHeight;
         [SerializeField] private float jumpDuration;
         [SerializeField] private float dashDistance;
+        [SerializeField] private bool startNpcSequenceAtStart = false;
         public LayerMask groundLayer;
 
         public float MaxJumpHeight => maxJumpHeight;
@@ -38,10 +39,12 @@ namespace NPC
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
+            if(startNpcSequenceAtStart) StartSequence();
         }
 
         public void StartSequence()
         {
+            print("start npc sequence");
             NextAction();
         }
 
@@ -65,11 +68,11 @@ namespace NPC
                 Debug.DrawRay(transform.position, Vector2.down * groundCheckDistance, isGrounded? Color.green : Color.red);
 
 
-                if (!isGrounded)
+                if (!isGrounded && rb.bodyType == RigidbodyType2D.Kinematic)
                 {
                     rb.bodyType = RigidbodyType2D.Dynamic;
                 }
-                else
+                else if (isGrounded && rb.bodyType == RigidbodyType2D.Dynamic)
                 {
                     rb.bodyType = RigidbodyType2D.Kinematic;
                 }

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Managers;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -28,7 +29,7 @@ namespace NPC.BigFriend
             print("SHOW BIG111");
             var color = bigSpriteRenderer.color;
             color.a = 1f;
-            bigSpriteRenderer.color = color;        
+            bigSpriteRenderer.color = color;       
         }
 
         public void EnableHeadCollider()
@@ -43,6 +44,16 @@ namespace NPC.BigFriend
             GetComponent<CircleCollider2D>().isTrigger = true;
             gameObject.layer = LayerMask.NameToLayer("Default");
 
+        }
+
+        public void Materialize()
+        {
+            GetComponent<CapsuleCollider2D>().isTrigger = false;
+        }
+        
+        public void Unmeterialize()
+        {
+            GetComponent<CapsuleCollider2D>().isTrigger = true;
         }
     }
 }

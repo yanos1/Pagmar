@@ -11634,6 +11634,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 647972400}
     - target: {fileID: 5662022951266685875, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: landParticlePosition
+      value: 
+      objectReference: {fileID: 1650567086}
+    - target: {fileID: 5662022951266685875, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: groundLayers.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -11669,6 +11673,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8817475888305650512, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: managedReferences[2686085626848084048].InstantiateParticlesPosition
+      value: 
+      objectReference: {fileID: 1650567086}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16636,6 +16644,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
   m_PrefabInstance: {fileID: 1649313503}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1650567085
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1650567086}
+  m_Layer: 0
+  m_Name: LandParticlesPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1650567086
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650567085}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 277.33133, y: -51.791508, z: 0.03301196}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &1691009166
 Material:
   serializedVersion: 8
@@ -20549,3 +20588,4 @@ SceneRoots:
   - {fileID: 68539958}
   - {fileID: 632472593}
   - {fileID: 1870813810}
+  - {fileID: 1650567086}

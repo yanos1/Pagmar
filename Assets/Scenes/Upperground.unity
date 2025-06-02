@@ -12315,15 +12315,15 @@ MonoBehaviour:
   - rid: 2933668667838955615
   - rid: 2933668851201343610
   - rid: 2933668667838955616
-  - rid: 2933668667838955657
+  - rid: 2208691326915444736
   - rid: 5373309635675030014
   - rid: 5373309635675030021
   - rid: 2208691291624571011
   - rid: 5373309635675030035
   - rid: 2208691291624571008
-  speed: 6.1
+  speed: 6.5
   maxJumpHeight: 5
-  jumpDuration: 0.4
+  jumpDuration: 0.35
   dashDistance: 4
   startNpcSequenceAtStart: 0
   groundLayer:
@@ -12373,6 +12373,22 @@ MonoBehaviour:
         trigger: {fileID: 0}
         waitForDuration: 1
         duration: 2.5
+    - rid: 2208691326915444736
+      type: {class: BeFollowedAction, ns: NPC.NpcActions, asm: Assembly-CSharp}
+      data:
+        delayAfterAction: 0.6
+        beforeActionCallBack:
+          m_PersistentCalls:
+            m_Calls: []
+        afterActionCallback:
+          m_PersistentCalls:
+            m_Calls: []
+        groundMask:
+          serializedVersion: 2
+          m_Bits: 8
+        minDistanceToPlayer: 5
+        rayLength: 20
+        stopFollowTrigger: {fileID: 1584883447}
     - rid: 2933668667838955601
       type: {class: WaitAction, ns: NPC.NpcActions, asm: Assembly-CSharp}
       data:
@@ -12445,27 +12461,11 @@ MonoBehaviour:
         afterActionCallback:
           m_PersistentCalls:
             m_Calls: []
-        targetPosition: {x: 2.5, y: 5, z: 0}
+        targetPosition: {x: 2.5, y: 5.8, z: 0}
         duration: 1.5
         easeType: 6
         jumpPower: 4
         numJumps: 1
-    - rid: 2933668667838955657
-      type: {class: FollowAction, ns: NPC.NpcActions, asm: Assembly-CSharp}
-      data:
-        delayAfterAction: 0.6
-        beforeActionCallBack:
-          m_PersistentCalls:
-            m_Calls: []
-        afterActionCallback:
-          m_PersistentCalls:
-            m_Calls: []
-        groundMask:
-          serializedVersion: 2
-          m_Bits: 8
-        minDistanceToPlayer: 5
-        rayLength: 20
-        stopFollowTrigger: {fileID: 1584883447}
     - rid: 2933668849943576576
       type: {class: CompositeAction, ns: NPC.NpcActions.NPC.NpcActions, asm: Assembly-CSharp}
       data:
@@ -12775,7 +12775,7 @@ Transform:
   m_GameObject: {fileID: 946855280}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.62, y: -4.53, z: 0}
+  m_LocalPosition: {x: -1.76, y: -4.53, z: 0}
   m_LocalScale: {x: 1.53, y: 1.53, z: 1.53}
   m_ConstrainProportionsScale: 1
   m_Children:

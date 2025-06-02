@@ -406,10 +406,10 @@ public class PlayerMovement : MonoBehaviour
     {
         // Draw wall ray
         var enemyRay = Physics2D.Raycast(wallCheckPosition.position, dir.normalized, 0.35f, enemyLayer); // enemies hit are too quick for 0.1 distance for some reason
-        var hitWallRay = Physics2D.Raycast(wallCheckPosition.position, dir.normalized, 0.1f);
-        Debug.DrawRay(wallCheckPosition.position, dir.normalized * 0.1f,hitWallRay.collider? Color.green : Color.red);
+        var hitWallRay = Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0);
 
-        bool wallRayHit = hitWallRay.collider != null && hitWallRay.collider.gameObject.layer != LayerMask.NameToLayer("Trigger");
+
+        bool wallRayHit = hitWallRay != null && hitWallRay.gameObject.layer != LayerMask.NameToLayer("Trigger");
 
         // Draw ceiling ray
         Debug.DrawRay(cielingCheckPos.position, Vector2.up * 0.1f, Color.green);

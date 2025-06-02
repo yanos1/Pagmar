@@ -28,7 +28,7 @@ namespace Enemies
         private bool isSleeping;
         [SerializeField] private PlayerManager player;
 
-        [FormerlySerializedAs("sleeping")] [SerializeField] private GameObject sleepingImage;
+        [SerializeField] private GameObject sleepingImage;
 
         [Header("Ground Detection")] [SerializeField]
         private LayerMask groundLayer;
@@ -44,7 +44,6 @@ namespace Enemies
 
         private bool isPreparingCharge = false;
         private float rotationTimer = 0f;
-        private SpriteRenderer spriteRenderer;
         private Rigidbody2D _rb;
         private Collider2D _col;
         private Coroutine flipCoroutine;
@@ -63,7 +62,6 @@ namespace Enemies
         private int hitsToKill = 2;
         private float startDetectionRange;
         private Vector2 baseDir;
-        private bool baseFlip = false;
         private bool initialized = false;
 
         private void OnEnable()
@@ -80,13 +78,20 @@ namespace Enemies
             base.Start();
             CurrentForce = 0f;
             startDetectionRange = detectionRange;
-            spriteRenderer = GetComponent<SpriteRenderer>();
             _rb = GetComponent<Rigidbody2D>();
             _col = GetComponent<BoxCollider2D>();
-            if (sleepAtStart) isSleeping = true;
+
+            if (sleepAtStart)
+                isSleeping = true;
+
             baseDir = currentDirection;
-            baseFlip = spriteRenderer.flipX;
+
+            // Flip scale based on initial direction
+            Vector3 scale = transform.localScale;
+            scale.x = Mathf.Abs(scale.x) * (currentDirection == Vector2.right ? 1 : -1);
+            transform.localScale = scale;
         }
+
 
         void Update()
         {
@@ -107,7 +112,7 @@ namespace Enemies
                 FlipTowardsPlayer();
             }
            
-            if (canRoam && !IsCharging && !isPreparingCharge && !falling)
+            if (canRoam && chargeCooldown < 1 && !IsCharging && !isPreparingCharge && !falling)
             {
                 
                 Roam();
@@ -216,27 +221,26 @@ namespace Enemies
 
         private void FlipSpriteWithDelay(Vector2 direction)
         {
-            bool newFlipX = direction.x > 0;
+            bool newFacingRight = direction.x > 0;
+            bool currentlyFacingRight = transform.localScale.x > 0;
 
-            // Only apply flip logic if it actually changes
-            if (spriteRenderer.flipX != newFlipX && flipCoroutine is null)
+            if (currentlyFacingRight != newFacingRight && flipCoroutine == null)
             {
-                flipCoroutine = StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.5f, () =>
-                {
-                    FlipSprite(newFlipX);
-                }));
+                flipCoroutine = StartCoroutine(FlipSpriteAfterDelay(newFacingRight));
             }
         }
 
-        private void FlipSprite(bool newFlipX)
+        private IEnumerator FlipSpriteAfterDelay(bool faceRight)
         {
-            print($"old 87 {_col.offset}");
-            
-            spriteRenderer.flipX = newFlipX;
-            var currentOffset = _col.offset;
-            currentOffset.x *= -1;
-            _col.offset = currentOffset;
-            print($"new 87 {_col.offset}");
+            yield return new WaitForSeconds(chargeDelay);
+            FlipSprite(faceRight);
+        }
+
+        private void FlipSprite(bool faceRight)
+        {
+            Vector3 localScale = transform.localScale;
+            localScale.x = Mathf.Abs(localScale.x) * (faceRight ? 1 : -1);
+            transform.localScale = localScale;
             flipCoroutine = null;
         }
 
@@ -338,7 +342,6 @@ namespace Enemies
         private void MoveAndRotate(Vector2 dir)
         {
             transform.position += (Vector3)dir * (chargeSpeed * Time.fixedDeltaTime);
-            RotateEnemy();
         }
 
         void FixedUpdate()
@@ -391,7 +394,12 @@ namespace Enemies
             base.ResetToInitialState();
             gameObject.SetActive(true);
             CurrentForce = 0;
-            spriteRenderer.flipX = baseFlip;
+
+            // Flip using scale (Spine-compatible)
+            Vector3 scale = transform.localScale;
+            scale.x = Mathf.Abs(transform.localScale.x) * (baseDir == Vector2.right ? 1 : -1);
+            transform.localScale = scale;
+
             currentDirection = baseDir;
             detectionRange = startDetectionRange;
             IsCharging = false;
@@ -399,18 +407,18 @@ namespace Enemies
             hit = false;
             hitCounter = 0;
             falling = false;
+
             if (sleepAtStart)
             {
                 sleepingImage.SetActive(true);
                 isSleeping = true;
             }
+
             // hitFeedbacks?.StopFeedbacks(); // return to this!
 
-            
             _rb.linearVelocity = Vector2.zero;
             _rb.angularVelocity = 0f;
             _rb.bodyType = RigidbodyType2D.Kinematic;
-            
 
             transform.rotation = Quaternion.identity;
             rotationTimer = 0f;
@@ -418,6 +426,7 @@ namespace Enemies
             chargeCooldown = 0f;
             _col.enabled = true;
         }
+
 
         public void Growl()
         {

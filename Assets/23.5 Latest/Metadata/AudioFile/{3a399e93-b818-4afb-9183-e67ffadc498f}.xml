@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{3a399e93-b818-4afb-9183-e67ffadc498f}">
+		<property name="assetPath">
+			<value>Underground theme V1 Regular perc.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>222.14877083333334</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a9044247-395f-4438-af47-acfafbe18e57}</destination>
+		</relationship>
+	</object>
+</objects>

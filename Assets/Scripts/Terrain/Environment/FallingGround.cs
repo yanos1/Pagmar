@@ -11,6 +11,7 @@ namespace Terrain.Environment
     public class FallingGround : MonoBehaviour
     {
         [SerializeField] private MMF_Player breakFeedbacks;
+        [SerializeField] private Explodable e;
         private Rigidbody2D rb;
 
         private void OnEnable()
@@ -38,7 +39,8 @@ namespace Terrain.Environment
         // called from edidor (in feedbacks)
         public void Explode()
         {
-            
+            print("exlode ground");
+            e.explode();
         }
     }
 }

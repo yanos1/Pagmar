@@ -1,14 +1,17 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CameraFollowObject : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private Transform _bigTransform;
+    [SerializeField] private Transform _big1Transform;
 
+    [FormerlySerializedAs("_followOffset")]
     [Header("Follow Settings")]
-    [SerializeField] private Vector3 _followOffset = new Vector3(8f, 0, 0);
+    [SerializeField] private Vector3 _bigFollowOffset = new Vector3(8f, 0, 0);
     [SerializeField] private float _transitionDuration = 0.5f;
 
     [Header("Flip Rotation")]
@@ -38,7 +41,7 @@ public class CameraFollowObject : MonoBehaviour
             transform.position = _currentTarget.position;
             if (_currentTarget == _bigTransform)
             {
-                transform.position += _followOffset;
+                transform.position += _bigFollowOffset;
             }
         }
 
@@ -51,6 +54,7 @@ public class CameraFollowObject : MonoBehaviour
         }
     }
 
+    // one time use in cut scene
     public void SetFollower()
     {
         print("set follower is called");
@@ -60,6 +64,12 @@ public class CameraFollowObject : MonoBehaviour
             StopCoroutine(_transitionCoroutine);
 
         _transitionCoroutine = StartCoroutine(SmoothFollowTransition(newTarget));
+    }
+
+    // one time use in cut scene
+    public void EnterNightCutScene()
+    {
+        _currentTarget = _big1Transform;
     }
 
     private IEnumerator SmoothFollowTransition(Transform newTarget)
@@ -73,7 +83,7 @@ public class CameraFollowObject : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = Mathf.SmoothStep(0f, 1f, elapsed / _transitionDuration);
 
-            Vector3 dynamicTargetPos = newTarget.position + _followOffset;
+            Vector3 dynamicTargetPos = newTarget.position + _bigFollowOffset;
             transform.position = Vector3.Lerp(start, dynamicTargetPos, t);
 
             yield return null;

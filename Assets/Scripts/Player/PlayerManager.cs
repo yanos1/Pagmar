@@ -87,6 +87,31 @@ namespace Player
         }
         private void OnEnterCutScene(object o)
         {
+            if (o is string type)
+            {
+                print($"timeline tag is {type}");
+                switch (type)
+                {
+                case "MeetBig":
+                    
+                    EnterMeetBigCutscene();
+                    break;
+                case "StartUpperground":
+                    EnterStartUppergroundCutScene();
+                    break;
+                }
+            }
+
+        }
+
+        private void EnterStartUppergroundCutScene()
+        {
+            DisableInput();
+            LockAnimations();
+        }
+
+        private void EnterMeetBigCutscene()
+        {
             DisableInput();
             print("enter cut scnee");
             
@@ -95,8 +120,8 @@ namespace Player
             // turn elft
             var rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
             transform.rotation = Quaternion.Euler(rotator);
-
         }
+
         private void Start()
         {
             CurrentForce = 0;
@@ -155,7 +180,8 @@ namespace Player
                 if (rammer.GetComponent<ChasingEnemy>() is not null)
                 {
                     print("chasing enemy got me 76");
-                    RammerManager.Instance.ResolveRam(this,rammer);
+                    CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
+                    // RammerManager.Instance.ResolveRam(this,rammer);
                 }
             }
         }

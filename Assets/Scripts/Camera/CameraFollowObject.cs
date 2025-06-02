@@ -94,7 +94,7 @@ public class CameraFollowObject : MonoBehaviour
 
     public void CallTurn()
     {
-        float targetY = _isFacingRight ? 0f : 180f;
+        float targetY = _isFacingRight ? 180f : 0f;
         _isFacingRight = !_isFacingRight;
 
         LeanTween.cancel(gameObject);

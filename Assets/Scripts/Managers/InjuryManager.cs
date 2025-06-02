@@ -1,12 +1,13 @@
 ﻿using System;
+using Interfaces;
 using UnityEngine;
 
 namespace Managers
 {
-    public class InjuryManager : MonoBehaviour
+    public class InjuryManager : MonoBehaviour, IResettable
     {
         public static InjuryManager Instance;
-        
+
         [Range(0, 1)] public float injuryMagnitude = 0f;
         public CanvasGroup redVignetteCanvasGroup;
         public AudioSource injuryAudioSource;
@@ -40,7 +41,7 @@ namespace Managers
         {
             if (redVignetteCanvasGroup)
             {
-                redVignetteCanvasGroup.alpha = injuryMagnitude/7;
+                redVignetteCanvasGroup.alpha = injuryMagnitude / 7;
             }
         }
 
@@ -63,7 +64,6 @@ namespace Managers
             //     return;
             // }
             injuryMagnitude = Mathf.Clamp01(injuryMagnitude + amount);
-
         }
 
 
@@ -80,6 +80,21 @@ namespace Managers
             if (Time.time - lastDamageTime >= healingDelay && injuryMagnitude > 0f)
             {
                 Heal(passiveHealingRate * Time.deltaTime);
+            }
+        }
+
+        public void ResetToInitialState()
+        {
+            injuryMagnitude = 0f;
+            lastDamageTime = 0f;
+
+            if (redVignetteCanvasGroup)
+                redVignetteCanvasGroup.alpha = 0f;
+
+            if (injuryAudioSource)
+            {
+                injuryAudioSource.pitch = pitchCurve.Evaluate(0f);
+                injuryAudioSource.volume = volumeCurve.Evaluate(0f);
             }
         }
     }

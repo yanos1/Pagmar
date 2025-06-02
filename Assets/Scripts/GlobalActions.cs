@@ -5,6 +5,7 @@ public class GlobalActions : MonoBehaviour
 {
     public void AllowInput()
     {
+        print("allow input !");
         CoreManager.Instance.GameManager.AlowCutSceneInput(); 
     }
 
@@ -16,6 +17,12 @@ public class GlobalActions : MonoBehaviour
     public void LoadNextScene()
     {
         ScenesManager.Instance.LoadNextScene();
+    }
+
+    public void ChangeAmbiance()
+    {
+        print("change ambience !");
+        CoreManager.Instance.AudioManager.OnChangeAmbience(AmbienceType.Upperground);
     }
 
 }

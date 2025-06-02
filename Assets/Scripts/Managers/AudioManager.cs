@@ -22,7 +22,7 @@ namespace Managers
         }
 
 
-        private void OnChangeAmbience(object obj)
+        public void OnChangeAmbience(object obj)
         {
             if (obj is AmbienceType ambienceType)
             {
@@ -59,6 +59,7 @@ namespace Managers
         }
     }
 
+    [Serializable]
     public enum AmbienceType
     {
         None = 0,

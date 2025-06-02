@@ -64,10 +64,15 @@ namespace Enemies
         private float startDetectionRange;
         private Vector2 baseDir;
         private bool baseFlip = false;
+        private bool initialized = false;
 
         private void OnEnable()
         {
-            Start();
+            if (!initialized)
+            {
+                Start();
+                initialized = true;
+            } 
         }
 
         public override void Start()
@@ -102,7 +107,7 @@ namespace Enemies
                 FlipTowardsPlayer();
             }
            
-            if (canRoam && chargeCooldown <= 0 && !IsCharging && !isPreparingCharge && !falling)
+            if (canRoam && !IsCharging && !isPreparingCharge && !falling)
             {
                 
                 Roam();
@@ -438,6 +443,7 @@ namespace Enemies
 
             if (++hitCounter == hitsToKill)
             {
+                hitFeedbacks?.StopFeedbacks();
                 gameObject.SetActive(false);
                 return;
             }

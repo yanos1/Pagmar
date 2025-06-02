@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Managers
 {
+    // 
     public class InjuryManager : MonoBehaviour, IResettable
     {
         public static InjuryManager Instance;

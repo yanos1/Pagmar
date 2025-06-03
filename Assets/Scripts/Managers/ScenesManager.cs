@@ -41,6 +41,10 @@ namespace Managers
             {
                 LoadNextScene();
             }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                ReloadCurrentScene();
+            }
         }
 
         public void LoadPersistentScene(Action onComplete)
@@ -93,7 +97,7 @@ namespace Managers
 
             return doFade;
         }
-
+        
         public int ReloadCurrentScene()
         {
             var doFade = IsNextSceneGameplayScene();

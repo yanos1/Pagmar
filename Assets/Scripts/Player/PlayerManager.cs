@@ -209,9 +209,10 @@ namespace Player
             {
                 _playerStage = PlayerStage.Adult;
             }
-            
+            print($"allow input {CoreManager.Instance.GameManager.AllowPlayerInput} isdead {isDead} Input enabled {InputEnabled}  rb vel {_rb.linearVelocity.magnitude}");
             if (CoreManager.Instance.GameManager.AllowPlayerInput && !isDead && !InputEnabled && _rb.linearVelocity.magnitude < 5f)
             {
+                print("enable input!!");
                 EnableInput();
                 isKnockbacked = false;
             }

@@ -122,6 +122,8 @@ namespace Managers
                             .SetActive(false); // fixes a bug in in input system
                     }
                 }
+
+                CoreManager.Instance.GameManager.OnEndCutScene(null); // returning input if was disabled at the end of the scene.
                 AsyncOperation loadOperation = SceneManager.LoadSceneAsync(newSceneIndex, LoadSceneMode.Additive);
                 while (!loadOperation.isDone)
                 {

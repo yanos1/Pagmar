@@ -15,6 +15,16 @@ namespace Enemies
         [SerializeField] private List<ChargingEnemy> enemies;
         [SerializeField] private List<Gate> gates;
         private bool triggered = false;
+
+
+        private void Start()
+        {
+            foreach (var enemy in enemies)
+            {
+                enemy.gameObject.SetActive(false);
+            }
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {   
             if(triggered) return;

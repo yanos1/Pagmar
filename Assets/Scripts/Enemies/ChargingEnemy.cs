@@ -64,18 +64,18 @@ namespace Enemies
         private Vector2 baseDir;
         private bool initialized = false;
 
-        private void OnEnable()
-        {
-            if (!initialized)
-            {
-                Start();
-                initialized = true;
-            } 
-        }
+        // private void OnEnable()
+        // {
+        //     if (!initialized)
+        //     {
+        //         Start();
+        //         initialized = true;
+        //     } 
+        // }
 
-        public override void Start()
+        public void Awake()
         {
-            base.Start();
+            base.Awake();
             CurrentForce = 0f;
             startDetectionRange = detectionRange;
             _rb = GetComponent<Rigidbody2D>();

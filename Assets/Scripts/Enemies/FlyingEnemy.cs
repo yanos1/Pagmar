@@ -32,9 +32,9 @@ namespace Enemies
         private Vector3 startPosition;
         private float roamHeightLimit = 1.2f; // Limit to how much the enemy can float vertically
 
-        public override void Start()
+        public override void Awake()
         {
-            base.Start(); 
+            base.Awake(); 
             startPosition = transform.position; // Initialize start position
         }
 

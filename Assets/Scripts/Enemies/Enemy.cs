@@ -9,7 +9,7 @@ namespace Enemies
     {
         protected Vector3 startingPos;
 
-        public virtual void Start()
+        public virtual void Awake()
         {
             startingPos = transform.position;
         }

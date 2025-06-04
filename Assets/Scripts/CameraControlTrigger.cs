@@ -76,6 +76,7 @@ public enum PanDirection
     Left,
     Right
 }
+#if UNITY_EDITOR
 
 [CustomEditor(typeof(CameraControlTrigger))]
 [CanEditMultipleObjects] 
@@ -129,3 +130,4 @@ public class MyScriptEditors : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
+#endif

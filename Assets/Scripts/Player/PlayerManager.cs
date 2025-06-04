@@ -5,8 +5,10 @@ using Managers;
 using NPC;
 using UnityEngine;
 using System.Collections;
+using Enemies;
 using MoreMountains.Feedbacks;
 using Obstacles;
+using Terrain.Environment;
 using Unity.VisualScripting;
 using UnityEngine.Serialization;
 
@@ -171,13 +173,17 @@ namespace Player
                 Vector2 directionToPlayer = (transform.position - rammer.transform.position).normalized;
                 float dot = Mathf.Abs(Vector2.Dot(directionToPlayer, Vector2.right));
 
-                if (dot > 0.6f) // horizontal impact check
+                if ( rammer.GetComponent<ChargingEnemy>() is not null && dot > 0.6f) // horizontal impact check
                 {
                     RammerManager.Instance.ResolveRam(this, rammer);
                     print("{ram!! 987");
                 }
+                else if (rammer.GetComponent<ChargingEnemy>() is null)
+                {
+                    RammerManager.Instance.ResolveRam(this, rammer); // flying enemy
 
-                if (rammer.GetComponent<ChasingEnemy>() is not null)
+                }
+                else if (rammer.GetComponent<ChasingEnemy>() is not null)
                 {
                     print("chasing enemy got me 76");
                     CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
@@ -295,9 +301,9 @@ namespace Player
         {
             CurrentForce = playerStage switch
             {
-                PlayerStage.Young => 0f,
-                PlayerStage.Teen => 1f,
-                PlayerStage.Adult => 2f,
+                PlayerStage.Young => 1f,
+                PlayerStage.Teen => 2f,
+                PlayerStage.Adult => 3f,
                 _ => 0f
             };
         }

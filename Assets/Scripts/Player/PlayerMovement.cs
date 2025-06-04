@@ -204,6 +204,14 @@ public class PlayerMovement : MonoBehaviour
         }
         if (isFalling && _rb.linearVelocity.y >= 0)
         {
+            print($"time falling {timeFalling}");
+            if (timeFalling > 2.5)
+            {
+                print($"take damaeh");
+
+                InjuryManager.Instance.ApplyDamage(0.5f); // this is just effects of damage (slow, screen turns white..)
+                hornDamageHandler.AddDamage(50); // actual damage
+            }
             if (timeFalling > 1.2f)
             {
 

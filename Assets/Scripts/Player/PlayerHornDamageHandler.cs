@@ -74,13 +74,17 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
 
     public void Heal(object o)
     {
-        if (healingCoroutine != null)
-            StopCoroutine(healingCoroutine);
-        print("HEAL!!!");
-        healingCoroutine = StartCoroutine(GradualHeal(2));
+        if (o is int healAmount)
+        {
+            if (healingCoroutine != null)
+                StopCoroutine(healingCoroutine);
+            print("HEAL!!!");
+            healingCoroutine = StartCoroutine(GradualHeal(healAmount, 2));
+        }
+       
     }
 
-    private IEnumerator GradualHeal(float duration)
+    private IEnumerator GradualHeal(int healAmount, float duration)
     {
         garualHeal = true;
         float startDamage = currentDamage;
@@ -89,7 +93,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            currentDamage = Mathf.Lerp(startDamage, 0f, elapsed / duration);
+            currentDamage = Mathf.Lerp(startDamage, Mathf.Max(startDamage -healAmount,0), elapsed / duration);
             print(currentDamage + "current damage");
             damageUI?.UpdateUI(currentDamage);
             yield return null;

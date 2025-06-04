@@ -1,11 +1,15 @@
-﻿using Managers;
+﻿using System;
+using System.Collections;
+using Managers;
+using MoreMountains.Feedbacks;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Enemies
 {
     public class FlyingEnemy : Enemy
     {
-        public enum State { Idle, Roaming, Chasing, Attacking }
+        public enum State { Idle, Roaming, Chasing, PrepareAttack, Attacking }
         public State currentState = State.Idle;
 
         public float detectionRange = 20f;
@@ -16,33 +20,38 @@ namespace Enemies
         public float attackCooldown = 5f;
         public float floatMagnitude = 1f;
         public float attackDuration = 0.5f;
+        public float prepareAttackDelay = 0.3f;
+
         [SerializeField] private Transform player;
+        [SerializeField] private MMF_Player prepareAttackFeedbacks;
+        [SerializeField] private MMF_Player hitFeedbacks;
+        [SerializeField] private TrailRenderer trail;
+        [SerializeField] private GameObject healingRune;
+        [SerializeField] private bool healer = false;
+        
+
+        private float roamHeightLimit = 1.2f;
+        private float verticalVelocity = 1.3f;
+        private float attackTimer = 0f;
+        private float attackTimeElapsed = 0f;
+        private float prepareAttackTimer = 0f;
+
         private Vector3 chaseDirection;
         private float chaseDirectionTimer;
         private float nextDirectionUpdateTime;
-
-        private float attackTimer = 0f;
-        private float attackTimeElapsed = 0f;
         private Vector3 attackDirection;
-        private Vector3 previousToPlayerDir;
-        private float verticalVelocity = 1.3f;
 
-
-        // New variables
-        private Vector3 startPosition;
-        private float roamHeightLimit = 1.2f; // Limit to how much the enemy can float vertically
+        private Rigidbody2D rb;
+        private Coroutine knockbackCoroutine;
 
         public override void Awake()
         {
-            base.Awake(); 
-            startPosition = transform.position; // Initialize start position
+            base.Awake();
+            CurrentForce = 0;
+            rb = GetComponent<Rigidbody2D>();
         }
 
-        public void OnRam()
-        {
-            gameObject.SetActive(false);
-        }
-
+     
         public bool IsDeadly()
         {
             return currentState == State.Attacking;
@@ -56,9 +65,7 @@ namespace Enemies
             {
                 case State.Idle:
                     if (distance < detectionRange && distance >= chaseRange)
-                    {
                         currentState = State.Roaming;
-                    }
                     else if (distance < chaseRange)
                     {
                         currentState = State.Chasing;
@@ -74,23 +81,31 @@ namespace Enemies
                         attackTimer = 0f;
                     }
                     else if (distance >= detectionRange)
-                    {
                         currentState = State.Idle;
-                    }
                     break;
 
                 case State.Chasing:
                     Chase();
                     attackTimer += Time.deltaTime;
+
                     if (attackTimer >= attackCooldown)
+                    {
+                        currentState = State.PrepareAttack;
+                        prepareAttackTimer = 0f;
+                        attackDirection = (player.position - transform.position).normalized;
+                        trail.enabled = true;
+                        prepareAttackFeedbacks?.PlayFeedbacks();
+                    }
+                    if (distance >= detectionRange)
+                        currentState = State.Idle;
+                    break;
+
+                case State.PrepareAttack:
+                    prepareAttackTimer += Time.deltaTime;
+                    if (prepareAttackTimer >= prepareAttackDelay)
                     {
                         currentState = State.Attacking;
                         attackTimeElapsed = 0f;
-                        attackDirection = (player.position - transform.position).normalized;
-                    }
-                    if (distance >= detectionRange)
-                    {
-                        currentState = State.Idle;
                     }
                     break;
 
@@ -102,38 +117,28 @@ namespace Enemies
 
         void Roam()
         {
-            // Perlin noise for smooth random movement
             Vector3 noise = new Vector3(
                 Mathf.PerlinNoise(Time.time, 0) - 0.5f,
                 Mathf.PerlinNoise(0, Time.time) - 0.5f,
                 0
             );
-            transform.position += noise * (floatMagnitude * roamSpeed * Time.deltaTime);
 
-            // Ensure vertical movement doesn't exceed the limit
-            ClampVerticalPosition();
+            Vector3 nextPosition = transform.position + noise * (floatMagnitude * roamSpeed * Time.deltaTime);
+            nextPosition = ClampVerticalPosition(nextPosition);
+            rb.MovePosition(nextPosition);
         }
 
         void Chase()
         {
             Vector3 toPlayer = (player.position - transform.position).normalized;
 
-            // Check for sudden player position change
-            if ((toPlayer.x < 0 && chaseDirection.x > 0 || toPlayer.x > 0 && chaseDirection.x < 0)  && nextDirectionUpdateTime > 0.2f)
-            {
-                print("332change dir");
+            if ((toPlayer.x < 0 && chaseDirection.x > 0 || toPlayer.x > 0 && chaseDirection.x < 0) && nextDirectionUpdateTime > 0.2f)
                 nextDirectionUpdateTime = 0.2f;
-            }
 
-
-            // Update direction
             chaseDirectionTimer += Time.deltaTime;
             if (chaseDirectionTimer >= nextDirectionUpdateTime)
-            {
                 SetNewChaseDirection();
-            }
 
-            // Add small Perlin noise
             Vector3 noise = new Vector3(
                 Mathf.PerlinNoise(Time.time * 0.8f, 0f) - 0.5f,
                 Mathf.PerlinNoise(0f, Time.time * 0.8f) - 0.5f,
@@ -141,19 +146,22 @@ namespace Enemies
             );
 
             Vector3 movement = (chaseDirection + noise * 0.4f).normalized * (chaseSpeed * Time.deltaTime);
-            transform.position += movement;
-
-            ClampVerticalPosition();
+            Vector3 nextPosition = transform.position + movement;
+            nextPosition = ClampVerticalPosition(nextPosition);
+            rb.MovePosition(nextPosition);
         }
 
         void Attack()
         {
             attackTimeElapsed += Time.deltaTime;
-            transform.position += attackDirection * (attackSpeed * Time.deltaTime);
+            CurrentForce = 0.6f;
+            Vector3 nextPosition = transform.position + attackDirection * (attackSpeed * Time.deltaTime);
+            rb.MovePosition(nextPosition);
 
-            // After attack duration, switch back to chasing
             if (attackTimeElapsed >= attackDuration)
             {
+                CurrentForce = 0;
+                trail.enabled = false;
                 currentState = State.Chasing;
                 attackTimer = 0f;
             }
@@ -163,7 +171,6 @@ namespace Enemies
         {
             Vector3 toPlayer = (player.position - transform.position).normalized;
 
-            // Try until we get a direction with dot product between 0.9–1.0
             for (int i = 0; i < 10; i++)
             {
                 Vector2 randomOffset = Random.insideUnitCircle.normalized * 0.5f;
@@ -176,35 +183,58 @@ namespace Enemies
                 }
             }
 
-            // Schedule next update
             chaseDirectionTimer = 0f;
             nextDirectionUpdateTime = Random.Range(3f, 5f);
         }
 
-
-        void ClampVerticalPosition()
+        Vector3 ClampVerticalPosition(Vector3 position)
         {
-            float lowerBound = startPosition.y - roamHeightLimit;
-            float upperBound = startPosition.y + roamHeightLimit;
-            float targetY = Mathf.Clamp(transform.position.y, lowerBound, upperBound);
-
-            float smoothedY = Mathf.SmoothDamp(transform.position.y, targetY, ref verticalVelocity, 0.2f); // 0.2f is smooth time
-            transform.position = new Vector3(transform.position.x, smoothedY, transform.position.z);
+            float lowerBound = startingPos.y - roamHeightLimit;
+            float upperBound = startingPos.y + roamHeightLimit;
+            float clampedY = Mathf.Clamp(position.y, lowerBound, upperBound);
+            float smoothedY = Mathf.SmoothDamp(transform.position.y, clampedY, ref verticalVelocity, 0.2f);
+            return new Vector3(position.x, smoothedY, position.z);
         }
 
         public override void OnRam(Vector2 ramDirNegative, float againstForce)
         {
-            throw new System.NotImplementedException();
+            hitFeedbacks?.PlayFeedbacks();
         }
 
         public override void OnRammed(float fromForce)
         {
-            throw new System.NotImplementedException();
+            if (healer)
+            {
+                Instantiate(healingRune, transform.position,Quaternion.identity);
+            }
+            gameObject.SetActive(false);
         }
 
         public override void ApplyKnockback(Vector2 direction, float force)
         {
-            throw new System.NotImplementedException();
+            if (knockbackCoroutine != null)
+                StopCoroutine(knockbackCoroutine);
+
+            knockbackCoroutine = StartCoroutine(KnockbackRoutine(direction, force));
+        }
+
+        private IEnumerator KnockbackRoutine(Vector2 direction, float force)
+        {
+            currentState = State.Idle;
+            float duration = 0.2f;
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                float t = 1f - (elapsed / duration);
+                rb.linearVelocity = direction * force * t;
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            rb.linearVelocity = Vector2.zero;
+            knockbackCoroutine = null;
         }
     }
+    
 }

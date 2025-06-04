@@ -73,7 +73,7 @@ namespace Managers
                 };
                 
                 var yForce = player.playerStage switch
-                {
+                {   
                     PlayerStage.Teen => 0.5f,
                     PlayerStage.Adult => 0.35f,
                     _ => 1f // default for Young or any other unexpected value

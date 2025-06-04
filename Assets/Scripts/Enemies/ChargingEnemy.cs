@@ -258,7 +258,7 @@ namespace Enemies
 
         IEnumerator PerformCharge(Vector2 dir)
         {
-            CurrentForce = 1;
+            CurrentForce = 2;
             float timer = 0f;
             IsCharging = true;
             while ( !HitWall() && IsCharging && timer < chargeDuration)

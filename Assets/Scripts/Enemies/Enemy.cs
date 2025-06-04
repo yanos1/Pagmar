@@ -17,6 +17,7 @@ namespace Enemies
         public virtual void ResetToInitialState()
         {
             transform.position = startingPos;
+            CurrentForce = 0;
         }
     }
 }

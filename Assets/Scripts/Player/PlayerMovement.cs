@@ -1,17 +1,12 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Camera;
-using FMOD.Studio;
-using FMODUnity;
 using Managers;
 using MoreMountains.Feedbacks;
 using Player;
 using ScripableObjects;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {

@@ -95,6 +95,7 @@ public class SpineControl : MonoBehaviour
     public void changeSkelatonAnimation(PlayerStage playerStage)
     {
         Debug.Log($"Changing skeleton animation to {playerStage}");
+        if(skeletonAnimation == null ) return;
         skeletonAnimation.gameObject.SetActive(false);
         switch (playerStage)
         {

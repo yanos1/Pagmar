@@ -145,7 +145,16 @@ namespace Managers
 
             if (currentSceneIndex < SceneManager.sceneCountInBuildSettings)
             {
-                AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(currentSceneIndex);
+                AsyncOperation unloadOperation;
+                if (currentSceneIndex == 1)  // this avoids deleting the persistent scene.
+                {
+                    unloadOperation = SceneManager.UnloadSceneAsync(0);
+                }
+                else
+                {
+                    unloadOperation = SceneManager.UnloadSceneAsync(currentSceneIndex);
+
+                }
                 while (!unloadOperation.isDone)
                 {
                     yield return null;

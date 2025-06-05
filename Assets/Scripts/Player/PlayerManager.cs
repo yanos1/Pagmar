@@ -55,6 +55,7 @@ namespace Player
                 if (_playerStage == value) return;
                 _playerStage = value;
                 ApplyScaleForStage(_playerStage);
+                SetNewMaxForce();
                 _spineControl.changeSkelatonAnimation(_playerStage);
             }
         }
@@ -217,7 +218,7 @@ namespace Player
             }
             if (CoreManager.Instance.GameManager.AllowPlayerInput && !isDead && !InputEnabled && _rb.linearVelocity.magnitude < 5f)
             {
-                print("enable input!!");
+                print("enable input froom player manager!!");
                 EnableInput();
                 isKnockbacked = false;
             }
@@ -308,6 +309,18 @@ namespace Player
             };
         }
 
+        public void SetNewMaxForce()
+        {
+            MaxForce = playerStage switch
+            {
+                PlayerStage.Young => 1f,
+                PlayerStage.Teen => 2f,
+                PlayerStage.Adult => 3f,
+                _ => 0f
+            };
+            
+        }
+
         public override void ResetForce()
         {
             CurrentForce = 0f;
@@ -330,7 +343,7 @@ namespace Player
     }
     public enum PlayerStage
     {
-        None,
+        None = -1,
         Young = 0,
         Teen = 1,
         Adult = 2,

@@ -70,5 +70,6 @@ namespace Managers
         AllowCutSceneInput=17,
 
         EndCutScene=18,
+        EnterSlowMotion=19,
     }
 }

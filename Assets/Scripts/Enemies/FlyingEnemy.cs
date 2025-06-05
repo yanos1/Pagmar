@@ -48,6 +48,7 @@ namespace Enemies
         {
             base.Awake();
             CurrentForce = 0;
+            MaxForce = 1;
             rb = GetComponent<Rigidbody2D>();
         }
 

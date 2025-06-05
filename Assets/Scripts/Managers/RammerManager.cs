@@ -63,6 +63,7 @@ namespace Managers
             loser.OnRammed(winnerForce);
             
             // kmockback player of lower states
+            Vector2 loseDir = (loser.transform.position - winner.transform.position).normalized;
             if (winner.gameObject.GetComponent<PlayerManager>() is { } player)
             {
                 var knockbackForce = player.playerStage switch
@@ -79,13 +80,15 @@ namespace Managers
                     _ => 1f // default for Young or any other unexpected value
                 };
 
-                Vector2 dir = (winner.transform.position - loser.transform.position).normalized;
-                winner.ApplyKnockback(new Vector2(dir.x, yForce),  10);
-                print($"APPLY KNOICKBACK to {new Vector2(dir.x, yForce)} with knockback {baseForce* knockbackForce} o0");
+                Vector2 winDir = (winner.transform.position - loser.transform.position).normalized;
+                winner.ApplyKnockback(new Vector2(winDir.x, yForce),  10);
+                print($"APPLY KNOICKBACK to {new Vector2(winDir.x, yForce)} with knockback {baseForce* knockbackForce} o0");
+                
+                loser.ApplyKnockback(new Vector2(loseDir.x, 0.5f),(winnerForce-loserForce) *baseForce/2);
+                return;
             }
             // Knockback loser
-            Vector2 direction = (loser.transform.position - winner.transform.position).normalized;
-            loser.ApplyKnockback(new Vector2(direction.x, 0.5f), (winnerForce-loserForce) * baseForce);
+            loser.ApplyKnockback(new Vector2(loseDir.x, 0.5f), baseForce);
         }
     }
 

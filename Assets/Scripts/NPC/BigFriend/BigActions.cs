@@ -1,8 +1,5 @@
 using DG.Tweening;
-using Managers;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace NPC.BigFriend
 {

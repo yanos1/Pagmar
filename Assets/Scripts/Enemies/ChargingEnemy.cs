@@ -77,6 +77,7 @@ namespace Enemies
         {
             base.Awake();
             CurrentForce = 0f;
+            MaxForce = 2;
             startDetectionRange = detectionRange;
             _rb = GetComponent<Rigidbody2D>();
             _col = GetComponent<BoxCollider2D>();
@@ -164,6 +165,10 @@ namespace Enemies
             
         }
 
+        public void WakeUp()
+        {
+            isSleeping = false;
+        }
         private void Roam()
         {
             isRoaming = true;
@@ -410,7 +415,7 @@ namespace Enemies
 
             if (sleepAtStart)
             {
-                sleepingImage.SetActive(true);
+                if (sleepingImage) sleepingImage.SetActive(true);
                 isSleeping = true;
             }
 

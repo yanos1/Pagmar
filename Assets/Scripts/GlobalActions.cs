@@ -42,7 +42,7 @@ public class GlobalActions : MonoBehaviour
         CoreManager.Instance.AudioManager.OnChangeAmbience(AmbienceType.Upperground);
     }
 
-    public void EnterSlowMotion(object o)
+    private void EnterSlowMotion(object o)
     {
         print("enter slow motion");
         slowMotionFeedbacks?.PlayFeedbacks();

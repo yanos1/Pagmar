@@ -94,7 +94,6 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         {
             elapsed += Time.deltaTime;
             currentDamage = Mathf.Lerp(startDamage, Mathf.Max(startDamage -healAmount,0), elapsed / duration);
-            print(currentDamage + "current damage");
             damageUI?.UpdateUI(currentDamage);
             yield return null;
         }

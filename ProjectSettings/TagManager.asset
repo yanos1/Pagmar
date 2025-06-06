@@ -41,7 +41,7 @@ TagManager:
   - Debree
   - NoParticleCollision
   - Background
-  - PlayerCantCollideWith
+  - OnlyPlayerCollidesWith
   - Trigger
   - WoodPlank
   - GroundEvening

@@ -21,9 +21,9 @@ namespace Triggers
             {
                 print($"{trigger} triggered {gameObject.name}");
                 isTriggered = true;
-                if (onTrigger != null)
+                if (onTrigger != EventNames.None)
                 {
-                    CoreManager.Instance.EventManager.InvokeEvent(EventNames.EnterSlowMotion, null);
+                    CoreManager.Instance.EventManager.InvokeEvent(onTrigger, null);
                 }
             }
         }

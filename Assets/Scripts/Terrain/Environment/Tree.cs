@@ -13,6 +13,7 @@ namespace Terrain.Environment
     {
         [SerializeField] private float power;
         [SerializeField] private Trigger trigger;
+        [SerializeField] private GameObject impass;
         private Rigidbody2D rb;
 
         private void Start()
@@ -29,6 +30,7 @@ namespace Terrain.Environment
                     rb.linearVelocity = Vector2.zero;
                     rb.bodyType = RigidbodyType2D.Static;
                     gameObject.layer = 3; // ground layer
+                    impass.SetActive(false);
                 }));
             }
         }

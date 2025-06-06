@@ -6,11 +6,6 @@ using NPC;
 using UnityEngine;
 using System.Collections;
 using Enemies;
-using MoreMountains.Feedbacks;
-using Obstacles;
-using Terrain.Environment;
-using Unity.VisualScripting;
-using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -54,8 +49,7 @@ namespace Player
             {
                 if (_playerStage == value) return;
                 _playerStage = value;
-                ApplyScaleForStage(_playerStage);
-                SetNewMaxForce();
+                ChangeHitDamage(_playerStage);
                 _spineControl.changeSkelatonAnimation(_playerStage);
             }
         }
@@ -63,7 +57,7 @@ namespace Player
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            ApplyScaleForStage(_playerStage);
+            ChangeHitDamage(_playerStage);
             _spineControl.changeSkelatonAnimation(_playerStage);
         }
 #endif
@@ -138,7 +132,7 @@ namespace Player
                 print("player 9- in position");
             }
 
-            ApplyScaleForStage(_playerStage);
+            ChangeHitDamage(_playerStage);
             CoreManager.Instance.AudioManager.SetGlobalParameter("Evolution", 0);
         }
 
@@ -149,11 +143,7 @@ namespace Player
             {
                 breakable.OnHit((other.transform.position - transform.position).normalized, playerStage);
             }
-
-            if (other.gameObject.GetComponent<IKillPlayer>() is not null)
-            {
-                print($"collided with {other.gameObject.name} 13");
-            }
+            
             if (other.gameObject.GetComponent<IKillPlayer>() is { } killPlayer && killPlayer.IsDeadly())
             {
                 CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
@@ -179,17 +169,20 @@ namespace Player
                     RammerManager.Instance.ResolveRam(this, rammer);
                     print("{ram!! 987");
                 }
-                else if (rammer.GetComponent<ChargingEnemy>() is null)
-                {
-                    RammerManager.Instance.ResolveRam(this, rammer); // flying enemy
-
-                }
+                
                 else if (rammer.GetComponent<ChasingEnemy>() is not null)
                 {
                     print("chasing enemy got me 76");
                     CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
                     // RammerManager.Instance.ResolveRam(this,rammer);
                 }
+                
+                else if (rammer.GetComponent<ChargingEnemy>() is null)
+                {
+                    RammerManager.Instance.ResolveRam(this, rammer); // flying enemy
+
+                }
+              
             }
         }
 
@@ -238,14 +231,14 @@ namespace Player
 
         }
 
-        private void ApplyScaleForStage(PlayerStage stage)
+        private void ChangeHitDamage(PlayerStage stage)
         {
             Debug.Log($"Player stage: {stage}");
             transform.localScale = stage switch
             {
-                PlayerStage.Young => new Vector3(0.83f, 0.83f, 1f),
-                PlayerStage.Teen => new Vector3(1f, 1f, 1f),
-                PlayerStage.Adult => new Vector3(1.2f, 1.2f, 1f),
+                // PlayerStage.Young => new Vector3(0.83f, 0.83f, 1f),
+                // PlayerStage.Teen => new Vector3(1f, 1f, 1f),
+                PlayerStage.Adult => new Vector3(1f, 1f, 1f),
                 _ => transform.localScale
             };
             hitDamage = stage switch
@@ -302,31 +295,17 @@ namespace Player
         {
             CurrentForce = playerStage switch
             {
-                PlayerStage.Young => 1f,
+                PlayerStage.Young => 0f,
                 PlayerStage.Teen => 2f,
                 PlayerStage.Adult => 3f,
                 _ => 0f
             };
-        }
-
-        public void SetNewMaxForce()
-        {
-            MaxForce = playerStage switch
-            {
-                PlayerStage.Young => 1f,
-                PlayerStage.Teen => 2f,
-                PlayerStage.Adult => 3f,
-                _ => 0f
-            };
-            
         }
 
         public override void ResetForce()
         {
             CurrentForce = 0f;
         }
-
-      
 
         public void Die()
         {

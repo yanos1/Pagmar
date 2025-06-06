@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Interfaces;
+using MoreMountains.Feedbacks;
 using Player;
 using Terrain.Environment;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace Enemies
 {
     public class ArenaEnemySpawner : MonoBehaviour, IResettable
     {
+        [SerializeField] private MMF_Player spawnFeedbacks;
         [SerializeField] private List<ChargingEnemy> enemies;
         [SerializeField] private List<Gate> gates;
         private bool triggered = false;
@@ -27,18 +29,28 @@ namespace Enemies
             if(triggered) return;
             if (other.GetComponent<PlayerManager>() is not null)
             {
-                foreach (var gate in gates)
-                {
-                    gate.Open();
-                }
-                StartCoroutine(SpawnEnemies());
+                spawnFeedbacks?.PlayFeedbacks();
+                StartCoroutine(SpawnCoroutine());
+               ;
             }
+        }
+
+        private IEnumerator SpawnCoroutine()
+        {
+            yield return new WaitForSeconds(2f);
+            foreach (var gate in gates)
+            {
+                gate.Open();
+            }
+
+            StartCoroutine(SpawnEnemies());
         }
 
         private IEnumerator SpawnEnemies()
         {
             triggered = true;
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
+            
             foreach (var enemy in enemies)
             {
                 print("set enemy activate");

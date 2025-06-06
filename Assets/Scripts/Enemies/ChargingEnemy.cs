@@ -56,6 +56,7 @@ namespace Enemies
         private float visibiliyTimer = 0f;
         private bool falling = false;
         private float chargeCooldown;
+        private float lastChargeTime = 0f;
         private float flipCooldownTimer = 0f;
         private const float flipCooldownDuration = 0.5f;
         private int hitCounter = 0;
@@ -113,9 +114,9 @@ namespace Enemies
                 FlipTowardsPlayer();
             }
            
-            if (canRoam && chargeCooldown < 1 && !IsCharging && !isPreparingCharge && !falling)
+            if ( Time.time - lastChargeTime > 1 && canRoam && !IsCharging && !isPreparingCharge && !falling)
             {
-                
+                // print($"canRoam {canRoam} and chargeCD {chargeCooldown} and is charging {IsCharging} and is preparing chage {isPreparingCharge}");
                 Roam();
             }
             else
@@ -182,11 +183,10 @@ namespace Enemies
 
             transform.position += (Vector3)currentDirection * (chargeSpeed/3 * Time.deltaTime);
         }
-
-
+        
         private bool  ShouldPrepareCharge(float distanceToPlayer)
         {
-            return chargeCoroutine is null && distanceToPlayer > minDistanceActivation &&
+            return chargeCoroutine is null && chargeCooldown <= 0 &&
                    distanceToPlayer < detectionRange &&
                    !IsCharging &&
                    !isPreparingCharge &&
@@ -266,6 +266,7 @@ namespace Enemies
             CurrentForce = 2;
             float timer = 0f;
             IsCharging = true;
+            lastChargeTime = Time.time;
             while ( !HitWall() && IsCharging && timer < chargeDuration)
             {
                 MoveAndRotate(dir);
@@ -287,7 +288,7 @@ namespace Enemies
 
         private void IncrementPlayerVisibleTimer()
         {
-            if (  Mathf.Abs(player.transform.position.y - transform.position.y) < 0.5f)
+            if (  Mathf.Abs(player.transform.position.y - transform.position.y) < 2f)
             {
                 visibiliyTimer += Time.deltaTime;
             }

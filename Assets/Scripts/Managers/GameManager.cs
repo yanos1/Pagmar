@@ -7,10 +7,8 @@ namespace Managers
     {
 
         private bool inCutScene = false;
-        private bool allowPlayerInput = true;
         
         public bool InCutScene => inCutScene;
-        public bool AllowPlayerInput => allowPlayerInput;
         private void OnEnable()
         {
             CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, OnEnterCutScene);
@@ -28,13 +26,6 @@ namespace Managers
         public void OnEndCutScene(object obj)
         { 
             inCutScene = false;
-            allowPlayerInput = true;
-        }
-        
-        public void AlowCutSceneInput()
-        {
-            print("allow player input from game manager!!!!!!");
-            allowPlayerInput = true;
         }
         
         private void OnEnterCutScene(object obj)
@@ -42,7 +33,6 @@ namespace Managers
             print("Enter cut scene cut input!!!!!!");
 
             inCutScene = true;
-            allowPlayerInput = false;
         }
     }
 }

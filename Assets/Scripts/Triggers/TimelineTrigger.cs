@@ -15,12 +15,13 @@ namespace Triggers
         [SerializeField] private int requiredTriggers;
         [SerializeField] private PlayableDirector cutScene;
         [SerializeField] private float delayBeforeStartCutscene;
+        [SerializeField] private bool PlaycutSceneOnlyOnce;
         
 
         public override void OnTriggerEnter2D(Collider2D other) 
         {
             print($"trigged timeline by {other.gameObject.name}");
-            if (other.CompareTag(trigger) && ++triggered == requiredTriggers)
+            if (!isTriggered && other.CompareTag(trigger) && ++triggered == requiredTriggers)
             {
                 isTriggered = true;
                 StartCoroutine(UtilityFunctions.WaitAndInvokeAction(delayBeforeStartCutscene, () =>
@@ -34,7 +35,10 @@ namespace Triggers
 
         public override void ResetToInitialState()
         {
-            base.ResetToInitialState();
+            if (!PlaycutSceneOnlyOnce)
+            {
+                base.ResetToInitialState();
+            }
             triggered = 0;
             cutScene.Stop();
         }

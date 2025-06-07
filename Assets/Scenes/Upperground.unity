@@ -11889,9 +11889,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 1431531963}
-          m_TargetAssemblyTypeName: GlobalActions, Assembly-CSharp
-          m_MethodName: AllowInput
+        - m_Target: {fileID: 920217988}
+          m_TargetAssemblyTypeName: Player.PlayerManager, Assembly-CSharp
+          m_MethodName: EnableInput
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -16298,6 +16298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slowMotionFeedbacks: {fileID: 0}
+  longslowMotionFeedbacks: {fileID: 0}
   _canvas: {fileID: 0}
 --- !u!4 &1431531964
 Transform:

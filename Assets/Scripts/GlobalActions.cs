@@ -21,11 +21,6 @@ public class GlobalActions : MonoBehaviour
     {
         CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterSlowMotion, EnterSlowMotion);
     }
-    public void AllowInput()
-    {
-        print("12 allow input !");
-        CoreManager.Instance.GameManager.AlowCutSceneInput(); 
-    }
 
     public void ShowFriendshipComics()
     {
@@ -48,7 +43,7 @@ public class GlobalActions : MonoBehaviour
         print("enter slow motion");
         slowMotionFeedbacks?.PlayFeedbacks();
         EnableAttackEnemyText();
-        AllowInput();
+        CoreManager.Instance.Player.EnableInput();
     }
 
     public void EnterLongSlowMotion()

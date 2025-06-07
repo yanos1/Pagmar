@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Interfaces;
 using Managers;
@@ -6,9 +5,7 @@ using MoreMountains.Feedbacks;
 using Obstacles;
 using Player;
 using SpongeScene;
-using Terrain.Environment;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Enemies
 {
@@ -65,6 +62,9 @@ namespace Enemies
         private float startDetectionRange;
         private Vector2 baseDir;
         private bool initialized = false;
+        private float ramCd = 0.5f;
+        private float lastRammedTime;
+        private bool isDead = false;
 
         // private void OnEnable()
         // {
@@ -382,6 +382,10 @@ namespace Enemies
                 _rb.angularVelocity = 0;
                 _rb.bodyType = RigidbodyType2D.Kinematic;
                 isKnockbacked = false;
+                if (isDead)
+                {
+                    gameObject.SetActive(false);
+                }
             }
         }
 
@@ -428,6 +432,7 @@ namespace Enemies
             hit = false;
             hitCounter = 0;
             falling = false;
+            isDead = false;
 
             if (sleepAtStart)
             {
@@ -471,11 +476,12 @@ namespace Enemies
         public override void OnRammed(float fromForce)
         {
             Debug.Log($"Enemy rammed with force {fromForce}");
-
-            if (++hitCounter == hitsToKill)
+            
+            if (Time.time - lastRammedTime > ramCd && ++hitCounter == hitsToKill)
             {
+                lastRammedTime = Time.time;
                 hitFeedbacks?.StopFeedbacks();
-                gameObject.SetActive(false);
+                isDead = true;
                 return;
             }
 

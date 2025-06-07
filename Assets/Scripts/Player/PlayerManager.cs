@@ -36,6 +36,7 @@ namespace Player
         public void EnableInput()
         {
             print("input enabled");
+            UnlockAnimations(); // this is a palce holder.
             inputEnabled = true;
         }
 
@@ -48,7 +49,7 @@ namespace Player
             get => _playerStage;
             set
             {
-                if (_playerStage == value) return;
+                // if (_playerStage == value) return;
                 _playerStage = value;
                 ChangeHitDamage(_playerStage);
                 _spineControl.changeSkelatonAnimation(_playerStage);
@@ -66,6 +67,7 @@ namespace Player
         private void OnEnable()
         {
             print("player listen to cut scen");
+            playerStage = playerStage; // swaps animation at start for debug.
             CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, OnEnterCutScene);
         }
 
@@ -110,6 +112,11 @@ namespace Player
                     break;
                 }
               
+            }
+            else
+            {
+                DisableInput();
+                LockAnimations();
             }
 
         }
@@ -220,12 +227,7 @@ namespace Player
             {
                 _playerStage = PlayerStage.Adult;
             }
-            if (CoreManager.Instance.GameManager.AllowPlayerInput && !isDead && !InputEnabled && _rb.linearVelocity.magnitude < 5f)
-            {
-                print("enable input froom player manager!!");
-                EnableInput();
-                isKnockbacked = false;
-            }
+          
         }
 
         public void SetFollowedBy([CanBeNull] Npc npc)
@@ -296,6 +298,8 @@ namespace Player
         {            
             DisableInput();
             isKnockbacked = true;
+            StartCoroutine(ReturnInputAfterRammed());
+
             _rb.linearVelocity = Vector2.zero;
             _rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
             Debug.Log($"Add force on player: {force} in dir {direction.normalized}");
@@ -330,6 +334,23 @@ namespace Player
             var rotator = new Vector3(transform.rotation.x, 0, transform.rotation.z);
             transform.rotation = Quaternion.Euler(rotator);
         }
+
+        private IEnumerator ReturnInputAfterRammed()
+        {
+            while (_rb.linearVelocity.magnitude >= 5f)
+            {
+                yield return null;
+            }
+            EnableInput();
+            isKnockbacked = false;
+            }
+
+        public void StopAllMovement()
+        {
+            _rb.linearVelocity = Vector2.zero;
+            
+        }
+    }
     }
     public enum PlayerStage
     {
@@ -338,4 +359,4 @@ namespace Player
         Teen = 1,
         Adult = 2,
     }
-}
+

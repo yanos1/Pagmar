@@ -276,7 +276,7 @@ namespace Terrain.Environment
             }
         }
 
-        public void ResetToInitialState()
+        public virtual void ResetToInitialState()
         {
             StopAllCoroutines();
             moveCoroutine = null;

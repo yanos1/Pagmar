@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Managers;
+using Player;
 
 namespace Terrain.Environment
 {
@@ -10,26 +11,32 @@ namespace Terrain.Environment
 
         private void OnCollisionEnter2D(Collision2D c)
         {
-            if (c.gameObject.GetComponent<PlayerMovement>() is { } playerMovement)
+            if (c.gameObject.GetComponent<PlayerManager>() is { } playerManager)
             {
                 if (!hasMoved)
                 {
-                    StartCoroutine(DelayedMove(playerMovement));
+                    StartCoroutine(DelayedMove(playerManager));
                 }
             }
         }
 
-        private IEnumerator DelayedMove(PlayerMovement playerMovement)
+        private IEnumerator DelayedMove(PlayerManager playerManager)
         {
             yield return new WaitForSeconds(1.6f);
-            MovePlatformAndTakeInput(playerMovement);
+            MovePlatformAndTakeInput(playerManager);
         }
 
-        public void MovePlatformAndTakeInput(PlayerMovement playerMovement)
+        public void MovePlatformAndTakeInput(PlayerManager playerManager)
         {
-            playerMovement.transform.position = center.position;
+            playerManager.transform.position = center.position;
+            playerManager.StopAllMovement();
             MovePlatformExternally();
             CoreManager.Instance.EventManager.InvokeEvent(EventNames.EnterCutScene, null);
         }
+
+        public override void ResetToInitialState()
+        {
+            return; // this platform only moves once in the game. no need to return to origina lstate.
+        } 
     }
 }

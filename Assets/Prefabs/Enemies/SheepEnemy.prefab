@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8573938395430417148}
   - component: {fileID: 7558305614794456467}
   - component: {fileID: 4755587141613487392}
+  - component: {fileID: 6238833751704306004}
   m_Layer: 7
   m_Name: SheepEnemy
   m_TagString: Enemy
@@ -67,6 +68,7 @@ MonoBehaviour:
   e: {fileID: 0}
   f: {fileID: 0}
   hitFeedbacks: {fileID: 6380413419108009971}
+  spineControl: {fileID: 6238833751704306004}
   currentDirection: {x: 1, y: 0}
 --- !u!50 &7558305614794456467
 Rigidbody2D:
@@ -141,6 +143,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.18, y: 2.72}
   m_EdgeRadius: 0.06
+--- !u!114 &6238833751704306004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521004622479609906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cca45af8b01d1463dae98965a3ee3db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonAnimation: {fileID: 3195694374254602192}
+  _lockIdleState: 0
 --- !u!1 &2677713914642190187
 GameObject:
   m_ObjectHideFlags: 0

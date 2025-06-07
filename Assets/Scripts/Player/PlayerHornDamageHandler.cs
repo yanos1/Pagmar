@@ -19,7 +19,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
     // 🔸 Track time of last damage
     private float lastDamageTime = -1f;
     private bool garualHeal;
-    private const float damageCooldown = 0.1f;
+    private const float damageCooldown = 0.35f;
 
 
     private void OnEnable()

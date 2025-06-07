@@ -40,6 +40,7 @@ namespace Enemies
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
         [SerializeField] private MMF_Player hitFeedbacks;
+        [SerializeField] private EnemySpineControl spineControl;
 
 
         private bool isPreparingCharge = false;
@@ -140,6 +141,13 @@ namespace Enemies
                 e.explode();
                 f.doExplosion(transform.position);
             }
+            if (!isRoaming && !IsCharging && !isPreparingCharge && !falling && !player.IsDead && !isKnockbacked)
+            {
+                if (!spineControl.IsAnyNonLoopingAnimationPlaying())
+                {
+                    spineControl?.PlayAnimation("Idle", true);
+                }
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -173,6 +181,11 @@ namespace Enemies
         private void Roam()
         {
             isRoaming = true;
+            if (!spineControl.IsAnyNonLoopingAnimationPlaying())
+            {
+                spineControl?.PlayAnimation("walk", true);
+            }
+
             if ((HitWall() || !GroundAhead() || CheckPlayerInRoamDirection()) && flipCooldownTimer <= 0)
             {
                 flipCooldownTimer = flipCooldownDuration;
@@ -301,7 +314,7 @@ namespace Enemies
         private void StartCharging()
         {
             print("start charge 9-");
-
+            spineControl?.PlayAnimation("run", true);
         }
 
         private void StopCharging()
@@ -449,6 +462,7 @@ namespace Enemies
 
         public override void OnRam(Vector2 ramDiNegative, float againstForce)
         {
+            spineControl?.PlayAnimation("headbutt", false, "Idle",true);
             StopCharging();
         }
 

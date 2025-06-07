@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Interfaces;
 using Managers;
@@ -58,7 +59,7 @@ namespace Enemies
         private float flipCooldownTimer = 0f;
         private const float flipCooldownDuration = 0.5f;
         private int hitCounter = 0;
-        private int hitsToKill = 2;
+        [SerializeField] private int hitsToKill = 2;
         private float startDetectionRange;
         private Vector2 baseDir;
         private bool initialized = false;
@@ -79,7 +80,6 @@ namespace Enemies
         {
             base.Awake();
             CurrentForce = 0f;
-            MaxForce = 2;
             startDetectionRange = detectionRange;
             _rb = GetComponent<Rigidbody2D>();
             _col = GetComponent<BoxCollider2D>();
@@ -158,8 +158,9 @@ namespace Enemies
                 print($"explosion at {transform.position}");
                 f.doExplosion(transform.position);
             }
+            
+            
         }
-        
         private void OnCollisionEnter2D(Collision2D col)
         {
             if (sleepAtStart  && col.gameObject.GetComponent<PlayerMovement>() is { } player && player.IsDashing)
@@ -170,7 +171,18 @@ namespace Enemies
                     sleepingImage.SetActive(false);
                 }
             }
-            
+
+            // if (col.gameObject.GetComponent<PlayerMovement>() is {} player)
+            // {
+            //     // Attach player to platform
+            //     if (player.GroundCheckPos.y - 0.2f > transform.position.y)
+            //     {
+            //         col.transform.SetParent(transform);
+            //     }
+            // }
+
+
+
         }
 
         public void AffectedByExternalKnockback()
@@ -282,7 +294,7 @@ namespace Enemies
 
         IEnumerator PerformCharge(Vector2 dir)
         {
-            CurrentForce = 2;
+            CurrentForce = 1;
             float timer = 0f;
             IsCharging = true;
             lastChargeTime = Time.time;
@@ -476,7 +488,8 @@ namespace Enemies
         public override void OnRammed(float fromForce)
         {
             Debug.Log($"Enemy rammed with force {fromForce}");
-            
+            print($"hits left {hitsToKill- hitCounter +1}");
+
             if (Time.time - lastRammedTime > ramCd && ++hitCounter == hitsToKill)
             {
                 lastRammedTime = Time.time;

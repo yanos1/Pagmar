@@ -43,6 +43,14 @@ public class Explodable : MonoBehaviour, IResettable
             {
                 frag.transform.parent = null;
                 frag.SetActive(true);
+                foreach (ExplodableAddon addon in GetComponents<ExplodableAddon>())
+                {
+                    if (addon.enabled)
+                    {
+                        print("addod spotted !!!!!");
+                        addon.OnFragmentsExploded(fragments);
+                    }
+                }
             }
         }
         //if fragments exist destroy the original
@@ -61,6 +69,7 @@ public class Explodable : MonoBehaviour, IResettable
             }
 
         }
+
     }
     /// <summary>
     /// Creates fragments and then disables them
@@ -129,6 +138,7 @@ public class Explodable : MonoBehaviour, IResettable
         {
             if (addon.enabled)
             {
+                print("addod spotted !!!!!");
                 addon.OnFragmentsGenerated(fragments);
             }
         }

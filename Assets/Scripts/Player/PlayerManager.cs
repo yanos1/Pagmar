@@ -311,8 +311,8 @@ namespace Player
             CurrentForce = playerStage switch
             {
                 PlayerStage.Young => 0f,
-                PlayerStage.Teen => 2f,
-                PlayerStage.Adult => 3f,
+                PlayerStage.Teen => 1f,
+                PlayerStage.Adult => 2f,
                 _ => 0f
             };
         }

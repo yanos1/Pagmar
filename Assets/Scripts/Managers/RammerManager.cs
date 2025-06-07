@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Interfaces;
 using Player;
 using UnityEngine.Rendering;
@@ -14,13 +15,41 @@ namespace Managers
 
         [SerializeField] private float baseForce;
 
+        private Dictionary<Rammer, ValueTuple<Rammer, float>> rammersHistory = new();
+        private float mintimeBetweenRams = 0.6f;
+
         private void Awake()
         {
             Instance = this;
         }
 
+
+        private void Update()
+        {
+            if (rammersHistory.Count  == 0) return;
+            var removes = new List<Rammer>();
+            foreach (var (key, pair) in rammersHistory)
+            {
+                if (Time.time - pair.Item2 > mintimeBetweenRams)
+                {
+                    removes.Add(key);
+                }
+            }
+
+            foreach (var rammer in removes)
+            {
+                rammersHistory.Remove(rammer);
+            }
+        }
+
         public void ResolveRam(Rammer a, Rammer b)
         {
+            if (rammersHistory.GetValueOrDefault(a).Item1 == b)
+            {
+                return; // not enough time passed to do a second ram.
+            }
+
+            rammersHistory[a] = (b, Time.time);
             float forceA = a.CurrentForce;
             float forceB = b.CurrentForce;
            

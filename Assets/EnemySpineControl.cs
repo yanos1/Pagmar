@@ -19,7 +19,7 @@ public class EnemySpineControl : MonoBehaviour
 
     public void PlayAnimation(string animationName, bool loop = false, string fallbackAnimation = "Idle", bool force = false, Action onComplete = null)
     {
-        Debug.Log($"Playing animation: {animationName}, Loop: {loop}, Force: {force}, Fallback: {fallbackAnimation}");
+        // Debug.Log($"Playing animation: {animationName}, Loop: {loop}, Force: {force}, Fallback: {fallbackAnimation}");
         if (_lockIdleState) return;
         
         if (string.IsNullOrEmpty(animationName)) return;

@@ -12,4 +12,5 @@ public abstract class ExplodableAddon : MonoBehaviour {
 	}
 
     public abstract void OnFragmentsGenerated(List<GameObject> fragments);
+    public abstract void OnFragmentsExploded(List<GameObject> fragments);
 }

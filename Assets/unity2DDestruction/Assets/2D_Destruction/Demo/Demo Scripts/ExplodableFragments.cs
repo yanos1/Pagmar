@@ -19,4 +19,9 @@ public class ExplodableFragments : ExplodableAddon{
             fragExp.fragmentInEditor();
         }
     }
+
+    public override void OnFragmentsExploded(List<GameObject> fragments)
+    {
+        return;
+    }
 }

@@ -53,8 +53,8 @@ namespace Managers
             // Determine winner and loser
             Rammer winner = forceA > forceB ? a : b;
             Rammer loser = forceA > forceB ? b : a;
-            print($"rammer is {winner} 55 ");
-            print($"rammed is {loser} 55");
+            // print($"rammer is {winner} 55 ");
+            // print($"rammed is {loser} 55");
             float winnerForce = Mathf.Max(forceA, forceB);
             float loserForce = Mathf.Min(forceA, forceB);
 

@@ -15,7 +15,7 @@ namespace Player
         private PlayerHornDamageHandler _damageHandler;
         private PlayerSoundHandler soundHandler;
         private Npc followedBy;
-        
+
         [SerializeField] private SpineControl spineControl;
         [SerializeField] private PlayerStage _playerStage = PlayerStage.Young;
         [SerializeField] private SpineControl _spineControl;
@@ -26,6 +26,7 @@ namespace Player
         private bool inputEnabled = true;
         private float hitDamage = 0.5f;
         public bool InputEnabled => inputEnabled;
+
         public void DisableInput()
         {
             print("inpuut disabled!");
@@ -39,9 +40,9 @@ namespace Player
         }
 
         public bool IsKnockBacked => isKnockbacked;
-        
+
         public bool IsDead => isDead;
-        
+
         public PlayerStage playerStage
         {
             get => _playerStage;
@@ -70,19 +71,26 @@ namespace Player
 
         private void OnDisable()
         {
-            CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, OnEnterCutScene);  
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, OnEnterCutScene);
         }
 
         public void UnlockAnimations()
         {
             spineControl.SetIdleLock(false);
         }
-        
+
         public void LockAnimations()
         {
             spineControl.SetIdleLock(true);
         }
-        private void OnEnterCutScene(object o)
+        public void UpgradeState()
+        {
+            int next = (int)playerStage + 1;
+            
+            SetPlayerStage((PlayerStage)next);
+        }
+
+    private void OnEnterCutScene(object o)
         {
             if (o is string type)
             {
@@ -96,7 +104,12 @@ namespace Player
                 case "StartUpperground":
                     EnterStartUppergroundCutScene();
                     break;
+                default:
+                    DisableInput();
+                    LockAnimations();
+                    break;
                 }
+              
             }
 
         }
@@ -167,12 +180,10 @@ namespace Player
                 if ( rammer.GetComponent<ChargingEnemy>() is not null && dot > 0.6f) // horizontal impact check
                 {
                     RammerManager.Instance.ResolveRam(this, rammer);
-                    print("{ram!! 987");
                 }
                 
                 else if (rammer.GetComponent<ChasingEnemy>() is not null)
                 {
-                    print("chasing enemy got me 76");
                     CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
                     // RammerManager.Instance.ResolveRam(this,rammer);
                 }

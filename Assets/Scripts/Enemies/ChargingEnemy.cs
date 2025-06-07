@@ -154,7 +154,6 @@ namespace Enemies
         
         private void OnCollisionEnter2D(Collision2D col)
         {
-            print($"enemy collided with {col.gameObject.name} l0");
             if (sleepAtStart  && col.gameObject.GetComponent<PlayerMovement>() is { } player && player.IsDashing)
             {
                 isSleeping = false;
@@ -164,6 +163,13 @@ namespace Enemies
                 }
             }
             
+        }
+
+        public void AffectedByExternalKnockback()
+        {
+            print("cancel charge 77");
+            ApplyKnockback(-currentDirection, 25);
+            // _rb.bodyType = RigidbodyType2D.Dynamic;
         }
 
         public void WakeUp()
@@ -324,12 +330,10 @@ namespace Enemies
             Debug.DrawRay(origin, currentDirection * wallDetectionDistance, raycast.collider ? Color.red : Color.green);
             if (raycast.collider)
             {
-                print($"collider is {raycast.collider}");
                 hitSomething = true;
             }
             if (raycast.collider is not null && raycast.collider.gameObject.GetComponent<IBreakable>() is { } breakable)
             {
-                print("break!");
                 breakable.OnBreak();
                 gameObject.SetActive(false);
             }
@@ -347,7 +351,7 @@ namespace Enemies
 
         private void MoveAndRotate(Vector2 dir)
         {
-            transform.position += (Vector3)dir * (chargeSpeed * Time.fixedDeltaTime);
+            _rb.MovePosition(_rb.position + dir * (chargeSpeed * Time.fixedDeltaTime));
         }
 
         void FixedUpdate()
@@ -363,7 +367,6 @@ namespace Enemies
             {
                 _rb.linearVelocity = Vector2.zero;
                 _rb.angularVelocity = 0;
-
                 _rb.bodyType = RigidbodyType2D.Kinematic;
                 isKnockbacked = false;
             }
@@ -385,7 +388,6 @@ namespace Enemies
                 StopCharging();
                 isPreparingCharge = false;
                 falling = true;
-                print("stopped because of no ground");
             }
             
             if(ground && _rb.bodyType != RigidbodyType2D.Kinematic)

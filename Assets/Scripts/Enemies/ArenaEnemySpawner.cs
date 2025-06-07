@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Interfaces;
+using Managers;
 using MoreMountains.Feedbacks;
 using Player;
 using Terrain.Environment;
@@ -27,14 +28,20 @@ namespace Enemies
         private void OnTriggerEnter2D(Collider2D other)
         {   
             if(triggered) return;
-            if (other.GetComponent<PlayerManager>() is not null)
+            if (other.GetComponent<PlayerManager>() is {} player)
             {
                 spawnFeedbacks?.PlayFeedbacks();
                 StartCoroutine(SpawnCoroutine());
-               ;
             }
         }
-
+        
+        public void AddKnockBacktoEnemies()
+        {
+            foreach (var enemy in enemies)
+            {
+                enemy.AffectedByExternalKnockback();
+            }
+        }
         private IEnumerator SpawnCoroutine()
         {
             yield return new WaitForSeconds(2f);

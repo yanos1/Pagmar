@@ -8,6 +8,7 @@ public class GlobalActions : MonoBehaviour
 {
 
     [SerializeField] private MMF_Player slowMotionFeedbacks;
+    [SerializeField] private MMF_Player longslowMotionFeedbacks;
     [SerializeField] private UndergroundCanvas _canvas;
 
     private void OnEnable()
@@ -22,7 +23,7 @@ public class GlobalActions : MonoBehaviour
     }
     public void AllowInput()
     {
-        print("allow input !");
+        print("12 allow input !");
         CoreManager.Instance.GameManager.AlowCutSceneInput(); 
     }
 
@@ -48,6 +49,11 @@ public class GlobalActions : MonoBehaviour
         slowMotionFeedbacks?.PlayFeedbacks();
         EnableAttackEnemyText();
         AllowInput();
+    }
+
+    public void EnterLongSlowMotion()
+    {
+        longslowMotionFeedbacks?.PlayFeedbacks();
     }
 
     public void EnableAttackEnemyText()

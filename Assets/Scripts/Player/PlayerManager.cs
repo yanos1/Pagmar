@@ -6,6 +6,7 @@ using NPC;
 using UnityEngine;
 using System.Collections;
 using Enemies;
+using MoreMountains.Feedbacks;
 
 namespace Player
 {
@@ -19,7 +20,7 @@ namespace Player
         [SerializeField] private SpineControl spineControl;
         [SerializeField] private PlayerStage _playerStage = PlayerStage.Young;
         [SerializeField] private SpineControl _spineControl;
-
+        
         private Rigidbody2D _rb;
         private bool isDead = false;
         private bool isKnockbacked = false;

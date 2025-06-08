@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Interfaces;
+using MoreMountains.Feedbacks;
 using Player;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
@@ -14,6 +15,7 @@ namespace Managers
         public static RammerManager Instance;
 
         [SerializeField] private float baseForce;
+        [SerializeField] private MMF_Player playerHitFeedback;
 
         private Dictionary<Rammer, ValueTuple<Rammer, float>> rammersHistory = new();
         private float mintimeBetweenRams = 0.6f;
@@ -26,6 +28,10 @@ namespace Managers
 
         private void Update()
         {
+            if (Input.GetKey(KeyCode.K))
+            {
+                playerHitFeedback.PlayFeedbacks();
+            }
             if (rammersHistory.Count  == 0) return;
             var removes = new List<Rammer>();
             foreach (var (key, pair) in rammersHistory)
@@ -72,7 +78,7 @@ namespace Managers
                     print("no winner no loser! 55");
                
                     Vector2 dirB = new Vector2(-dirA.x, 0.5f);
-
+                    playerHitFeedback?.PlayFeedbacks();
                     a.ApplyKnockback(dirA, baseForce);
                     b.ApplyKnockback(dirB, baseForce);
                 }
@@ -112,8 +118,8 @@ namespace Managers
                 Vector2 winDir = (winner.transform.position - loser.transform.position).normalized;
                 winner.ApplyKnockback(new Vector2(winDir.x, yForce),  10);
                 print($"APPLY KNOICKBACK to {new Vector2(winDir.x, yForce)} with knockback {baseForce* knockbackForce} o0");
-                
                 loser.ApplyKnockback(new Vector2(loseDir.x, 0.5f),(winnerForce-loserForce) *baseForce/2);
+                playerHitFeedback?.PlayFeedbacks();
                 return;
             }
             // Knockback loser

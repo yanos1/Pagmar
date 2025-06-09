@@ -11,7 +11,7 @@ namespace Terrain.Environment
         public int hitThreshold = 3;
         public float fallForce = 30f;
         public float hitCooldown = 0.5f; // seconds between valid hits
-
+        
         // New particle hit threshold and counter
         public int particleHitThreshold = 200;
         private int particleHitCount = 0;
@@ -19,6 +19,7 @@ namespace Terrain.Environment
         private int hitCount = 0;
         private bool hasFallen = false;
         private bool canBeHit = true;
+        private Vector3 startingPos;
 
         private Rigidbody2D rb2D;
         [SerializeField] private MMF_Player hitFeedbacks;
@@ -28,6 +29,7 @@ namespace Terrain.Environment
 
         void Start()
         {
+            startingPos = transform.position;
             rb2D = GetComponent<Rigidbody2D>();
             if (rb2D != null)
             {
@@ -104,6 +106,8 @@ namespace Terrain.Environment
 
         public void ResetToInitialState()
         {
+            gameObject.SetActive(true);
+            transform.position = startingPos;
             rb2D.angularVelocity = 0;
             transform.rotation = Quaternion.identity;
             rb2D.bodyType = RigidbodyType2D.Kinematic;

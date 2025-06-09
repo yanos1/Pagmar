@@ -75,7 +75,6 @@ namespace SpongeScene
                 float currentAlpha = Mathf.Lerp(startValue, endValue, elapsedTime / imageFadeDuration);
                 
                 color.a = currentAlpha;
-                Debug.Log(color.a);
 
                 renderer.color = color;
 

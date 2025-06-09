@@ -20,7 +20,7 @@ namespace Player
         [SerializeField] private SpineControl spineControl;
         [SerializeField] private PlayerStage _playerStage = PlayerStage.Young;
         [SerializeField] private SpineControl _spineControl;
-        
+
         private Rigidbody2D _rb;
         private bool isDead = false;
         private bool isKnockbacked = false;
@@ -86,40 +86,39 @@ namespace Player
         {
             spineControl.SetIdleLock(true);
         }
+
         public void UpgradeState()
         {
             int next = (int)playerStage + 1;
-            
+
             SetPlayerStage((PlayerStage)next);
         }
 
-    private void OnEnterCutScene(object o)
+        private void OnEnterCutScene(object o)
         {
             if (o is string type)
             {
                 print($"timeline tag is {type}");
                 switch (type)
                 {
-                case "MeetBig":
-                    
-                    EnterMeetBigCutscene();
-                    break;
-                case "StartUpperground":
-                    EnterStartUppergroundCutScene();
-                    break;
-                default:
-                    DisableInput();
-                    LockAnimations();
-                    break;
+                    case "MeetBig":
+
+                        EnterMeetBigCutscene();
+                        break;
+                    case "StartUpperground":
+                        EnterStartUppergroundCutScene();
+                        break;
+                    default:
+                        DisableInput();
+                        LockAnimations();
+                        break;
                 }
-              
             }
             else
             {
                 DisableInput();
                 LockAnimations();
             }
-
         }
 
         private void EnterStartUppergroundCutScene()
@@ -132,9 +131,9 @@ namespace Player
         {
             DisableInput();
             print("enter cut scnee");
-            
+
             LockAnimations();
-            
+
             // turn elft
             var rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
             transform.rotation = Quaternion.Euler(rotator);
@@ -164,12 +163,12 @@ namespace Player
             {
                 breakable.OnHit((other.transform.position - transform.position).normalized, playerStage);
             }
-            
+
             if (other.gameObject.GetComponent<IKillPlayer>() is { } killPlayer && killPlayer.IsDeadly())
             {
-                CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
+                Die();
                 return;
-            }  
+            }
 
             CheckForRam(other);
         }
@@ -178,6 +177,7 @@ namespace Player
         {
             CheckForRam(other);
         }
+
         private void CheckForRam(Collision2D other)
         {
             if (other.gameObject.GetComponent<Rammer>() is { } rammer)
@@ -185,23 +185,21 @@ namespace Player
                 Vector2 directionToPlayer = (transform.position - rammer.transform.position).normalized;
                 float dot = Mathf.Abs(Vector2.Dot(directionToPlayer, Vector2.right));
 
-                if ( rammer.GetComponent<ChargingEnemy>() is not null && dot > 0.6f) // horizontal impact check
+                if (rammer.GetComponent<ChargingEnemy>() is not null && dot > 0.6f) // horizontal impact check
                 {
                     RammerManager.Instance.ResolveRam(this, rammer);
                 }
-                
+
                 else if (rammer.GetComponent<ChasingEnemy>() is not null)
                 {
                     CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
                     // RammerManager.Instance.ResolveRam(this,rammer);
                 }
-                
+
                 else if (rammer.GetComponent<ChargingEnemy>() is null)
                 {
                     RammerManager.Instance.ResolveRam(this, rammer); // flying enemy
-
                 }
-              
             }
         }
 
@@ -209,26 +207,25 @@ namespace Player
         {
             if (other.gameObject.GetComponent<IKillPlayer>() is { } killPlayer && killPlayer.IsDeadly())
             {
-                CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
+                Die();
             }
         }
 
         private void Update()
         {
-            if (Input.GetKey(KeyCode.F12))
+            if (Input.GetKeyDown(KeyCode.F12))
             {
-                CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
+                Die();
             }
 
-            else if (Input.GetKey(KeyCode.F1))
+            else if (Input.GetKeyDown(KeyCode.F1))
             {
                 _playerStage = PlayerStage.Teen;
             }
-            else if (Input.GetKey(KeyCode.F2))
+            else if (Input.GetKeyDown(KeyCode.F2))
             {
                 _playerStage = PlayerStage.Adult;
             }
-          
         }
 
         public void SetFollowedBy([CanBeNull] Npc npc)
@@ -241,8 +238,7 @@ namespace Player
         public void SetPlayerStage(PlayerStage stage)
         {
             playerStage = stage;
-            CoreManager.Instance.AudioManager.SetGlobalParameter("Evolution", (int) stage);
-
+            CoreManager.Instance.AudioManager.SetGlobalParameter("Evolution", (int)stage);
         }
 
         private void ChangeHitDamage(PlayerStage stage)
@@ -260,7 +256,7 @@ namespace Player
                 PlayerStage.Teen => 0.25f,
                 PlayerStage.Adult => 0.17f,
                 _ => 0.5f
-            }; 
+            };
         }
 
         // === Rammer Implementation ===
@@ -268,19 +264,18 @@ namespace Player
         {
             Debug.Log($"Player rammed with force against {againstForce}");
             // CurrentForce = Mathf.Max(0, CurrentForce - againstForce * 0.5f);
-            ApplyKnockback(ramDirNegative, againstForce/3);  // we are ramming, take 1/3 of the knockback
+            ApplyKnockback(ramDirNegative, againstForce / 3); // we are ramming, take 1/3 of the knockback
         }
 
         public override void OnRammed(float fromForce)
         {
             Debug.Log($"Player got rammed with force {fromForce}");
-            InjuryManager.Instance.ApplyDamage(hitDamage* fromForce);
-            _damageHandler.AddDamage(hitDamage*100);
+            InjuryManager.Instance.ApplyDamage(hitDamage * fromForce);
+            _damageHandler.AddDamage(hitDamage * 100);
             spineControl.PlayAnimationOnBaseTrack("hit", false);
-
         }
 
-        public IEnumerator DieAfterDelay()
+        private IEnumerator DieAfterDelay()
         {
             DisableInput();
             isDead = true;
@@ -293,10 +288,10 @@ namespace Player
             isDead = false;
             isKnockbacked = false;
             _rb.linearVelocity = Vector2.zero;
-
         }
+
         public override void ApplyKnockback(Vector2 direction, float force)
-        {            
+        {
             DisableInput();
             isKnockbacked = true;
             StartCoroutine(ReturnInputAfterRammed());
@@ -304,7 +299,6 @@ namespace Player
             _rb.linearVelocity = Vector2.zero;
             _rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
             Debug.Log($"Add force on player: {force} in dir {direction.normalized}");
-            
         }
 
         public void SetForce()
@@ -325,7 +319,8 @@ namespace Player
 
         public void Die()
         {
-            StartCoroutine(DieAfterDelay());
+            isDead = true;
+            CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
         }
 
         public void GetMounted()
@@ -342,22 +337,22 @@ namespace Player
             {
                 yield return null;
             }
+
             EnableInput();
             isKnockbacked = false;
-            }
+        }
 
         public void StopAllMovement()
         {
             _rb.linearVelocity = Vector2.zero;
-            
         }
     }
-    }
-    public enum PlayerStage
-    {
-        None = -1,
-        Young = 0,
-        Teen = 1,
-        Adult = 2,
-    }
+}
 
+public enum PlayerStage
+{
+    None = -1,
+    Young = 0,
+    Teen = 1,
+    Adult = 2,
+}

@@ -43,18 +43,18 @@ namespace Managers
         public IEnumerator ResetAll(object obj, bool restoreCheckpoint = true)
         {
             print("reset all !!!!!");
-            // CoreManager.Instance.UiManager.ShowLoadingScreen();
-            // CoreManager.Instance.Player.DisableInput();
-            // while (!CoreManager.Instance.UiManager.IsFadeInFinished())
-            // {
-            //     yield return null;
-            // }
+            CoreManager.Instance.UiManager.ShowLoadingScreen();
+            CoreManager.Instance.Player.DisableInput();
+            while (!CoreManager.Instance.UiManager.IsFadeInFinished())
+            {
+                yield return null;
+            }
             foreach (var r in resettables)
             {
                 r.ResetToInitialState();
             }
-            // CoreManager.Instance.UiManager.HideLoadingScreen();
-            // CoreManager.Instance.Player.EnableInput();
+            CoreManager.Instance.UiManager.HideLoadingScreen();
+            CoreManager.Instance.Player.EnableInput();
             if (restoreCheckpoint)
             {
                 RestoreCheckPoint();

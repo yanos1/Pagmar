@@ -41,7 +41,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         }
     }
 
-    public void AddDamage(float addedDamage = 15)
+    public void AddDamage(float addedDamage = 12)
     {
         if (isDead) return;
         

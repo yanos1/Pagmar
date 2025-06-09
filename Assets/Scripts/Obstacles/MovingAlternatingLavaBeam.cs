@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Interfaces;
 using Managers;
 using SpongeScene;
 using Terrain.Environment;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Obstacles
 {
     public class MovingAlternatingLavaBeam : AlternatingLavaBeam
     {
-        
+        public Tilemap tilemap;
+        private Dictionary<Vector3Int, TileBase> removedTiles = new Dictionary<Vector3Int, TileBase>();
+
+
         [SerializeField] private float targetXPosition;
         private bool hasReachedTarget;
         private Vector3 startingPos;
-        
+
         public override void StartBeam()
         {
             startingPos = transform.position;
@@ -57,20 +62,16 @@ namespace Obstacles
                 {
                     CoreManager.Instance.EventManager.InvokeEvent(onFinished, null);
                 }
+
                 float beamAdvanceDistance = 4.3f;
                 Vector3 futurePos = transform.position + Vector3.right * beamAdvanceDistance;
-                warning.transform.position = new Vector3(futurePos.x, CoreManager.Instance.Player.transform.position.y + 2.3f, 0);
+                warning.transform.position =
+                    new Vector3(futurePos.x, CoreManager.Instance.Player.transform.position.y + 2.3f, 0);
                 transform.position = futurePos;
-
             }
         }
-        
-        public override void ResetToInitialState()
-        {
-           base.ResetToInitialState();
-           transform.position = startingPos;
-           hasReachedTarget = false;
-        }
+
+      
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -79,11 +80,38 @@ namespace Obstacles
                 breakable.OnBreak();
             }
 
-            if (other.CompareTag("Rock"))
-            {
-                Debug.Log("Found rock");
-                other.gameObject.SetActive(false);
+            CheckTileMapHit(other);
+        }
+
+        private void CheckTileMapHit(Collider2D other)
+        {
+            Vector3 hitPos = other.ClosestPoint(transform.position);
+            Vector3Int cellPos = tilemap.WorldToCell(hitPos);
+            print($"cell pose hit {cellPos}");
+
+            if (tilemap.HasTile(cellPos))
+            {            
+                print($"found tile to remove! {cellPos}");
+
+                TileBase tile = tilemap.GetTile(cellPos);
+                removedTiles.TryAdd(cellPos, tile); // Only store once
+                tilemap.SetTile(cellPos, null);  // Remove tile
+                print("removed tile!");
             }
+        }
+        
+        public override void ResetToInitialState()
+        {
+            base.ResetToInitialState();
+            transform.position = startingPos;
+            hasReachedTarget = false;
+            foreach (var kvp in removedTiles)
+            {
+                tilemap.SetTile(kvp.Key, kvp.Value);  // Restore tile
+                Debug.Log("Restored tile at: " + kvp.Key);
+            }
+
+            removedTiles.Clear();  // Optional: clear the list after resetting
         }
     }
 }

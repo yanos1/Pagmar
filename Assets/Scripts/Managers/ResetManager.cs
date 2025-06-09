@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Interfaces;
@@ -17,19 +18,16 @@ namespace Managers
     {
         private List<IResettable> resettables = new List<IResettable>();
         private Checkpoint lastCheckPoint;
-
-
-      
-        
+            
         private void OnEnable()
         {
-            CoreManager.Instance.EventManager.AddListener(EventNames.Die, (object o) => ResetAll(o));
+            CoreManager.Instance.EventManager.AddListener(EventNames.Die, (object o) => StartCoroutine(ResetAll(o)));
             CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, FindResetAblesInScene);
         }
         
         private void OnDisable()
         {
-            CoreManager.Instance.EventManager.RemoveListener(EventNames.Die, (object o) => ResetAll(o));
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.Die, (object o) => StartCoroutine(ResetAll(o)));
             CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, FindResetAblesInScene);
         }
 
@@ -42,18 +40,27 @@ namespace Managers
         }
 
 
-        public void ResetAll(object obj, bool restoreCheckpoint = true)
+        public IEnumerator ResetAll(object obj, bool restoreCheckpoint = true)
         {
             print("reset all !!!!!");
+            // CoreManager.Instance.UiManager.ShowLoadingScreen();
+            // CoreManager.Instance.Player.DisableInput();
+            // while (!CoreManager.Instance.UiManager.IsFadeInFinished())
+            // {
+            //     yield return null;
+            // }
             foreach (var r in resettables)
             {
                 r.ResetToInitialState();
             }
-
+            // CoreManager.Instance.UiManager.HideLoadingScreen();
+            // CoreManager.Instance.Player.EnableInput();
             if (restoreCheckpoint)
             {
                 RestoreCheckPoint();
             }
+            yield break;
+            
         }
 
         public void UpdateCheckPoint(Checkpoint checkpoint)

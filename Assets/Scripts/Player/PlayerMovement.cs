@@ -1,33 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using Camera;
+using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
 using Player;
 using ScripableObjects;
+using SpongeScene;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement")]
-    [SerializeField] private float MovementSpeed = 200f;
+    [Header("Movement")] [SerializeField] private float MovementSpeed = 200f;
     [SerializeField] private Rigidbody2D _rb;
 
-    [Header("Jump")]
-    [SerializeField] private float jumpForce = 10f;
+    [Header("Jump")] [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float regularGravity = 1.2f;
     [SerializeField] private float WhenStopPressGravity = 2.5f;
     [SerializeField] private float maxFallingSpeed = -10f;
     [SerializeField] private float graceJumpTime = 0.1f;
 
-    [Header("Ground Check")]
-    [SerializeField] private Transform groundCheckPosition;
+    [Header("Ground Check")] [SerializeField]
+    private Transform groundCheckPosition;
+
     [SerializeField] private Vector2 checkSize = new Vector2(0.5f, 0.1f);
     [SerializeField] private List<LayerMask> groundLayers;
 
-    [Header("Wall Jump & Slide")]
-    [SerializeField] private Transform wallCheckPosition;
+    [Header("Wall Jump & Slide")] [SerializeField]
+    private Transform wallCheckPosition;
+
     [SerializeField] private Vector2 wallCheckSize = new Vector2(0.5f, 1f);
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private float wallJumpForceX = 10f;
@@ -35,9 +37,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float wallJumpTime = 0.2f;
     [SerializeField] private float wallSlideSpeed = 3f;
     [SerializeField] private float wallJumpGravity = 0.8f;
-    
-    [Header("Dash")]
-    [SerializeField] private float dashSpeed = 150f;
+
+    [Header("Dash")] [SerializeField] private float dashSpeed = 150f;
     [SerializeField] private float dashAttackTime = 0.15f;
     [SerializeField] private float dashEndTime = 0.15f;
     [SerializeField] private float dashEndSpeed = 50f;
@@ -45,10 +46,10 @@ public class PlayerMovement : MonoBehaviour
     public bool enableDash = true;
     public bool enableAdvancedDash = false;
     [SerializeField] private LayerMask enemyLayer;
-    
 
-    [Header("CammeraFollowObject")]
-    [SerializeField] private CameraFollowObject _cameraFollowObject;
+
+    [Header("CammeraFollowObject")] [SerializeField]
+    private CameraFollowObject _cameraFollowObject;
 
     [SerializeField] private PlayerSounds playerSounds;
     [SerializeField] private Transform cielingCheckPos;
@@ -88,20 +89,20 @@ public class PlayerMovement : MonoBehaviour
     private float timeFalling;
     private bool _isPlayingWallJumpLand = false;
 
-    
-    
-    [Header("MM Feedback")]
-    [SerializeField] private MMF_Player jumpFeedback;
+
+    [Header("MM Feedback")] [SerializeField]
+    private MMF_Player jumpFeedback;
+
     [SerializeField] private MMF_Player landFeedback;
     [SerializeField] private MMF_Player dashFeedback;
     [SerializeField] private Transform landParticlePosition;
-    
 
-    
+
     [SerializeField] public bool enableWallJump;
     private PlayerManager player;
     private PlayerHornDamageHandler hornDamageHandler;
     [SerializeField] SpineControl spineControl;
+    private Coroutine dashHitCoroutine;
 
     private void OnEnable()
     {
@@ -112,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
     {
         CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, OnEnterCutScene);
     }
-    
+
 
     private void Awake()
     {
@@ -131,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         _fallSpeedYDampingChangeThreshold = CameraManager.GetInstance().FallSpeedYDampingChangeThreshold;
         _isFacingRight = true;
     }
-    
+
     private void Update()
     {
         LastOnGroundTime += Time.deltaTime;
@@ -148,13 +149,14 @@ public class PlayerMovement : MonoBehaviour
         if (isWallJumping)
         {
             wallJumpCounter -= Time.deltaTime;
-            if (wallJumpCounter <= 0)  //&& _rb.linearVelocity.y > 0 ?? why was this in the if statement?
+            if (wallJumpCounter <= 0) //&& _rb.linearVelocity.y > 0 ?? why was this in the if statement?
             {
                 isWallJumping = false;
                 _rb.gravityScale = regularGravity;
             }
         }
-        UpdateAnimation();  
+
+        UpdateAnimation();
     }
 
     private void OnEnterCutScene(object obj)
@@ -164,18 +166,18 @@ public class PlayerMovement : MonoBehaviour
         _moveInputY = 0;
         _moveInput = Vector2.zero;
     }
-    
+
     public Vector3 GetVelocity()
     {
         return _rb.linearVelocity;
     }
+
     private void CheckIfFalling()
     {
         if (_rb.linearVelocity.y < _fallSpeedYDampingChangeThreshold &&
             !CameraManager.GetInstance().IsLerpingYDamping && !CameraManager.GetInstance().LerpedFromPlayerFalling)
         {
             CameraManager.GetInstance().LerpYDamping(true);
-         
         }
 
         if (_rb.linearVelocity.y < -1)
@@ -184,19 +186,22 @@ public class PlayerMovement : MonoBehaviour
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.fallSound, transform.position);
             }
+
             isFalling = true;
         }
+
         if (isFalling)
         {
             timeFalling += Time.deltaTime;
         }
+
         if (_rb.linearVelocity.y >= 0 &&
             !CameraManager.GetInstance().IsLerpingYDamping && CameraManager.GetInstance().LerpedFromPlayerFalling)
         {
             CameraManager.GetInstance().LerpedFromPlayerFalling = false;
             CameraManager.GetInstance().LerpYDamping(false);
-        
         }
+
         if (isFalling && _rb.linearVelocity.y >= 0)
         {
             print($"time falling {timeFalling}");
@@ -207,15 +212,14 @@ public class PlayerMovement : MonoBehaviour
                 InjuryManager.Instance.ApplyDamage(0.5f); // this is just effects of damage (slow, screen turns white..)
                 hornDamageHandler.AddDamage(50); // actual damage
             }
+
             if (timeFalling > 1.2f)
             {
-
                 CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.heavyLandSound, transform.position);
             }
             else
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.landSound, transform.position);
-
             }
 
             isFalling = false;
@@ -228,16 +232,18 @@ public class PlayerMovement : MonoBehaviour
         if (IsGrounded())
         {
             _canDash = true;
-            if(isJumping)
+            if (isJumping)
             {
                 isJumping = false;
                 _rb.gravityScale = regularGravity;
             }
+
             if (isWallJumping && !hasWallJumped)
             {
                 isWallJumping = false;
                 _rb.gravityScale = regularGravity;
             }
+
             hasWallJumped = false;
             _rb.gravityScale = regularGravity;
         }
@@ -245,10 +251,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        if(player.IsKnockBacked) return;
+        if (player.IsKnockBacked) return;
         if (Mathf.Abs(_moveInputX) > 0.1)
         {
-            playerSoundHandler.HandleGroundSound(); 
+            playerSoundHandler.HandleGroundSound();
         }
         else
         {
@@ -257,13 +263,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (player.InputEnabled)
         {
-            _rb.linearVelocity = new Vector2(_moveInputX * MovementSpeed*(1-InjuryManager.Instance.injuryMagnitude/2f) * Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
+            _rb.linearVelocity =
+                new Vector2(
+                    _moveInputX * MovementSpeed * (1 - InjuryManager.Instance.injuryMagnitude / 2f) *
+                    Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
         }
     }
 
     public void HandleMovment(InputAction.CallbackContext context)
     {
-        if(player.InputEnabled == false) return;
+        if (player.InputEnabled == false) return;
         _moveInput = context.ReadValue<Vector2>();
         _moveInputX = _moveInput.x;
         _moveInputY = _moveInput.y;
@@ -314,11 +323,13 @@ public class PlayerMovement : MonoBehaviour
             LastPressedDashTime = Time.time;
             return true;
         }
+
         return false;
     }
+
     public void HandleJump(InputAction.CallbackContext context)
     {
-        if(player.InputEnabled == false) return;
+        if (player.InputEnabled == false) return;
 
         if (context.started)
         {
@@ -364,7 +375,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleFlip(bool isMovingRight)
     {
-        if(player.InputEnabled == false) return;
+        if (player.InputEnabled == false) return;
         if (isMovingRight != _isFacingRight)
         {
             Flip();
@@ -383,6 +394,7 @@ public class PlayerMovement : MonoBehaviour
             var rotator = new Vector3(transform.rotation.x, 0f, transform.rotation.z);
             transform.rotation = Quaternion.Euler(rotator);
         }
+
         _cameraFollowObject.CallTurn();
 
         _isFacingRight = !_isFacingRight;
@@ -398,9 +410,11 @@ public class PlayerMovement : MonoBehaviour
                 return true;
             }
         }
+
         return false;
     }
-    private bool IsTouchingWall()  
+
+    private bool IsTouchingWall()
     {
         return Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0, wallLayer) != null;
     }
@@ -408,23 +422,27 @@ public class PlayerMovement : MonoBehaviour
     private bool IsHittingSomething(Vector2 dir)
     {
         // Draw wall ray
-        var enemyRay = Physics2D.Raycast(wallCheckPosition.position, dir.normalized, 0.35f, enemyLayer); // enemies hit are too quick for 0.1 distance for some reason
-        var hitWallRay = Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0);
-    
+        var enemyRay =
+            Physics2D.Raycast(wallCheckPosition.position, dir.normalized, 0.35f,
+                enemyLayer); // enemies hit are too quick for 0.1 distance for some reason
+        var hitWallRay = Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0,LayerMask.GetMask("Ground","Default","Enemy", "Environment", "WoodPlank"));
 
-        bool wallRayHit = hitWallRay != null && hitWallRay.gameObject.layer != LayerMask.NameToLayer("Trigger");
-        
+
+        bool wallRayHit = hitWallRay != null;
+
         // Draw ceiling ray
         Debug.DrawRay(cielingCheckPos.position, Vector2.up * 0.1f, Color.green);
 
         var hitCeilingRay = Physics2D.Raycast(cielingCheckPos.position, Vector2.up, 0.1f);
-        bool ceilingHit = hitCeilingRay.collider != null && hitCeilingRay.collider.gameObject.layer != LayerMask.GetMask("Trigger");
+        bool ceilingHit = hitCeilingRay.collider != null &&
+                          hitCeilingRay.collider.gameObject.layer != LayerMask.NameToLayer("Trigger");
         return enemyRay.collider is not null || wallRayHit || ceilingHit;
     }
 
     private void WallSlide()
     {
-        if (isTouchingWall && !IsGrounded() && !isWallJumping &&((_isFacingRight && _moveInputX >0) || (!_isFacingRight && _moveInputX< 0)))
+        if (isTouchingWall && !IsGrounded() && !isWallJumping &&
+            ((_isFacingRight && _moveInputX > 0) || (!_isFacingRight && _moveInputX < 0)))
         {
             if (_rb.linearVelocity.y < 0)
             {
@@ -453,14 +471,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Jump()
-    {   
+    {
         spineControl.PlayAnimation("jumpv2", false);
         _playedStartJump = true;
         float force = jumpForce;
         if (_rb.linearVelocity.y < 0)
             force -= _rb.linearVelocity.y;
         // CoreManager.Instance.AudioManager.PlayOneShot(co);
-        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, _rb.linearVelocity.y + ((force + (0.5f * Time.fixedDeltaTime * -_rb.gravityScale)) / _rb.mass));
+        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x,
+            _rb.linearVelocity.y + ((force + (0.5f * Time.fixedDeltaTime * -_rb.gravityScale)) / _rb.mass));
         LastOnGroundTime = 0f;
         isJumping = true;
     }
@@ -479,7 +498,7 @@ public class PlayerMovement : MonoBehaviour
     {
         return IsGrounded() || LastOnGroundTime <= graceJumpTime;
     }
-    
+
     private void UpdateAnimation()
     {
         if (_preventAnimOverride) return;
@@ -499,21 +518,19 @@ public class PlayerMovement : MonoBehaviour
             hasWallJumped = false;
             _isPlayingWallJumpLand = true;
 
-            spineControl.PlayAnimation("walljump-land-turn", false, "", true, () =>
-            {
-                _isPlayingWallJumpLand = false; 
-            });
+            spineControl.PlayAnimation("walljump-land-turn", false, "", true,
+                () => { _isPlayingWallJumpLand = false; });
         }
 
         else if (!_wasGroundedLastFrame && isCurrentlyGrounded)
         {
-            
             landParticlePosition.position = landFeedback.gameObject.transform.position;
             landFeedback?.PlayFeedbacks();
-            spineControl.PlayAnimation("jump-land", false,"", true);
+            spineControl.PlayAnimation("jump-land", false, "", true);
             _playedStartJump = false;
         }
-        else if (_rb.linearVelocity.y < -0.2f && !isCurrentlyGrounded && !_isDashing && !isWallJumping && !isWallSliding)
+        else if (_rb.linearVelocity.y < -0.2f && !isCurrentlyGrounded && !_isDashing && !isWallJumping &&
+                 !isWallSliding)
         {
             spineControl.PlayAnimation("jump-air", true);
         }
@@ -536,13 +553,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
-
     private IEnumerator StartDash(Vector2 dir)
     {
         dashFeedback?.PlayFeedbacks();
         spineControl.ClearActionAnimation(); // Cancel jump/land/start-jump
         spineControl.PlayAnimation("dashv2", false);
+        // this.StopAndStartCoroutine(ref dashHitCoroutine, CheckHitsWhileDashing());
         _isDashing = true;
         _canDash = false;
         player.SetForce();
@@ -557,7 +573,7 @@ public class PlayerMovement : MonoBehaviour
                 print("hit something!!");
                 hornDamageHandler.AddDamage();
             }
-            
+
             if (player.IsKnockBacked)
             {
                 _isDashAttacking = false;
@@ -568,7 +584,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             _rb.linearVelocity = dir.normalized * dashSpeed;
-         
+
             yield return null;
         }
 
@@ -581,7 +597,40 @@ public class PlayerMovement : MonoBehaviour
         {
             yield return null;
         }
+
         player.ResetForce();
         _isDashing = false;
     }
+    // private IEnumerator CheckHitsWhileDashing()
+    // {
+    //     CapsuleCollider2D capsule = GetComponent<CapsuleCollider2D>();
+    //     if (capsule == null)
+    //     {
+    //         Debug.LogWarning("No CapsuleCollider2D found on player.");
+    //         yield break;
+    //     }
+    //
+    //     while (_isDashing)
+    //     {
+    //         // Perform a capsule cast in the dash direction
+    //         RaycastHit2D hit = Physics2D.CapsuleCast(
+    //             capsule.bounds.center,
+    //             capsule.size,
+    //             capsule.direction,
+    //             0f, // no rotation
+    //             DashDirection.normalized,
+    //             0.1f // small distance
+    //         );
+    //
+    //         if (hit.collider != null)
+    //         {
+    //             IBreakable breakable = hit.collider.GetComponent<IBreakable>();
+    //             if (breakable != null)
+    //             {
+    //                 breakable.OnHit(DashDirection, player.playerStage);
+    //             }
+    //         }
+    //
+    //         yield return null;
+    //     }
 }

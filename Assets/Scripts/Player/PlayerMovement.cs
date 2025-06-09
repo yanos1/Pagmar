@@ -428,7 +428,7 @@ public class PlayerMovement : MonoBehaviour
         var hitWallRay = Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0,LayerMask.GetMask("Ground","Default","Enemy", "Environment", "WoodPlank"));
 
 
-        bool wallRayHit = hitWallRay != null && hitWallRay.gameObject.layer != LayerMask.NameToLayer("Trigger");
+        bool wallRayHit = hitWallRay != null;
 
         // Draw ceiling ray
         Debug.DrawRay(cielingCheckPos.position, Vector2.up * 0.1f, Color.green);

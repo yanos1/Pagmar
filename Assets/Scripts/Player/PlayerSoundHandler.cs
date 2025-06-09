@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using FMOD.Studio;
 using FMODUnity;
@@ -14,6 +15,18 @@ namespace Player
         private Dictionary<int, EventInstance> materialToSoundMap = new();
         [SerializeField] private PlayerSounds sounds;
         [SerializeField] private Transform groundCheck;
+
+
+        private void OnEnable()
+        {
+            CoreManager.Instance.EventManager.AddListener(EventNames.Die, StopGroundSound);
+        }
+
+        
+        private void OnDisable()
+        {
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.Die, StopGroundSound);
+        }
 
         private int currentGround = -1;
         private Coroutine soundCoroutine;
@@ -50,7 +63,7 @@ namespace Player
             }
         }
 
-        public void StopGroundSound()
+        public void StopGroundSound(object o = null)
         {
 
             if (soundCoroutine != null)

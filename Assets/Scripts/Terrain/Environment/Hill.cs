@@ -106,6 +106,7 @@ namespace Terrain.Environment
 
         public void ResetToInitialState()
         {
+            gameObject.SetActive(true);
             transform.position = startingPos;
             accumulatedForce = baseForce;
         }

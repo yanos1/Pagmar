@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Terrain.Environment
 {
-    public class ShakyFallingTree : MonoBehaviour, IBreakable
+    public class ShakyFallingTree : MonoBehaviour, IBreakable, IResettable
     {
         public int hitThreshold = 3;
         public float fallForce = 30f;
@@ -100,6 +100,14 @@ namespace Terrain.Environment
         public void OnHit(Vector2 hitDir, PlayerStage stage)
         {
             return;
+        }
+
+        public void ResetToInitialState()
+        {
+            rb2D.angularVelocity = 0;
+            transform.rotation = Quaternion.identity;
+            rb2D.bodyType = RigidbodyType2D.Kinematic;
+            
         }
     }
 }

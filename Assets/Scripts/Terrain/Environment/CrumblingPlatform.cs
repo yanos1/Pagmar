@@ -35,7 +35,7 @@ namespace Terrain.Environment
             {
                 hasCrumbled = true;
                 Invoke(nameof(Crumble), crumbleDelay);
-                Invoke(nameof(ResetToInitialState),5);
+                // Invoke(nameof(ResetToInitialState),5);
 
             }
 
@@ -43,8 +43,7 @@ namespace Terrain.Environment
 
         public void CrumbleQuick()
         {
-            col.enabled = false;
-            sr.DOFade(0f, crumbleDuration);
+            sr.DOFade(0f, crumbleDuration).OnComplete(DisablePlatform);
         }
         private void Crumble()
         {
@@ -59,16 +58,15 @@ namespace Terrain.Environment
 
         private void DisablePlatform()
         {
-            col.enabled = false;
+            gameObject.SetActive(false);
         }
 
         public virtual void ResetToInitialState()
         {
-            
+            gameObject.SetActive(true);
             hasCrumbled = false;
             transform.position = initialPosition;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
-            col.enabled = true;
         }
     }
 }

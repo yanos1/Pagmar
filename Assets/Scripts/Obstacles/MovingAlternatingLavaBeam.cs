@@ -31,6 +31,7 @@ namespace Obstacles
                 {
                     startFeedbacks?.PlayFeedbacks();
                     yield return new WaitForSeconds(offTime - warningTime);
+                    warning.transform.position = new Vector3(transform.position.x, CoreManager.Instance.Player.transform.position.y + 2.3f, 0);
                     StartCoroutine(UtilityFunctions.FadeImage(warning, 0.6f, 0, warningTime, null));
                     yield return new WaitForSeconds(warningTime);
                 }

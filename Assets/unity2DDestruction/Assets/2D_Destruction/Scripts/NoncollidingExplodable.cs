@@ -22,7 +22,10 @@ namespace unity2DDestruction.Assets._2D_Destruction.Scripts
 
         private IEnumerator CheckFragmentsRoutine()
         {
-            yield return new WaitForSeconds(2f); // Initial delay
+            yield return new WaitForSeconds(1.2f); // Initial delay
+
+            // Create a LayerMask for the ground (make sure "Ground" layer exists)
+            int groundLayerMask = LayerMask.GetMask("Ground");
 
             while (!stop)
             {
@@ -30,11 +33,28 @@ namespace unity2DDestruction.Assets._2D_Destruction.Scripts
 
                 foreach (var frag in fragments)
                 {
+                    if (frag == null) continue;
+
                     var rb = frag.GetComponent<Rigidbody2D>();
-                    if (rb.linearVelocity.magnitude < 2)
+                    var col = frag.GetComponent<Collider2D>();
+
+                    // Check if it's already stopped
+                    if (rb.linearVelocity.magnitude < 2f)
                     {
-                        frag.GetComponent<Collider2D>().enabled = false;
-                        rb.bodyType = RigidbodyType2D.Static;
+                        // Raycast down from the fragment's position
+                        RaycastHit2D hit = Physics2D.Raycast(frag.transform.position, Vector2.down, 0.1f, groundLayerMask);
+
+
+                        // Only disable collider and make static if touching the ground
+                        if (hit.collider != null)
+                        {
+                            col.enabled = false;
+                            rb.bodyType = RigidbodyType2D.Static;
+                        }
+                        else
+                        {
+                            anyActive = true;
+                        }
                     }
                     else
                     {
@@ -46,11 +66,12 @@ namespace unity2DDestruction.Assets._2D_Destruction.Scripts
                 {
                     stop = true;
                     gameObject.SetActive(false);
-                    yield break; // Exit the coroutine
+                    yield break;
                 }
 
-                yield return new WaitForSeconds(0.5f); // Wait before checking again
+                yield return new WaitForSeconds(0.5f);
             }
         }
+
     }
 }

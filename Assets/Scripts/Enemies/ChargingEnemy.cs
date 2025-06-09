@@ -284,7 +284,7 @@ namespace Enemies
         {
             StartCharging();
             
-            FlipTowardsPlayer();
+            FlipSprite(dir.x >0);
             yield return new WaitForSeconds(chargeDelay);
             print("READY TO CHARGE AGAIN -9");
             isPreparingCharge = false;

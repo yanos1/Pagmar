@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using System.Collections.Generic;
+using Interfaces;
 using MoreMountains.Feedbacks;
 using Player;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace Terrain.Environment
         [SerializeField] private MMF_Player hitFeedbacks;
         [SerializeField] private ExplosionForce f;
         [SerializeField] private Explodable e;
+        [SerializeField] private List<CrumblingPlatform> branches;
 
         void Start()
         {
@@ -60,7 +62,10 @@ namespace Terrain.Environment
         void FallRight()
         {
             hasFallen = true;
-
+            foreach (var branch in branches)
+            {
+                branch.CrumbleQuick();
+            }
             if (rb2D != null)
             {
                 rb2D.bodyType = RigidbodyType2D.Dynamic;
@@ -84,6 +89,10 @@ namespace Terrain.Environment
 
         public void OnBreak()
         {
+            foreach (var branch in branches)
+            {
+                branch.CrumbleQuick();
+            }
             e.explode();
             f.doExplosion(f.transform.position);
         }

@@ -2,6 +2,7 @@
 using System.Collections;
 using Interfaces;
 using Managers;
+using MoreMountains.Feedbacks;
 using SpongeScene;
 using Terrain.Environment;
 
@@ -11,17 +12,18 @@ namespace Obstacles
 
     public class AlternatingLavaBeam : MonoBehaviour, IKillPlayer, IResettable
     {
-        [SerializeField] private SpriteRenderer beamSprite;
-        [SerializeField] private SpriteRenderer warning;
-        [SerializeField] private float warningTime;
-        [SerializeField] private float delayBeforeFirstBeam;
-        [SerializeField] private float offTime = 5f;
-        [SerializeField] private float onTime = 2.5f;
-        [SerializeField] private EventNames onFinished;
-        private Collider2D col;
-        private Coroutine toggleCoroutine;
-        private bool isOff = true;
-        private bool isFirst = true;
+        [SerializeField] protected SpriteRenderer beamSprite;
+        [SerializeField] protected SpriteRenderer warning;
+        [SerializeField] protected float warningTime;
+        [SerializeField] protected float delayBeforeFirstBeam;
+        [SerializeField] protected float offTime = 5f;
+        [SerializeField] protected float onTime = 2.5f;
+        [SerializeField] protected EventNames onFinished;
+        protected Collider2D col;
+        protected Coroutine toggleCoroutine;
+        protected bool isOff = true;
+        protected bool isFirst = true;
+        [SerializeField] protected MMF_Player startFeedbacks;
         private void Start()
         {
          
@@ -30,12 +32,12 @@ namespace Obstacles
             
         }
 
-        public void StartBeam()
+        public virtual void StartBeam()
         {
              this.StopAndStartCoroutine(ref toggleCoroutine, ToggleBeam());
         }
 
-        private IEnumerator ToggleBeam()
+        public virtual IEnumerator ToggleBeam()
         {
             yield return new WaitForSeconds(delayBeforeFirstBeam);
             while (true)
@@ -43,6 +45,7 @@ namespace Obstacles
 
                 if (isOff)
                 {
+                    startFeedbacks?.PlayFeedbacks();
                     if (isFirst)
                     {
                         isFirst = false;
@@ -77,7 +80,7 @@ namespace Obstacles
             return true;
         }
 
-        public void ResetToInitialState()
+        public virtual void ResetToInitialState()
         {
             StopAllCoroutines();
             var c = warning.color;

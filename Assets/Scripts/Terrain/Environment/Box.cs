@@ -64,8 +64,11 @@ namespace Terrain.Environment
 
         public void OnBreak()
         {
-            e.explode();
-            f.doExplosion(transform.position);
+            if (e is not null && f is not null)
+            {
+                e.explode();
+                f.doExplosion(transform.position);
+            }
         }
 
         public void OnHit(Vector2 hitDirection, PlayerStage stage)

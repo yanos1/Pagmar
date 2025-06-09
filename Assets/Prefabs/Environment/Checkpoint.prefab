@@ -150,6 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newStage: 0
   checkpointFeedback: {fileID: 1446747246893698919}
+  callEventOnReach: 0
+  onReached: 0
 --- !u!114 &1446747246893698919
 MonoBehaviour:
   m_ObjectHideFlags: 0

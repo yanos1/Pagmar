@@ -16,7 +16,6 @@ namespace Obstacles.Shooters
 
         [SerializeField] private float warningDuration = 2;
 
-        [SerializeField] private SpriteRenderer[] warningRenderers;
         [SerializeField] private GameObject warningPrefab;
         private bool triggered = false;
 

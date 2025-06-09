@@ -10,7 +10,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
     [Range(0f, 100f)]
     public float currentDamage = 0f;
 
-    [SerializeField] private float passiveHealRate = 2f; // % per second
+    [SerializeField] private float passiveHealRate = 2.7f; // % per second
     [SerializeField] private HornDamageHandlerUI damageUI;
 
     private bool isDead = false;

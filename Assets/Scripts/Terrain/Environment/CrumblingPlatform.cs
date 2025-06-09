@@ -41,6 +41,11 @@ namespace Terrain.Environment
 
         }
 
+        public void CrumbleQuick()
+        {
+            col.enabled = false;
+            sr.DOFade(0f, crumbleDuration);
+        }
         private void Crumble()
         {
             // if (animator != null)
@@ -49,7 +54,6 @@ namespace Terrain.Environment
             transform.DOMoveY(transform.position.y - 2f, crumbleDuration) 
                 .SetEase(Ease.InQuad);
             sr.DOFade(0f, crumbleDuration).OnComplete(DisablePlatform);
-            col.enabled = false;
             
         }
 

@@ -4,92 +4,72 @@ using Interfaces;
 using Managers;
 using SpongeScene;
 using Terrain.Environment;
+using UnityEngine;
 
 namespace Obstacles
 {
-    using UnityEngine;
-
-    public class MovingAlternatingLavaBeam : MonoBehaviour, IKillPlayer, IResettable
+    public class MovingAlternatingLavaBeam : AlternatingLavaBeam
     {
-        [SerializeField] private SpriteRenderer beamSprite;
-        [SerializeField] private SpriteRenderer warning;
-        [SerializeField] private float warningTime;
-        [SerializeField] private float delayBeforeFirstBeam;
-        [SerializeField] private float offTime = 5f;
-        [SerializeField] private float onTime = 2.5f;
-        [SerializeField] private EventNames onFinished;
-        private Collider2D col;
-        private Coroutine toggleCoroutine;
-        private bool isOff = true;
-        private bool isFirst = true;
-        private void Start()
+        
+        [SerializeField] private float targetXPosition;
+        private bool hasReachedTarget;
+        private Vector3 startingPos;
+        
+        public override void StartBeam()
         {
-         
-            beamSprite = GetComponent<SpriteRenderer>();
-            col = GetComponent<Collider2D>();
-            StartBeam();
-            
-        }
-
-        public void StartBeam()
-        {
-             this.StopAndStartCoroutine(ref toggleCoroutine, ToggleBeam());
+            startingPos = transform.position;
+            this.StopAndStartCoroutine(ref toggleCoroutine, ToggleBeam());
         }
 
         private IEnumerator ToggleBeam()
         {
             yield return new WaitForSeconds(delayBeforeFirstBeam);
-            while (true)
-            {
 
+            while (!hasReachedTarget)
+            {
                 if (isOff)
                 {
-                    // if (isFirst)
-                    // {
-                    //     isFirst = false;
-                    //     yield return new WaitForSeconds((offTime - warningTime) /2);
-                    // }
-                    // else
-                    {
-                        yield return new WaitForSeconds((offTime - warningTime));
-                    }
+                    startFeedbacks?.PlayFeedbacks();
+                    yield return new WaitForSeconds(offTime - warningTime);
                     StartCoroutine(UtilityFunctions.FadeImage(warning, 0.6f, 0, warningTime, null));
-                    
-            
                     yield return new WaitForSeconds(warningTime);
                 }
                 else
                 {
                     yield return new WaitForSeconds(onTime);
                 }
+
                 isOff = !isOff;
-                beamSprite.enabled = !beamSprite.enabled;
-                col.enabled = !col.enabled;
+
+                // Only turn ON if still within target
+                if (!isOff && transform.position.x >= targetXPosition)
+                {
+                    hasReachedTarget = true;
+                    beamSprite.enabled = false;
+                    col.enabled = false;
+                    yield break;
+                }
+
+                beamSprite.enabled = !isOff;
+                col.enabled = !isOff;
+
                 if (onFinished is not EventNames.None && col.enabled == false)
                 {
                     CoreManager.Instance.EventManager.InvokeEvent(onFinished, null);
                 }
-                transform.position += Vector3.right*4.1f;
+                float beamAdvanceDistance = 4.3f;
+                Vector3 futurePos = transform.position + Vector3.right * beamAdvanceDistance;
+                warning.transform.position = new Vector3(futurePos.x, CoreManager.Instance.Player.transform.position.y + 2.3f, 0);
+                transform.position = futurePos;
+
             }
         }
-
-        public bool IsDeadly()
+        
+        public override void ResetToInitialState()
         {
-            return true;
-        }
-
-        public void ResetToInitialState()
-        {
-            StopAllCoroutines();
-            var c = warning.color;
-            c.a = 0;
-            warning.color = c;
-            beamSprite.enabled = false;
-            col.enabled =false;
-
-
-            isFirst = true;
-            isOff = true;
+           base.ResetToInitialState();
+           transform.position = startingPos;
+           hasReachedTarget = false;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -101,11 +81,9 @@ namespace Obstacles
 
             if (other.CompareTag("Rock"))
             {
-                print(("found rock"));
+                Debug.Log("Found rock");
                 other.gameObject.SetActive(false);
             }
         }
     }
-
 }
-

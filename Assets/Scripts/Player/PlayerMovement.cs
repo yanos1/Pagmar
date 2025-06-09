@@ -410,16 +410,15 @@ public class PlayerMovement : MonoBehaviour
         // Draw wall ray
         var enemyRay = Physics2D.Raycast(wallCheckPosition.position, dir.normalized, 0.35f, enemyLayer); // enemies hit are too quick for 0.1 distance for some reason
         var hitWallRay = Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0);
-
+    
 
         bool wallRayHit = hitWallRay != null && hitWallRay.gameObject.layer != LayerMask.NameToLayer("Trigger");
-
+        
         // Draw ceiling ray
         Debug.DrawRay(cielingCheckPos.position, Vector2.up * 0.1f, Color.green);
 
         var hitCeilingRay = Physics2D.Raycast(cielingCheckPos.position, Vector2.up, 0.1f);
-        bool ceilingHit = hitCeilingRay.collider != null && hitCeilingRay.collider.gameObject.layer != LayerMask.NameToLayer("Trigger");
-
+        bool ceilingHit = hitCeilingRay.collider != null && hitCeilingRay.collider.gameObject.layer != LayerMask.GetMask("Trigger");
         return enemyRay.collider is not null || wallRayHit || ceilingHit;
     }
 
@@ -555,6 +554,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (HornDamageManager.Instance.allowHornDamage && IsHittingSomething(dir))
             {
+                print("hit something!!");
                 hornDamageHandler.AddDamage();
             }
             

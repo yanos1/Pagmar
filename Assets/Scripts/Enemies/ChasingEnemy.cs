@@ -16,7 +16,7 @@ public class ChasingEnemy : Rammer, IResettable
     private Vector3 resetPosition;
     private bool chase = false;
 
-    private float positionHistoryDuration = 2.6f;
+    private float positionHistoryDuration = 3.1f;
     private List<(float time, Vector3 position)> positionHistory = new List<(float, Vector3)>();
 
     private void OnEnable()
@@ -102,7 +102,7 @@ public class ChasingEnemy : Rammer, IResettable
         Vector3 targetResetPosition;
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-        if (distanceToPlayer < 3f && positionHistory.Count > 0)
+        if (distanceToPlayer < 5f && positionHistory.Count > 0)
         {
             targetResetPosition = positionHistory[0].position;
         }

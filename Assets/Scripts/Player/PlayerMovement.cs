@@ -570,7 +570,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (HornDamageManager.Instance.allowHornDamage && IsHittingSomething(dir))
             {
-                print("hit something!!");
                 hornDamageHandler.AddDamage();
             }
 

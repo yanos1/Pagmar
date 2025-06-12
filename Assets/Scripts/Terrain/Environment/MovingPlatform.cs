@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Xml.Schema;
+using Enemies;
 using Interfaces;
 using Player;
 using SpongeScene;
@@ -57,6 +58,8 @@ namespace Terrain.Environment
         }
         private IEnumerator MovePlatform()
         {
+            print("move platform!");
+
             if (hasMoved) yield break;
             hasMoved = true;
             
@@ -126,10 +129,6 @@ namespace Terrain.Environment
             transform.position = startPos;
             hasMoved = false;
         }
-        
-        
-        
-        
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -140,10 +139,17 @@ namespace Terrain.Environment
                 this.StopAndStartCoroutine(ref moveCoroutine, MovePlatformHalfwayFast());
                 return;
             }
+
+            if (collision.collider.gameObject.GetComponent<ChargingEnemy>() is not null)
+            {
+                print("found chargig enemy!!");
+                collision.collider.transform.SetParent(transform);
+            }
             
             PlayerMovement player = collision.collider.GetComponent<PlayerMovement>();
             if (player is not null)
             {
+                print("player hit platform");
 
                 // Attach player to platform
                 if (player.GroundCheckPos.y -0.2f> transform.position.y )
@@ -169,12 +175,15 @@ namespace Terrain.Environment
                 Vector3 playerPos = player.transform.position;
 
                 if (Vector3.Dot(dashDir.normalized, triggerDirection.normalized) < 0.9f)
+                {
+                    print("direction is wrong!");
                     return;
+                }
 
                 Vector3 fromDirection = (transform.position - playerPos).normalized;
-                if (Vector3.Dot(fromDirection, triggerDirection.normalized) < 0.5f)
-                    return;
-                
+                // if (Vector3.Dot(fromDirection, triggerDirection.normalized) < 0.5f)
+                //     return;
+                print("player passed checks");
                 if (moveslightlyCor is not null) StopCoroutine(moveslightlyCor);
                 moveCoroutine = StartCoroutine(MovePlatform());
                 nextPlatformMove?.Invoke();
@@ -274,6 +283,11 @@ namespace Terrain.Environment
         {
             PlayerManager player = collision.collider.GetComponent<PlayerManager>();
             if (player)
+            {
+                collision.collider.transform.SetParent(null);
+            }
+            
+            if (collision.collider.gameObject.GetComponent<ChargingEnemy>() is not null)
             {
                 collision.collider.transform.SetParent(null);
             }

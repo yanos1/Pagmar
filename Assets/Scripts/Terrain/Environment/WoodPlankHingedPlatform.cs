@@ -8,17 +8,17 @@ namespace Terrain.Environment
 {
     public class WoodPlankHingedPlatform : MonoBehaviour, IBreakable, IResettable
     {
-        [Header("Setup")]
-        [SerializeField] private HingeJoint2D hinge;
+        [Header("Setup")] [SerializeField] private HingeJoint2D hinge;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private GameObject woodPlankPrefab;
         [SerializeField] private bool spawnNewPlank = true;
 
-        [Header("Angle Settings")]
-        [SerializeField] private float angleThreshold = 87.2f;
+        [Header("Angle Settings")] [SerializeField]
+        private float angleThreshold = 87.2f;
 
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private bool playerMustBeFromLeft = false;
+        [SerializeField] private bool playerMustBeFromRight = false;
         private float initialRotation;
         private bool isFalling = false;
         private Vector3 spawnPoint;
@@ -61,7 +61,11 @@ namespace Terrain.Environment
 
         public void OnHit(Vector2 hitDir, PlayerStage stage)
         {
-            if (isFalling || playerMustBeFromLeft && CoreManager.Instance.Player.transform.position.x -0.1f > transform.position.x) return;
+            if (isFalling ||
+                (playerMustBeFromLeft &&
+                 CoreManager.Instance.Player.transform.position.x - 0.1f > transform.position.x) ||
+                 (playerMustBeFromRight &&
+                  CoreManager.Instance.Player.transform.position.x + 0.1f < transform.position.x)) return;
 
             isFalling = true;
             hinge.enabled = true;
@@ -114,6 +118,7 @@ namespace Terrain.Environment
                     Destroy(plank);
                 }
             }
+
             spawnedPlanks.Clear();
 
             // Reset transform

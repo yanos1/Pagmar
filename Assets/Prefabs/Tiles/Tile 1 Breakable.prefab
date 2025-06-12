@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2024317688037706145, guid: f302357888a4e2b46b1ca8042fa18420, type: 3}
+      propertyPath: m_Area
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2024317688037706145, guid: f302357888a4e2b46b1ca8042fa18420, type: 3}
+      propertyPath: m_OverrideArea
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3401355699502075750, guid: f302357888a4e2b46b1ca8042fa18420, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -50,10 +58,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8451763539636509651, guid: f302357888a4e2b46b1ca8042fa18420, type: 3}
       propertyPath: m_Name
-      value: Tile 1
+      value: Tile 1 Breakable
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -2024317688037706145, guid: f302357888a4e2b46b1ca8042fa18420, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8451763539636509651, guid: f302357888a4e2b46b1ca8042fa18420, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1260010702982030561}
   m_SourcePrefab: {fileID: 100100000, guid: f302357888a4e2b46b1ca8042fa18420, type: 3}
+--- !u!1 &7563306375043372009 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8451763539636509651, guid: f302357888a4e2b46b1ca8042fa18420, type: 3}
+  m_PrefabInstance: {fileID: 2142852760612735034}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1260010702982030561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7563306375043372009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 716038785842691768, guid: 59ff23b9b74daa944b851292654842ba, type: 3}
+      propertyPath: m_Area
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 716038785842691768, guid: 59ff23b9b74daa944b851292654842ba, type: 3}
+      propertyPath: m_OverrideArea
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3401355699502075750, guid: 59ff23b9b74daa944b851292654842ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -50,10 +58,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8451763539636509651, guid: 59ff23b9b74daa944b851292654842ba, type: 3}
       propertyPath: m_Name
-      value: Tile 3
+      value: Tile 3 B
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 716038785842691768, guid: 59ff23b9b74daa944b851292654842ba, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8451763539636509651, guid: 59ff23b9b74daa944b851292654842ba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5058565953373639540}
   m_SourcePrefab: {fileID: 100100000, guid: 59ff23b9b74daa944b851292654842ba, type: 3}
+--- !u!1 &7901962612876272654 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8451763539636509651, guid: 59ff23b9b74daa944b851292654842ba, type: 3}
+  m_PrefabInstance: {fileID: 1793517911433396189}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-5058565953373639540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7901962612876272654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

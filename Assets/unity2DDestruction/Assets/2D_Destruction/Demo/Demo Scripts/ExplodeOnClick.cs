@@ -4,6 +4,7 @@ using System.Collections;
 public class ExplodeOnClick : MonoBehaviour {
 
 	private Explodable _explodable;
+	public ExplosionForce f;
 
 	void Start()
 	{
@@ -12,7 +13,6 @@ public class ExplodeOnClick : MonoBehaviour {
 	void OnMouseDown()
 	{
 		_explodable.explode();
-		ExplosionForce ef = GameObject.FindObjectOfType<ExplosionForce>();
-		ef.doExplosion(transform.position);
+		f.doExplosion(f.transform.position);
 	}
 }

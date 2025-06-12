@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2215729517709311265, guid: 58440f2dbba74284f9a65f2627b5aff8, type: 3}
       propertyPath: m_Name
-      value: tilesNew_37
+      value: tilesNew_37 B
       objectReference: {fileID: 0}
     - target: {fileID: 3684883196649496226, guid: 58440f2dbba74284f9a65f2627b5aff8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52,8 +52,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2215729517709311265, guid: 58440f2dbba74284f9a65f2627b5aff8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8106244894822226791}
   m_SourcePrefab: {fileID: 100100000, guid: 58440f2dbba74284f9a65f2627b5aff8, type: 3}
+--- !u!1 &6543483361188104164 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2215729517709311265, guid: 58440f2dbba74284f9a65f2627b5aff8, type: 3}
+  m_PrefabInstance: {fileID: 4931658416887364293}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8106244894822226791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6543483361188104164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

@@ -23,6 +23,7 @@ namespace Triggers
         [SerializeField] MMF_Player checkpointFeedback;
         [SerializeField] private bool callEventOnReach;
         [SerializeField] private EventNames onReached;
+        [SerializeField] private float onReachedDelay;
 
         public void RestoreCheckpointState()
         {
@@ -54,7 +55,7 @@ namespace Triggers
 
                 if (callEventOnReach)
                 {
-                    StartCoroutine(UtilityFunctions.WaitAndInvokeAction(4f,()=> CoreManager.Instance.EventManager.InvokeEvent(onReached, null)));
+                    StartCoroutine(UtilityFunctions.WaitAndInvokeAction(onReachedDelay,()=> CoreManager.Instance.EventManager.InvokeEvent(onReached, null)));
                 }
                 
                 recordedNpc = player.GetFollowedBy();

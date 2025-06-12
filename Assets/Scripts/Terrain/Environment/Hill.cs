@@ -20,10 +20,12 @@ namespace Terrain.Environment
         [SerializeField] private ExplosionForce f;
         [SerializeField] private float rayDistance = 0.5f;
         [SerializeField] private LayerMask objectOnTopLayer;
-
+        [SerializeField] private int hitsToDestroy = 1;
         private bool isObjectOnTop = false;
         private float accumulatedForce;
         private Collider2D _collider;
+        private int currentHits;
+
 
         private void Awake()
         {
@@ -98,7 +100,7 @@ namespace Terrain.Environment
                 accumulatedForce += addedForce;
             }
 
-            if (playerStage == PlayerStage.Adult)
+            if (playerStage == PlayerStage.Adult && ++currentHits == hitsToDestroy)
             {
                 OnBreak();
             }
@@ -109,6 +111,7 @@ namespace Terrain.Environment
             gameObject.SetActive(true);
             transform.position = startingPos;
             accumulatedForce = baseForce;
+            currentHits = 0;
         }
     }
 }

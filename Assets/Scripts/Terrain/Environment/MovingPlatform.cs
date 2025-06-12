@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 
 namespace Terrain.Environment
 {
-    public class MovingPlatform : MonoBehaviour, IResettable
+    public class MovingPlatform : MonoBehaviour, IResettable,IBreakable
     {
         [Header("Movement Settings")] 
         [SerializeField] private Vector3 targetOffset;
@@ -26,6 +26,9 @@ namespace Terrain.Environment
         [SerializeField] private float gentleMoveDistance = 0.17f;
         [SerializeField] private float gentleMoveDuration = 0.3f;
         [SerializeField] private AnimationCurve gentleMoveCurve;
+
+        [SerializeField] private Explodable e;
+        [SerializeField] private ExplosionForce f;
         
         
         private Vector3 startPos;
@@ -283,6 +286,22 @@ namespace Terrain.Environment
             moveslightlyCor = null;
             hasMoved = false;
             transform.position = startPos;
+        }
+
+        public void OnBreak()
+        {
+            e.explode();
+            f.doExplosion(f.transform.position);
+        }
+
+        public void OnHit(Vector2 hitDir, PlayerStage stage)  // player stge is max since this aperas only in game end
+        {
+            print("player hit!");
+            if (e is not null && f is not null)
+            {
+                print("break!");
+                OnBreak();
+            }
         }
     }
 }

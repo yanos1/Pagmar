@@ -1750,9 +1750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f96107bd4be88c478cf1d0b15ddac00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolConfigs:
-  - type: 1
-    initialCount: 8
+  poolConfigs: []
 --- !u!4 &932550807
 Transform:
   m_ObjectHideFlags: 0

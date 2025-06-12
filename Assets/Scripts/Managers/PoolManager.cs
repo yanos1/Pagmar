@@ -23,6 +23,7 @@ namespace Managers
         {
             InitializePools();
         }
+        
 
         private void InitializePools()
         {
@@ -88,5 +89,6 @@ namespace Managers
     {
         None = 0,
         Arrow = 1,
+        ExplodableTile = 2,
     }
 }

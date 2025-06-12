@@ -190,10 +190,11 @@ namespace Player
                     RammerManager.Instance.ResolveRam(this, rammer);
                 }
 
-                else if (rammer.GetComponent<ChasingEnemy>() is not null)
+                else if (rammer.GetComponent<ChasingEnemy>() is not null && isDead == false)
                 {
-                    CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
-                    // RammerManager.Instance.ResolveRam(this,rammer);
+                    print("player died");
+                    Die();
+                    RammerManager.Instance.ResolveRam(this, rammer);
                 }
 
                 else if (rammer.GetComponent<ChargingEnemy>() is null)
@@ -323,7 +324,12 @@ namespace Player
             CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
         }
 
-        public void GetMounted()
+        public void Revive()
+        {
+            isDead = false;
+        }
+
+    public void GetMounted()
         {
             _rb.bodyType = RigidbodyType2D.Kinematic;
             // turn right

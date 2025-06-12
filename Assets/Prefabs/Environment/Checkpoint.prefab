@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1804e1a9b54412193ac4c058d77bd8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newStage: 0
+  newStage: -1
   checkpointFeedback: {fileID: 1446747246893698919}
   callEventOnReach: 0
   onReached: 0
@@ -271,7 +271,7 @@ MonoBehaviour:
     - rid: 5373309001589850384
       type: {class: MMF_SpriteRenderer, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
-        Active: 1
+        Active: 0
         UniqueID: 1570169703
         Label: SpriteRenderer
         OriginalLabel: SpriteRenderer
@@ -415,7 +415,7 @@ MonoBehaviour:
     - rid: 5373309001589850385
       type: {class: MMF_Sound, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
-        Active: 1
+        Active: 0
         UniqueID: 1570774048
         Label: Sound
         OriginalLabel: Sound
@@ -540,7 +540,7 @@ MonoBehaviour:
     - rid: 5373309001589850386
       type: {class: MMF_ParticlesInstantiation, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
-        Active: 1
+        Active: 0
         UniqueID: 1845960975
         Label: Particles Instantiation
         OriginalLabel: Particles Instantiation
@@ -633,7 +633,7 @@ MonoBehaviour:
     - rid: 5373309001589850396
       type: {class: MMF_TMPAlpha, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
-        Active: 1
+        Active: 0
         UniqueID: 1616209684
         Label: TMP Alpha
         OriginalLabel: TMP Alpha
@@ -746,7 +746,7 @@ MonoBehaviour:
     - rid: 5373309001589850398
       type: {class: MMF_Position, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
-        Active: 1
+        Active: 0
         UniqueID: 233618254
         Label: Position
         OriginalLabel: Position

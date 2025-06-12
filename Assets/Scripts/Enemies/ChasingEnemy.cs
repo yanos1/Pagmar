@@ -16,11 +16,14 @@ public class ChasingEnemy : Rammer, IResettable
     private Vector3 resetPosition;
     private bool chase = false;
 
+    private float positionHistoryDuration = 2.6f;
+    private List<(float time, Vector3 position)> positionHistory = new List<(float, Vector3)>();
 
     private void OnEnable()
     {
         CoreManager.Instance.EventManager.AddListener(EventNames.ReachedCheckPoint, OnReachedCheckpoint);
     }
+
     private void OnDisable()
     {
         CoreManager.Instance.EventManager.RemoveListener(EventNames.ReachedCheckPoint, OnReachedCheckpoint);
@@ -30,20 +33,17 @@ public class ChasingEnemy : Rammer, IResettable
     {
         if (obj is Vector3 pos)
         {
-            
-                resetPosition = transform.position;
-            
+            resetPosition = transform.position;
         }
     }
 
     void Start()
     {
-        
         agent = GetComponent<NavMeshAgent>();
         col = GetComponent<Collider2D>();
         contactRadius = Mathf.Abs(col.bounds.max.x - transform.position.x);
-        agent.updateRotation = false; // Disable 3D Y-axis rotation
-        agent.updateUpAxis = false;   // Enable 2D plane usage
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
         CurrentForce = 5;
         startingPosition = transform.position;
     }
@@ -52,20 +52,17 @@ public class ChasingEnemy : Rammer, IResettable
     {
         if (!chase) return;
 
-        // Move towards player
-        agent.SetDestination(player.gameObject.transform.position);
+        agent.SetDestination(player.transform.position);
 
-        // Check proximity to resolve ram
         Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
-        Vector2 playerPos = new Vector2(player.gameObject.transform.position.x, player.gameObject.transform.position.y);
+        Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.y);
         float distance = Vector2.Distance(enemyPos, playerPos);
 
         if (distance <= contactRadius)
         {
-            // RammerManager.Instance.ResolveRam(player, this);   this is done from the player now
+            // RammerManager.Instance.ResolveRam(player, this); (Handled by player now)
         }
 
-        // Rotate towards movement direction
         Vector3 velocity = agent.velocity;
         if (velocity.sqrMagnitude > 0.01f)
         {
@@ -74,14 +71,19 @@ public class ChasingEnemy : Rammer, IResettable
             Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         }
+
+        // Track position history for 2-second rewind
+        positionHistory.Add((Time.time, transform.position));
+        while (positionHistory.Count > 0 && Time.time - positionHistory[0].time > positionHistoryDuration)
+        {
+            positionHistory.RemoveAt(0);
+        }
     }
 
     private float MapYToZRotation(float y)
     {
         return Mathf.Lerp(0f, 180f, (y + 1f) / 2f);
     }
-
-
 
     public override void OnRam(Vector2 ramDirNegative, float againstForce)
     {
@@ -95,9 +97,27 @@ public class ChasingEnemy : Rammer, IResettable
 
     public void ResetToInitialState()
     {
-        if(!chase) return;
-        agent.Warp(resetPosition);
+        if (!chase) return;
+
+        Vector3 targetResetPosition;
+        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+
+        if (distanceToPlayer < 3f && positionHistory.Count > 0)
+        {
+            targetResetPosition = positionHistory[0].position;
+        }
+        else
+        {
+            targetResetPosition = resetPosition;
+        }
+
+        // Apply the warp
+        agent.Warp(targetResetPosition);
         agent.isStopped = false;
+
+        // Clear and seed position history with the new reset position
+        positionHistory.Clear();
+        positionHistory.Add((Time.time - positionHistoryDuration, targetResetPosition));
     }
 
     public void StartChase()

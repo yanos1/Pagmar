@@ -14,7 +14,8 @@ namespace Enemies
     {
         public float detectionRange;
         public float chargeSpeed;
-        public float chargeDelay;
+        public float chargeDelay;  // the time from when the player seens the player till a charge is discharged
+        public float chargeCooldown; // time until a new charge can be done
         public float chargeDuration;
         public float rotationAmount = 10f;
         public float rotationSpeed = 5f;
@@ -54,7 +55,6 @@ namespace Enemies
         private const float visibilityThreshold = 0.6f;
         private float visibiliyTimer = 0f;
         private bool falling = false;
-        private float chargeCooldown;
         private float lastChargeTime = 0f;
         private float flipCooldownTimer = 0f;
         private const float flipCooldownDuration = 0.5f;
@@ -63,9 +63,12 @@ namespace Enemies
         private float startDetectionRange;
         private Vector2 baseDir;
         private bool initialized = false;
-        private float ramCd = 0.5f;
+        private float rammedCd = 0.5f;
         private float lastRammedTime;
         private bool isDead = false;
+        private float accumulatedChargePrepareTime = 0;
+        private float currentChargeCooldown;
+        private float currentChargeDelay;
 
         // private void OnEnable()
         // {
@@ -106,7 +109,12 @@ namespace Enemies
             if (flipCooldownTimer > 0f)
                 flipCooldownTimer -= Time.deltaTime;
 
-            if (chargeCooldown > 0) chargeCooldown -= Time.deltaTime;
+            if (isPreparingCharge)
+            {
+                accumulatedChargePrepareTime += Time.deltaTime;
+            }
+
+            if (currentChargeCooldown > 0) currentChargeCooldown -= Time.deltaTime;
             IncrementPlayerVisibleTimer();
 
             float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
@@ -217,7 +225,7 @@ namespace Enemies
         
         private bool  ShouldPrepareCharge(float distanceToPlayer)
         {
-            return chargeCoroutine is null && chargeCooldown <= 0 &&
+            return chargeCoroutine is null && currentChargeCooldown <= 0 &&
                    distanceToPlayer < detectionRange &&
                    !IsCharging &&
                    !isPreparingCharge &&
@@ -268,7 +276,7 @@ namespace Enemies
 
         private IEnumerator FlipSpriteAfterDelay(bool faceRight)
         {
-            yield return new WaitForSeconds(chargeDelay);
+            yield return new WaitForSeconds(currentChargeDelay);
             FlipSprite(faceRight);
         }
 
@@ -285,7 +293,8 @@ namespace Enemies
             StartCharging();
             
             FlipSprite(dir.x >0);
-            yield return new WaitForSeconds(chargeDelay);
+            
+            yield return new WaitForSeconds(currentChargeDelay);
             print("READY TO CHARGE AGAIN -9");
             isPreparingCharge = false;
 
@@ -310,7 +319,7 @@ namespace Enemies
                     break;
                 }
             }
-
+            
             print($"exited while loop , is charging :{IsCharging}, hit wall {HitWall()}");
             print($"timer : {timer} charge time {chargeDuration}");
             StopCharging();
@@ -340,10 +349,25 @@ namespace Enemies
             print("stop charge");
             detectionRange = 60f; // once charged, knows where to fijnd plyer from a distance
             chargeCoroutine = null;
+            isPreparingCharge = false;
             IsCharging = false;
             CurrentForce = 0;
             transform.rotation = Quaternion.identity;
-            chargeCooldown = chargeDelay + 0.5f;
+            currentChargeCooldown = chargeCooldown;
+            accumulatedChargePrepareTime = 0;
+            currentChargeDelay = chargeDelay;
+        }
+        private void AbortCharge()
+        {
+            print("Abort charge");
+            detectionRange = 60f; // once charged, knows where to fijnd plyer from a distance
+            chargeCoroutine = null;
+            IsCharging = false;
+            isPreparingCharge = false;
+            CurrentForce = 0;
+            transform.rotation = Quaternion.identity;
+            currentChargeDelay = chargeDelay-accumulatedChargePrepareTime;
+            print($"NEW CHARGE CD: {chargeDelay}");
         }
 
         private bool HitWall()
@@ -461,8 +485,9 @@ namespace Enemies
             transform.rotation = Quaternion.identity;
             rotationTimer = 0f;
             flipCooldownTimer = 0f;
-            chargeCooldown = 0f;
             _col.enabled = true;
+            currentChargeDelay = chargeDelay;
+            currentChargeCooldown = chargeCooldown;
         }
 
 
@@ -490,7 +515,7 @@ namespace Enemies
             Debug.Log($"Enemy rammed with force {fromForce}");
             print($"hits left {hitsToKill- hitCounter +1}");
 
-            if (Time.time - lastRammedTime > ramCd && ++hitCounter == hitsToKill)
+            if (Time.time - lastRammedTime > rammedCd && ++hitCounter == hitsToKill)
             {
                 lastRammedTime = Time.time;
                 hitFeedbacks?.StopFeedbacks();
@@ -500,7 +525,6 @@ namespace Enemies
 
             hitFeedbacks?.PlayFeedbacks();
 
-            StopCharging();
             isPreparingCharge = false;
             StopAllCoroutines();
         }
@@ -508,7 +532,7 @@ namespace Enemies
         public override void ApplyKnockback(Vector2 direction, float force)
         {
             print($"add force to enemy {force} dir: {direction.normalized}");
-            StopCharging();
+            AbortCharge();
             isKnockbacked = true;
             _col.enabled = false;
             if (gameObject.activeInHierarchy)

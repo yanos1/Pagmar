@@ -61,12 +61,13 @@ namespace Terrain.Environment
 
         public void OnHit(Vector2 hitDir, PlayerStage stage)
         {
+            print("wood hit");
             if (isFalling ||
                 (playerMustBeFromLeft &&
                  CoreManager.Instance.Player.transform.position.x - 0.1f > transform.position.x) ||
                  (playerMustBeFromRight &&
                   CoreManager.Instance.Player.transform.position.x + 0.1f < transform.position.x)) return;
-
+            print("would dynamic");
             isFalling = true;
             hinge.enabled = true;
             rb.bodyType = RigidbodyType2D.Dynamic;

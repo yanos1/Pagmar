@@ -98,6 +98,8 @@ namespace Enemies
             Vector3 scale = transform.localScale;
             scale.x = Mathf.Abs(scale.x) * (currentDirection == Vector2.right ? 1 : -1);
             transform.localScale = scale;
+            currentChargeDelay = chargeDelay;
+            
         }
 
 
@@ -171,7 +173,7 @@ namespace Enemies
             
             
         }
-        private void OnCollisionEnter2D(Collision2D col)
+        private void OnCollisionStay2D(Collision2D col)
         {
             if (sleepAtStart  && col.gameObject.GetComponent<PlayerMovement>() is { } player && player.IsDashing)
             {
@@ -295,7 +297,7 @@ namespace Enemies
             StartCharging();
             
             FlipSprite(dir.x >0);
-            
+            print($"current charge delay {currentChargeDelay}");
             yield return new WaitForSeconds(currentChargeDelay);
             print("READY TO CHARGE AGAIN -9");
             isPreparingCharge = false;

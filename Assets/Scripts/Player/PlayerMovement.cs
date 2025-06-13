@@ -71,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
     private float LastPressedDashTime;
     private bool _canDash = true;
     private float _fallSpeedYDampingChangeThreshold;
+    private bool hitSomethingDuringDash;
     public bool IsFacingRight => _isFacingRight;
     public bool IsDashing => _isDashing;
     public Vector2 DashDirection => _lastDashDir;
@@ -421,23 +422,61 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsHittingSomething(Vector2 dir)
     {
-        // Draw wall ray
-        var enemyRay =
-            Physics2D.Raycast(wallCheckPosition.position, dir.normalized, 0.35f,
-                enemyLayer); // enemies hit are too quick for 0.1 distance for some reason
-        var hitWallRay = Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0,LayerMask.GetMask("Ground","Default","Enemy", "Environment", "WoodPlank"));
+        dir.Normalize();
 
+        // Check ceiling if moving diagonally upward (both x and y are significant)
+        if (dir.x > 0.45f && dir.y > 0.45f)
+        {
+            Debug.DrawRay(cielingCheckPos.position, Vector2.up * 0.1f, Color.green);
+            RaycastHit2D ceilingHit = Physics2D.Raycast(cielingCheckPos.position, Vector2.up, 0.1f);
 
-        bool wallRayHit = hitWallRay != null;
+            if (ceilingHit.collider != null &&
+                ceilingHit.collider.gameObject != gameObject &&
+                ceilingHit.collider.gameObject.layer != LayerMask.NameToLayer("Trigger"))
+            {
+                Debug.Log($"Hit ceiling: {ceilingHit.collider.name}");
+                CheckForBreakable(ceilingHit.collider, dir);
+                return true;
+            }
+        }
+        // Otherwise, default to wall check
+        else
+        {
+            Collider2D wallHit = Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0f,
+                LayerMask.GetMask("Ground", "Default", "Enemy", "Environment", "WoodPlank"));
 
-        // Draw ceiling ray
-        Debug.DrawRay(cielingCheckPos.position, Vector2.up * 0.1f, Color.green);
+            if (IsValidHit(wallHit))
+            {
+                Debug.Log("Hit wall!");
+                CheckForBreakable(wallHit, dir);
+                return true;
+            }
+        }
 
-        var hitCeilingRay = Physics2D.Raycast(cielingCheckPos.position, Vector2.up, 0.1f);
-        bool ceilingHit = hitCeilingRay.collider != null &&
-                          hitCeilingRay.collider.gameObject.layer != LayerMask.NameToLayer("Trigger");
-        return enemyRay.collider is not null || wallRayHit || ceilingHit;
+        return false;
     }
+
+
+    private bool IsValidHit(Collider2D collider)
+    {
+        if (collider)
+        {
+            print($"hit {collider.name} ");
+  
+        }
+        return collider != null && collider.gameObject != gameObject;
+    }
+
+    private void CheckForBreakable(Collider2D collider, Vector2 dir)
+    {
+        var breakable = collider.GetComponent<IBreakable>();
+        if (breakable != null)
+        {
+            print("breakable found");
+            breakable.OnHit(dir, player.playerStage);
+        }
+    }
+
 
     private void WallSlide()
     {
@@ -568,8 +607,10 @@ public class PlayerMovement : MonoBehaviour
 
         while (Time.time - startTime <= dashAttackTime)
         {
-            if (HornDamageManager.Instance.allowHornDamage && IsHittingSomething(dir))
+            if (!hitSomethingDuringDash && HornDamageManager.Instance.allowHornDamage && IsHittingSomething(dir))
             {
+                print("called is hitting something");
+                hitSomethingDuringDash = true;
                 hornDamageHandler.AddDamage();
             }
 
@@ -579,6 +620,8 @@ public class PlayerMovement : MonoBehaviour
                 _rb.gravityScale = WhenStopPressGravity;
                 player.ResetForce();
                 _isDashing = false;
+                print("reset dash from knockback");
+                hitSomethingDuringDash = false;
                 yield break;
             }
 
@@ -596,9 +639,10 @@ public class PlayerMovement : MonoBehaviour
         {
             yield return null;
         }
-
+        print("reset dash");
         player.ResetForce();
         _isDashing = false;
+        hitSomethingDuringDash = false;
     }
     // private IEnumerator CheckHitsWhileDashing()
     // {

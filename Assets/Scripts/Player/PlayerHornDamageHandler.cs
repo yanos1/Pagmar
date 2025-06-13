@@ -60,7 +60,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         {
             Debug.Log("DIE!!!");
             isDead = true;
-            CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
+            CoreManager.Instance.Player.Die();
         }
     }
 

@@ -18,7 +18,6 @@ public class CameraControlTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     { 
-        Debug.Log("Enter");
         if(other.gameObject.CompareTag("Player"))
         {
             if (customInspectorObjects.panCameraOnContact)

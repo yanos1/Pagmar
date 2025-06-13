@@ -164,11 +164,6 @@ namespace Player
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            var breakable = other.gameObject.GetComponent<IBreakable>();
-            if (breakable is not null && _playerMovement.IsDashing)
-            {
-                breakable.OnHit((other.transform.position - transform.position).normalized, playerStage);
-            }
 
             if (other.gameObject.GetComponent<IKillPlayer>() is { } killPlayer && killPlayer.IsDeadly())
             {

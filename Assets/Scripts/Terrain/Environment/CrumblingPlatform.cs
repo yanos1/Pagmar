@@ -49,7 +49,7 @@ namespace Terrain.Environment
         {
             // if (animator != null)
             //     animator.SetTrigger("Crumble");
-
+            col.enabled = false;
             transform.DOMoveY(transform.position.y - 2f, crumbleDuration) 
                 .SetEase(Ease.InQuad);
             sr.DOFade(0f, crumbleDuration).OnComplete(DisablePlatform);
@@ -67,6 +67,7 @@ namespace Terrain.Environment
             hasCrumbled = false;
             transform.position = initialPosition;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
+            col.enabled = true;
         }
     }
 }

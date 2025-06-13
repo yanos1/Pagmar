@@ -13,14 +13,14 @@ namespace Managers
         {
             CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, OnEnterCutScene);
             // CoreManager.Instance.EventManager.AddListener(EventNames.AllowCutSceneInput, AlowCutSceneInput);
-            // CoreManager.Instance.EventManager.AddListener(EventNames.EndCutScene, OnEndCutScene);
+            CoreManager.Instance.EventManager.AddListener(EventNames.EndCutScene, OnEndCutScene);
         }
         
         private void OnDisable()
         {
             CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, OnEnterCutScene);
             // CoreManager.Instance.EventManager.RemoveListener(EventNames.AllowCutSceneInput, AlowCutSceneInput);
-            // CoreManager.Instance.EventManager.RemoveListener(EventNames.EndCutScene, OnEndCutScene);
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.EndCutScene, OnEndCutScene);
         }
         
         public void OnEndCutScene(object obj)

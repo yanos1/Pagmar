@@ -106,12 +106,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, OnEnterCutScene);
+        CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, StopAllMovement);
     }
 
     private void OnDisable()
     {
-        CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, OnEnterCutScene);
+        CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, StopAllMovement);
     }
 
 
@@ -159,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
         UpdateAnimation();
     }
 
-    private void OnEnterCutScene(object obj)
+    public void StopAllMovement(object obj)
     {
         _rb.linearVelocity = Vector2.zero;
         _moveInputX = 0;

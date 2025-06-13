@@ -27,13 +27,13 @@ namespace Camera
 
         public void ZoomIn()
         {
-            StartCoroutine(SmoothZoom(5f, 0.24f, new Vector3(0, 1.5f, 0)));
+            StartCoroutine(SmoothZoom(2f, 17f, new Vector3(0, 1.5f, 0)));
         }
 
         public void ResetZoom()
         {
             print("12 reset zoom");
-            StartCoroutine(SmoothZoom(0.5f, originalCameraDistance, originalTargetOffset));
+            StartCoroutine(SmoothZoom(0.2f, originalCameraDistance, originalTargetOffset));
         }
 
         private IEnumerator SmoothZoom(float duration, float targetDistance, Vector3 targetOffset)

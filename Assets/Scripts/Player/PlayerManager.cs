@@ -17,6 +17,8 @@ namespace Player
         private PlayerSoundHandler soundHandler;
         private Npc followedBy;
 
+        [SerializeField] private MMF_Player liftFeedbacks;
+
         [SerializeField] private SpineControl spineControl;
         [SerializeField] private PlayerStage _playerStage = PlayerStage.Young;
         [SerializeField] private SpineControl _spineControl;
@@ -26,6 +28,10 @@ namespace Player
         private bool isKnockbacked = false;
         private bool inputEnabled = true;
         private float hitDamage = 0.5f;
+        
+        private float lastRammedTime = -1f;
+        private int ramComboCount = 0;
+        private const float comboTimeWindow = 0.5f;
         public bool InputEnabled => inputEnabled;
 
         public void DisableInput()
@@ -274,25 +280,34 @@ namespace Player
             InjuryManager.Instance.ApplyDamage(hitDamage * fromForce);
             _damageHandler.AddDamage(hitDamage * 100);
             spineControl.PlayAnimationOnBaseTrack("hit", false);
+
+            float currentTime = Time.time;
+
+            // Check if current ram is within combo window
+            if (currentTime - lastRammedTime <= comboTimeWindow)
+            {
+                ramComboCount++;
+            }
+            else
+            {
+                ramComboCount = 1;
+            }
+
+            lastRammedTime = currentTime;
+
         }
 
-        private IEnumerator DieAfterDelay()
-        {
-            DisableInput();
-            isDead = true;
-            print($"input enabled: {InputEnabled}");
-            yield return new WaitForSeconds(2f);
-            CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
-            InjuryManager.Instance.Heal();
-            EnableInput();
-            print($"input enabled: {InputEnabled}");
-            isDead = false;
-            isKnockbacked = false;
-            _rb.linearVelocity = Vector2.zero;
-        }
 
         public override void ApplyKnockback(Vector2 direction, float force)
         {
+            if (ramComboCount > 1 && !liftFeedbacks.IsPlaying && CoreManager.Instance.GameManager.InCutScene)  // this is horrilbe code. i just dont ahve time.
+            {
+                liftFeedbacks?.PlayFeedbacks();
+                return;
+            } else if (liftFeedbacks.IsPlaying)
+            {
+                return;
+            }
             DisableInput();
             isKnockbacked = true;
             StartCoroutine(ReturnInputAfterRammed());
@@ -321,12 +336,14 @@ namespace Player
         public void Die()
         {
             isDead = true;
+            isKnockbacked = false;
             CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
         }
 
         public void Revive()
         {
             isDead = false;
+            _playerMovement.StopAllMovement(null);
         }
 
     public void GetMounted()
@@ -351,6 +368,19 @@ namespace Player
         public void StopAllMovement()
         {
             _rb.linearVelocity = Vector2.zero;
+        }
+
+        public void DisableInputForDuration(float seconds)
+        {
+            StartCoroutine(DisableInputForDurationCoroutine( seconds));
+        }
+
+        private IEnumerator DisableInputForDurationCoroutine(float seconds)
+        {
+            yield return new WaitUntil(() => isDead == false); //reset maanger will give input back after player died, we wait and then disable it for 4 seconds
+            DisableInput();
+            yield return new WaitForSeconds(seconds);
+            EnableInput();
         }
     }
 }

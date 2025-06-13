@@ -55,4 +55,10 @@ public class GlobalActions : MonoBehaviour
     {
         _canvas.TurnOnTextForDuration();
     }
+
+    public void EndCutScene()
+    {
+        print("called end cutscne");
+        CoreManager.Instance.EventManager.InvokeEvent(EventNames.EndCutScene, null);
+    }
 }

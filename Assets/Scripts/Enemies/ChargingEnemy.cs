@@ -70,6 +70,8 @@ namespace Enemies
         private float currentChargeCooldown;
         private float currentChargeDelay;
 
+
+        public bool IsDead => isDead;
         // private void OnEnable()
         // {
         //     if (!initialized)
@@ -465,6 +467,7 @@ namespace Enemies
             detectionRange = startDetectionRange;
             IsCharging = false;
             isPreparingCharge = false;
+            isKnockbacked = false;
             hit = false;
             hitCounter = 0;
             falling = false;

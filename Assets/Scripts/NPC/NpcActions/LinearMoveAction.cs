@@ -23,6 +23,9 @@ namespace NPC.NpcActions
             base.StartAction(npc);
             npc.SetState(NpcState.Walking);
             PerformMovement(npc);
+            Vector3 scale = npc.transform.localScale;
+            scale.x = Mathf.Abs(scale.x) * (targetPosition.x > 0 ? 1 : -1);
+            npc.transform.localScale = scale;
         }
 
         protected override void PerformMovement(Npc npc)

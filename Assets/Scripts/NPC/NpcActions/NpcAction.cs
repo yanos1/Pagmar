@@ -41,9 +41,9 @@ namespace NPC.NpcActions
 
         public virtual void ResetAction(Npc npc)
         {
-            Debug.Log($"method called {afterActionCallback?.ToString()}");
             isCompleted = false;
             npc.SetState(NpcState.Idle);
+            Debug.Log($"after action callBack is {afterActionCallback}");
             afterActionCallback?.Invoke();
         }
     }

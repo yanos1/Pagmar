@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Enemies;
 using Interfaces;
+using Managers;
 using NPC.NpcActions;
+using SpongeScene;
 using Terrain;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -36,6 +39,19 @@ namespace NPC
         public NpcState State => state;
         public Rigidbody2D Rb => rb;
         public int ActionIndex => actionIndex;
+
+        private void OnEnable()
+        {
+            CoreManager.Instance.EventManager.AddListener(EventNames.PlayerMeetSmall, OnMeetPlayer);
+        }
+        
+        private void OnDisable()
+        {
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.PlayerMeetSmall, OnMeetPlayer);
+        }
+
+        
+
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
@@ -88,13 +104,15 @@ namespace NPC
 
         private void NextAction()
         {
+            if (actionIndex > 0)
+            {
+                currentAction.ResetAction(this);
+            }
+            
             if (actionIndex < actions.Count)
             {
                 print($"{actionIndex} {actions.Count}");
-                if (actionIndex > 0)
-                {
-                    currentAction.ResetAction(this);
-                }
+                
                 currentAction = actions[actionIndex++];
                 print($"start action {currentAction}");
                 currentAction.StartAction(this);
@@ -155,7 +173,28 @@ namespace NPC
         {
             state = newState;
         }
+
+        public void ResetActions()
+        {
+            Vector3 scale = transform.localScale;
+            scale.x = Mathf.Abs(scale.x) * 1; // turn right
+            transform.localScale = scale;
+            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(2,() =>
+            {
+                actionIndex = 0;
+                StartSequence();
+            }));
+
+        }
         
+        private void OnMeetPlayer(object obj)
+        {
+            print("meet player!");
+            currentAction = null;
+            Vector3 scale = transform.localScale;
+            scale.x = Mathf.Abs(scale.x) * -1; // turn left
+            transform.localScale = scale;
+        }
     }
 
 

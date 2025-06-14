@@ -1,25 +1,37 @@
 ﻿using System;
 using Managers;
 using MoreMountains.Feedbacks;
+using SpongeScene;
 using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GlobalActions : MonoBehaviour
 {
 
     [SerializeField] private MMF_Player slowMotionFeedbacks;
     [SerializeField] private MMF_Player longslowMotionFeedbacks;
-    [SerializeField] private UndergroundCanvas _canvas;
+    [SerializeField] private UndergroundCanvas undergroundCanvas;
+    [SerializeField] private MMF_Player endGameUiFeedbacks;
 
     private void OnEnable()
     {
         CoreManager.Instance.EventManager.AddListener(EventNames.EnterSlowMotion, EnterSlowMotion);
+        CoreManager.Instance.EventManager.AddListener(EventNames.PlayerMeetSmall, EnterEndGamePanel);
     }
 
-    
+  
+
+
     private void OnDisable()
     {
         CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterSlowMotion, EnterSlowMotion);
+        CoreManager.Instance.EventManager.RemoveListener(EventNames.PlayerMeetSmall, EnterEndGamePanel);
+
+    }
+    public void EnterEndGamePanel(object obj)
+    {
+        endGameUiFeedbacks?.PlayFeedbacks();
     }
 
     public void ShowFriendshipComics()
@@ -53,7 +65,7 @@ public class GlobalActions : MonoBehaviour
 
     public void EnableAttackEnemyText()
     {
-        _canvas.TurnOnTextForDuration();
+        undergroundCanvas.TurnOnTextForDuration();
     }
 
     public void EndCutScene()

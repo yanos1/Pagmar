@@ -200,7 +200,6 @@ public class Explodable : MonoBehaviour, IResettable
 
     public void ResetToInitialState()
     {
-        print("reset explodlble");
         GetComponent<Collider2D>().enabled = true;
         // make colorful again
         SpriteRenderer sr = GetComponent<SpriteRenderer>();

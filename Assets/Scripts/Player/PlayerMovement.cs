@@ -435,6 +435,7 @@ public class PlayerMovement : MonoBehaviour
                 ceilingHit.collider.gameObject.layer != LayerMask.NameToLayer("Trigger"))
             {
                 Debug.Log($"Hit ceiling: {ceilingHit.collider.name}");
+                
                 CheckForBreakable(ceilingHit.collider, dir);
                 return true;
             }

@@ -12,6 +12,7 @@ namespace Terrain.Environment
         [SerializeField] private MMF_Player landFeedBacks;
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
+        [SerializeField] private bool canKillPlayer = true;
         protected Rigidbody2D rb;
         private Vector3 startingPos;
 
@@ -21,6 +22,10 @@ namespace Terrain.Environment
             startingPos = transform.position;
         }
 
+        public void Activate()
+        {
+            rb.bodyType = RigidbodyType2D.Dynamic;
+        }
         private System.Collections.IEnumerator ApplyTemporaryVelocity(Vector2 direction, float speed, float duration)
         {
             float timer = 0f;
@@ -36,13 +41,12 @@ namespace Terrain.Environment
 
         public virtual void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.GetComponent<MovingPlatform>())
-            {
-                if (e is not null)
-                e.explode();
-                if (f is not null)
-                f.doExplosion(transform.position);
-            }
+            if (other.gameObject.CompareTag("Rock")) return; // hit tiles, does break!
+            if (e is not null)
+            e.explode();
+            if (f is not null)
+            f.doExplosion(transform.position);
+            
         }
 
         public virtual void ResetToInitialState()
@@ -65,7 +69,7 @@ namespace Terrain.Environment
         public virtual bool IsDeadly()
         {
             print("445 kill player");
-            return true;
+            return rb.linearVelocity.y < 0 && canKillPlayer;
         }
     }
 }

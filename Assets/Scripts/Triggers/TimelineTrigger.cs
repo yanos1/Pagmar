@@ -16,12 +16,13 @@ namespace Triggers
         [SerializeField] private PlayableDirector cutScene;
         [SerializeField] private float delayBeforeStartCutscene;
         [SerializeField] private bool PlaycutSceneOnlyOnce;
+        [SerializeField] private bool playOnAwake = false;
         
 
         public override void OnTriggerEnter2D(Collider2D other) 
         {
             print($"trigged timeline by {other.gameObject.name}");
-            if (!isTriggered && other.CompareTag(trigger) && ++triggered == requiredTriggers)
+            if (!isTriggered && (playOnAwake  || (other.CompareTag(trigger) && ++triggered == requiredTriggers)))
             {
                 isTriggered = true;
                 StartCoroutine(UtilityFunctions.WaitAndInvokeAction(delayBeforeStartCutscene, () =>

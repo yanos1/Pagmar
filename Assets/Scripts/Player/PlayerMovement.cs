@@ -218,10 +218,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.heavyLandSound, transform.position);
             }
-            else
+            else 
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.landSound, transform.position);
             }
+            
 
             isFalling = false;
             timeFalling = 0f;

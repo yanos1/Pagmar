@@ -76,6 +76,7 @@ namespace Player
             print("player listen to cut scen");
             playerStage = playerStage; // swaps animation at start for debug.
             CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, OnEnterCutScene);
+            CoreManager.Instance.EventManager.AddListener(EventNames.EndCutScene, (o) => EnableInput());
             CoreManager.Instance.EventManager.AddListener(EventNames.PlayerMeetSmall, (o) =>
             {
                 print("STOP MOVEMENT");
@@ -87,6 +88,7 @@ namespace Player
         private void OnDisable()
         {
             CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, OnEnterCutScene);
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.EndCutScene, (o) => EnableInput());
             CoreManager.Instance.EventManager.RemoveListener(EventNames.PlayerMeetSmall, (o) => DisableInput());
         }
 

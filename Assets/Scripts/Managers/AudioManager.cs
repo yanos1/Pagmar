@@ -5,6 +5,7 @@ using FMODUnity;
 using JetBrains.Annotations;
 using ScripableObjects;
 using ScriptableObjects;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Managers
 {
@@ -39,6 +40,9 @@ namespace Managers
         {
             RuntimeManager.PlayOneShot(sound, worldPos);
         }
+        
+      
+
 
         public EventInstance CreateEveneInstance(EventReference sound, [CanBeNull] string parameter, [CanBeNull] float parameterValue)
         {

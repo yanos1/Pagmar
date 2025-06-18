@@ -1,5 +1,6 @@
 ﻿using System;
 using Interfaces;
+using Managers;
 using MoreMountains.Feedbacks;
 using SpongeScene;
 using UnityEngine;
@@ -29,6 +30,7 @@ namespace Terrain.House
 
         public void OnEndShake()
         {
+            if(CoreManager.Instance.Player.IsDead) return;  // avoids a bug
             rb.bodyType = RigidbodyType2D.Dynamic;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using Terrain.Environment;
 using Unity.Cinemachine;
 
 namespace Obstacles
@@ -8,7 +9,7 @@ namespace Obstacles
 
     public class FallingStoneController : MonoBehaviour, IResettable
     {
-        [SerializeField] private List<Rigidbody2D> stones;
+        [SerializeField] private List<FallingStone> stones;
         [SerializeField] private Vector2 fallForce;
 
         private int currentIndex = 0;
@@ -26,9 +27,9 @@ namespace Obstacles
 
             if (col.GetComponent<PlayerMovement>() is { } player && player.IsDashing)
             {
-                Rigidbody2D stone = stones[currentIndex];
-                stone.bodyType = RigidbodyType2D.Dynamic;
-                stone.AddForce(fallForce, ForceMode2D.Impulse);
+                FallingStone stone = stones[currentIndex];
+                stone.Activate();
+                stone.GetComponent<Rigidbody2D>().AddForce(fallForce, ForceMode2D.Impulse);
                 currentIndex++;
             }
           

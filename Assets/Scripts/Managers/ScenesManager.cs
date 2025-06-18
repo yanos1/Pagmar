@@ -106,7 +106,7 @@ namespace Managers
             return currentSceneIndex;
         }
 
-        private IEnumerator SwitchScene(int newSceneIndex, bool doFade)
+        private IEnumerator SwitchScene(int newSceneIndex, bool doFade, float delayBetweenFades = 0)
         {
             if (newSceneIndex >= 0 && newSceneIndex < SceneManager.sceneCountInBuildSettings)
             {
@@ -126,7 +126,7 @@ namespace Managers
                             .SetActive(false); // fixes a bug in in input system
                     }
                 }
-
+                
                 CoreManager.Instance.GameManager.OnEndCutScene(null); // returning input if was disabled at the end of the scene.
                 AsyncOperation loadOperation = SceneManager.LoadSceneAsync(newSceneIndex, LoadSceneMode.Additive);
                 while (!loadOperation.isDone)
@@ -160,6 +160,7 @@ namespace Managers
                     yield return null;
                 }
 
+                yield return new WaitForSeconds(delayBetweenFades);
                 if (doFade)
                 {
                     CoreManager.Instance.UiManager.HideLoadingScreen();

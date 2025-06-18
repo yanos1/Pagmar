@@ -1,4 +1,5 @@
 ﻿using Managers;
+using MoreMountains.Feedbacks;
 using Player;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
@@ -12,6 +13,7 @@ namespace Triggers
         [Header("Trigger Settings")] private int triggered = 0;
         [SerializeField] private int requiredTriggers;
         [SerializeField] private EventNames onTrigger;
+        [SerializeField]private MMF_Player triggerFeedbacks;
         
 
         public override void OnTriggerEnter2D(Collider2D other) 
@@ -25,6 +27,7 @@ namespace Triggers
                 {
                     CoreManager.Instance.EventManager.InvokeEvent(onTrigger, null);
                 }
+                triggerFeedbacks?.PlayFeedbacks();
             }
         }
 

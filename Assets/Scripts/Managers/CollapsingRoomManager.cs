@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Feedbacks;
+using Terrain.Environment;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -9,21 +11,34 @@ namespace Managers
     public class CollapsingRoomManager : MonoBehaviour
     {
         [SerializeField] private List<MMF_Player> collapsefeebacks;
+        [SerializeField] private List<FallingStone> stones;
         private int currentIndex = 0;
-
-        private void Start()
-        {
-            collapsefeebacks[currentIndex]?.PlayFeedbacks();
-        }
+        private List<FallingStone> remainingStones;
 
         public void InvokeNextFeedbacks()
         {
             collapsefeebacks[currentIndex]?.StopFeedbacks();
-            if (++currentIndex == collapsefeebacks.Count)
+            collapsefeebacks[currentIndex++]?.PlayFeedbacks();
+            if (currentIndex >= collapsefeebacks.Count)
             {
-                return;
+                print("activate stones");
+                remainingStones = new List<FallingStone>(stones);
+                StartCoroutine(ActivateRandomStones());
             }
-            collapsefeebacks[currentIndex]?.PlayFeedbacks();
+        }
+
+        private IEnumerator ActivateRandomStones()
+        {
+            while (remainingStones.Count > 0)
+            {
+                int randomIndex = UnityEngine.Random.Range(0, remainingStones.Count);
+                FallingStone selectedStone = remainingStones[randomIndex];
+
+                selectedStone.Activate();
+                remainingStones.RemoveAt(randomIndex);
+
+                yield return new WaitForSeconds(1.2f);
+            }
         }
 
         private void OnDestroy()

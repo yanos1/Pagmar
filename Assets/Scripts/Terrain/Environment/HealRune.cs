@@ -20,7 +20,7 @@ namespace Terrain.Environment
 
         private Vector3 _startPos;
         private Rigidbody2D _rb;
-        private Tween _floatTween;
+        protected Tween _floatTween;
         private bool _hasLanded;
 
         private void Awake()
@@ -34,7 +34,7 @@ namespace Terrain.Environment
             ResetToInitialState();
         }
 
-        private void Update()
+        public virtual void Update()
         {
             if (_hasLanded) return;
 
@@ -59,13 +59,12 @@ namespace Terrain.Environment
             _rb.bodyType = RigidbodyType2D.Kinematic;
             _rb.linearVelocity = Vector2.zero;
 
-            // Optional: start floating after landing
             _floatTween = transform.DOMoveY(transform.position.y + floatHeight, floatDuration)
                 .SetLoops(-1, LoopType.Yoyo)
                 .SetEase(Ease.InOutSine);
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        public virtual void OnTriggerEnter2D(Collider2D other)
         {
             if (other.GetComponent<PlayerManager>() != null)
             {

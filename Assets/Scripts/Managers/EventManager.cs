@@ -72,5 +72,6 @@ namespace Managers
         EndCutScene=18,
         EnterSlowMotion=19,
         PlayerMeetSmall=20,
+        BigPickUpHeal = 21,
     }
 }

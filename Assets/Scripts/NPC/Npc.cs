@@ -8,6 +8,7 @@ using Managers;
 using NPC.NpcActions;
 using SpongeScene;
 using Terrain;
+using Terrain.Environment;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -167,6 +168,19 @@ namespace NPC
                 print("RAM ENEMY");
                 enemy.SpecialNpcRam();
             }
+
+            if (other.GetComponent<NpcHealRune>() is { } heal)
+            {
+                Heal();
+                heal.gameObject.SetActive(false);
+            }
+        }
+
+        private void Heal()
+        {
+            CoreManager.Instance.EventManager.InvokeEvent(EventNames.BigPickUpHeal, null);
+            // add effect here
+
         }
 
         public void SetState(NpcState newState)

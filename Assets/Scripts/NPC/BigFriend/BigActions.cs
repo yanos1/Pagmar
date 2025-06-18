@@ -8,7 +8,8 @@ namespace NPC.BigFriend
         [SerializeField] private SpriteRenderer bigSpriteRenderer;
         [SerializeField] private SpriteRenderer questionMarkRenderer;
         [SerializeField] private GameObject questionMark;
-    
+        [SerializeField] private GameObject healText;
+
         public void ShowQuestionMarkForSeconds(float duration = 3f)
         {
             questionMark.SetActive(true);
@@ -16,12 +17,24 @@ namespace NPC.BigFriend
             Sequence seq = DOTween.Sequence();
 
             seq.Append(questionMarkRenderer.DOFade(1f, 0.3f).SetEase(Ease.OutSine)) // Fade in
-                .AppendInterval(duration)                                            // Wait
-                .Append(questionMarkRenderer.DOFade(0f, 0.3f).SetEase(Ease.InSine))  // Fade out
-                .OnComplete(() => questionMark.SetActive(false));                    // Deactivate
+                .AppendInterval(duration) // Wait
+                .Append(questionMarkRenderer.DOFade(0f, 0.3f).SetEase(Ease.InSine)) // Fade out
+                .OnComplete(() => questionMark.SetActive(false)); // Deactivate
         }
 
-        public void ShowBig()
+        public void ShowHealRequest()
+        {
+            // enter animation of tired.
+            healText.SetActive(true);
+        }
+
+        public void RemoveHealRequest()
+        {
+            // enter aniamtion of happy
+            healText.SetActive(false);
+        }
+
+    public void ShowBig()
         {
             print("SHOW BIG111");
             var color = bigSpriteRenderer.color;

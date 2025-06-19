@@ -9,6 +9,7 @@ using ScripableObjects;
 using SpongeScene;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -108,11 +109,14 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, StopAllMovement);
+        CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, OnNewScene);
     }
 
     private void OnDisable()
     {
         CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, StopAllMovement);
+        CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, OnNewScene);
+
     }
 
 
@@ -167,10 +171,29 @@ public class PlayerMovement : MonoBehaviour
         _moveInputY = 0;
         _moveInput = Vector2.zero;
     }
-
-    public Vector3 GetVelocity()
+    
+    
+    private void OnNewScene(object obj)
     {
-        return _rb.linearVelocity;
+        if (SceneManager.GetActiveScene().name == "Falldown")
+        {
+            StartCoroutine(MoveRightForSeconds());
+        
+        }
+    }
+
+    private IEnumerator MoveRightForSeconds()
+    {
+        _moveInputX = 0.79876f;
+        _moveInputY = 0;
+        _moveInput = Vector2.right;
+        yield return new WaitForSeconds(2);
+        if (Mathf.Approximately(_moveInputX, 0.79876f)) // if the player hasnt touchd the input this will be the input and we will stop
+        {
+            _moveInputX = 0;
+            _moveInput.y = 0;
+            _moveInput = Vector2.right;
+        }
     }
 
     private void CheckIfFalling()

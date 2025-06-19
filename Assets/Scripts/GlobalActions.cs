@@ -73,4 +73,14 @@ public class GlobalActions : MonoBehaviour
         print("called end cutscne");
         CoreManager.Instance.EventManager.InvokeEvent(EventNames.EndCutScene, null);
     }
+
+    public void FadeInScreen()
+    {
+        CoreManager.Instance.UiManager.ShowLoadingScreen();
+    }
+    
+    public void FadeOutScreen()
+    {
+        CoreManager.Instance.UiManager.HideLoadingScreen();
+    }
 }

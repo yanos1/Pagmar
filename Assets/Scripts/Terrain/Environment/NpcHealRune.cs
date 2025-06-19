@@ -34,5 +34,12 @@ namespace Terrain.Environment
                 base.Update(); // floats if not carried
             }
         }
+
+        public override void ResetToInitialState()
+        {
+            base.ResetToInitialState();
+            _rb.bodyType = RigidbodyType2D.Kinematic;
+            transform.SetParent(null);
+        }
     }
 }

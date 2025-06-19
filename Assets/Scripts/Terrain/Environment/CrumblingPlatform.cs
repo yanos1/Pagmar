@@ -16,6 +16,7 @@ namespace Terrain.Environment
         private Collider2D col;
         private SpriteRenderer sr;
         private Vector3 initialPosition;
+        [SerializeField] private bool reset = true;
 
         private void Awake()
         {
@@ -63,6 +64,7 @@ namespace Terrain.Environment
 
         public virtual void ResetToInitialState()
         {
+            if (!reset) return;
             gameObject.SetActive(true);
             hasCrumbled = false;
             transform.position = initialPosition;

@@ -19,7 +19,7 @@ namespace Terrain.Environment
         [SerializeField] private float groundCheckDistance = 0.1f;
 
         private Vector3 _startPos;
-        private Rigidbody2D _rb;
+        protected Rigidbody2D _rb;
         protected Tween _floatTween;
         private bool _hasLanded;
 
@@ -80,7 +80,7 @@ namespace Terrain.Environment
             gameObject.SetActive(false);
         }
 
-        public void ResetToInitialState()
+        public virtual void ResetToInitialState()
         {
             transform.position = _startPos;
             gameObject.SetActive(true);

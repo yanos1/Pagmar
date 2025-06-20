@@ -11,6 +11,7 @@ namespace ScripableObjects
         public EventReference fallSound;
         public EventReference landSound;
         public EventReference heavyLandSound;
+        public EventReference dashSound;
         public EventReference damageSound;
         public EventReference deathSound;
         public EventReference attackSound;

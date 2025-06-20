@@ -99,7 +99,7 @@ namespace Player
         {
             for (int i = 0; i <= 6; ++i)
             {
-                materialToSoundMap[i] = CoreManager.Instance.AudioManager.CreateEveneInstance(sounds.walkSound, "Material", i);
+                materialToSoundMap[i] = CoreManager.Instance.AudioManager.CreateEventInstance(sounds.walkSound, "Material", i);
             }
         }
         

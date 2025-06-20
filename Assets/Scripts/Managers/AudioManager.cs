@@ -54,17 +54,18 @@ namespace Managers
       
 
 
-        public EventInstance CreateEveneInstance(EventReference sound, [CanBeNull] string parameter, [CanBeNull] float parameterValue)
+        public EventInstance CreateEventInstance(EventReference sound, [CanBeNull] string parameter = null, float? parameterValue = null)
         {
-           EventInstance instance = RuntimeManager.CreateInstance(sound);
-           if (parameter is not null)
-           {
-               instance.setParameterByName(parameter, parameterValue);
-           }
+            EventInstance instance = RuntimeManager.CreateInstance(sound);
 
-           return instance;
+            if (!string.IsNullOrEmpty(parameter) && parameterValue.HasValue)
+            {
+                instance.setParameterByName(parameter, parameterValue.Value);
+            }
 
+            return instance;
         }
+
         
         public void SetGlobalParameter(string parameter, float value)
         {

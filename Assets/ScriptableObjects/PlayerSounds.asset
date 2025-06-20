@@ -47,6 +47,13 @@ MonoBehaviour:
       Data3: 1252046507
       Data4: -228927305
     Path: event:/Player/PlayerLandHeavy
+  dashSound:
+    Guid:
+      Data1: -1915076882
+      Data2: 1190733247
+      Data3: -884049757
+      Data4: -479417049
+    Path: event:/Player/PlayerRam
   damageSound:
     Guid:
       Data1: 0

@@ -634,6 +634,7 @@ public class PlayerMovement : MonoBehaviour
         dashFeedback?.PlayFeedbacks();
         spineControl.ClearActionAnimation(); // Cancel jump/land/start-jump
         spineControl.PlayAnimation("dashv2", false);
+        CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.dashSound, transform.position);
         // this.StopAndStartCoroutine(ref dashHitCoroutine, CheckHitsWhileDashing());
         _isDashing = true;
         _canDash = false;

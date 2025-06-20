@@ -1,0 +1,1222 @@
+fileFormatVersion: 2
+guid: 9f70699920c5a46668f692f88c3404a8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7587153538265999405
+    second: mentor-cutout_0
+  - first:
+      213: -3174069645339467245
+    second: mentor-cutout_1
+  - first:
+      213: 3305930521895785763
+    second: mentor-cutout_2
+  - first:
+      213: 9026275685805444384
+    second: mentor-cutout_3
+  - first:
+      213: 7687489442309838755
+    second: mentor-cutout_4
+  - first:
+      213: 7396572522662142638
+    second: mentor-cutout_5
+  - first:
+      213: 8660999776942921751
+    second: mentor-cutout_6
+  - first:
+      213: -5774672163842408057
+    second: mentor-cutout_7
+  - first:
+      213: 5447531100428565581
+    second: mentor-cutout_8
+  - first:
+      213: -4006273893228142232
+    second: mentor-cutout_9
+  - first:
+      213: -3649941385437665450
+    second: mentor-cutout_10
+  - first:
+      213: 2208983114799037999
+    second: mentor-cutout_11
+  - first:
+      213: -1635828386064349014
+    second: mentor-cutout_12
+  - first:
+      213: 9212436263785092191
+    second: mentor-cutout_13
+  - first:
+      213: -8035099432299176344
+    second: mentor-cutout_14
+  - first:
+      213: 8862157734755651820
+    second: mentor-cutout_15
+  - first:
+      213: 6424860200339856500
+    second: mentor-cutout_16
+  - first:
+      213: 3161492891599530220
+    second: mentor-cutout_17
+  - first:
+      213: -2016321497755532507
+    second: mentor-cutout_18
+  - first:
+      213: -1359936754272156121
+    second: mentor-cutout_19
+  - first:
+      213: 1912789068430089170
+    second: mentor-cutout_20
+  - first:
+      213: 4955008976943267620
+    second: mentor-cutout_21
+  - first:
+      213: 6904410153739791092
+    second: mentor-cutout_22
+  - first:
+      213: 2691692339734272520
+    second: mentor-cutout_23
+  - first:
+      213: -195910249004206078
+    second: mentor-cutout_24
+  - first:
+      213: 4602485887507291674
+    second: mentor-cutout_25
+  - first:
+      213: -7637654425064369460
+    second: mentor-cutout_26
+  - first:
+      213: -8301540900330166760
+    second: mentor-cutout_27
+  - first:
+      213: -4035238584313188859
+    second: mentor-cutout_28
+  - first:
+      213: -8253196812048839925
+    second: mentor-cutout_29
+  - first:
+      213: 7277921503735889642
+    second: mentor-cutout_30
+  - first:
+      213: -1559969543406414544
+    second: mentor-cutout_31
+  - first:
+      213: 3654060262702627922
+    second: mentor-cutout_32
+  - first:
+      213: 2262713115460249251
+    second: mentor-cutout_33
+  - first:
+      213: -6391050668222910880
+    second: mentor-cutout_34
+  - first:
+      213: 4315923535944208285
+    second: mentor-cutout_35
+  - first:
+      213: 7080885877318811348
+    second: mentor-cutout_36
+  - first:
+      213: -457830694240786712
+    second: mentor-cutout_37
+  - first:
+      213: 3245902152584778002
+    second: mentor-cutout_38
+  - first:
+      213: 485729472624629097
+    second: mentor-cutout_39
+  - first:
+      213: -3931635929054201022
+    second: mentor-cutout_40
+  - first:
+      213: -2874939444341295122
+    second: mentor-cutout_41
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 0
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: mentor-cutout_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 867
+        width: 322
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d79e4f2e0405b690800000000000000
+      internalID: -7587153538265999405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_1
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 867
+        width: 103
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 312e039797073f3d0800000000000000
+      internalID: -3174069645339467245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_2
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 716
+        width: 305
+        height: 193
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32558b94b4601ed20800000000000000
+      internalID: 3305930521895785763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_3
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 716
+        width: 99
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02dcd29b9e5c34d70800000000000000
+      internalID: 9026275685805444384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_4
+      rect:
+        serializedVersion: 2
+        x: 883
+        y: 812
+        width: 144
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a7917feae27faa60800000000000000
+      internalID: 7687489442309838755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_5
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 812
+        width: 69
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea221b84587e5a660800000000000000
+      internalID: 7396572522662142638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_6
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 850
+        width: 126
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7189b60c86d023870800000000000000
+      internalID: 8660999776942921751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_7
+      rect:
+        serializedVersion: 2
+        x: 1228
+        y: 850
+        width: 54
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78146d3334e3cdfa0800000000000000
+      internalID: -5774672163842408057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_8
+      rect:
+        serializedVersion: 2
+        x: 1288
+        y: 869
+        width: 29
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4cffef6ca4899b40800000000000000
+      internalID: 5447531100428565581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_9
+      rect:
+        serializedVersion: 2
+        x: 1318
+        y: 849
+        width: 16
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8612739ce1bd668c0800000000000000
+      internalID: -4006273893228142232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_10
+      rect:
+        serializedVersion: 2
+        x: 1335
+        y: 759
+        width: 169
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 657adfde5adc85dc0800000000000000
+      internalID: -3649941385437665450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_11
+      rect:
+        serializedVersion: 2
+        x: 1506
+        y: 796
+        width: 167
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2ebe607072e7ae10800000000000000
+      internalID: 2208983114799037999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_12
+      rect:
+        serializedVersion: 2
+        x: 1675
+        y: 796
+        width: 149
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa84227ffbe5c49e0800000000000000
+      internalID: -1635828386064349014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_13
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 666
+        width: 471
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5456dae8f529df70800000000000000
+      internalID: 9212436263785092191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_14
+      rect:
+        serializedVersion: 2
+        x: 1144
+        y: 692
+        width: 189
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86e5dda53a79d7090800000000000000
+      internalID: -8035099432299176344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_15
+      rect:
+        serializedVersion: 2
+        x: 1826
+        y: 815
+        width: 87
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce0579b8185bcfa70800000000000000
+      internalID: 8862157734755651820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_16
+      rect:
+        serializedVersion: 2
+        x: 883
+        y: 692
+        width: 259
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47c5dc4df40b92950800000000000000
+      internalID: 6424860200339856500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_17
+      rect:
+        serializedVersion: 2
+        x: 1367
+        y: 533
+        width: 177
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce866bbd801efdb20800000000000000
+      internalID: 3161492891599530220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_18
+      rect:
+        serializedVersion: 2
+        x: 1546
+        y: 736
+        width: 289
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5234c4dd7469404e0800000000000000
+      internalID: -2016321497755532507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_19
+      rect:
+        serializedVersion: 2
+        x: 1837
+        y: 742
+        width: 114
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7264c9c2ab8802de0800000000000000
+      internalID: -1359936754272156121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_20
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 475
+        width: 507
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2db960af5879b8a10800000000000000
+      internalID: 1912789068430089170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_21
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 636
+        width: 323
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42f3399696ab3c440800000000000000
+      internalID: 4955008976943267620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_22
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 636
+        width: 68
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4faa245247461df50800000000000000
+      internalID: 6904410153739791092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_23
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 556
+        width: 448
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80a508afbefca5520800000000000000
+      internalID: 2691692339734272520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_24
+      rect:
+        serializedVersion: 2
+        x: 1546
+        y: 532
+        width: 293
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 208fe30aaacf74df0800000000000000
+      internalID: -195910249004206078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_25
+      rect:
+        serializedVersion: 2
+        x: 1841
+        y: 532
+        width: 98
+        height: 208
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1ede9897805fdf30800000000000000
+      internalID: 4602485887507291674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_26
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2
+        width: 483
+        height: 471
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc219d434c9910690800000000000000
+      internalID: -7637654425064369460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_27
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 375
+        width: 22
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 816a17bd8800bcc80800000000000000
+      internalID: -8301540900330166760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_28
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 376
+        width: 404
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50eef0e13e3fff7c0800000000000000
+      internalID: -4035238584313188859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_29
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 401
+        width: 438
+        height: 153
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0b417c0a31c67d80800000000000000
+      internalID: -8253196812048839925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_30
+      rect:
+        serializedVersion: 2
+        x: 1357
+        y: 401
+        width: 182
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aeeba5d2c0f500560800000000000000
+      internalID: 7277921503735889642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_31
+      rect:
+        serializedVersion: 2
+        x: 1570
+        y: 307
+        width: 319
+        height: 223
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03515d027ffd95ae0800000000000000
+      internalID: -1559969543406414544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_32
+      rect:
+        serializedVersion: 2
+        x: 1891
+        y: 457
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25cb24ae274d5b230800000000000000
+      internalID: 3654060262702627922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_33
+      rect:
+        serializedVersion: 2
+        x: 1891
+        y: 412
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a620a31795c66f10800000000000000
+      internalID: 2262713115460249251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_34
+      rect:
+        serializedVersion: 2
+        x: 916
+        y: 377
+        width: 40
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06eec0b474d6e47a0800000000000000
+      internalID: -6391050668222910880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_35
+      rect:
+        serializedVersion: 2
+        x: 970
+        y: 375
+        width: 40
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9fc3b5d69d35eb30800000000000000
+      internalID: 4315923535944208285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_36
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 43
+        width: 381
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4defaa4703c544260800000000000000
+      internalID: 7080885877318811348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_37
+      rect:
+        serializedVersion: 2
+        x: 1403
+        y: 26
+        width: 166
+        height: 374
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e6e186c86575a9f0800000000000000
+      internalID: -457830694240786712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_38
+      rect:
+        serializedVersion: 2
+        x: 1891
+        y: 307
+        width: 52
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 211dd7c6fc2cb0d20800000000000000
+      internalID: 3245902152584778002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_39
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 2
+        width: 552
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9659ab0c168adb600800000000000000
+      internalID: 485729472624629097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_40
+      rect:
+        serializedVersion: 2
+        x: 1543
+        y: 1
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24bbf8604f50079c0800000000000000
+      internalID: -3931635929054201022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mentor-cutout_41
+      rect:
+        serializedVersion: 2
+        x: 1570
+        y: 2
+        width: 366
+        height: 303
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee73745bec92a18d0800000000000000
+      internalID: -2874939444341295122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      mentor-cutout_0: -7587153538265999405
+      mentor-cutout_1: -3174069645339467245
+      mentor-cutout_10: -3649941385437665450
+      mentor-cutout_11: 2208983114799037999
+      mentor-cutout_12: -1635828386064349014
+      mentor-cutout_13: 9212436263785092191
+      mentor-cutout_14: -8035099432299176344
+      mentor-cutout_15: 8862157734755651820
+      mentor-cutout_16: 6424860200339856500
+      mentor-cutout_17: 3161492891599530220
+      mentor-cutout_18: -2016321497755532507
+      mentor-cutout_19: -1359936754272156121
+      mentor-cutout_2: 3305930521895785763
+      mentor-cutout_20: 1912789068430089170
+      mentor-cutout_21: 4955008976943267620
+      mentor-cutout_22: 6904410153739791092
+      mentor-cutout_23: 2691692339734272520
+      mentor-cutout_24: -195910249004206078
+      mentor-cutout_25: 4602485887507291674
+      mentor-cutout_26: -7637654425064369460
+      mentor-cutout_27: -8301540900330166760
+      mentor-cutout_28: -4035238584313188859
+      mentor-cutout_29: -8253196812048839925
+      mentor-cutout_3: 9026275685805444384
+      mentor-cutout_30: 7277921503735889642
+      mentor-cutout_31: -1559969543406414544
+      mentor-cutout_32: 3654060262702627922
+      mentor-cutout_33: 2262713115460249251
+      mentor-cutout_34: -6391050668222910880
+      mentor-cutout_35: 4315923535944208285
+      mentor-cutout_36: 7080885877318811348
+      mentor-cutout_37: -457830694240786712
+      mentor-cutout_38: 3245902152584778002
+      mentor-cutout_39: 485729472624629097
+      mentor-cutout_4: 7687489442309838755
+      mentor-cutout_40: -3931635929054201022
+      mentor-cutout_41: -2874939444341295122
+      mentor-cutout_5: 7396572522662142638
+      mentor-cutout_6: 8660999776942921751
+      mentor-cutout_7: -5774672163842408057
+      mentor-cutout_8: 5447531100428565581
+      mentor-cutout_9: -4006273893228142232
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

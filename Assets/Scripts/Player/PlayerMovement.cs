@@ -516,6 +516,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void WallSlide()
     {
+        if (player.playerStage == PlayerStage.Young || player.playerStage == PlayerStage.Teen) return;
         if (isTouchingWall && !IsGrounded() && !isWallJumping &&
             ((_isFacingRight && _moveInputX > 0) || (!_isFacingRight && _moveInputX < 0)))
         {

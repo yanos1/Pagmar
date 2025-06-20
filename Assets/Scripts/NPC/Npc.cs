@@ -31,7 +31,9 @@ namespace NPC
         [SerializeField] private float jumpDuration;
         [SerializeField] private float dashDistance;
         [SerializeField] private bool startNpcSequenceAtStart = false;
+        [SerializeField] private BigSpine spine;
         public LayerMask groundLayer;
+        private bool waitingForLanding;
 
         public float MaxJumpHeight => maxJumpHeight;
         public float JumpDuration => jumpDuration;
@@ -82,7 +84,8 @@ namespace NPC
             {
                 isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance,
                     LayerMask.NameToLayer("Ground"));
-                Debug.DrawRay(transform.position, Vector2.down * groundCheckDistance, isGrounded? Color.green : Color.red);
+                Debug.DrawRay(transform.position, Vector2.down * groundCheckDistance,
+                    isGrounded ? Color.green : Color.red);
 
 
                 if (!isGrounded && rb.bodyType == RigidbodyType2D.Kinematic)
@@ -94,7 +97,24 @@ namespace NPC
                     rb.bodyType = RigidbodyType2D.Kinematic;
                 }
             }
+
+            if (waitingForLanding && isGrounded)
+            {
+                waitingForLanding = false;
+                OnLanding();
+            }
         }
+
+        private void OnLanding()
+            {
+                spine.PlayAnimation(
+                    spine.GetAnimName(BigSpine.SpineAnim.JumpLand),
+                    loop: false,
+                    fallbackAnimation: GetNextGroundedAnimation(),
+                    force: true
+                );
+            }
+
         
         private IEnumerator WaitAndMoveToNextAction(float delayAfterAction)
         {
@@ -186,7 +206,65 @@ namespace NPC
         public void SetState(NpcState newState)
         {
             state = newState;
+            UpdateAnimationByState();
         }
+        private void UpdateAnimationByState()
+        {
+            switch (state)
+            {
+                case NpcState.Idle:
+                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Idle), true);
+                    break;
+                case NpcState.Walking:
+                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Walk), true);
+                    break;
+                case NpcState.Jumping:
+                    PlayJumpSequence();
+                    break;
+                case NpcState.Charging:
+                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Dash), false, spine.GetAnimName(BigSpine.SpineAnim.Run));
+                    break;
+                case NpcState.Following:
+                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Walk), true);
+                    break;
+                case NpcState.Followed:
+                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Run), true);
+                    break;
+            }
+        }
+        public void PlayJumpSequence()
+        {
+            spine.PlayAnimation(
+                spine.GetAnimName(BigSpine.SpineAnim.Jump),
+                loop: false,
+                fallbackAnimation: null,
+                force: true,
+                onComplete: () =>
+                {
+                    spine.PlayAnimation(
+                        spine.GetAnimName(BigSpine.SpineAnim.JumpAir),
+                        loop: true,
+                        fallbackAnimation: null,
+                        force: true
+                    );
+
+                    waitingForLanding = true;
+                }
+            );
+        }
+        private string GetNextGroundedAnimation()
+        {
+            if (state == NpcState.Following)
+                return spine.GetAnimName(BigSpine.SpineAnim.Walk);
+            if (state == NpcState.Followed)
+                return spine.GetAnimName(BigSpine.SpineAnim.Run);
+
+            return spine.GetAnimName(BigSpine.SpineAnim.Idle);
+        }
+
+
+
+
 
         public void ResetActions()
         {

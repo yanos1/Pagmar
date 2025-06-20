@@ -228,7 +228,7 @@ namespace NPC
                     spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Walk), true);
                     break;
                 case NpcState.Followed:
-                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Run), true);
+                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Walk), true);
                     break;
             }
         }

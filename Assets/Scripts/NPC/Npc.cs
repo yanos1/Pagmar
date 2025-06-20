@@ -200,6 +200,7 @@ namespace NPC
         {
             CoreManager.Instance.EventManager.InvokeEvent(EventNames.BigPickUpHeal, null);
             // add effect here
+            
 
         }
 

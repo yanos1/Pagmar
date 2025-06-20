@@ -5,7 +5,7 @@ namespace NPC.BigFriend
 {
     public class BigActions : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer bigSpriteRenderer;
+        [SerializeField] private GameObject bigVisuals;
         [SerializeField] private SpriteRenderer questionMarkRenderer;
         [SerializeField] private GameObject questionMark;
         [SerializeField] private GameObject healText;
@@ -34,33 +34,28 @@ namespace NPC.BigFriend
             healText.SetActive(false);
         }
 
-    public void ShowBig()
+        public void ShowBig()
         {
-            print("SHOW BIG111");
-            var color = bigSpriteRenderer.color;
-            color.a = 1f;
-            bigSpriteRenderer.color = color;       
+            bigVisuals.SetActive(true);
         }
 
         public void EnableHeadCollider()
         {
             GetComponent<CircleCollider2D>().isTrigger = false;
             gameObject.layer = LayerMask.NameToLayer("Ground");
-
         }
 
         public void DisableHeadCollideR()
         {
             GetComponent<CircleCollider2D>().isTrigger = true;
             gameObject.layer = LayerMask.NameToLayer("Default");
-
         }
 
         public void Materialize()
         {
             GetComponent<CapsuleCollider2D>().isTrigger = false;
         }
-        
+
         public void Unmeterialize()
         {
             GetComponent<CapsuleCollider2D>().isTrigger = true;

@@ -282,11 +282,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lavaSplash:
     Guid:
-      Data1: -510738993
-      Data2: 1290382741
-      Data3: -809495117
-      Data4: 1924188246
-    Path: event:/Ambience/LavaAmb1
+      Data1: -22964342
+      Data2: 1285256341
+      Data3: 950811777
+      Data4: 232010714
+    Path: event:/Objects/LavaSplash
 --- !u!1 &7200025626840471748
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@
 using System.Xml.Schema;
 using Enemies;
 using Interfaces;
+using Managers;
 using Player;
 using SpongeScene;
 using UnityEngine;
@@ -150,13 +151,17 @@ namespace Terrain.Environment
             if (player is not null)
             {
                 print("player hit platform");
-
+                if (CoreManager.Instance.Player.playerStage == PlayerStage.Adult && player.IsDashing)  // this is a stupid work around since onhit doesnt work and i dont know why.
+                {
+                    OnBreak();
+                    return;
+                }
                 // Attach player to platform
                 if (player.GroundCheckPos.y -0.2f> transform.position.y )
                 {
                     collision.collider.transform.SetParent(transform);
                 }
-
+                
                 // If not dashing, move gently
                 if (!player.IsDashing && moveCoroutine is null)
                 {
@@ -187,22 +192,6 @@ namespace Terrain.Environment
                 if (moveslightlyCor is not null) StopCoroutine(moveslightlyCor);
                 moveCoroutine = StartCoroutine(MovePlatform());
                 nextPlatformMove?.Invoke();
-            }
-        }
-
-        private void OnTriggerEnter2D(Collider2D col)
-        {
-            if(isLooping) return;
-            
-            StartCoroutine(MoveEternally());
-            isLooping = true;
-        }
-
-        private IEnumerator MoveEternally()
-        {
-            while (true)
-            {
-                yield return MovePlatform();
             }
         }
 

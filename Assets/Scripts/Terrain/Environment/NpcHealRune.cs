@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Managers;
 using Player;
 using UnityEngine;
 
@@ -9,8 +10,9 @@ namespace Terrain.Environment
         private bool isCarried = false;
         public override void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.GetComponent<PlayerManager>() is { } carrier)
+            if (other.GetComponent<PlayerManager>() is { } carrier && isCarried == false)
             {
+                print("carry!");
                 Collider2D carrierCollider = carrier.GetComponent<Collider2D>();
                 Bounds bounds = carrierCollider.bounds;
 
@@ -24,6 +26,9 @@ namespace Terrain.Environment
                 _floatTween.Kill();
                 isCarried = true;
                 transform.SetParent(carrier.transform);
+                _rb.bodyType = RigidbodyType2D.Kinematic;
+                CoreManager.Instance.EventManager.InvokeEvent(onPickup, healAmount);
+
             }
         }
 
@@ -38,7 +43,7 @@ namespace Terrain.Environment
         public override void ResetToInitialState()
         {
             base.ResetToInitialState();
-            _rb.bodyType = RigidbodyType2D.Kinematic;
+            isCarried = false;
             transform.SetParent(null);
         }
     }

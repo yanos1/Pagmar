@@ -245,14 +245,14 @@ namespace Enemies
         private bool CheckPlayerInRoamDirection()
         {
             if (CoreManager.Instance.Player is  null) return false;
-            var distanceToPlayer = Vector2.Distance(CoreManager.Instance.Player.transform.position, transform.position);
+            var distanceToPlayer = Mathf.Abs(CoreManager.Instance.Player.transform.position.x- transform.position.x);
             if (distanceToPlayer > minDistanceActivation) return false;
             Vector2 toPlayer = CoreManager.Instance.Player.transform.position - transform.position;
             
             float dot = Vector2.Dot(toPlayer.normalized, currentDirection.normalized);
 
             // dot > 0 means player is in the current direction (in front)
-            if (dot > 0.5f) // adjust tolerance as needed
+            if (dot > 0.5f && distanceToPlayer < 2) // adjust tolerance as needed
             {
                 return true;
             }
@@ -458,7 +458,7 @@ namespace Enemies
         {
             base.ResetToInitialState();
             gameObject.SetActive(true);
-            CurrentForce = 0;
+            StopCharging();
 
             // Flip using scale (Spine-compatible)
             Vector3 scale = transform.localScale;
@@ -467,8 +467,6 @@ namespace Enemies
 
             currentDirection = baseDir;
             detectionRange = startDetectionRange;
-            IsCharging = false;
-            isPreparingCharge = false;
             isKnockbacked = false;
             hit = false;
             hitCounter = 0;
@@ -487,12 +485,9 @@ namespace Enemies
             _rb.angularVelocity = 0f;
             _rb.bodyType = RigidbodyType2D.Kinematic;
 
-            transform.rotation = Quaternion.identity;
             rotationTimer = 0f;
             flipCooldownTimer = 0f;
             _col.enabled = true;
-            currentChargeDelay = chargeDelay;
-            currentChargeCooldown = chargeCooldown;
         }
 
 

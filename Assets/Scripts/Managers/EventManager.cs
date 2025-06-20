@@ -51,7 +51,6 @@ namespace Managers
         Die=2,
         ReachedCheckPoint=3,
         PickUpFakeRune = 4,
-        StartGame=4,
         EndGame=5,
         Falling = 6,
         StopFalling=7,

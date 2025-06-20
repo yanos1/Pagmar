@@ -13,13 +13,23 @@ namespace Managers
     {
         [SerializeField]
         private GameAmbience _gameAmbience;
+
+        private EventInstance currentAmbience;
         private void OnEnable()
         {
             CoreManager.Instance.EventManager.AddListener(EventNames.ChangeAmbience, OnChangeAmbience);
+            CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, StopOldScneeSounds);
         }
         private void OnDisable()
         {
             CoreManager.Instance.EventManager.RemoveListener(EventNames.ChangeAmbience, OnChangeAmbience);
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, StopOldScneeSounds);
+
+        }
+
+        private void StopOldScneeSounds(object obj)
+        {
+            currentAmbience.stop(STOP_MODE.IMMEDIATE);
         }
 
 
@@ -30,8 +40,8 @@ namespace Managers
                 var ambience = _gameAmbience.GetAmbience(ambienceType);
                 if (ambience.IsNull) return;
 
-                var instance = RuntimeManager.CreateInstance(ambience);
-                instance.start();
+                currentAmbience = RuntimeManager.CreateInstance(ambience);
+                currentAmbience.start();
                 
             }
         }

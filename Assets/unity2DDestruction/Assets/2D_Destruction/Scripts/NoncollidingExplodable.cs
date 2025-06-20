@@ -39,27 +39,22 @@ namespace unity2DDestruction.Assets._2D_Destruction.Scripts
                     var col = frag.GetComponent<Collider2D>();
 
                     // Check if it's already stopped
-                    if (rb.linearVelocity.magnitude < 2f)
-                    {
+                   
                         // Raycast down from the fragment's position
-                        RaycastHit2D hit = Physics2D.Raycast(frag.transform.position, Vector2.down, 0.1f, groundLayerMask);
+                    RaycastHit2D hit = Physics2D.Raycast(frag.transform.position, Vector2.down, 0.1f, groundLayerMask);
 
 
-                        // Only disable collider and make static if touching the ground
-                        if (hit.collider != null)
-                        {
-                            col.enabled = false;
-                            rb.bodyType = RigidbodyType2D.Static;
-                        }
-                        else
-                        {
-                            anyActive = true;
-                        }
+                    // Only disable collider and make static if touching the ground
+                    if (hit.collider != null)
+                    {
+                        col.enabled = false;
+                        rb.bodyType = RigidbodyType2D.Static;
                     }
                     else
                     {
                         anyActive = true;
                     }
+              
                 }
 
                 if (!anyActive)

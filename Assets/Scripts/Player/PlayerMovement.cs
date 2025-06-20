@@ -449,7 +449,7 @@ public class PlayerMovement : MonoBehaviour
         dir.Normalize();
 
         // Check ceiling if moving diagonally upward (both x and y are significant)
-        if (dir.x > 0.45f && dir.y > 0.45f)
+        if (dir.y > 0.45f)
         {
             Debug.DrawRay(cielingCheckPos.position, Vector2.up * 0.1f, Color.green);
             RaycastHit2D ceilingHit = Physics2D.Raycast(cielingCheckPos.position, Vector2.up, 0.1f);
@@ -464,8 +464,7 @@ public class PlayerMovement : MonoBehaviour
                 return true;
             }
         }
-        // Otherwise, default to wall check
-        else
+        else if (Mathf.Abs(dir.x) > 0.45f && Mathf.Abs(dir.y )< 0.45)
         {
             Collider2D wallHit = Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0f,
                 LayerMask.GetMask("Ground", "Default", "Enemy", "Environment", "WoodPlank"));
@@ -477,6 +476,18 @@ public class PlayerMovement : MonoBehaviour
                 return true;
             }
         }
+        else
+        {
+            Collider2D groundHit = Physics2D.OverlapBox(groundCheckPosition.position, GroundCheckPos, 0f,
+                LayerMask.GetMask("Ground", "Default", "Enemy", "Environment", "WoodPlank"));
+            if (IsValidHit(groundHit))
+            {
+                Debug.Log($"Hit ground with {groundHit.name}");
+                CheckForBreakable(groundHit, dir);
+                return true;
+            }
+        }
+     
 
         return false;
     }

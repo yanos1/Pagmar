@@ -12,6 +12,7 @@ namespace Terrain.Environment
     {
         [SerializeField] private MMF_Player breakFeedbacks;
         [SerializeField] private Explodable e;
+        [SerializeField] private ExplosionForce f;
         private Rigidbody2D rb;
 
         private void OnEnable()
@@ -41,6 +42,7 @@ namespace Terrain.Environment
         {
             print("exlode ground");
             e.explode();
+            f.doExplosion(f.transform.position);
         }
     }
 }

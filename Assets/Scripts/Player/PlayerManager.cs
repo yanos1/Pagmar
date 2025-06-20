@@ -47,6 +47,11 @@ namespace Player
             inputEnabled = true;
         }
 
+        public void StopAndDisableMovement()
+        {
+            DisableInput();
+            _playerMovement.StopAllMovement(null);
+        }
         public bool IsKnockBacked => isKnockbacked;
 
         public bool IsDead => isDead;
@@ -80,8 +85,7 @@ namespace Player
             CoreManager.Instance.EventManager.AddListener(EventNames.PlayerMeetSmall, (o) =>
             {
                 print("STOP MOVEMENT");
-                _playerMovement.StopAllMovement(null);
-                DisableInput();
+                StopAndDisableMovement();
             });
         }
 
@@ -204,7 +208,7 @@ namespace Player
                 {
                     print("player died");
                     Die();
-                    RammerManager.Instance.ResolveRam(this, rammer);
+                    // RammerManager.Instance.ResolveRam(this, rammer);
                 }
 
                 else if (rammer.GetComponent<ChargingEnemy>() is null)

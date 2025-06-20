@@ -11,10 +11,10 @@ namespace Terrain.Environment
     [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
     public class HealRune : MonoBehaviour, IPickable, IResettable
     {
-        [SerializeField] private int healAmount;
+        [SerializeField] protected int healAmount;
         [SerializeField] private float floatHeight = 0.2f;
         [SerializeField] private float floatDuration = 1f;
-        [SerializeField] private EventNames onPickup;
+        [SerializeField] protected EventNames onPickup;
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private float groundCheckDistance = 0.1f;
 
@@ -85,10 +85,8 @@ namespace Terrain.Environment
             transform.position = _startPos;
             gameObject.SetActive(true);
             _hasLanded = false;
-
             _floatTween?.Kill();
             _rb.bodyType = RigidbodyType2D.Dynamic;
-            _rb.gravityScale = 1f;
             _rb.linearVelocity = Vector2.zero;
         }
 

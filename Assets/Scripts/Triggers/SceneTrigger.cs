@@ -31,6 +31,23 @@ namespace Triggers
             }
         }
 
+        public void OnTriggerStay2D(Collider2D other)
+        {
+            if (isTriggered) return;
+
+            print($"stay triggered by {other.gameObject.name}");
+            if (other.CompareTag(trigger) && ++triggered == requiredTriggers)
+            {
+                print($"{trigger} stay-triggered {gameObject.name}");
+                isTriggered = true;
+                if (onTrigger != EventNames.None)
+                {
+                    CoreManager.Instance.EventManager.InvokeEvent(onTrigger, null);
+                }
+                triggerFeedbacks?.PlayFeedbacks();
+            }
+        }
+
         public override void ResetToInitialState()
         {
             base.ResetToInitialState();

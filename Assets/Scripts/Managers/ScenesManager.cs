@@ -81,7 +81,7 @@ namespace Managers
             {
                 Debug.LogWarning("No more scenes to load. You are at the last scene.");
             }
-
+        
             return currentSceneIndex + 1;
         }
 
@@ -110,7 +110,6 @@ namespace Managers
         {
             if (newSceneIndex >= 0 && newSceneIndex < SceneManager.sceneCountInBuildSettings)
             {
-                
 
                 print($"current scene is {currentSceneIndex} {SceneManager.GetActiveScene().name}");
                 if (doFade)

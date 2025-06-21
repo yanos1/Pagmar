@@ -13,13 +13,12 @@ namespace NPC.NpcActions
     {
         [SerializeField] private Trigger stopFollowTrigger;
         private Coroutine beFollowedCoroutine;
-        private bool isRunning;
 
         public override void StartAction(Npc npc)
         {
             base.StartAction(npc);
-            isRunning = true;
-            npc.SetState(NpcState.Followed);
+            npc.IsFollowed = true;
+            
             // npc.transform.GetComponent<Collider2D>().isTrigger = false;
             beFollowedCoroutine = CoreManager.Instance.Runner.StartCoroutine(BeFollowedRoutine(npc));
         }
@@ -29,18 +28,18 @@ namespace NPC.NpcActions
             if (stopFollowTrigger.IsTriggered)
             {
                 Debug.Log("STOP BEING FOLLOWED");
-                isRunning = false;
+                npc.IsFollowed = false;
                 isCompleted = true;
-                StopWalking();
+                StopWalking(npc);
             }
         }
 
         public override void ResetAction(Npc npc)
         {
             base.ResetAction(npc);
-            isRunning = false;
+            npc.IsFollowed = false;
             // npc.transform.GetComponent<Collider2D>().isTrigger = true;
-            StopWalking();
+            StopWalking(npc);
 
             if (beFollowedCoroutine != null)
                 CoreManager.Instance.Runner.StopCoroutine(beFollowedCoroutine);
@@ -48,16 +47,19 @@ namespace NPC.NpcActions
 
         private IEnumerator BeFollowedRoutine(Npc npc)
         {
-            while (isRunning)
+            PerformWalk(npc, Vector2.right, npc.Speed);
+            while (npc.IsFollowed)
             {
                 float dist = npc.transform.position.x - CoreManager.Instance.Player.transform.position.x;
-                if (dist < minDistanceToPlayer)
+                if (dist < minDistanceToPlayer && waitingForPlayer)
                 {
                     PerformWalk(npc, Vector2.right, npc.Speed);
+                    waitingForPlayer = false;
                 }
-                else
+                else if( dist > minDistanceToPlayer)
                 {
-                    StopWalking();
+                    StopWalking(npc);
+                    waitingForPlayer = true;
                 }
                 PerformSpecialMovementIfNecessary(npc);
 

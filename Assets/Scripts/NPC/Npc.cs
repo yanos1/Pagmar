@@ -35,6 +35,29 @@ namespace NPC
         public LayerMask groundLayer;
         private bool waitingForLanding;
 
+        private bool _isFollowing;
+        private bool _isFollowed;
+
+        public bool IsFollowed
+        {
+            get => _isFollowed;
+            set
+            {
+                _isFollowed = value;
+                _isFollowing = false;
+            } 
+        }
+
+        public bool IsFollowing
+        {
+            get => _isFollowing;
+            set
+            {
+                _isFollowing = value;
+                _isFollowed = false;
+            }
+        }
+
         public float MaxJumpHeight => maxJumpHeight;
         public float JumpDuration => jumpDuration;
         public float DashDistance => dashDistance;
@@ -206,6 +229,7 @@ namespace NPC
 
         public void SetState(NpcState newState)
         {
+            
             state = newState;
             UpdateAnimationByState();
         }
@@ -225,11 +249,11 @@ namespace NPC
                 case NpcState.Charging:
                     spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Dash), false, spine.GetAnimName(BigSpine.SpineAnim.Run));
                     break;
-                case NpcState.Following:
-                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Walk), true);
+                case NpcState.Crouching:
+                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Crouch), false);
                     break;
-                case NpcState.Followed:
-                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Walk), true);
+                case NpcState.GetUp:
+                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.GettingUp), false);
                     break;
             }
         }
@@ -255,11 +279,11 @@ namespace NPC
         }
         private string GetNextGroundedAnimation()
         {
-            if (state == NpcState.Following)
+            if (_isFollowing)
                 return spine.GetAnimName(BigSpine.SpineAnim.Walk);
-            if (state == NpcState.Followed)
+            if (IsFollowed)
                 return spine.GetAnimName(BigSpine.SpineAnim.Run);
-
+        
             return spine.GetAnimName(BigSpine.SpineAnim.Idle);
         }
 
@@ -293,6 +317,8 @@ namespace NPC
 
     public enum NpcState
     {
-        Idle, Walking, Jumping, Charging, Following, Followed
+        Idle, Walking, Jumping, Charging,
+        Crouching,
+        GetUp
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Spine.Unity;
 public class BigSpine : MonoBehaviour
@@ -60,12 +61,16 @@ public class BigSpine : MonoBehaviour
         if (string.IsNullOrEmpty(animationName)) return;
 
         if (!force && currentActionAnimation == animationName)
+        {
+            print("returned witout animation");
             return;
+
+        }
 
         currentActionAnimation = animationName;
 
         var entry = skeletonAnimation.AnimationState.SetAnimation(2, animationName, loop);
-
+        print($"set to {animationName}");
         if (!loop)
         {
             entry.Complete += _ =>
@@ -76,10 +81,15 @@ public class BigSpine : MonoBehaviour
                 {
                     skeletonAnimation.AnimationState.AddAnimation(2, fallbackAnimation, true, 0f);
                 }
-
                 onComplete?.Invoke();
             };
         }
+    }
+
+    public void DoSmile()
+    {
+        print("big smile called");
+        skeletonAnimation.AnimationState.SetAnimation(1, _smile, false);
     }
 
 

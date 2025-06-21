@@ -54,7 +54,7 @@ namespace NPC.NpcActions
         private IEnumerator JumpDashRoutine(Npc npc)
         {
             Vector3 jumpT = npc.transform.position + jumpTarget;
-
+            npc.SetState(NpcState.Jumping);
             // Start jump
             jumpTween = npc.transform.DOJump(jumpT,jumpPower,1,jumpDuration).SetEase(Ease.OutQuad);
 
@@ -68,8 +68,10 @@ namespace NPC.NpcActions
             yield return null; // safety
 
             // Dash upward
+            npc.SetState(NpcState.Charging);
             Vector3 dashT = npc.transform.position + dashTarget;
             dashTween = npc.transform.DOMove(dashT, dashDuration).SetEase(Ease.OutExpo);
+            
 
             yield return dashTween.WaitForCompletion();
             isCompleted = true;

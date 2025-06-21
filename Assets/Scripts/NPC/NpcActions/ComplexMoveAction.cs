@@ -21,6 +21,9 @@ namespace NPC.NpcActions
             protected float raySpreadAngle = 120;
             [SerializeField] protected float rayLength = 20;
             protected float wallCheckDistance = 4.5f;
+            protected bool waitingForPlayer = false;
+            protected Vector2 currentDir = Vector2.right;
+
 
             protected Coroutine walkRoutine;
 
@@ -40,11 +43,22 @@ namespace NPC.NpcActions
 
             protected Vector2 GetMoveDirection(Npc npc)
             {
-                if (npc.State == NpcState.Followed) return Vector2.right;
+                if (npc.IsFollowed) return Vector2.right;
 
-                return CoreManager.Instance.Player.transform.position.x > npc.transform.position.x
+                Vector2 newDir = CoreManager.Instance.Player.transform.position.x > npc.transform.position.x
                     ? Vector2.right
                     : Vector2.left;
+
+                if (newDir != currentDir)
+                {
+                    currentDir = newDir;
+
+                    // Rotate on Y axis to face correct direction
+                    Quaternion targetRotation = Quaternion.Euler(0, newDir.x > 0 ? 0f : 180f, 0);
+                    npc.transform.rotation = targetRotation;
+                }
+
+                return newDir;
             }
 
             protected bool IsGroundAhead(Npc npc, Vector2 dir)
@@ -123,20 +137,21 @@ namespace NPC.NpcActions
 
             protected void PerformJump(Npc npc, Vector3 target)
             {
-                JumpMoveAction jump = new JumpMoveAction(2, target - npc.transform.position, 1f);
+                JumpMoveAction jump = new JumpMoveAction(3, target - npc.transform.position, 1f);
                 npc.InterruptWithAction(jump);
             }
 
             protected void PerformWalk(Npc npc, Vector2 direction, float speed)
             {
-                StopWalking();
+                npc.SetState(NpcState.Walking);
                 walkRoutine = CoreManager.Instance.Runner.StartCoroutine(WalkRoutine(npc, direction.normalized, speed));
             }
 
-            protected void StopWalking()
+            protected void StopWalking(Npc npc)
             {
                 if (walkRoutine != null)
                 {
+                    npc.SetState(NpcState.Walking);
                     CoreManager.Instance.Runner.StopCoroutine(walkRoutine);
                     walkRoutine = null;
                 }
@@ -174,8 +189,8 @@ namespace NPC.NpcActions
                     if (landingSpot.HasValue)
                     {
                         Debug.Log($"44 found landing spot: {landingSpot.Value.x} ");
-                        if ((npc.State == NpcState.Followed) || 
-                            (npc.State == NpcState.Following && IsPlayerBeyondLandingSpot(currentDir, landingSpot.Value.x)))
+                        if ((npc.IsFollowed) || 
+                            (npc.IsFollowing && IsPlayerBeyondLandingSpot(currentDir, landingSpot.Value.x)))
 
                         {
                             Debug.Log($"44 player is not interrupting jump with pos {CoreManager.Instance.Player.transform.position.x} ");
@@ -186,12 +201,12 @@ namespace NPC.NpcActions
                         {
                             Debug.Log($"44 player is interrupting jump with pos {CoreManager.Instance.Player.transform.position.x} stopping");
 
-                            StopWalking();
+                            StopWalking(npc);
                         }
                     }
                     else
                     {
-                        StopWalking();
+                        StopWalking(npc);
                         isCompleted = true;
                     }
                 }
@@ -203,7 +218,7 @@ namespace NPC.NpcActions
 
                     float wallAheadHeight = wallAhead.bounds.max.y - npc.transform.position.y;
 
-                    if (npc.State == NpcState.Followed || npc.State == NpcState.Following &&
+                    if (npc.IsFollowed || npc.IsFollowing &&
                         CoreManager.Instance.Player.transform.position.y  +0.2f > wallAhead.bounds.max.y)
                         if (wallAheadHeight > npc.MaxJumpHeight)
                         {

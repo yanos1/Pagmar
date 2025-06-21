@@ -1,10 +1,13 @@
+using System.Numerics;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NPC.BigFriend
 {
     public class BigActions : MonoBehaviour
     {
+        [SerializeField] private BigSpine bigSpine;
         [SerializeField] private GameObject bigVisuals;
         [SerializeField] private SpriteRenderer questionMarkRenderer;
         [SerializeField] private GameObject questionMark;
@@ -37,6 +40,17 @@ namespace NPC.BigFriend
         public void ShowBig()
         {
             bigVisuals.SetActive(true);
+        }
+
+        public void DoSmileAnim()
+        {
+            print("call do smile");
+            bigSpine.DoSmile();
+        }
+
+        public void DoPonderAnim()
+        {
+         bigSpine.PlayAnimation(bigSpine.GetAnimName(BigSpine.SpineAnim.LookDownBack));   
         }
 
         public void EnableHeadCollider()

@@ -10,12 +10,13 @@ namespace NPC.NpcActions
         
         protected bool isCompleted = false;
 
+
         [SerializeField] protected float delayAfterAction;
         [SerializeField] protected UnityEvent beforeActionCallBack;
         [SerializeField] protected UnityEvent afterActionCallback;
         
         
-        private const float DefaultDelayAfterAction = 0.2f;
+        private const float DefaultDelayAfterAction = 0.1f;
 
         public bool IsCompleted
         {

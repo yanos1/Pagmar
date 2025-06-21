@@ -14,15 +14,13 @@ namespace NPC.NpcActions
     {
         [SerializeField] private Trigger stopFollowTrigger;
 
-        private bool isFollowing;
         private Coroutine followCoroutine;
         
         public override void StartAction(Npc npc)
         {
             base.StartAction(npc);
-            isFollowing = true;
+            npc.IsFollowing = true;
             CoreManager.Instance.Player.SetFollowedBy(npc);
-            npc.SetState(NpcState.Following);
             followCoroutine = CoreManager.Instance.Runner.StartCoroutine(FollowRoutine(npc));
         }
 
@@ -30,8 +28,8 @@ namespace NPC.NpcActions
         {
             if (stopFollowTrigger is not null && stopFollowTrigger.IsTriggered)
             {
-                StopWalking();
-                isFollowing = false;
+                StopWalking(npc);
+                npc.IsFollowing = false;
                 isCompleted = true;
             }
         }
@@ -39,7 +37,7 @@ namespace NPC.NpcActions
         public override void ResetAction(Npc npc)
         {
             base.ResetAction(npc);
-            isFollowing = false;
+            npc.IsFollowing = false;
             CoreManager.Instance.Player.SetFollowedBy(null);
             if (followCoroutine != null)
                 CoreManager.Instance.Runner.StopCoroutine(followCoroutine);
@@ -49,23 +47,23 @@ namespace NPC.NpcActions
         {
             PerformWalk(npc, GetMoveDirection(npc), npc.Speed);
 
-            while (isFollowing)
+            while (npc.IsFollowing)
             {
                 float distanceToPlayer =
                     Vector2.Distance(npc.transform.position, CoreManager.Instance.Player.transform.position);
 
-                if (distanceToPlayer <= minDistanceToPlayer)
+                if (distanceToPlayer <= minDistanceToPlayer && !waitingForPlayer)
                 {
-                    StopWalking();
+                    waitingForPlayer = true;
+                    StopWalking(npc);
                     yield return new WaitForSeconds(0.2f);
                 }
-                else
+                
+                else if (walkRoutine is null && waitingForPlayer && distanceToPlayer <= minDistanceToPlayer)
                 {
-                    if (walkRoutine is null)
-                    {
-                        yield return new WaitForSeconds(Random.Range(0.2f, 0.6f));
-                        PerformWalk(npc, GetMoveDirection(npc), npc.Speed);
-                    }
+                    yield return new WaitForSeconds(Random.Range(0.2f, 0.6f));
+                    PerformWalk(npc, GetMoveDirection(npc), npc.Speed);
+                    waitingForPlayer = false;
                 }
 
                 PerformSpecialMovementIfNecessary(npc);

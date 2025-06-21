@@ -19,12 +19,14 @@ namespace Managers
             print("registered ui events");
             CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, OnEnterCutScene);
             CoreManager.Instance.EventManager.AddListener(EventNames.EndCutScene, OnEndCutScene);
+            CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, OnEndCutScene);
         }
 
         private void OnDisable()
         {
             CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, OnEnterCutScene);
             CoreManager.Instance.EventManager.RemoveListener(EventNames.EndCutScene, OnEndCutScene);
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, OnEndCutScene);
 
         }
 
@@ -35,7 +37,7 @@ namespace Managers
         }
 
         
-        private void OnEndCutScene(object obj)
+        public void OnEndCutScene(object obj)
         {
             print("close stripes");
             ExitCutSceneFeedbacks?.PlayFeedbacks();

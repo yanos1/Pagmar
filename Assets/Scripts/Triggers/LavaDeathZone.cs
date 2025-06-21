@@ -1,4 +1,5 @@
 ﻿using System;
+using Atmosphere.TileExplostion;
 using Managers;
 using Player;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace Triggers
             if (other.GetComponent<PlayerManager>() is { } player)
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(lavaSplash, transform.position);
+                CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.LavaSplashParticles).Play(other.transform.position);
                 player.Die();
             }
         }

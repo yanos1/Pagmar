@@ -68,7 +68,6 @@ namespace Terrain.Environment
 
             bool wasOnTop = isObjectOnTop;
             isObjectOnTop = hitTop || hitRight;
-
             if (!isObjectOnTop && wasOnTop)
             {
                 accumulatedForce = baseForce;
@@ -91,6 +90,7 @@ namespace Terrain.Environment
         public void OnHit(Vector2 hitDir, PlayerStage playerStage)
         {
             hitFeedbacks?.PlayFeedbacks();
+            print($"hit! object on top :{isObjectOnTop}");
 
             if (isObjectOnTop && objectOnTop != null)
             {
@@ -108,6 +108,7 @@ namespace Terrain.Environment
 
         public void ResetToInitialState()
         {
+            print("reset hill!");
             gameObject.SetActive(true);
             transform.position = startingPos;
             accumulatedForce = baseForce;

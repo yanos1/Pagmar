@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Atmosphere.TileExplostion;
 using Interfaces;
 using Managers;
 using SpongeScene;
@@ -16,7 +17,8 @@ namespace Obstacles
         private Dictionary<Vector3Int, TileBase> removedTiles = new Dictionary<Vector3Int, TileBase>();
 
         [SerializeField] private float beamAdvanceDistance = 7f;
-        [SerializeField] private int toggleLimit = 12;
+        [SerializeField] private int toggleLimit;
+        [SerializeField] private ParticleSystem smokeParticleSystem;
 
         private Vector3 startingPos;
         private bool hasFinished;
@@ -37,19 +39,23 @@ namespace Obstacles
             {
                 // Start feedback and warning
                 startFeedbacks?.PlayFeedbacks();
+            
                 yield return new WaitForSeconds(offTime - warningTime);
 
-                warning.transform.position = new Vector3(
-                    transform.position.x,
-                    CoreManager.Instance.Player.transform.position.y + 2.3f,
-                    0
-                );
-                StartCoroutine(UtilityFunctions.FadeImage(warning, 0.6f, 0, warningTime, null));
+                // warning.transform.position = new Vector3(
+                //     transform.position.x,
+                //     CoreManager.Instance.Player.transform.position.y + 2.3f,
+                //     0
+                // );
+                // StartCoroutine(UtilityFunctions.FadeImage(warning, 0.6f, 0, warningTime, null));
+                smokeParticleSystem.transform.position = new Vector3(transform.position.x, CoreManager.Instance.Player.transform.position.y);
+                smokeParticleSystem.Play();
                 yield return new WaitForSeconds(warningTime);
 
                 // Beam ON
                 beamSprite.enabled = true;
                 col.enabled = true;
+                CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.LavaBurstParticles).Play(new Vector3(transform.position.x, -37,0)); // lava is placed at -34 y
                 yield return new WaitForSeconds(onTime);
 
                 // Beam OFF
@@ -67,11 +73,11 @@ namespace Obstacles
                 transform.position = futurePos;
 
                 // Update warning position for next cycle
-                warning.transform.position = new Vector3(
-                    futurePos.x,
-                    CoreManager.Instance.Player.transform.position.y + 2.3f,
-                    0
-                );
+                // warning.transform.position = new Vector3(
+                //     futurePos.x,
+                //     CoreManager.Instance.Player.transform.position.y + 2.3f,
+                //     0
+                // );
 
                 toggleCount++;
             }
@@ -88,22 +94,27 @@ namespace Obstacles
             {
                 breakable.OnBreak();
             }
-            print($"hit {other.gameObject.name}");
             CheckTileMapHit(other);
+            
+            // bad code
+            if (other.gameObject.GetComponent<Explodable>() is { } explodable)
+            {
+                explodable.explode();
+            } 
         }
 
         private void CheckTileMapHit(Collider2D other)
         {
             Vector3 hitPos = other.ClosestPoint(transform.position);
             Vector3Int cellPos = tilemap.WorldToCell(hitPos);
-            Debug.Log($"Cell position hit: {cellPos}");
 
             if (tilemap.HasTile(cellPos))
             {
                 TileBase tile = tilemap.GetTile(cellPos);
+                var particles = CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.ExplodableTileParticles);
+                particles.Play(cellPos + Vector3.right*23.3f); // my grid is off by 23.3 ..... bad code.
                 removedTiles.TryAdd(cellPos, tile); // Store only once
                 tilemap.SetTile(cellPos, null);
-                Debug.Log($"Removed tile at {cellPos}");
             }
         }
 
@@ -116,7 +127,6 @@ namespace Obstacles
             foreach (var kvp in removedTiles)
             {
                 tilemap.SetTile(kvp.Key, kvp.Value);
-                Debug.Log("Restored tile at: " + kvp.Key);
             }
 
             removedTiles.Clear();

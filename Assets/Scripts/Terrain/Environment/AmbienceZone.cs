@@ -16,6 +16,9 @@ namespace Terrain.Environment
             if (other.CompareTag("Player"))
             {
                 ambRef = CoreManager.Instance.AudioManager.CreateEventInstance(amb);
+                ambRef.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform)); // Sets (x, y, z=0)
+
+                ambRef.start();
             }
         }
         
@@ -24,6 +27,7 @@ namespace Terrain.Environment
             if (other.CompareTag("Player"))
             {
                 ambRef.stop(STOP_MODE.ALLOWFADEOUT);
+                ambRef.release();
             }
         }
     }

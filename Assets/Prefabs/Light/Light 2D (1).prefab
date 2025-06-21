@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 6310560916054512047}
   - component: {fileID: 6675385521768343985}
   - component: {fileID: 6988715096081398531}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: LavaAmbience
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.25}
+  m_Offset: {x: 0, y: 0.51}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -256,7 +256,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7607843}
   m_FlipX: 0

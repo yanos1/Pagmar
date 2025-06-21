@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tile0 B
       objectReference: {fileID: 0}
+    - target: {fileID: 7943945745792683856, guid: 43ab3076134f1c24e8c70ee43dbd18d5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
     m_RemovedGameObjects: []
@@ -60,6 +64,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1969565883112113362, guid: 43ab3076134f1c24e8c70ee43dbd18d5, type: 3}
       insertIndex: -1
       addedObject: {fileID: -2871961492204425125}
+    - targetCorrespondingSourceObject: {fileID: 1969565883112113362, guid: 43ab3076134f1c24e8c70ee43dbd18d5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3612066280079570485}
+    - targetCorrespondingSourceObject: {fileID: 1969565883112113362, guid: 43ab3076134f1c24e8c70ee43dbd18d5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8519585039135663494}
   m_SourcePrefab: {fileID: 100100000, guid: 43ab3076134f1c24e8c70ee43dbd18d5, type: 3}
 --- !u!1 &5971387382550957032 stripped
 GameObject:
@@ -82,3 +92,49 @@ MonoBehaviour:
   m_Area: 0
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!50 &3612066280079570485
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5971387382550957032}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &-8519585039135663494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5971387382550957032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75953d6b31f574644be1238b08e89b8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraPoints: 0
+  subshatterSteps: 0
+  fragmentLayer: Default
+  sortingLayerName: Default
+  orderInLayer: 0
+  shatterType: 0
+  fragments: []

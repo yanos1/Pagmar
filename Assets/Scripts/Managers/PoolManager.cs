@@ -89,6 +89,10 @@ namespace Managers
     {
         None = 0,
         Arrow = 1,
-        ExplodableTile = 2,
+        ExplodableTile = 2, // not in use!
+        ExplodableTileParticles = 3,
+        LavaSplashParticles = 4,
+        LavaBurstParticles = 5,
+
     }
 }

@@ -201,6 +201,7 @@ public class Explodable : MonoBehaviour, IResettable
     public void ResetToInitialState()
     {
         GetComponent<Collider2D>().enabled = true;
+        GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
         // make colorful again
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (sr != null)

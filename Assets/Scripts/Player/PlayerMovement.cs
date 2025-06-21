@@ -97,7 +97,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private MMF_Player landFeedback;
     [SerializeField] private MMF_Player dashFeedback;
-    [SerializeField] private Transform landParticlePosition;
 
 
     [SerializeField] public bool enableWallJump;
@@ -600,7 +599,6 @@ public class PlayerMovement : MonoBehaviour
 
         else if (!_wasGroundedLastFrame && isCurrentlyGrounded)
         {
-            landParticlePosition.position = landFeedback.gameObject.transform.position;
             landFeedback?.PlayFeedbacks();
             spineControl.PlayAnimation("jump-land", false, "", true);
             _playedStartJump = false;

@@ -285,7 +285,7 @@ MonoBehaviour:
         MutualizePools: 0
         ParentTransform: {fileID: 0}
         CachedRecycle: 1
-        ParticlesPrefab: {fileID: 0}
+        ParticlesPrefab: {fileID: 2282438384830233658, guid: 7697a49ea05824642b45a2fab61c81c4, type: 3}
         RandomParticlePrefabs: []
         ForceSetActiveOnPlay: 0
         StopOnReset: 0
@@ -1091,7 +1091,7 @@ MonoBehaviour:
         ForceSetActiveOnPlay: 0
         StopOnReset: 0
         DeclaredDuration: 0
-        PositionMode: 1
+        PositionMode: 0
         InstantiateParticlesPosition: {fileID: 0}
         TargetWorldPosition: {x: 0, y: 0, z: 0}
         Offset: {x: 0, y: 0, z: 0}
@@ -1242,7 +1242,7 @@ PrefabInstance:
       addedObject: {fileID: 3088307183588550955}
     - targetCorrespondingSourceObject: {fileID: 5352698350638926221, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7149749199982647062}
+      addedObject: {fileID: 562809240205721375}
   m_SourcePrefab: {fileID: 100100000, guid: ef53e9860808f9a4cbada62e76b02d3e, type: 3}
 --- !u!50 &2739707248122857144 stripped
 Rigidbody2D:
@@ -1452,7 +1452,6 @@ MonoBehaviour:
   jumpFeedback: {fileID: 2438754083969494194}
   landFeedback: {fileID: 8817475888305650512}
   dashFeedback: {fileID: 7720693930701031188}
-  landParticlePosition: {fileID: 0}
   enableWallJump: 0
   spineControl: {fileID: 4310106491862070194}
 --- !u!114 &8509487364657399828
@@ -1516,7 +1515,7 @@ MonoBehaviour:
   currentDamage: 0
   passiveHealRate: 2
   damageUI: {fileID: 0}
---- !u!114 &7149749199982647062
+--- !u!114 &562809240205721375
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

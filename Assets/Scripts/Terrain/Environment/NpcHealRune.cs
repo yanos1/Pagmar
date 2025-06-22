@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using Managers;
+using NPC;
 using Player;
 using UnityEngine;
 
@@ -29,6 +30,13 @@ namespace Terrain.Environment
                 _rb.bodyType = RigidbodyType2D.Kinematic;
                 CoreManager.Instance.EventManager.InvokeEvent(onPickup, healAmount);
 
+            }
+            
+            if (other.GetComponent<Npc>() is { } npc)
+            {
+                CoreManager.Instance.AudioManager.PlayOneShot(healSound, transform.position);
+                npc.Heal();
+                gameObject.SetActive(false);
             }
         }
 

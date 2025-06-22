@@ -1,5 +1,6 @@
 using System.Numerics;
 using DG.Tweening;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,8 +11,12 @@ namespace NPC.BigFriend
         [SerializeField] private BigSpine bigSpine;
         [SerializeField] private GameObject bigVisuals;
         [SerializeField] private SpriteRenderer questionMarkRenderer;
+        [SerializeField] private SpriteRenderer exclamationMarkRenderer;
         [SerializeField] private GameObject questionMark;
+        [SerializeField] private GameObject exclamationMark;
         [SerializeField] private GameObject healText;
+        [SerializeField] private Collider2D headCol;
+        [SerializeField] private MMF_Player healFeedbacks;
 
         public void ShowQuestionMarkForSeconds(float duration = 3f)
         {
@@ -24,16 +29,29 @@ namespace NPC.BigFriend
                 .Append(questionMarkRenderer.DOFade(0f, 0.3f).SetEase(Ease.InSine)) // Fade out
                 .OnComplete(() => questionMark.SetActive(false)); // Deactivate
         }
+        
+        public void ShowExclamationMarkForSeconds(float duration = 3f)
+        {
+            exclamationMark.SetActive(true);
+
+            Sequence seq = DOTween.Sequence();
+
+            seq.Append(exclamationMarkRenderer.DOFade(1f, 0.3f).SetEase(Ease.OutSine)) // Fade in
+                .AppendInterval(duration) // Wait
+                .Append(exclamationMarkRenderer.DOFade(0f, 0.3f).SetEase(Ease.InSine)) // Fade out
+                .OnComplete(() => questionMark.SetActive(false)); // Deactivate
+        }
 
         public void ShowHealRequest()
         {
             // enter animation of tired.
             healText.SetActive(true);
         }
-
+        
         public void RemoveHealRequest()
         {
             // enter aniamtion of happy
+            healFeedbacks?.PlayFeedbacks();
             healText.SetActive(false);
         }
 
@@ -42,27 +60,25 @@ namespace NPC.BigFriend
             bigVisuals.SetActive(true);
         }
 
-        public void DoSmileAnim()
+        public void DoSmileAnim(float seconds)
         {
             print("call do smile");
-            bigSpine.DoSmile();
+            bigSpine.DoSmile(seconds);
         }
 
         public void DoPonderAnim()
         {
-         bigSpine.PlayAnimation(bigSpine.GetAnimName(BigSpine.SpineAnim.LookDownBack));   
+         // bigSpine.PlayAnimation(bigSpine.GetAnimName(BigSpine.SpineAnim.LookDownBack));   
         }
 
         public void EnableHeadCollider()
         {
-            GetComponent<CircleCollider2D>().isTrigger = false;
-            gameObject.layer = LayerMask.NameToLayer("Ground");
+            headCol.enabled = true;
         }
 
         public void DisableHeadCollideR()
         {
-            GetComponent<CircleCollider2D>().isTrigger = true;
-            gameObject.layer = LayerMask.NameToLayer("Default");
+            headCol.enabled = false;
         }
 
         public void Materialize()

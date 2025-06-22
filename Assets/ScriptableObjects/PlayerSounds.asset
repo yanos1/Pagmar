@@ -54,6 +54,13 @@ MonoBehaviour:
       Data3: -884049757
       Data4: -479417049
     Path: event:/Player/PlayerRam
+  wallJumpSound:
+    Guid:
+      Data1: 524670655
+      Data2: 1188495283
+      Data3: 705236621
+      Data4: -1195065082
+    Path: event:/Player/PlayerWallJump
   damageSound:
     Guid:
       Data1: 0
@@ -75,8 +82,3 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
-  jumpVolume: 1
-  landVolume: 1
-  damageVolume: 1
-  deathVolume: 1
-  attackVolume: 1

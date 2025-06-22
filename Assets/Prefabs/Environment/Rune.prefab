@@ -4941,3 +4941,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floatHeight: 0.2
   floatDuration: 1
+  onPickup: 15
+  healSound:
+    Guid:
+      Data1: -407706925
+      Data2: 1223479639
+      Data3: -1340617045
+      Data4: 1032067631
+    Path: event:/Objects/HealingOrb

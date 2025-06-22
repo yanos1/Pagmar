@@ -105,7 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectOnTop: {fileID: 0}
   baseForce: 300
-  addedForce: 50
+  addedForce: 180
   hitFeedbacks: {fileID: 8737027047630956540}
   dir: {x: -1, y: 0}
   e: {fileID: 0}
@@ -114,6 +114,14 @@ MonoBehaviour:
   objectOnTopLayer:
     serializedVersion: 2
     m_Bits: 8
+  hitsToDestroy: 1
+  hitSound:
+    Guid:
+      Data1: 1386036790
+      Data2: 1323847899
+      Data3: -1359818605
+      Data4: -930194527
+    Path: event:/Objects/StoneImpact
 --- !u!61 &3500578581397132535
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
 using Managers;
-using NUnit.Framework.Constraints;
 using SpongeScene;
-using UnityEditor.Timeline.Actions;
-using UnityEngine;
+
 
 namespace NPC.NpcActions
 {

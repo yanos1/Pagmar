@@ -7,7 +7,7 @@ namespace NPC.NpcActions
     [Serializable]
     public class MountAction : NpcAction
     {
-        [SerializeField] private Vector3 mountPosition;
+        [SerializeField] private Vector3 mountPosition; // 304.36, 8.01, 1
         [SerializeField] private PlayerManager player;
 
 

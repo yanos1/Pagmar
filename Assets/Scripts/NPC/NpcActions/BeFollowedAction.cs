@@ -25,6 +25,7 @@ namespace NPC.NpcActions
 
         public override void UpdateAction(Npc npc)
         {
+            base.UpdateAction(npc);
             if (stopFollowTrigger.IsTriggered)
             {
                 Debug.Log("STOP BEING FOLLOWED");

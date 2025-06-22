@@ -1,4 +1,5 @@
 ﻿using System;
+using FMODUnity;
 using Interfaces;
 using Managers;
 using Obstacles;
@@ -21,6 +22,7 @@ namespace Terrain.Environment
         [SerializeField] private AudioClip boxDrop;
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
+        [SerializeField] private EventReference boxBreakSound;
         private float hitCooldownTimer = 0f;
         private const float hitCooldownDuration = 0.5f;
 
@@ -53,19 +55,13 @@ namespace Terrain.Environment
                     isMoving = true;
                 }
             }
-
-            if ((other.gameObject.GetComponent<GuillotineTrap>() is { } guil && guil.IsDeadly()))
-            {
-                e.explode();
-                f.doExplosion(transform.position);
-                print("explode");
-            }
         }
 
         public void OnBreak()
         {
             if (e is not null && f is not null)
             {
+                CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, transform.position);
                 e.explode();
                 f.doExplosion(transform.position);
             }

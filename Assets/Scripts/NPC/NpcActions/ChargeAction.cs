@@ -2,6 +2,7 @@
 using DG.Tweening;
 using Enemies;
 using Interfaces;
+using NPC.BigFriend;
 using Player;
 using Terrain;
 using Unity.VisualScripting;
@@ -32,6 +33,7 @@ namespace NPC.NpcActions
             }
 
             targetOffset = target.position.x - npc.transform.position.x;
+            npc.TurnAround(new Vector2(targetOffset, 0));
             PerformMovement(npc);
 
         }
@@ -44,18 +46,18 @@ namespace NPC.NpcActions
         protected override void PerformMovement(Npc npc)
         {
             int chargeDir = targetOffset > 0 ? -1 : 1;
-            Vector3 targetRotation = new Vector3(0f, 0f, chargeDir * 30f);
 
             Sequence chargeSequence = DOTween.Sequence();
-
-            chargeSequence.Append(npc.transform.DORotate(targetRotation, 0.2f));
-
-            chargeSequence.Append(npc.transform.DOMove(npc.transform.position + Vector3.right*(targetOffset + chargeDir*3), duration)
+            chargeSequence.Append(npc.transform.DOMove(npc.transform.position + Vector3.right*(targetOffset + chargeDir), duration)
                 .SetEase(easeType));
 
-            chargeSequence.Append(npc.transform.DORotate(Vector3.zero, 0.2f));
 
-            chargeSequence.OnComplete(() => isCompleted = true);
+            chargeSequence.OnComplete(() =>
+            {
+                
+                isCompleted = true;
+                npc.GetComponent<BigActions>().DoSmileAnim(5);
+            });
         }
 
         public override void ResetAction(Npc npc)
@@ -63,11 +65,6 @@ namespace NPC.NpcActions
             base.ResetAction(npc);
             if (chargeTween != null && chargeTween.IsActive())
                 chargeTween.Kill();
-
-            npc.transform.DORotate(Vector3.zero, 0.2f);
-            Debug.Log("go idle after charge.");
-            isCompleted = false;
-            npc.SetState(NpcState.Idle);
         }
 
         private bool IsObstacleInFront(Npc npc)

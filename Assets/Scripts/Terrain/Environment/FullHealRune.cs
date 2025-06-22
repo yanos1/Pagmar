@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using FMODUnity;
+using Interfaces;
 using Managers;
 using Player;
 
@@ -14,6 +15,7 @@ namespace Terrain.Environment
         [SerializeField] private float floatHeight = 0.2f;
         [SerializeField] private float floatDuration = 1f;
         [SerializeField] private EventNames onPickup;
+        [SerializeField] private EventReference healSound;
 
         private Vector3 _startPos;
         
@@ -40,7 +42,7 @@ namespace Terrain.Environment
         {
             // Disable the object
             gameObject.SetActive(false);
-
+            CoreManager.Instance.AudioManager.PlayOneShot(healSound, transform.position);
             // Fire the PickFakeRune event
             CoreManager.Instance.EventManager.InvokeEvent(onPickup, 100);
         }

@@ -4701,6 +4701,13 @@ MonoBehaviour:
   boxDrop: {fileID: 8300000, guid: d18699675dadb7140946262431623169, type: 3}
   e: {fileID: 0}
   f: {fileID: 0}
+  boxBreakSound:
+    Guid:
+      Data1: -183777271
+      Data2: 1176702993
+      Data3: -256928597
+      Data4: 1008953857
+    Path: event:/Objects/WoodBreak
 --- !u!50 &2746951127055160538
 Rigidbody2D:
   serializedVersion: 5

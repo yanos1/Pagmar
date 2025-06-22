@@ -1,4 +1,6 @@
-﻿using Interfaces;
+﻿using FMODUnity;
+using Interfaces;
+using Managers;
 using MoreMountains.Feedbacks;
 using Player;
 using SpongeScene;
@@ -21,6 +23,7 @@ namespace Terrain.Environment
         [SerializeField] private float rayDistance = 0.5f;
         [SerializeField] private LayerMask objectOnTopLayer;
         [SerializeField] private int hitsToDestroy = 1;
+        [SerializeField] private EventReference hitSound;
         private bool isObjectOnTop = false;
         private float accumulatedForce;
         private Collider2D _collider;
@@ -91,7 +94,7 @@ namespace Terrain.Environment
         {
             hitFeedbacks?.PlayFeedbacks();
             print($"hit! object on top :{isObjectOnTop}");
-
+            CoreManager.Instance.AudioManager.PlayOneShot(hitSound, transform.position);
             if (isObjectOnTop && objectOnTop != null)
             {
 

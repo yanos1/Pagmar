@@ -2,23 +2,28 @@
 using Player;
 using UnityEngine;
 using System.Collections.Generic;
+using FMODUnity;
+using FMOD.Studio;
 using Managers;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Terrain.Environment
 {
     public class WoodPlankHingedPlatform : MonoBehaviour, IBreakable, IResettable
     {
-        [Header("Setup")] [SerializeField] private HingeJoint2D hinge;
+        [Header("Setup")]
+        [SerializeField] private HingeJoint2D hinge;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private GameObject woodPlankPrefab;
         [SerializeField] private bool spawnNewPlank = true;
+        [SerializeField] private EventReference rotateSound;
 
-        [Header("Angle Settings")] [SerializeField]
-        private float angleThreshold = 87.2f;
-
+        [Header("Angle Settings")]
+        [SerializeField] private float angleThreshold = 87.2f;
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private bool playerMustBeFromLeft = false;
         [SerializeField] private bool playerMustBeFromRight = false;
+
         private float initialRotation;
         private bool isFalling = false;
         private Vector3 spawnPoint;
@@ -26,6 +31,7 @@ namespace Terrain.Environment
         private int originalLayer;
 
         private List<GameObject> spawnedPlanks = new List<GameObject>();
+        private EventInstance rotateSoundInstance;
 
         void Start()
         {
@@ -51,7 +57,7 @@ namespace Terrain.Environment
             if (currentAngle >= angleThreshold)
             {
                 StopMovement();
-                gameObject.layer = 3; //ground
+                gameObject.layer = 3; // Ground layer
                 isFalling = false;
 
                 if (spawnNewPlank)
@@ -61,16 +67,19 @@ namespace Terrain.Environment
 
         public void OnHit(Vector2 hitDir, PlayerStage stage)
         {
-            print("wood hit");
             if (isFalling ||
-                (playerMustBeFromLeft &&
-                 CoreManager.Instance.Player.transform.position.x - 0.1f > transform.position.x) ||
-                 (playerMustBeFromRight &&
-                  CoreManager.Instance.Player.transform.position.x + 0.1f < transform.position.x)) return;
-            print("would dynamic");
+                (playerMustBeFromLeft && CoreManager.Instance.Player.transform.position.x - 0.1f > transform.position.x) ||
+                (playerMustBeFromRight && CoreManager.Instance.Player.transform.position.x + 0.1f < transform.position.x))
+                return;
+
             isFalling = true;
             hinge.enabled = true;
             rb.bodyType = RigidbodyType2D.Dynamic;
+
+            // Play FMOD rotate sound using AudioManager
+            rotateSoundInstance = CoreManager.Instance.AudioManager.CreateEventInstance(rotateSound);
+            rotateSoundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+            rotateSoundInstance.start();
         }
 
         public void OnBreak()
@@ -84,6 +93,13 @@ namespace Terrain.Environment
             rb.angularVelocity = 0;
             rb.bodyType = RigidbodyType2D.Kinematic;
             hinge.enabled = false;
+
+            // Stop and release the FMOD sound
+            if (rotateSoundInstance.isValid())
+            {
+                rotateSoundInstance.stop(STOP_MODE.ALLOWFADEOUT);
+                rotateSoundInstance.release();
+            }
 
             float z = transform.eulerAngles.z;
             float normalizedZ = (z + 360f) % 360f;
@@ -119,7 +135,6 @@ namespace Terrain.Environment
                     Destroy(plank);
                 }
             }
-
             spawnedPlanks.Clear();
 
             // Reset transform
@@ -137,6 +152,13 @@ namespace Terrain.Environment
 
             // Reset flags
             isFalling = false;
+
+            // Stop any lingering FMOD sound
+            if (rotateSoundInstance.isValid())
+            {
+                rotateSoundInstance.stop(STOP_MODE.IMMEDIATE);
+                rotateSoundInstance.release();
+            }
         }
     }
 }

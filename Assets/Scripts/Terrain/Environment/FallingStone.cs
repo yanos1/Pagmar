@@ -41,14 +41,13 @@ namespace Terrain.Environment
 
         public virtual void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.GetComponent<MovingPlatform>() is not null)
+            if (other.gameObject.CompareTag("WeakRock") || other.gameObject.CompareTag("Metal"))  // surfaces that collide with the stone.
             {
                 if (e is not null)
                     e.explode();
                 if (f is not null)
                     f.doExplosion(transform.position);
             }
-
         }
 
         public virtual void ResetToInitialState()

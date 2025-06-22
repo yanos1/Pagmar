@@ -1041,7 +1041,7 @@ GameObject:
   - component: {fileID: 27145205}
   m_Layer: 0
   m_Name: col (1)
-  m_TagString: Untagged
+  m_TagString: WeakRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17516,7 +17516,7 @@ GameObject:
   - component: {fileID: 552988568}
   m_Layer: 0
   m_Name: col
-  m_TagString: Untagged
+  m_TagString: WeakRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19756,7 +19756,7 @@ GameObject:
   - component: {fileID: 624178962}
   m_Layer: 0
   m_Name: colliders
-  m_TagString: Untagged
+  m_TagString: WeakRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

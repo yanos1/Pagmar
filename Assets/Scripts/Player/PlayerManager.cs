@@ -33,6 +33,7 @@ namespace Player
         private int ramComboCount = 0;
         private const float comboTimeWindow = 0.5f;
         public bool InputEnabled => inputEnabled;
+        public bool IsMoving => Mathf.Abs(_rb.linearVelocity.x) > 0.2;
 
         public void DisableInput()
         {
@@ -109,7 +110,7 @@ namespace Player
         public void UpgradeState()
         {
             int next = (int)playerStage + 1;
-
+            
             SetPlayerStage((PlayerStage)next);
         }
 
@@ -253,6 +254,7 @@ namespace Player
         public void SetPlayerStage(PlayerStage stage)
         {
             playerStage = stage;
+            print($"set stage to {playerStage}");
             CoreManager.Instance.AudioManager.SetGlobalParameter("Evolution", (int)stage);
         }
 

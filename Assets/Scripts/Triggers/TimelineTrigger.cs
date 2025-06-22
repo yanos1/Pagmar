@@ -1,11 +1,7 @@
 ﻿using Managers;
-using Player;
 using SpongeScene;
-using Unity.Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.Serialization;
 
 namespace Triggers
 {

@@ -70,13 +70,12 @@ public class BigSpine : MonoBehaviour
         currentActionAnimation = animationName;
 
         var entry = skeletonAnimation.AnimationState.SetAnimation(2, animationName, loop);
-        print($"set to {animationName}");
         if (!loop)
         {
             entry.Complete += _ =>
             {
                 currentActionAnimation = "";
-
+                print($"finished {animationName}");
                 if (!string.IsNullOrEmpty(fallbackAnimation))
                 {
                     skeletonAnimation.AnimationState.AddAnimation(2, fallbackAnimation, true, 0f);
@@ -86,11 +85,24 @@ public class BigSpine : MonoBehaviour
         }
     }
 
-    public void DoSmile()
+    public void DoSmile(float seconds)
     {
         print("big smile called");
-        skeletonAnimation.AnimationState.SetAnimation(1, _smile, false);
+        StartCoroutine(SmileForSeconds(seconds));
     }
+
+    private IEnumerator SmileForSeconds(float duration)
+    {
+        // Play the smile animation on track 1
+        skeletonAnimation.AnimationState.SetAnimation(1, _smile, true); // looped to hold smile pose
+
+        // Wait for the duration
+        yield return new WaitForSeconds(duration);
+
+        // Go back to blinking or clear the smile
+        skeletonAnimation.AnimationState.SetAnimation(1, _blink, true);
+    }
+
 
 
 

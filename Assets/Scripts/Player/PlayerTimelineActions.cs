@@ -5,8 +5,8 @@ namespace Player
 {
     public class PlayerTimelineActions : MonoBehaviour
     {
-        private int force = 100;
-        private int forceAddition = 50;
+        private int force = 120;
+        private int forceAddition = 60;
         private Rigidbody2D rb;
         private PlayerMovement _playerMovement;
 

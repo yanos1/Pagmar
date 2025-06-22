@@ -201,6 +201,7 @@ MonoBehaviour:
   trigger: Player
   requiredTriggers: 1
   onTrigger: 20
+  triggerFeedbacks: {fileID: 0}
 --- !u!61 &21445460
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3036,6 +3037,7 @@ MonoBehaviour:
   jumpDuration: 0.35
   dashDistance: 4
   startNpcSequenceAtStart: 0
+  spine: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -3542,9 +3544,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6376a7a5bbf05d043be9708dd7d10d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bigSpriteRenderer: {fileID: 946855282}
+  bigSpine: {fileID: 0}
+  bigVisuals: {fileID: 0}
   questionMarkRenderer: {fileID: 1768889559}
+  exclamationMarkRenderer: {fileID: 0}
   questionMark: {fileID: 1768889557}
+  exclamationMark: {fileID: 0}
+  healText: {fileID: 0}
+  headCol: {fileID: 0}
+  healFeedbacks: {fileID: 0}
 --- !u!58 &946855286
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4507,6 +4515,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 562809240205721375, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 562809240205721375, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2739707248122857144, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_BodyType
       value: 1
@@ -4648,9 +4664,6 @@ PrefabInstance:
       addedObject: {fileID: 1555897817}
     - targetCorrespondingSourceObject: {fileID: 8185278169048737288, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1555897816}
-    - targetCorrespondingSourceObject: {fileID: 8185278169048737288, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1555897815}
   m_SourcePrefab: {fileID: 100100000, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
 --- !u!1 &1555897814 stripped
@@ -4680,6 +4693,7 @@ MonoBehaviour:
   jumpDuration: 0.5
   dashDistance: 0
   startNpcSequenceAtStart: 1
+  spine: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -4758,99 +4772,6 @@ MonoBehaviour:
         easeType: 7
         sounds: {fileID: 0}
         stepFeedbacks: {fileID: 0}
---- !u!114 &1555897816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1555897814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Events:
-    m_Signals:
-    - {fileID: 11400000, guid: 3e35cb66f9a08bd469973b4e6bcd01c7, type: 2}
-    - {fileID: 11400000, guid: 14fdbe731b7abfb4e99d2e2bc76fdbbb, type: 2}
-    m_Events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1555897817}
-          m_TargetAssemblyTypeName: Player.PlayerTimelineActions, Assembly-CSharp
-          m_MethodName: BumpUp
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 946855285}
-          m_TargetAssemblyTypeName: NPC.BigFriend.BigActions, Assembly-CSharp
-          m_MethodName: ShowBig
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 946855281}
-          m_TargetAssemblyTypeName: NPC.Npc, Assembly-CSharp
-          m_MethodName: StartSequence
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 647972400}
-          m_TargetAssemblyTypeName: CameraFollowObject, Assembly-CSharp
-          m_MethodName: SetFollower
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: Player.PlayerManager, Assembly-CSharp
-          m_MethodName: UnlockAnimations
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: Player.PlayerManager, Assembly-CSharp
-          m_MethodName: EnableInput
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!114 &1555897817
 MonoBehaviour:
   m_ObjectHideFlags: 0

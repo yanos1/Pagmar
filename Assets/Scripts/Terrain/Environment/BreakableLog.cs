@@ -1,4 +1,5 @@
 ﻿using System;
+using FMODUnity;
 using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
@@ -9,13 +10,15 @@ namespace Terrain.Environment
     public class BreakableLog : MonoBehaviour, IResettable
     {
         private int hitCount = 0;
-        [SerializeField]private int maxHits = 7;
+        [SerializeField]private int maxHits;
         private Vector3 startingPos;
         private Rigidbody2D rb;
 
         [SerializeField] private MMF_Player hitFeedback;
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
+        [SerializeField] private EventReference hitSound;
+        [SerializeField] private EventReference breakSound;
 
         private void Start()
         {
@@ -31,7 +34,12 @@ namespace Terrain.Environment
                 hitFeedback?.PlayFeedbacks();
                 if (++hitCount == maxHits)
                 {
+                    CoreManager.Instance.AudioManager.PlayOneShot(breakSound, transform.position);
                     Explode();
+                }
+                else
+                {
+                    // CoreManager.Instance.AudioManager.PlayOneShot(hitSound, transform.position);
                 }
             }
         }

@@ -204,10 +204,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hinge: {fileID: 4390186737681757643}
   rb: {fileID: 3830137113731985901}
-  woodPlankPrefab: {fileID: 0}
-  spawnNewPlank: 1
+  woodPlankPrefab: {fileID: 312739935159340790}
+  spawnNewPlank: 0
+  rotateSound:
+    Guid:
+      Data1: 982625841
+      Data2: 1216845696
+      Data3: 8652720
+      Data4: 485719813
+    Path: event:/Objects/WoodPlatformRotate
   angleThreshold: 87.2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
-  playerMustBeFromLeft: 0
+    m_Bits: 8
+  playerMustBeFromLeft: 1
+  playerMustBeFromRight: 0

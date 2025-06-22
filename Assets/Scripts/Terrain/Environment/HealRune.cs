@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using FMODUnity;
+using Interfaces;
 using Managers;
 using Player;
 
@@ -17,6 +18,7 @@ namespace Terrain.Environment
         [SerializeField] protected EventNames onPickup;
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private float groundCheckDistance = 0.1f;
+        [SerializeField] protected EventReference healSound;
 
         private Vector3 _startPos;
         protected Rigidbody2D _rb;
@@ -78,6 +80,7 @@ namespace Terrain.Environment
             print($"invoked {onPickup} 12");
             CoreManager.Instance.EventManager.InvokeEvent(onPickup, healAmount);
             gameObject.SetActive(false);
+            CoreManager.Instance.AudioManager.PlayOneShot(healSound, transform.position);
         }
 
         public virtual void ResetToInitialState()

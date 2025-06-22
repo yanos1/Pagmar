@@ -26,6 +26,7 @@ namespace NPC.NpcActions
 
         public override void UpdateAction(Npc npc)
         {
+            base.UpdateAction(npc);
             if (stopFollowTrigger is not null && stopFollowTrigger.IsTriggered)
             {
                 StopWalking(npc);
@@ -49,19 +50,23 @@ namespace NPC.NpcActions
 
             while (npc.IsFollowing)
             {
+                Debug.Log("following.");
                 float distanceToPlayer =
                     Vector2.Distance(npc.transform.position, CoreManager.Instance.Player.transform.position);
 
                 if (distanceToPlayer <= minDistanceToPlayer && !waitingForPlayer)
                 {
+                    Debug.Log("Stop Following");
                     waitingForPlayer = true;
                     StopWalking(npc);
                     yield return new WaitForSeconds(0.2f);
                 }
                 
-                else if (walkRoutine is null && waitingForPlayer && distanceToPlayer <= minDistanceToPlayer)
+                else if (walkRoutine is null && waitingForPlayer && distanceToPlayer > minDistanceToPlayer)
                 {
                     yield return new WaitForSeconds(Random.Range(0.2f, 0.6f));
+                    Debug.Log("Continue Following");
+
                     PerformWalk(npc, GetMoveDirection(npc), npc.Speed);
                     waitingForPlayer = false;
                 }

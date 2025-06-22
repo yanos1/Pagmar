@@ -1,5 +1,103 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5152161605561449228
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4992130159683838871}
+  - component: {fileID: 1045891065372075942}
+  - component: {fileID: 621649078204064915}
+  m_Layer: 14
+  m_Name: Ambience
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4992130159683838871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5152161605561449228}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6545903278145861498}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1045891065372075942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5152161605561449228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83f49c8579e24ba08f5f5ffadbbb9a07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amb:
+    Guid:
+      Data1: 1051884692
+      Data2: 1081949936
+      Data3: 1079133372
+      Data4: 847617413
+    Path: event:/Ambience/ShrineAmb
+--- !u!61 &621649078204064915
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5152161605561449228}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 6.6, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &5470501401096104145
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,16 +416,23 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2441315751401867947, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 880877048866091969, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8664151459947535107}
+    - targetCorrespondingSourceObject: {fileID: 880877048866091969, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4992130159683838871}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3586867183549839425, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2355795388353060507}
+    - targetCorrespondingSourceObject: {fileID: 3586867183549839425, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7402629875175387127}
   m_SourcePrefab: {fileID: 100100000, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
 --- !u!212 &1995275107204668505 stripped
 SpriteRenderer:
@@ -1230,3 +1335,21 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+--- !u!114 &7402629875175387127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7433514341610667258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7738fd755310450898039242420e57eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newStage: -1
+  checkpointFeedback: {fileID: 0}
+  callEventOnReach: 0
+  onReached: 0
+  onReachedDelay: 0
+  sounds: {fileID: 11400000, guid: f79edddc892776b4da36e47f2b2ba7e0, type: 2}

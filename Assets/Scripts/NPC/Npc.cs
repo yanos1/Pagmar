@@ -16,7 +16,7 @@ namespace NPC
 {
     public class Npc : MonoBehaviour
     {
-        [SerializeReference,SubclassSelector] private List<NpcAction> actions;
+        [SerializeReference, SubclassSelector] private List<NpcAction> actions;
 
         private NpcState state;
         private NpcAction currentAction;
@@ -38,6 +38,8 @@ namespace NPC
         private bool _isFollowing;
         private bool _isFollowed;
 
+        public NpcAction CurrentAction => currentAction;
+
         public bool IsFollowed
         {
             get => _isFollowed;
@@ -45,7 +47,7 @@ namespace NPC
             {
                 _isFollowed = value;
                 _isFollowing = false;
-            } 
+            }
         }
 
         public bool IsFollowing
@@ -70,18 +72,16 @@ namespace NPC
         {
             CoreManager.Instance.EventManager.AddListener(EventNames.PlayerMeetSmall, OnMeetPlayer);
         }
-        
+
         private void OnDisable()
         {
             CoreManager.Instance.EventManager.RemoveListener(EventNames.PlayerMeetSmall, OnMeetPlayer);
         }
 
-        
-
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
-            if(startNpcSequenceAtStart) StartSequence();
+            if (startNpcSequenceAtStart) StartSequence();
         }
 
         public void StartSequence()
@@ -128,35 +128,42 @@ namespace NPC
             }
         }
 
-        private void OnLanding()
-            {
-                spine.PlayAnimation(
-                    spine.GetAnimName(BigSpine.SpineAnim.JumpLand),
-                    loop: false,
-                    fallbackAnimation: GetNextGroundedAnimation(),
-                    force: true
-                );
-            }
-
-        
-        private IEnumerator WaitAndMoveToNextAction(float delayAfterAction)
+        public void TurnAround(Vector2 newDir)
         {
-            yield return new WaitForSeconds(delayAfterAction);  // Wait for 1.2 seconds
-            NextAction();  // Move to the next action
-            currentCoroutine = null;  // Reset the coroutine to allow further actions
+            print("Turn around!!");
+            Quaternion targetRotation = Quaternion.Euler(0, newDir.x > 0 ? 0f : 180f, 0);
+            spine.transform.rotation = targetRotation;
         }
 
-        private void NextAction()
+        private void OnLanding()
+        {
+            spine.PlayAnimation(
+                spine.GetAnimName(BigSpine.SpineAnim.JumpLand),
+                loop: false,
+                fallbackAnimation: GetNextGroundedAnimation(),
+                force: true
+            );
+        }
+
+
+        private IEnumerator WaitAndMoveToNextAction(float delayAfterAction)
         {
             if (actionIndex > 0)
             {
                 currentAction.ResetAction(this);
             }
-            
+
+            yield return new WaitForSeconds(delayAfterAction); // Wait for 1.2 seconds
+            NextAction(); // Move to the next action
+            currentCoroutine = null; // Reset the coroutine to allow further actions
+        }
+
+        private void NextAction()
+        {
             if (actionIndex < actions.Count)
             {
                 print($"{actionIndex} {actions.Count}");
-                
+
                 currentAction = actions[actionIndex++];
                 print($"start action {currentAction}");
                 currentAction.StartAction(this);
@@ -166,7 +173,7 @@ namespace NPC
                 currentAction = null;
             }
         }
-        
+
         public void RestoreStateFromIndex(int index)
         {
             if (index >= 0 && index < actions.Count)
@@ -181,7 +188,7 @@ namespace NPC
                 print($"12 starting action {currentAction} after reset");
             }
         }
-        
+
         public void AddAction(NpcAction newAction)
         {
             actions.Insert(actionIndex, newAction);
@@ -194,14 +201,15 @@ namespace NPC
             actions.Insert(actionIndex, newAction); // Insert at current position
             NextAction();
         }
-        
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             IBreakable breakable = other.GetComponent<IBreakable>();
-         
+
             if (breakable is not null && state == NpcState.Charging)
             {
-                breakable.OnBreak();
+                breakable.OnHit(other.transform.position - transform.position,
+                    PlayerStage.Adult); // Big is starting as adult
                 return;
             }
 
@@ -211,28 +219,20 @@ namespace NPC
                 print("RAM ENEMY");
                 enemy.SpecialNpcRam();
             }
-
-            if (other.GetComponent<NpcHealRune>() is { } heal)
-            {
-                Heal();
-                heal.gameObject.SetActive(false);
-            }
         }
 
-        private void Heal()
+        public void Heal()
         {
             CoreManager.Instance.EventManager.InvokeEvent(EventNames.BigPickUpHeal, null);
             // add effect here
-            
-
         }
 
         public void SetState(NpcState newState)
         {
-            
             state = newState;
             UpdateAnimationByState();
         }
+
         private void UpdateAnimationByState()
         {
             switch (state)
@@ -247,16 +247,18 @@ namespace NPC
                     PlayJumpSequence();
                     break;
                 case NpcState.Charging:
-                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Dash), false, spine.GetAnimName(BigSpine.SpineAnim.Run));
+                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Dash), false,
+                        spine.GetAnimName(BigSpine.SpineAnim.Run));
                     break;
                 case NpcState.Crouching:
-                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Crouch), false);
+                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Crouch), true);
                     break;
                 case NpcState.GetUp:
                     spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.GettingUp), false);
                     break;
             }
         }
+
         public void PlayJumpSequence()
         {
             spine.PlayAnimation(
@@ -277,18 +279,16 @@ namespace NPC
                 }
             );
         }
+
         private string GetNextGroundedAnimation()
         {
             if (_isFollowing)
                 return spine.GetAnimName(BigSpine.SpineAnim.Walk);
             if (IsFollowed)
                 return spine.GetAnimName(BigSpine.SpineAnim.Run);
-        
+
             return spine.GetAnimName(BigSpine.SpineAnim.Idle);
         }
-
-
-
 
 
         public void ResetActions()
@@ -296,14 +296,13 @@ namespace NPC
             Vector3 scale = transform.localScale;
             scale.x = Mathf.Abs(scale.x) * 1; // turn right
             transform.localScale = scale;
-            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(2,() =>
+            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(2, () =>
             {
                 actionIndex = 0;
                 StartSequence();
             }));
-
         }
-        
+
         private void OnMeetPlayer(object obj)
         {
             print("meet player!");
@@ -317,7 +316,10 @@ namespace NPC
 
     public enum NpcState
     {
-        Idle, Walking, Jumping, Charging,
+        Idle,
+        Walking,
+        Jumping,
+        Charging,
         Crouching,
         GetUp
     }

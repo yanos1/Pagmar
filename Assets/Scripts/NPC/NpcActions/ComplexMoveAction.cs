@@ -1,4 +1,5 @@
-﻿using Unity.VisualScripting;
+﻿using NPC.BigFriend;
+using Unity.VisualScripting;
 using UnityEngine.Serialization;
 
 namespace NPC.NpcActions
@@ -23,6 +24,7 @@ namespace NPC.NpcActions
             protected float wallCheckDistance = 4.5f;
             protected bool waitingForPlayer = false;
             protected Vector2 currentDir = Vector2.right;
+            private float lastTimePlayerMoved;
 
 
             protected Coroutine walkRoutine;
@@ -31,6 +33,8 @@ namespace NPC.NpcActions
             public override void StartAction(Npc npc)
             {
                 base.StartAction(npc);
+                lastTimePlayerMoved = Time.time;
+
             }
 
             public override void UpdateAction(Npc npc)
@@ -39,23 +43,62 @@ namespace NPC.NpcActions
                 // {
                 //     isCompleted = true; 
                 // }
+                if (CoreManager.Instance.Player.IsMoving)
+                {
+                    lastTimePlayerMoved = Time.time;
+                }
+
+                if (Time.time - lastTimePlayerMoved > 6) // player hasnt moved for 6 seconds, ponder
+                {
+                    npc.TurnAround(CoreManager.Instance.Player.transform.position - npc.transform.position);
+                    Debug.Log("try to turn on question mark");
+                    npc.GetComponent<BigActions>()?.ShowQuestionMarkForSeconds();
+                    npc.GetComponent<BigActions>()?.DoPonderAnim();
+                    lastTimePlayerMoved = Time.time; // just so it doesnt call itself endlessly.
+                    CoreManager.Instance.Runner.StartCoroutine(TurnWhenPlayerMoves(npc));
+
+                }
+            }
+
+            private IEnumerator TurnWhenPlayerMoves(Npc npc)
+            {
+                yield return new WaitUntil(() => CoreManager.Instance.Player.IsMoving);
+                if (npc.IsFollowing)
+                {
+                    npc.TurnAround(CoreManager.Instance.Player.transform.position - npc.transform.position);
+                }
+                else
+                {
+                    npc.TurnAround(-(CoreManager.Instance.Player.transform.position - npc.transform.position));
+
+                }
+            }
+
+            public override void ResetAction(Npc npc)
+            {
+                base.ResetAction(npc);
+                waitingForPlayer = false;
             }
 
             protected Vector2 GetMoveDirection(Npc npc)
             {
-                if (npc.IsFollowed) return Vector2.right;
+                if (npc.IsFollowed)
+                {
+                    currentDir =Vector2.right;
+                    return currentDir;
+                }
 
                 Vector2 newDir = CoreManager.Instance.Player.transform.position.x > npc.transform.position.x
                     ? Vector2.right
                     : Vector2.left;
 
-                if (newDir != currentDir)
+                if (newDir != currentDir && npc.IsFollowing)
                 {
                     currentDir = newDir;
-
+                    Debug.Log("change npc dir");
                     // Rotate on Y axis to face correct direction
-                    Quaternion targetRotation = Quaternion.Euler(0, newDir.x > 0 ? 0f : 180f, 0);
-                    npc.transform.rotation = targetRotation;
+                    npc.TurnAround(currentDir);
+              
                 }
 
                 return newDir;
@@ -63,8 +106,6 @@ namespace NPC.NpcActions
 
             protected bool IsGroundAhead(Npc npc, Vector2 dir)
             {
-                Debug.Log($"npc dir {dir}");
-                Debug.Log($"ground mask {groundMask}");
                 Vector2 origin = (dir == Vector2.right
                                      ? new Vector3(1.5f, 0, 0)
                                      : new Vector3(-1.5f, 0, 0))
@@ -137,6 +178,7 @@ namespace NPC.NpcActions
 
             protected void PerformJump(Npc npc, Vector3 target)
             {
+                StopWalking(npc);
                 JumpMoveAction jump = new JumpMoveAction(3, target - npc.transform.position, 1f);
                 npc.InterruptWithAction(jump);
             }
@@ -149,9 +191,11 @@ namespace NPC.NpcActions
 
             protected void StopWalking(Npc npc)
             {
+                Debug.Log("stop walking called");
                 if (walkRoutine != null)
                 {
-                    npc.SetState(NpcState.Walking);
+                    Debug.Log("stop walking");
+                    npc.SetState(NpcState.Idle);
                     CoreManager.Instance.Runner.StopCoroutine(walkRoutine);
                     walkRoutine = null;
                 }
@@ -167,13 +211,15 @@ namespace NPC.NpcActions
                     Vector2 nextPos = currentPos + direction * (speed * Time.deltaTime);
 
                     npc.transform.position = Vector2.MoveTowards(currentPos, nextPos, speed * Time.deltaTime);
-
+        
                     yield return new WaitForFixedUpdate();
+                    Debug.Log("walking");
                 }
             }
 
             private void PerformJumpCancelDashUp(Npc npc)
             {
+                StopWalking(npc);
                 JumpCancelDashUpAction jumpDash = new JumpCancelDashUpAction();
                 npc.InterruptWithAction(jumpDash);
             }

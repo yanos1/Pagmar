@@ -561,6 +561,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void StartWallJump()
     {
+        CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.wallJumpSound, transform.position);
         isWallJumping = true;
         wallJumpCounter = wallJumpTime;
         wallJumpDirection = _isFacingRight ? -1 : 1;

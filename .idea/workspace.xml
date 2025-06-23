@@ -4,7 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d3d910bc-5473-41e6-afe0-169400ccc020" name="Changes" comment="" />
+    <list default="true" id="d3d910bc-5473-41e6-afe0-169400ccc020" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/MaskMaterial.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/MaskMaterial.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/New Material.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/New Material.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Mirror.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Mirror.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/mirror.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/mirror/MirrorMetarial.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/mirror/MirrorMetarial.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/mirror/RenderTex.renderTexture" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/mirror/RenderTex.renderTexture.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/mirror/mirror-base.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/mirror/mirror-base.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/mirror/mirror-inside.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/mirror/mirror-inside.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/mirror/mirror-reflection-light.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/mirror/mirror-reflection-light.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/mirror/symbol.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/mirror/symbol.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/StencilMask.shader" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/StencilMask.shader.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/StencilTest.shader" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/StencilTest.shader.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mono_crash.0.0.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mono_crash.1b6b12f7b2.0.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Realistic Hail Set/Demo Scene/Materials/Floor.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Realistic Hail Set/Demo Scene/Materials/Floor.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Underground.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Underground.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,7 +58,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Merging main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -49,6 +78,7 @@
       <workItem from="1747053601429" duration="8000" />
       <workItem from="1747937370361" duration="1000" />
       <workItem from="1749411148763" duration="35000" />
+      <workItem from="1750663703377" duration="241000" />
     </task>
     <servers />
   </component>

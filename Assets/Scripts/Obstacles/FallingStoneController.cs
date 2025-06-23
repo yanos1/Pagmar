@@ -7,7 +7,7 @@ namespace Obstacles
     using System.Collections.Generic;
     using UnityEngine;
 
-    public class FallingStoneController : MonoBehaviour, IResettable
+    public class FallingStoneController : MonoBehaviour, IResettable, IBreakable
     {
         [SerializeField] private List<FallingStone> stones;
         [SerializeField] private Vector2 fallForce;
@@ -24,20 +24,24 @@ namespace Obstacles
                 Debug.Log("All stones have already fallen.");
                 return;
             }
-
-            if (col.GetComponent<PlayerMovement>() is { } player && player.IsDashing)
-            {
-                FallingStone stone = stones[currentIndex];
-                stone.Activate();
-                stone.GetComponent<Rigidbody2D>().AddForce(fallForce, ForceMode2D.Impulse);
-                currentIndex++;
-            }
           
         }
 
         public void ResetToInitialState()
         {
             currentIndex = 0;
+        }
+
+        public void OnBreak()
+        {
+        }
+
+        public void OnHit(Vector2 hitDir, PlayerStage stage)
+        {
+            FallingStone stone = stones[currentIndex];
+            stone.Activate();
+            stone.GetComponent<Rigidbody2D>().AddForce(fallForce, ForceMode2D.Impulse);
+            currentIndex++;
         }
     }
 

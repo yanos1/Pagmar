@@ -37,8 +37,6 @@ namespace Enemies
         private float groundCheckDistance = 1f;
 
         [SerializeField] private float wallDetectionDistance = 1f;
-        [SerializeField] private Explodable e;
-        [SerializeField] private ExplosionForce f;
         [SerializeField] private MMF_Player hitFeedbacks;
         [SerializeField] private EnemySpineControl spineControl;
         [SerializeField] private ChargingEnemySounds sounds;
@@ -55,7 +53,7 @@ namespace Enemies
         [SerializeField] private Vector2 currentDirection;
         private bool hit = false;
         private bool isKnockbacked = false;
-        private const float visibilityThreshold = 0.6f;
+        private const float visibilityThreshold = 0.2f;
         private float visibiliyTimer = 0f;
         private bool falling = false;
         private float lastChargeTime = 0f;
@@ -83,6 +81,7 @@ namespace Enemies
         //         initialized = true;
         //     } 
         // }
+ 
 
         public void Awake()
         {
@@ -157,12 +156,6 @@ namespace Enemies
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 2.8f, groundLayer);
             Debug.DrawRay(transform.position, Vector2.up * 2.8f, hit.collider ? Color.red : Color.green);
 
-            if (hit.collider is not null && (hit.collider.gameObject.GetComponent<GuillotineTrap>() is not null))
-            {
-                e.explode();
-                f.doExplosion(transform.position);
-            }
-
             if (!isRoaming && !IsCharging && !isPreparingCharge && !falling && !player.IsDead && !isKnockbacked)
             {
                 if (!spineControl.IsAnyNonLoopingAnimationPlaying())
@@ -176,9 +169,7 @@ namespace Enemies
         {
             if (other.GetComponent<AlternatingLavaBeam>() is not null)
             {
-                e.explode();
                 print($"explosion at {transform.position}");
-                f.doExplosion(transform.position);
             }
         }
 
@@ -223,7 +214,7 @@ namespace Enemies
                 spineControl?.PlayAnimation("walk", true);
             }
 
-            if ((HitWall() || !GroundAhead() || CheckPlayerInRoamDirection()) && flipCooldownTimer <= 0)
+            if ((HitWall() || !GroundAhead()) && flipCooldownTimer <= 0)
             {
                 flipCooldownTimer = flipCooldownDuration;
 
@@ -369,6 +360,8 @@ namespace Enemies
             currentChargeCooldown = chargeCooldown;
             accumulatedChargePrepareTime = 0;
             currentChargeDelay = chargeDelay;
+            currentDirection *= -1;
+            FlipSprite(currentDirection.x > 0);
         }
 
         private void AbortCharge()
@@ -396,10 +389,10 @@ namespace Enemies
                 hitSomething = true;
             }
 
-            if (raycast.collider is not null && raycast.collider.gameObject.GetComponent<IBreakable>() is { } breakable)
+            if (raycast.collider is not null && raycast.collider.gameObject.GetComponent<IBreakable>() is { } breakable && IsCharging)
             {
                 breakable.OnBreak();
-                gameObject.SetActive(false);
+                StopCharging();
             }
 
             return hitSomething;
@@ -470,6 +463,7 @@ namespace Enemies
             gameObject.SetActive(true);
             StopCharging();
             StopPlayingWalkSound();
+            spineControl?.PlayAnimation("Idle", true);
 
             // Flip using scale (Spine-compatible)
             Vector3 scale = transform.localScale;

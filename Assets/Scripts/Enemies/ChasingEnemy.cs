@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,11 +14,16 @@ public class ChasingEnemy : Rammer, IResettable
     private float rotationSpeed = 3f;
     private Collider2D col;
     private Vector3 startingPosition;
-    private Vector3 resetPosition;
+    private Vector3 playerResetPosition;
     private bool chase = false;
 
-    private float positionHistoryDuration = 3.1f;
+    private float positionHistoryDuration = 17f;
     private List<(float time, Vector3 position)> positionHistory = new List<(float, Vector3)>();
+
+    // Caching
+    private Vector3 lastProcessedPlayerResetPos = Vector3.positiveInfinity;
+    private Vector3 cachedBestResetPosition = Vector3.zero;
+    private bool hasCachedReset = false;
 
     private void OnEnable()
     {
@@ -27,13 +33,14 @@ public class ChasingEnemy : Rammer, IResettable
     private void OnDisable()
     {
         CoreManager.Instance.EventManager.RemoveListener(EventNames.ReachedCheckPoint, OnReachedCheckpoint);
+        StopAllCoroutines();
     }
 
     private void OnReachedCheckpoint(object obj)
     {
         if (obj is Vector3 pos)
         {
-            resetPosition = transform.position;
+            playerResetPosition = pos;
         }
     }
 
@@ -71,13 +78,6 @@ public class ChasingEnemy : Rammer, IResettable
             Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         }
-
-        // Track position history for 2-second rewind
-        positionHistory.Add((Time.time, transform.position));
-        while (positionHistory.Count > 0 && Time.time - positionHistory[0].time > positionHistoryDuration)
-        {
-            positionHistory.RemoveAt(0);
-        }
     }
 
     private float MapYToZRotation(float y)
@@ -99,29 +99,76 @@ public class ChasingEnemy : Rammer, IResettable
     {
         if (!chase) return;
 
-        Vector3 targetResetPosition;
-        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-
-        if (distanceToPlayer < 8f && positionHistory.Count > 0)
+        // Reuse cached position if the reset point hasn't changed
+        if (hasCachedReset && playerResetPosition == lastProcessedPlayerResetPos)
         {
-            targetResetPosition = positionHistory[0].position;
-        }
-        else
-        {
-            targetResetPosition = resetPosition;
+            agent.Warp(cachedBestResetPosition);
+            agent.isStopped = false;
+            print($"[CACHED] chosen pos {cachedBestResetPosition}");
+            return;
         }
 
-        // Apply the warp
-        agent.Warp(targetResetPosition);
-        agent.isStopped = false;
+        float distanceToPlayer = Vector3.Distance(transform.position, playerResetPosition);
 
-        // Clear and seed position history with the new reset position
-        positionHistory.Clear();
-        positionHistory.Add((Time.time - positionHistoryDuration, targetResetPosition));
+        var considerablePositions = new Dictionary<float, Vector3>();
+        foreach (var (time, pos) in positionHistory)
+        {
+            float distance = Vector3.Distance(playerResetPosition, pos);
+            if (pos.x < playerResetPosition.x && distance > 7f)
+            {
+                considerablePositions[distance] = pos;
+            }
+        }
+
+        foreach (var (dist, pos) in considerablePositions)
+        {
+            print($"{dist} {pos}");
+        }
+
+        if (considerablePositions.Count > 0)
+        {
+            float closestDistance = -1f;
+            float smallestDiff = float.MaxValue;
+
+            foreach (var kvp in considerablePositions)
+            {
+                float diff = Mathf.Abs(kvp.Key - 18f);
+                if (diff < smallestDiff)
+                {
+                    smallestDiff = diff;
+                    closestDistance = kvp.Key;
+                }
+            }
+
+            Vector3 bestPosition = considerablePositions[closestDistance];
+            agent.Warp(bestPosition);
+            agent.isStopped = false;
+            print($"[CALCULATED] chosen pos {bestPosition}");
+
+            // Cache result
+            lastProcessedPlayerResetPos = playerResetPosition;
+            cachedBestResetPosition = bestPosition;
+            hasCachedReset = true;
+        }
     }
 
     public void StartChase()
     {
         chase = true;
+        StartCoroutine(RecordPositionHistory());
+    }
+
+    private IEnumerator RecordPositionHistory()
+    {
+        while (chase)
+        {
+            positionHistory.Add((Time.time, transform.position));
+            while (positionHistory.Count > 0 && Time.time - positionHistory[0].time > positionHistoryDuration)
+            {
+                positionHistory.RemoveAt(0);
+            }
+
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }

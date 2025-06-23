@@ -22,11 +22,9 @@ namespace Obstacles
         protected bool isOff = true;
         protected bool isFirst = true;
         [SerializeField] protected MMF_Player startFeedbacks;
-        private void Start()
+        public virtual void Start()
         {
-         
             col = GetComponent<Collider2D>();
-
         }
 
         public virtual void StartBeam()

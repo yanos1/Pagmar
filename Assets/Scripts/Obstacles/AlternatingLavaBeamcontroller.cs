@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enemies;
 using Interfaces;
 using Player;
 using SpongeScene;
@@ -21,7 +22,7 @@ namespace Obstacles.Shooters
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.GetComponent<PlayerManager>() is not null && !triggered)
+            if (other.GetComponent<ChargingEnemy>() is not null && !triggered)
             {
                 StartBeams();
             }

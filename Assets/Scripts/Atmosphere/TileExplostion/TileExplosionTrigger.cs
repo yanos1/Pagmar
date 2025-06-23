@@ -42,14 +42,12 @@ namespace Atmosphere.TileExplostion
 
         private void StartExplosionSequence()
         {
-            Debug.Log("Start ground breaking!");
             explosionFeedbacks?.PlayFeedbacks();
         }
 
         // we activate collider from inspector this couses the explosion
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log($"Triggered hit with {other.name}");
             Vector3 hitPos = other.ClosestPoint(transform.position);
             Vector3Int cellPos = tilemap.WorldToCell(hitPos);
 
@@ -59,7 +57,6 @@ namespace Atmosphere.TileExplostion
                 if (removedTiles.TryAdd(cellPos, tile))
                 {
                     tilemap.SetTile(cellPos, null);
-                    Debug.Log($"Removed tile at {cellPos}");
 
                     CheckExplosionThreshold();
                 }
@@ -106,7 +103,6 @@ namespace Atmosphere.TileExplostion
             foreach (var kvp in removedTiles)
             {
                 tilemap.SetTile(kvp.Key, kvp.Value);
-                Debug.Log("Restored tile at: " + kvp.Key);
             }
 
             removedTiles.Clear();

@@ -6,6 +6,7 @@ using Interfaces;
 using Managers;
 using SpongeScene;
 using Terrain.Environment;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -23,14 +24,20 @@ namespace Obstacles
         private Vector3 startingPos;
         private bool hasFinished;
 
+        public override void Start()
+        {
+            base.Start();
+            startingPos = transform.position;
+        }
+      
         public override void StartBeam()
         {
-            startingPos = transform.position;
             this.StopAndStartCoroutine(ref toggleCoroutine, ToggleBeam());
         }
 
         private IEnumerator ToggleBeam()
         {
+            print("start beam");
             yield return new WaitForSeconds(delayBeforeFirstBeam);
 
             int toggleCount = 0;
@@ -39,7 +46,7 @@ namespace Obstacles
             {
                 // Start feedback and warning
                 startFeedbacks?.PlayFeedbacks();
-            
+                print("waiting beam..");
                 yield return new WaitForSeconds(offTime - warningTime);
 
                 // warning.transform.position = new Vector3(
@@ -54,12 +61,14 @@ namespace Obstacles
 
                 // Beam ON
                 col.enabled = true;
+                print("BEAM ON!!");
+
                 CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.LavaBurstParticles).Play(new Vector3(transform.position.x, -37,0)); // lava is placed at -34 y
                 yield return new WaitForSeconds(onTime);
 
                 // Beam OFF
                 col.enabled = false;
-
+                print("resetin beam");
                 // Trigger event if needed
                 if (onFinished is not EventNames.None)
                 {
@@ -69,7 +78,7 @@ namespace Obstacles
                 // Move beam forward
                 Vector3 futurePos = transform.position + Vector3.right * beamAdvanceDistance;
                 transform.position = futurePos;
-
+                print("move beam forward");
                 // Update warning position for next cycle
                 // warning.transform.position = new Vector3(
                 //     futurePos.x,
@@ -127,6 +136,8 @@ namespace Obstacles
             }
 
             removedTiles.Clear();
+            smokeParticleSystem.Stop();
+            startFeedbacks?.StopFeedbacks();
         }
     }
 }

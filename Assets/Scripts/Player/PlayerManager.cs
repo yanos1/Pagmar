@@ -347,6 +347,7 @@ namespace Player
         {
             isDead = true;
             isKnockbacked = false;
+            LockAnimations();
             CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
         }
 

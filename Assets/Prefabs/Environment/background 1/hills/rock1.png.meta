@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4fbcd4e2a58084f91b8b2b5f4fe10ba3
+guid: 7b88580f34e8e403ca5d6926bbcd8c69
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -183538250861643326
-    second: hill-1_0
+      213: 7331315201791160908
+    second: rock1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hill-1_0
+      name: rock1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1987
-        height: 315
+        width: 354
+        height: 280
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2c9f1baeee0f37df0800000000000000
-      internalID: -183538250861643326
+      spriteID: c42fe2345501eb560800000000000000
+      internalID: 7331315201791160908
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      hill-1_0: -183538250861643326
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

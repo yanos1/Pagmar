@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26361fe037cd46acb62e64ead510ebaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 3550
+  power: 4200
   trigger: {fileID: 1918237978}
   impass: {fileID: 865989471}
   treeHit:
@@ -18621,11 +18621,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4057480337948966328, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -74.28
+      value: -73.87
       objectReference: {fileID: 0}
     - target: {fileID: 4057480337948966328, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.19
+      value: -5.93
       objectReference: {fileID: 0}
     - target: {fileID: 4057480337948966328, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_LocalPosition.z

@@ -50,7 +50,8 @@ namespace Terrain.Environment
 
         public void OnBreak()
         {
-            CoreManager.Instance.AudioManager.PlayOneShot(treeHit, transform.position);
+            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.5f,() => CoreManager.Instance.AudioManager.PlayOneShot(treeHit, transform.position)));
+           
             rb.AddForce(Vector2.left * power);
         }
 

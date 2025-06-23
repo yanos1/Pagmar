@@ -52,6 +52,7 @@ MonoBehaviour:
   detectionRange: 10
   chargeSpeed: 11
   chargeDelay: 1.5
+  chargeCooldown: 2
   chargeDuration: 2
   rotationAmount: 10
   rotationSpeed: 20
@@ -69,7 +70,9 @@ MonoBehaviour:
   f: {fileID: 0}
   hitFeedbacks: {fileID: 6380413419108009971}
   spineControl: {fileID: 6238833751704306004}
+  sounds: {fileID: 11400000, guid: 06cba468de9bc1745a200b9c41b06460, type: 2}
   currentDirection: {x: 1, y: 0}
+  hitsToKill: 2
 --- !u!50 &7558305614794456467
 Rigidbody2D:
   serializedVersion: 5

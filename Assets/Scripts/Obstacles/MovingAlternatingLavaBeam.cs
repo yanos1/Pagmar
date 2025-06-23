@@ -53,13 +53,11 @@ namespace Obstacles
                 yield return new WaitForSeconds(warningTime);
 
                 // Beam ON
-                beamSprite.enabled = true;
                 col.enabled = true;
                 CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.LavaBurstParticles).Play(new Vector3(transform.position.x, -37,0)); // lava is placed at -34 y
                 yield return new WaitForSeconds(onTime);
 
                 // Beam OFF
-                beamSprite.enabled = false;
                 col.enabled = false;
 
                 // Trigger event if needed
@@ -84,7 +82,6 @@ namespace Obstacles
 
             // Beam is done
             hasFinished = true;
-            beamSprite.enabled = false;
             col.enabled = false;
         }
 

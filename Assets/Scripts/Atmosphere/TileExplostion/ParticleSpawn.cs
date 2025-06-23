@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Managers;
 using UnityEngine;
 using Utility;
@@ -8,9 +9,11 @@ namespace Atmosphere.TileExplostion
 {
     public class ParticleSpawn : Poolable
     {
+        [Header("Particles")] [SerializeField] private List<ParticleSystem> explodingParticles;
 
-        [SerializeField] private ParticleSystem explodingParticles;
+        [Header("Pool Settings")]
         [SerializeField] private PoolEnum poolType;
+
         private void Start()
         {
             Type = poolType;
@@ -19,13 +22,28 @@ namespace Atmosphere.TileExplostion
         public void Play(Vector3 pos)
         {
             transform.position = pos;
-            explodingParticles.Play();
+
+            foreach (var ps in explodingParticles)
+            {
+                ps.Play();
+            }
+
             StartCoroutine(ReturnToPoolAfterDone());
         }
 
         private IEnumerator ReturnToPoolAfterDone()
         {
-            yield return new WaitUntil(() => explodingParticles.isPlaying == false);
+            // Wait until all particles are done playing
+            yield return new WaitUntil(() =>
+            {
+                foreach (var ps in explodingParticles)
+                {
+                    if (ps.isPlaying)
+                        return false;
+                }
+                return true;
+            });
+
             CoreManager.Instance.PoolManager.ReturnToPool(this);
         }
     }

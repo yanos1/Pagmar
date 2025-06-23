@@ -1,4 +1,7 @@
-﻿using Interfaces;
+﻿using FMOD.Studio;
+using FMODUnity;
+using Interfaces;
+using Managers;
 using Player;
 using UnityEngine;
 
@@ -10,6 +13,7 @@ namespace Terrain.Environment
         [SerializeField] private HingeJoint2D hinge;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private GameObject woodPlankPrefab;
+        [SerializeField] private EventReference breakSound;
 
         [Tooltip("World position where the new hinge will be created")]
         [SerializeField] private Transform spawnPoint;
@@ -17,6 +21,8 @@ namespace Terrain.Environment
         private float initialRotation;
         private bool isFalling = false;
         private const float angleThreshold = 90f;
+
+        private EventInstance breakSoundInstance;
 
         private void Start()
         {
@@ -41,8 +47,7 @@ namespace Terrain.Environment
 
         public void OnBreak()
         {
-            // Optionally destroy or deactivate the plank
-            // gameObject.SetActive(false);
+            // Optional: handle destruction
         }
 
         public void OnHit(Vector2 hitDir, PlayerStage stage)
@@ -53,6 +58,10 @@ namespace Terrain.Environment
             hinge.enabled = true;
             _woodPlank.ActivateHinge();
             isFalling = true;
+
+            breakSoundInstance = CoreManager.Instance.AudioManager.CreateEventInstance(breakSound);
+            breakSoundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+            breakSoundInstance.start();
         }
 
         private void StopMovement()
@@ -61,6 +70,9 @@ namespace Terrain.Environment
             rb.angularVelocity = 0;
             rb.bodyType = RigidbodyType2D.Kinematic;
             hinge.enabled = false;
+
+            breakSoundInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            breakSoundInstance.release();
         }
 
         private void SpawnNewPlank()

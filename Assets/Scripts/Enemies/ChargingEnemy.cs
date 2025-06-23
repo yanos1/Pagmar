@@ -5,6 +5,7 @@ using Managers;
 using MoreMountains.Feedbacks;
 using Obstacles;
 using Player;
+using ScripableObjects;
 using SpongeScene;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace Enemies
     {
         public float detectionRange;
         public float chargeSpeed;
-        public float chargeDelay;  // the time from when the player seens the player till a charge is discharged
+        public float chargeDelay; // the time from when the player seens the player till a charge is discharged
         public float chargeCooldown; // time until a new charge can be done
         public float chargeDuration;
         public float rotationAmount = 10f;
@@ -32,14 +33,15 @@ namespace Enemies
         [Header("Ground Detection")] [SerializeField]
         private LayerMask groundLayer;
 
-        [Header("Roaming Settings")]
-        
-        [SerializeField] private float groundCheckDistance = 1f;
+        [Header("Roaming Settings")] [SerializeField]
+        private float groundCheckDistance = 1f;
+
         [SerializeField] private float wallDetectionDistance = 1f;
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
         [SerializeField] private MMF_Player hitFeedbacks;
         [SerializeField] private EnemySpineControl spineControl;
+        [SerializeField] private ChargingEnemySounds sounds;
 
 
         private bool isPreparingCharge = false;
@@ -48,6 +50,7 @@ namespace Enemies
         private Collider2D _col;
         private Coroutine flipCoroutine;
         private Coroutine chargeCoroutine;
+        private Coroutine walkSoundRoutine;
         private int currentColIndex = 0;
         [SerializeField] private Vector2 currentDirection;
         private bool hit = false;
@@ -99,7 +102,6 @@ namespace Enemies
             scale.x = Mathf.Abs(scale.x) * (currentDirection == Vector2.right ? 1 : -1);
             transform.localScale = scale;
             currentChargeDelay = chargeDelay;
-            
         }
 
 
@@ -122,18 +124,25 @@ namespace Enemies
             IncrementPlayerVisibleTimer();
 
             float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-            if (!isSleeping && !isRoaming && !IsCharging && !isPreparingCharge && distanceToPlayer < detectionRange && IsPlayerVisibleLongEnough())
+            if (!isSleeping && !isRoaming && !IsCharging && !isPreparingCharge && distanceToPlayer < detectionRange &&
+                IsPlayerVisibleLongEnough())
             {
                 FlipTowardsPlayer();
             }
-           
-            if ( Time.time - lastChargeTime > 1 && canRoam && !IsCharging && !isPreparingCharge && !falling)
+
+            if (Time.time - lastChargeTime > 1 && canRoam && !IsCharging && !isPreparingCharge && !falling)
             {
                 // print($"canRoam {canRoam} and chargeCD {chargeCooldown} and is charging {IsCharging} and is preparing chage {isPreparingCharge}");
+                if (!isRoaming)
+                {
+                    StartPlayingWalkSound();
+                }
+
                 Roam();
             }
             else
             {
+                StopPlayingWalkSound();
                 isRoaming = false;
             }
 
@@ -146,13 +155,14 @@ namespace Enemies
             }
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 2.8f, groundLayer);
-            Debug.DrawRay(transform.position, Vector2.up* 2.8f, hit.collider ? Color.red : Color.green);
+            Debug.DrawRay(transform.position, Vector2.up * 2.8f, hit.collider ? Color.red : Color.green);
 
             if (hit.collider is not null && (hit.collider.gameObject.GetComponent<GuillotineTrap>() is not null))
             {
                 e.explode();
                 f.doExplosion(transform.position);
             }
+
             if (!isRoaming && !IsCharging && !isPreparingCharge && !falling && !player.IsDead && !isKnockbacked)
             {
                 if (!spineControl.IsAnyNonLoopingAnimationPlaying())
@@ -170,16 +180,15 @@ namespace Enemies
                 print($"explosion at {transform.position}");
                 f.doExplosion(transform.position);
             }
-            
-            
         }
+
         private void OnCollisionStay2D(Collision2D col)
         {
-            if (sleepAtStart  && col.gameObject.GetComponent<PlayerMovement>() is { } player && player.IsDashing)
+            if (sleepAtStart && col.gameObject.GetComponent<PlayerMovement>() is { } player && player.IsDashing)
             {
                 isSleeping = false;
                 if (sleepingImage)
-                { 
+                {
                     sleepingImage.SetActive(false);
                 }
             }
@@ -192,9 +201,6 @@ namespace Enemies
             //         col.transform.SetParent(transform);
             //     }
             // }
-
-
-
         }
 
         public void AffectedByExternalKnockback()
@@ -208,6 +214,7 @@ namespace Enemies
         {
             isSleeping = false;
         }
+
         private void Roam()
         {
             isRoaming = true;
@@ -224,12 +231,13 @@ namespace Enemies
                 FlipSprite(currentDirection.x > 0);
             }
 
-            transform.position += (Vector3)currentDirection * (chargeSpeed/3 * Time.deltaTime);
+            transform.position += (Vector3)currentDirection * (chargeSpeed / 3 * Time.deltaTime);
         }
-        
-        private bool  ShouldPrepareCharge(float distanceToPlayer)
+
+        private bool ShouldPrepareCharge(float distanceToPlayer)
         {
             return chargeCoroutine is null && currentChargeCooldown <= 0 &&
+                   !isDead &&
                    distanceToPlayer < detectionRange &&
                    !IsCharging &&
                    !isPreparingCharge &&
@@ -241,14 +249,14 @@ namespace Enemies
         {
             return visibiliyTimer >= visibilityThreshold;
         }
-        
+
         private bool CheckPlayerInRoamDirection()
         {
-            if (CoreManager.Instance.Player is  null) return false;
-            var distanceToPlayer = Mathf.Abs(CoreManager.Instance.Player.transform.position.x- transform.position.x);
+            if (CoreManager.Instance.Player is null) return false;
+            var distanceToPlayer = Mathf.Abs(CoreManager.Instance.Player.transform.position.x - transform.position.x);
             if (distanceToPlayer > minDistanceActivation) return false;
             Vector2 toPlayer = CoreManager.Instance.Player.transform.position - transform.position;
-            
+
             float dot = Vector2.Dot(toPlayer.normalized, currentDirection.normalized);
 
             // dot > 0 means player is in the current direction (in front)
@@ -294,13 +302,14 @@ namespace Enemies
 
         IEnumerator PrepareCharge(Vector2 dir)
         {
+            if(isDead) yield break;
             StartCharging();
-            
-            FlipSprite(dir.x >0);
+            FlipSprite(dir.x > 0);
             print($"current charge delay {currentChargeDelay}");
             yield return new WaitForSeconds(currentChargeDelay);
             print("READY TO CHARGE AGAIN -9");
             isPreparingCharge = false;
+            if(isDead) yield break;
 
             this.StopAndStartCoroutine(ref chargeCoroutine, PerformCharge(dir));
         }
@@ -311,7 +320,7 @@ namespace Enemies
             float timer = 0f;
             IsCharging = true;
             lastChargeTime = Time.time;
-            while ( !HitWall() && IsCharging && timer < chargeDuration)
+            while (!HitWall() && IsCharging && timer < chargeDuration)
             {
                 MoveAndRotate(dir);
                 timer += Time.fixedDeltaTime;
@@ -323,7 +332,7 @@ namespace Enemies
                     break;
                 }
             }
-            
+
             print($"exited while loop , is charging :{IsCharging}, hit wall {HitWall()}");
             print($"timer : {timer} charge time {chargeDuration}");
             StopCharging();
@@ -332,7 +341,7 @@ namespace Enemies
 
         private void IncrementPlayerVisibleTimer()
         {
-            if (  Mathf.Abs(player.transform.position.y - transform.position.y) < 2f)
+            if (Mathf.Abs(player.transform.position.y - transform.position.y) < 2f)
             {
                 visibiliyTimer += Time.deltaTime;
             }
@@ -361,6 +370,7 @@ namespace Enemies
             accumulatedChargePrepareTime = 0;
             currentChargeDelay = chargeDelay;
         }
+
         private void AbortCharge()
         {
             print("Abort charge");
@@ -370,7 +380,7 @@ namespace Enemies
             isPreparingCharge = false;
             CurrentForce = 0;
             transform.rotation = Quaternion.identity;
-            currentChargeDelay = chargeDelay-accumulatedChargePrepareTime;
+            currentChargeDelay = chargeDelay - accumulatedChargePrepareTime;
             print($"NEW CHARGE CD: {chargeDelay}");
         }
 
@@ -385,6 +395,7 @@ namespace Enemies
             {
                 hitSomething = true;
             }
+
             if (raycast.collider is not null && raycast.collider.gameObject.GetComponent<IBreakable>() is { } breakable)
             {
                 breakable.OnBreak();
@@ -392,12 +403,11 @@ namespace Enemies
             }
 
             return hitSomething;
-
         }
-        
+
         private bool GroundAhead()
         {
-            Vector2 origin = (Vector2)transform.position + currentDirection* 0.2f;
+            Vector2 origin = (Vector2)transform.position + currentDirection * 0.2f;
             RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, groundCheckDistance + 0.1f, groundLayer);
             return hit.collider != null;
         }
@@ -446,8 +456,8 @@ namespace Enemies
                 isPreparingCharge = false;
                 falling = true;
             }
-            
-            if(ground && _rb.bodyType != RigidbodyType2D.Kinematic)
+
+            if (ground && _rb.bodyType != RigidbodyType2D.Kinematic)
             {
                 _rb.bodyType = RigidbodyType2D.Kinematic;
                 falling = false;
@@ -459,6 +469,7 @@ namespace Enemies
             base.ResetToInitialState();
             gameObject.SetActive(true);
             StopCharging();
+            StopPlayingWalkSound();
 
             // Flip using scale (Spine-compatible)
             Vector3 scale = transform.localScale;
@@ -506,24 +517,26 @@ namespace Enemies
 
         public override void OnRam(Vector2 ramDiNegative, float againstForce)
         {
-            spineControl?.PlayAnimation("headbutt", false, "Idle",true);
+            spineControl?.PlayAnimation("headbutt", false, "Idle", true);
             StopCharging();
         }
 
         public override void OnRammed(float fromForce)
         {
             Debug.Log($"Enemy rammed with force {fromForce}");
-            print($"hits left {hitsToKill- hitCounter +1}");
+            print($"hits left {hitsToKill - hitCounter + 1}");
 
             if (Time.time - lastRammedTime > rammedCd && ++hitCounter == hitsToKill)
             {
                 lastRammedTime = Time.time;
                 hitFeedbacks?.StopFeedbacks();
                 isDead = true;
+                CoreManager.Instance.AudioManager.PlayOneShot(sounds.deathSound, transform.position);
                 return;
             }
 
             hitFeedbacks?.PlayFeedbacks();
+            CoreManager.Instance.AudioManager.PlayOneShot(sounds.damagedSound, transform.position);
 
             isPreparingCharge = false;
             StopAllCoroutines();
@@ -539,8 +552,39 @@ namespace Enemies
             {
                 StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.05f, () => _col.enabled = true));
             }
+
             _rb.bodyType = RigidbodyType2D.Dynamic;
             _rb?.AddForce(direction.normalized * force, ForceMode2D.Impulse);
+        }
+
+        public void StartPlayingWalkSound()
+        {
+            if (walkSoundRoutine == null)
+            {
+                walkSoundRoutine = StartCoroutine(PlayWalkSoundLoop());
+            }
+        }
+
+        public void StopPlayingWalkSound()
+        {
+            if (walkSoundRoutine != null)
+            {
+                StopCoroutine(walkSoundRoutine);
+                walkSoundRoutine = null;
+            }
+        }
+
+        private IEnumerator PlayWalkSoundLoop()
+        {
+            while (true)
+            {
+                if (Vector3.Distance(transform.position, player.transform.position) > 20)
+                {
+                    StopPlayingWalkSound();
+                }
+                CoreManager.Instance.AudioManager.PlayOneShot(sounds.walkSound, transform.position);
+                yield return new WaitForSeconds(1f);
+            }
         }
     }
 }

@@ -216,7 +216,6 @@ namespace Terrain.Environment
         {
             isGentlyMoving = true;
             nextPlatformMoveGently?.Invoke();
-            PlaySound();
             Vector3 originalPos = transform.position;
             Vector3 downPos = originalPos + Vector3.down * gentleMoveDistance;
 
@@ -230,7 +229,6 @@ namespace Terrain.Environment
                 timer += Time.deltaTime;
                 yield return null;
             }
-            StopSound();
 
             transform.position = downPos;
 
@@ -310,6 +308,7 @@ namespace Terrain.Environment
             moveslightlyCor = null;
             hasMoved = false;
             transform.position = startPos;
+            gameObject.SetActive(true);
         }
 
         public void OnBreak()

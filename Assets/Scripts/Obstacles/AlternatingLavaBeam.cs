@@ -12,8 +12,6 @@ namespace Obstacles
 
     public class AlternatingLavaBeam : MonoBehaviour, IKillPlayer, IResettable
     {
-        [SerializeField] protected SpriteRenderer beamSprite;
-        [SerializeField] protected SpriteRenderer warning;
         [SerializeField] protected float warningTime;
         [SerializeField] protected float delayBeforeFirstBeam;
         [SerializeField] protected float offTime = 5f;
@@ -27,9 +25,8 @@ namespace Obstacles
         private void Start()
         {
          
-            beamSprite = GetComponent<SpriteRenderer>();
             col = GetComponent<Collider2D>();
-            
+
         }
 
         public virtual void StartBeam()
@@ -55,7 +52,6 @@ namespace Obstacles
                     {
                         yield return new WaitForSeconds((offTime - warningTime));
                     }
-                    StartCoroutine(UtilityFunctions.FadeImage(warning, 0.6f, 0, warningTime, null));
                     
             
                     yield return new WaitForSeconds(warningTime);
@@ -66,7 +62,6 @@ namespace Obstacles
                 }
 
                 isOff = !isOff;
-                beamSprite.enabled = !beamSprite.enabled;
                 col.enabled = !col.enabled;
                 if (onFinished is not EventNames.None && col.enabled == false)
                 {
@@ -83,10 +78,8 @@ namespace Obstacles
         public virtual void ResetToInitialState()
         {
             StopAllCoroutines();
-            var c = warning.color;
-            c.a = 0;
-            warning.color = c;
-            beamSprite.enabled = false;
+        
+        
             col.enabled =false;
 
 

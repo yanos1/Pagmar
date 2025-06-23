@@ -102,7 +102,7 @@ public class ChasingEnemy : Rammer, IResettable
         Vector3 targetResetPosition;
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-        if (distanceToPlayer < 5f && positionHistory.Count > 0)
+        if (distanceToPlayer < 8f && positionHistory.Count > 0)
         {
             targetResetPosition = positionHistory[0].position;
         }

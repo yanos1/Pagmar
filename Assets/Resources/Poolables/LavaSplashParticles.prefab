@@ -4878,5 +4878,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af699b4995ac45059c3861bb4631680f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explodingParticles: {fileID: 3486119093207051106}
+  explodingParticles:
+  - {fileID: 3486119093207051106}
   poolType: 4

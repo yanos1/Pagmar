@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      black-fade-invert_0: 3634272650072091031
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

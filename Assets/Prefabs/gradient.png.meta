@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 884fe6215fc624efbaaf282cb5d06f62
+guid: 65f040a9ebd404b6baa3bbbbf85f145b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1809095955692292853
-    second: tree-1_0
+      213: 620825655395414567
+    second: gradient_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tree-1_0
+      name: gradient_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1377
-        height: 1965
+        width: 646
+        height: 646
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5fa82abcf233b1910800000000000000
-      internalID: 1809095955692292853
+      spriteID: 722fa41f4ad9d9800800000000000000
+      internalID: 620825655395414567
       vertices: []
       indices: 
       edges: []

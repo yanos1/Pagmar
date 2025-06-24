@@ -13,7 +13,7 @@ namespace Utils {
         [SerializeField] private float zoomF = 1;
         [SerializeField] private float minOrtho = 3;
         [SerializeField] private float maxOrtho = 4.5f;
-        private float z = -10;
+        [SerializeField] private float z = -30;
         
         private Vector3 originalPosition;
         private Vector2 originalMousePosition;

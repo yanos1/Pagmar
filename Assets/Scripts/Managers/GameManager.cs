@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Managers
 {
@@ -22,7 +23,12 @@ namespace Managers
             // CoreManager.Instance.EventManager.RemoveListener(EventNames.AllowCutSceneInput, AlowCutSceneInput);
             CoreManager.Instance.EventManager.RemoveListener(EventNames.EndCutScene, OnEndCutScene);
         }
-        
+
+        private void Update() {
+            print("called inputsystem update");
+            InputSystem.Update();
+        }
+
         public void OnEndCutScene(object obj)
         { 
             inCutScene = false;

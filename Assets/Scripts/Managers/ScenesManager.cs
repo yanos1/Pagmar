@@ -69,6 +69,56 @@ namespace Managers
             }
         }
 
+        
+        public void LoadMainMenu()
+        {
+            StartCoroutine(SwitchToMainMenu());
+        }
+
+        private IEnumerator SwitchToMainMenu()
+        {
+            const int mainMenuIndex = 2;
+            
+            CoreManager.Instance.UiManager.ShowLoadingScreen();
+            while (!CoreManager.Instance.UiManager.IsFadeInFinished())
+            {
+                yield return null;
+            }
+
+            // Disable input before loading scene
+            if (CoreManager.Instance.Player is not null)
+            {
+                CoreManager.Instance.Player.GetComponent<PlayerInput>()?.gameObject.SetActive(false);
+            }
+            else
+            {
+                FindAnyObjectByType<Canvas>()?.GetComponentInChildren<PlayerInput>()?.gameObject.SetActive(false);
+            }
+            
+
+            AsyncOperation loadOp = SceneManager.LoadSceneAsync(mainMenuIndex, LoadSceneMode.Additive);
+            while (!loadOp.isDone)
+            {
+                yield return null;
+            }
+
+            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(mainMenuIndex));
+
+            if (currentSceneIndex >= 0 && currentSceneIndex < SceneManager.sceneCountInBuildSettings)
+            {
+                AsyncOperation unloadOp = SceneManager.UnloadSceneAsync(currentSceneIndex);
+                while (!unloadOp.isDone)
+                {
+                    yield return null;
+                }
+            }
+
+            
+            CoreManager.Instance.UiManager.HideLoadingScreen();
+            
+            currentSceneIndex = mainMenuIndex;
+            CoreManager.Instance.EventManager.InvokeEvent(EventNames.StartNewScene, mainMenuIndex);
+        }
 
         public int LoadNextScene()
         {
@@ -119,10 +169,16 @@ namespace Managers
                     {
                         yield return null;
                     }
-                    if (CoreManager.Instance.Player is not null)
+                    if (CoreManager.Instance.Player != null)
                     {
-                        CoreManager.Instance.Player.GetComponent<PlayerInput>().gameObject
+                        CoreManager.Instance.Player.GetComponent<PlayerInput>()?.gameObject
                             .SetActive(false); // fixes a bug in in input system
+                    }
+                    else
+                    {
+                        FindAnyObjectByType<Canvas>().GetComponentInChildren<PlayerInput>()?.gameObject.SetActive(false);
+                        // for a case there is no player in scene, and the input sits on a ui eleemnt,
+        
                     }
                 }
                 

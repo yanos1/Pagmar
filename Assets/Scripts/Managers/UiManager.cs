@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using MoreMountains.Feedbacks;
+using UI;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Managers
 {
@@ -12,6 +14,7 @@ namespace Managers
         [SerializeField] private MMF_Player openComicsFeedbacks;
         [SerializeField] private MMF_Player EnterCutSceneFeedbacks;
         [SerializeField] private MMF_Player ExitCutSceneFeedbacks;
+        [SerializeField] private PauseMenu pauseMenu;
 
 
         private void OnEnable()
@@ -61,7 +64,21 @@ namespace Managers
         {
             openComicsFeedbacks?.PlayFeedbacks();
         }
-        
-        
+
+
+        public void OpenPauseMenu()
+        {
+            pauseMenu.EnableMenu();
+        }
+
+        public void NavigatePauseMenu(InputAction.CallbackContext c)
+        {
+            pauseMenu.Navigate(c);
+        }
+
+        public void SelectButtonInPauseMenu(InputAction.CallbackContext c)
+        {
+            pauseMenu.Submit(c);
+        }
     }
 }

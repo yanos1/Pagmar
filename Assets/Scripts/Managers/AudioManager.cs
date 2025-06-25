@@ -24,7 +24,12 @@ namespace Managers
         {
             CoreManager.Instance.EventManager.RemoveListener(EventNames.ChangeAmbience, OnChangeAmbience);
             CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, StopOldScneeSounds);
-
+        }
+        
+        public void StopAllSounds()
+        {
+            Bus masterBus = RuntimeManager.GetBus("bus:/");
+            masterBus.stopAllEvents(STOP_MODE.IMMEDIATE);
         }
 
         private void StopOldScneeSounds(object obj)

@@ -418,6 +418,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2441315751401867947, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
+    - {fileID: 5575066530499713250, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 880877048866091969, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
@@ -434,11 +435,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7402629875175387127}
   m_SourcePrefab: {fileID: 100100000, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
---- !u!212 &1995275107204668505 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 5575066530499713250, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
-  m_PrefabInstance: {fileID: 6264007198205527227}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6545903278145861498 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 880877048866091969, guid: e8c740e63f0621e4babdaf8871a6749b, type: 3}
@@ -639,7 +635,7 @@ MonoBehaviour:
           ButtonText: 
         Owner: {fileID: 2355795388353060507}
         DebugActive: 0
-        BoundSpriteRenderer: {fileID: 1995275107204668505}
+        BoundSpriteRenderer: {fileID: 0}
         Mode: 0
         Duration: 0.5
         StartsOff: 0

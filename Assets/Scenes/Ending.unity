@@ -2811,6 +2811,30 @@ PrefabInstance:
       propertyPath: m_NeverAutoSwitchControlSchemes
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7449684060580053844, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: m_ActionEvents.Array.data[9].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1431531963}
+    - target: {fileID: 7449684060580053844, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1431531963}
+    - target: {fileID: 7449684060580053844, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1431531963}
+    - target: {fileID: 7449684060580053844, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: m_ActionEvents.Array.data[9].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NavigatePauseMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449684060580053844, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectButtonInPauseMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449684060580053844, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenPauseMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 7533727172426430629, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_Mesh
       value: 

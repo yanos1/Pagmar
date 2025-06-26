@@ -1,4 +1,5 @@
 ﻿using System;
+using SpongeScene;
 using UnityEngine;
 
 namespace Player
@@ -9,6 +10,8 @@ namespace Player
         private int forceAddition = 60;
         private Rigidbody2D rb;
         private PlayerMovement _playerMovement;
+        private int currentRotation = 0;
+        [SerializeField] private GlobalActions _globalActions;
 
         private void Start()
         {
@@ -21,6 +24,19 @@ namespace Player
             if(_playerMovement.jumpIsPressed) return;
             rb.AddForce(Vector2.up * force);
             force += forceAddition;
+        }
+
+        public void EndGameAnimationSequence()
+        {
+            Rotate();
+            // play  look down
+            // play look up
+            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(4.5f, () => _globalActions.ShowCredits()));
+        }
+        public void Rotate()
+        {
+            var rotator = new Vector3(transform.rotation.x, currentRotation == 0 ? 180: 0, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(rotator);
         }
     }
 }

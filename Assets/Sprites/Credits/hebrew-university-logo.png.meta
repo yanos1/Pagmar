@@ -1,0 +1,845 @@
+fileFormatVersion: 2
+guid: 09e4f0d1bfd6f924096398c8bf40bb0a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -653111279156866483
+    second: hebrew-university-logo_0
+  - first:
+      213: 326739893236511708
+    second: hebrew-university-logo_1
+  - first:
+      213: -9026239644942988408
+    second: hebrew-university-logo_2
+  - first:
+      213: 7537608556788969279
+    second: hebrew-university-logo_3
+  - first:
+      213: 6055800841484001492
+    second: hebrew-university-logo_4
+  - first:
+      213: 3670887438818522849
+    second: hebrew-university-logo_5
+  - first:
+      213: -7602211085616864138
+    second: hebrew-university-logo_6
+  - first:
+      213: -6179400268634742870
+    second: hebrew-university-logo_7
+  - first:
+      213: 2128240922928596796
+    second: hebrew-university-logo_8
+  - first:
+      213: -4452295282022803587
+    second: hebrew-university-logo_9
+  - first:
+      213: -6774090879351126912
+    second: hebrew-university-logo_10
+  - first:
+      213: 8575780222777937615
+    second: hebrew-university-logo_11
+  - first:
+      213: 5868912690355346707
+    second: hebrew-university-logo_12
+  - first:
+      213: 1084710033972297664
+    second: hebrew-university-logo_13
+  - first:
+      213: 8832893456117341761
+    second: hebrew-university-logo_14
+  - first:
+      213: 6171265418068011546
+    second: hebrew-university-logo_15
+  - first:
+      213: -6616149859564834600
+    second: hebrew-university-logo_16
+  - first:
+      213: -9216082375824623492
+    second: hebrew-university-logo_17
+  - first:
+      213: 8038701453570739905
+    second: hebrew-university-logo_18
+  - first:
+      213: -5905077324325532675
+    second: hebrew-university-logo_19
+  - first:
+      213: -6595813615581354428
+    second: hebrew-university-logo_20
+  - first:
+      213: -8806592074383598385
+    second: hebrew-university-logo_21
+  - first:
+      213: -3948737095436330195
+    second: hebrew-university-logo_22
+  - first:
+      213: -6177070410995424302
+    second: hebrew-university-logo_23
+  - first:
+      213: -5871684715877583874
+    second: hebrew-university-logo_24
+  - first:
+      213: -4094263192395386981
+    second: hebrew-university-logo_25
+  - first:
+      213: 5709283706036222750
+    second: hebrew-university-logo_26
+  - first:
+      213: 1139806970260261827
+    second: hebrew-university-logo_27
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: hebrew-university-logo_0
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 284
+        width: 19
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d42dd0f70ceafe6f0800000000000000
+      internalID: -653111279156866483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_1
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 155
+        width: 89
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd3bf46a330d88400800000000000000
+      internalID: 326739893236511708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_2
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 128
+        width: 39
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88b00a1bdda5cb280800000000000000
+      internalID: -9026239644942988408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_3
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 128
+        width: 28
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3fe953eb07fa9860800000000000000
+      internalID: 7537608556788969279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_4
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 128
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d06a23c7c68a0450800000000000000
+      internalID: 6055800841484001492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_5
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 134
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e6b8392dac91f230800000000000000
+      internalID: 3670887438818522849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_6
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 128
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 674254ebb458f7690800000000000000
+      internalID: -7602211085616864138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_7
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 128
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaf921f023c5e3aa0800000000000000
+      internalID: -6179400268634742870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_8
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 128
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c37cb9fe7d7098d10800000000000000
+      internalID: 2128240922928596796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_9
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 103
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7712efb7054632c0800000000000000
+      internalID: -4452295282022803587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_10
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 109
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08400146c389df1a0800000000000000
+      internalID: -6774090879351126912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_11
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 103
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcecf7a1daa430770800000000000000
+      internalID: 8575780222777937615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_12
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 103
+        width: 29
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31d996e3ff0927150800000000000000
+      internalID: 5868912690355346707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_13
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 103
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cf7833670aad0f00800000000000000
+      internalID: 1084710033972297664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_14
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 78
+        width: 24
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14e1fb6bccdb49a70800000000000000
+      internalID: 8832893456117341761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_15
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 78
+        width: 37
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1aa892733db4a550800000000000000
+      internalID: 6171265418068011546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_16
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 78
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d033efa1c6be24a0800000000000000
+      internalID: -6616149859564834600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_17
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 83
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c783c3878e5e91080800000000000000
+      internalID: -9216082375824623492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_18
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 77
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ce008391643f8f60800000000000000
+      internalID: 8038701453570739905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_19
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 52
+        width: 38
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfbcc50c573fc0ea0800000000000000
+      internalID: -5905077324325532675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_20
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 52
+        width: 25
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 446a6967676f674a0800000000000000
+      internalID: -6595813615581354428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_21
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 52
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcc589cea23b8c580800000000000000
+      internalID: -8806592074383598385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_22
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 52
+        width: 41
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2b1c1378844339c0800000000000000
+      internalID: -3948737095436330195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_23
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 27
+        width: 29
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d3aa005033a64aa0800000000000000
+      internalID: -6177070410995424302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_24
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 27
+        width: 78
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef3b6054cd5938ea0800000000000000
+      internalID: -5871684715877583874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_25
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 3
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9fe050a1514e27c0800000000000000
+      internalID: -4094263192395386981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_26
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 2
+        width: 44
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1bf63418437b3f40800000000000000
+      internalID: 5709283706036222750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hebrew-university-logo_27
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 2
+        width: 60
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cb80e6866861df00800000000000000
+      internalID: 1139806970260261827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      hebrew-university-logo_0: -653111279156866483
+      hebrew-university-logo_1: 326739893236511708
+      hebrew-university-logo_10: -6774090879351126912
+      hebrew-university-logo_11: 8575780222777937615
+      hebrew-university-logo_12: 5868912690355346707
+      hebrew-university-logo_13: 1084710033972297664
+      hebrew-university-logo_14: 8832893456117341761
+      hebrew-university-logo_15: 6171265418068011546
+      hebrew-university-logo_16: -6616149859564834600
+      hebrew-university-logo_17: -9216082375824623492
+      hebrew-university-logo_18: 8038701453570739905
+      hebrew-university-logo_19: -5905077324325532675
+      hebrew-university-logo_2: -9026239644942988408
+      hebrew-university-logo_20: -6595813615581354428
+      hebrew-university-logo_21: -8806592074383598385
+      hebrew-university-logo_22: -3948737095436330195
+      hebrew-university-logo_23: -6177070410995424302
+      hebrew-university-logo_24: -5871684715877583874
+      hebrew-university-logo_25: -4094263192395386981
+      hebrew-university-logo_26: 5709283706036222750
+      hebrew-university-logo_27: 1139806970260261827
+      hebrew-university-logo_3: 7537608556788969279
+      hebrew-university-logo_4: 6055800841484001492
+      hebrew-university-logo_5: 3670887438818522849
+      hebrew-university-logo_6: -7602211085616864138
+      hebrew-university-logo_7: -6179400268634742870
+      hebrew-university-logo_8: 2128240922928596796
+      hebrew-university-logo_9: -4452295282022803587
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

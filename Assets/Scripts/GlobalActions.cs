@@ -13,6 +13,7 @@ public class GlobalActions : MonoBehaviour
     [SerializeField] private MMF_Player longslowMotionFeedbacks;
     [SerializeField] private UndergroundCanvas undergroundCanvas;
     [SerializeField] private MMF_Player endGameUiFeedbacks;
+    [SerializeField] private MMF_Player creditsFeedbacks;
 
     private void OnEnable()
     {
@@ -102,5 +103,11 @@ public class GlobalActions : MonoBehaviour
     {
         CoreManager.Instance.UiManager.SelectButtonInPauseMenu(c);
         print("selecting pause menu");
+    }
+
+    public void ShowCredits()
+    {
+        print("show credits!");
+        creditsFeedbacks?.PlayFeedbacks();
     }
 }

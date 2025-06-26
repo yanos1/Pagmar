@@ -25,7 +25,6 @@ namespace Managers
         }
 
         private void Update() {
-            print("called inputsystem update");
             InputSystem.Update();
         }
 
@@ -36,8 +35,6 @@ namespace Managers
         
         private void OnEnterCutScene(object obj)
         {
-            print("Enter cut scene cut input!!!!!!");
-
             inCutScene = true;
         }
     }

@@ -47,6 +47,7 @@ namespace UI
 
         public void Navigate(InputAction.CallbackContext context)
         {
+            if(!gameObject.activeInHierarchy) return;
             var direction = context.ReadValue<Vector2>();
             print($"navigating with {direction}");
 
@@ -69,6 +70,8 @@ namespace UI
 
         public void Submit(InputAction.CallbackContext context)
         {
+            if(!gameObject.activeInHierarchy) return;
+
             if (Time.unscaledTime - lastSubmitTime < submitDelay)
                 return;
 

@@ -1,0 +1,585 @@
+fileFormatVersion: 2
+guid: 7b02c653a6130a048b02d8f99ad56900
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 677560547384259303
+    second: logo-bezalel_0
+  - first:
+      213: 2491831299313054864
+    second: logo-bezalel_1
+  - first:
+      213: 6367668365576054716
+    second: logo-bezalel_2
+  - first:
+      213: 4944123058931426933
+    second: logo-bezalel_3
+  - first:
+      213: 4773303661988989691
+    second: logo-bezalel_4
+  - first:
+      213: 8868148484981348162
+    second: logo-bezalel_5
+  - first:
+      213: -7206580615262927456
+    second: logo-bezalel_6
+  - first:
+      213: -1383524767828725338
+    second: logo-bezalel_7
+  - first:
+      213: 6638663618977604374
+    second: logo-bezalel_8
+  - first:
+      213: -6843977668585575176
+    second: logo-bezalel_9
+  - first:
+      213: 3719825681658569228
+    second: logo-bezalel_10
+  - first:
+      213: -6388254059433948710
+    second: logo-bezalel_11
+  - first:
+      213: 2957704960606751909
+    second: logo-bezalel_12
+  - first:
+      213: -7123450340235458562
+    second: logo-bezalel_13
+  - first:
+      213: -1638530845719644990
+    second: logo-bezalel_14
+  - first:
+      213: -3775510955311492213
+    second: logo-bezalel_15
+  - first:
+      213: -2167417072738572489
+    second: logo-bezalel_16
+  - first:
+      213: -3006238880263415393
+    second: logo-bezalel_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: logo-bezalel_0
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 197
+        width: 73
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e278ac5abd276900800000000000000
+      internalID: 677560547384259303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_1
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 201
+        width: 21
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09431cb4d53c49220800000000000000
+      internalID: 2491831299313054864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_2
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 201
+        width: 34
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb727a124a08e5850800000000000000
+      internalID: 6367668365576054716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_3
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 197
+        width: 56
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 576ec6d1abd0d9440800000000000000
+      internalID: 4944123058931426933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_4
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 150
+        width: 73
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfacce9f36e2e3240800000000000000
+      internalID: 4773303661988989691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_5
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 201
+        width: 52
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2475bb6cf0ef11b70800000000000000
+      internalID: 8868148484981348162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_6
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 174
+        width: 70
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a5890ecc151dfb90800000000000000
+      internalID: -7206580615262927456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_7
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 176
+        width: 50
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a13d9bcd8bbccce0800000000000000
+      internalID: -1383524767828725338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_8
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 175
+        width: 63
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61328786365412c50800000000000000
+      internalID: 6638663618977604374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_9
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 179
+        width: 34
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fc2045429e4501a0800000000000000
+      internalID: -6843977668585575176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_10
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 176
+        width: 53
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0262adbfb97f9330800000000000000
+      internalID: 3719825681658569228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_11
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 174
+        width: 65
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad90e7487cc5857a0800000000000000
+      internalID: -6388254059433948710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_12
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 155
+        width: 51
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ac4067bdf0eb0920800000000000000
+      internalID: 2957704960606751909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_13
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 157
+        width: 53
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef7412f38ab642d90800000000000000
+      internalID: -7123450340235458562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_14
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 156
+        width: 80
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c43c5b80e4c249e0800000000000000
+      internalID: -1638530845719644990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_15
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 157
+        width: 43
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8310172ac0ba9bc0800000000000000
+      internalID: -3775510955311492213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_16
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 157
+        width: 55
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 737ec43e7a9cbe1e0800000000000000
+      internalID: -2167417072738572489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo-bezalel_17
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 157
+        width: 63
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f995ee78aa1b746d0800000000000000
+      internalID: -3006238880263415393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      logo-bezalel_0: 677560547384259303
+      logo-bezalel_1: 2491831299313054864
+      logo-bezalel_10: 3719825681658569228
+      logo-bezalel_11: -6388254059433948710
+      logo-bezalel_12: 2957704960606751909
+      logo-bezalel_13: -7123450340235458562
+      logo-bezalel_14: -1638530845719644990
+      logo-bezalel_15: -3775510955311492213
+      logo-bezalel_16: -2167417072738572489
+      logo-bezalel_17: -3006238880263415393
+      logo-bezalel_2: 6367668365576054716
+      logo-bezalel_3: 4944123058931426933
+      logo-bezalel_4: 4773303661988989691
+      logo-bezalel_5: 8868148484981348162
+      logo-bezalel_6: -7206580615262927456
+      logo-bezalel_7: -1383524767828725338
+      logo-bezalel_8: 6638663618977604374
+      logo-bezalel_9: -6843977668585575176
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

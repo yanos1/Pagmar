@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
 using Obstacles;
 using Player;
 using ScripableObjects;
+using Spine.Unity;
 using SpongeScene;
 using UnityEngine;
 
@@ -21,6 +23,8 @@ namespace Enemies
         public float rotationAmount = 10f;
         public float rotationSpeed = 5f;
         public float minDistanceActivation = 3f;
+        private Coroutine flashCoroutine;
+
 
         [SerializeField] private bool sleepAtStart;
         [SerializeField] private bool canRoam = true;
@@ -109,6 +113,10 @@ namespace Enemies
             if (player is null || isSleeping)
             {
                 return;
+            }
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                OnRammedFeedback();
             }
 
             if (flipCooldownTimer > 0f)
@@ -517,6 +525,7 @@ namespace Enemies
 
         public override void OnRammed(float fromForce)
         {
+            OnRammedFeedback();
             Debug.Log($"Enemy rammed with force {fromForce}");
             print($"hits left {hitsToKill - hitCounter + 1}");
 
@@ -535,6 +544,36 @@ namespace Enemies
             isPreparingCharge = false;
             StopAllCoroutines();
         }
+        private void OnRammedFeedback()
+        {
+            if (flashCoroutine != null)
+                StopCoroutine(flashCoroutine);
+
+            StartCoroutine(DoSpineFlash(0.07f, new Color(0.1f, 0.1f, 0.1f, 1f)));
+        }
+    
+        private IEnumerator DoSpineFlash(float duration, Color flashColor)
+        {
+            Debug.Log("Spine flash started");
+            var skeleton = spineControl.skeletonAnimation.Skeleton;
+
+            // Store the original slot colors
+            var originalColors = new Dictionary<Spine.Slot, Color>();
+            foreach (var slot in skeleton.Slots)
+            {
+                originalColors[slot] = slot.GetColor();
+                slot.SetColor(flashColor); // Apply flash color
+            }
+
+            yield return new WaitForSeconds(duration);
+
+            // Restore the original slot colors
+            foreach (var kvp in originalColors)
+            {
+                kvp.Key.SetColor(kvp.Value);
+            }
+        }
+
 
         public override void ApplyKnockback(Vector2 direction, float force)
         {

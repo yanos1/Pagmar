@@ -10,7 +10,7 @@ public class SpineControl : MonoBehaviour
     [SerializeField] private SkeletonAnimation skeletonAnimationTeen;
     [SerializeField] private SkeletonAnimation skeletonAnimationAdult;
     
-    private SkeletonAnimation skeletonAnimation;
+    public SkeletonAnimation skeletonAnimation;
     private string currentActionAnimation = "";
     
     [Tooltip("If true, all animations are locked to idle + blink.")]

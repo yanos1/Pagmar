@@ -5,8 +5,10 @@ using Managers;
 using NPC;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Enemies;
 using MoreMountains.Feedbacks;
+using Spine.Unity;
 
 namespace Player
 {
@@ -16,6 +18,7 @@ namespace Player
         private PlayerHornDamageHandler _damageHandler;
         private PlayerSoundHandler soundHandler;
         private Npc followedBy;
+        
 
         [SerializeField] private MMF_Player liftFeedbacks;
 
@@ -34,6 +37,9 @@ namespace Player
         private const float comboTimeWindow = 0.5f;
         public bool InputEnabled => inputEnabled;
         public bool IsMoving => Mathf.Abs(_rb.linearVelocity.x) > 0.2;
+        
+        private Coroutine flashCoroutine;
+
 
         public void DisableInput()
         {
@@ -229,6 +235,10 @@ namespace Player
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                OnRammedFeedback();
+            }
             if (Input.GetKeyDown(KeyCode.F12))
             {
                 Die();
@@ -290,6 +300,7 @@ namespace Player
             InjuryManager.Instance.ApplyDamage(hitDamage * fromForce);
             _damageHandler.AddDamage(hitDamage * 100);
             spineControl.PlayAnimationOnBaseTrack("hit", false);
+            OnRammedFeedback();
 
             float currentTime = Time.time;
 
@@ -305,6 +316,36 @@ namespace Player
 
             lastRammedTime = currentTime;
 
+        }
+
+        private void OnRammedFeedback()
+        {
+            if (flashCoroutine != null)
+                StopCoroutine(flashCoroutine);
+
+            StartCoroutine(DoSpineFlash(0.07f, new Color(0.1f, 0.1f, 0.1f, 1f)));
+        }
+        
+        private IEnumerator DoSpineFlash(float duration, Color flashColor)
+        {
+            Debug.Log("Spine flash started");
+            var skeleton = spineControl.skeletonAnimation.Skeleton;
+
+            // Store the original slot colors
+            var originalColors = new Dictionary<Spine.Slot, Color>();
+            foreach (var slot in skeleton.Slots)
+            {
+                originalColors[slot] = slot.GetColor();
+                slot.SetColor(flashColor); // Apply flash color
+            }
+
+            yield return new WaitForSeconds(duration);
+
+            // Restore the original slot colors
+            foreach (var kvp in originalColors)
+            {
+                kvp.Key.SetColor(kvp.Value);
+            }
         }
 
 

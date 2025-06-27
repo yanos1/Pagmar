@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
 using Managers;
+using Spine.Unity;
 
 public class ChasingEnemy : Rammer, IResettable
 {
@@ -16,6 +17,7 @@ public class ChasingEnemy : Rammer, IResettable
     private Vector3 startingPosition;
     private Vector3 playerResetPosition;
     private bool chase = false;
+    [SerializeField] private SpineControl spineControl;
 
     private float positionHistoryDuration = 17f;
     private List<(float time, Vector3 position)> positionHistory = new List<(float, Vector3)>();
@@ -24,6 +26,8 @@ public class ChasingEnemy : Rammer, IResettable
     private Vector3 lastProcessedPlayerResetPos = Vector3.positiveInfinity;
     private Vector3 cachedBestResetPosition = Vector3.zero;
     private bool hasCachedReset = false;
+    private Coroutine flashCoroutine;
+
 
     private void OnEnable()
     {
@@ -91,7 +95,40 @@ public class ChasingEnemy : Rammer, IResettable
         agent.velocity = Vector3.zero;
     }
 
-    public override void OnRammed(float fromForce) { }
+    public override void OnRammed(float fromForce)
+    {
+        OnRammedFeedback();
+    }
+    private void OnRammedFeedback()
+    {
+        if (flashCoroutine != null)
+            StopCoroutine(flashCoroutine);
+
+        StartCoroutine(DoSpineFlash(0.07f, new Color(0.1f, 0.1f, 0.1f, 1f)));
+    }
+    
+    private IEnumerator DoSpineFlash(float duration, Color flashColor)
+    {
+        Debug.Log("Spine flash started");
+        var skeleton = spineControl.skeletonAnimation.Skeleton;
+
+        // Store the original slot colors
+        var originalColors = new Dictionary<Spine.Slot, Color>();
+        foreach (var slot in skeleton.Slots)
+        {
+            originalColors[slot] = slot.GetColor();
+            slot.SetColor(flashColor); // Apply flash color
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        // Restore the original slot colors
+        foreach (var kvp in originalColors)
+        {
+            kvp.Key.SetColor(kvp.Value);
+        }
+    }
+    
 
     public override void ApplyKnockback(Vector2 direction, float force) { }
 

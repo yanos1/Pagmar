@@ -15,7 +15,7 @@ namespace NPC.BigFriend
         [SerializeField] private GameObject questionMark;
         [SerializeField] private GameObject exclamationMark;
         [SerializeField] private GameObject healText;
-        [SerializeField] private Collider2D headCol;
+        [SerializeField] private GameObject headCol;
         [SerializeField] private MMF_Player healFeedbacks;
 
         public void ShowQuestionMarkForSeconds(float duration = 3f)
@@ -57,7 +57,9 @@ namespace NPC.BigFriend
 
         public void ShowBig()
         {
+            print("show big!");
             bigVisuals.SetActive(true);
+            Materialize();
         }
 
         public void DoSmileAnim(float seconds)
@@ -73,12 +75,13 @@ namespace NPC.BigFriend
 
         public void EnableHeadCollider()
         {
-            headCol.enabled = true;
+            headCol.SetActive(true);
         }
 
         public void DisableHeadCollideR()
         {
-            headCol.enabled = false;
+            headCol.SetActive(false);
+            Unmeterialize();
         }
 
         public void Materialize()

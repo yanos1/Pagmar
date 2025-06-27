@@ -40,6 +40,7 @@ namespace Managers
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 LoadNextScene();
+                CoreManager.Instance.UiManager.OnEndCutScene(null); // close cutscene stripes
             }
             if (Input.GetKeyDown(KeyCode.R))
             {

@@ -47,7 +47,7 @@ public class CameraFollowObject : MonoBehaviour
 
         if (_bigTransform is not null && _currentTarget == _bigTransform)
         {
-            if (Vector3.Distance(_bigTransform.position, _playerTransform.position) < 4)
+            if (Vector3.Distance(_bigTransform.position, _playerTransform.position) < 3f)
             {
                 SetFollower();
             }
@@ -69,6 +69,7 @@ public class CameraFollowObject : MonoBehaviour
     // one time use in cut scene
     public void EnterNightCutScene()
     {
+        print("swap camera to follow big!");
         _currentTarget = _big1Transform;
     }
 

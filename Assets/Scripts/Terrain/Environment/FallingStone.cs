@@ -1,5 +1,6 @@
 ﻿using System;
 using Interfaces;
+using Managers;
 using MoreMountains.Feedbacks;
 using Player;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace Terrain.Environment
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
         [SerializeField] private bool canKillPlayer = true;
+        [SerializeField] private bool resetSceneAfterDeath = false;
         protected Rigidbody2D rb;
         private Vector3 startingPos;
 
@@ -41,7 +43,7 @@ namespace Terrain.Environment
 
         public virtual void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.CompareTag("WeakRock") || other.gameObject.CompareTag("Metal"))  // surfaces that collide with the stone.
+            if (other.gameObject.CompareTag("WeakRock") || other.gameObject.CompareTag("Metal") || other.gameObject.CompareTag("Player"))  // surfaces that collide with the stone.
             {
                 if (e is not null)
                     e.explode();
@@ -70,7 +72,9 @@ namespace Terrain.Environment
         public virtual bool IsDeadly()
         {
             print("445 kill player");
-            return rb.linearVelocity.y < 0 && canKillPlayer;
+            var deadly = rb.linearVelocity.y < 0 && canKillPlayer;
+            if (deadly && resetSceneAfterDeath) ScenesManager.Instance.ReloadCurrentScene();
+            return deadly;
         }
     }
 }

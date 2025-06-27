@@ -1,5 +1,6 @@
 ﻿using System;
 using Interfaces;
+using SpongeScene;
 using UnityEngine;
 
 namespace Triggers
@@ -8,6 +9,12 @@ namespace Triggers
     {
         protected bool isTriggered;
         [SerializeField] protected String trigger;
+        private Collider2D col;
+
+        private void Start()
+        {
+            col = GetComponent<Collider2D>();
+        }
 
         public virtual void OnTriggerEnter2D(Collider2D other)
         {
@@ -22,6 +29,8 @@ namespace Triggers
         public virtual void ResetToInitialState()
         {
             isTriggered = false;
+            col.enabled = false;
+            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.1f, () => col.enabled = true));
         }
     }
 }

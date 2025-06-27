@@ -45,7 +45,7 @@ namespace unity2DDestruction.Assets._2D_Destruction.Scripts
 
 
                     // Only disable collider and make static if touching the ground
-                    if (hit.collider != null)
+                    if (hit.collider != null && hit.collider.GetComponent<Rigidbody2D>() is null)
                     {
                         col.enabled = false;
                         rb.bodyType = RigidbodyType2D.Static;

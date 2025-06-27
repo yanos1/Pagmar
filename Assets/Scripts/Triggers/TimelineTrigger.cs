@@ -25,7 +25,6 @@ namespace Triggers
                 {
                     CoreManager.Instance.EventManager.InvokeEvent(EventNames.EnterCutScene, cutScene.tag);
                     cutScene.Play();
-                    print("cut scene start");
                 }));
             }
         }

@@ -80,8 +80,8 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 0.9
   intensity:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 0.15
   scatter:
     m_OverrideState: 0
     m_Value: 0.7
@@ -121,11 +121,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   temperature:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 10
   tint:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 5
 --- !u!114 &-4481560927439474264
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -141,19 +141,19 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 0.51
   contrast:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 10
   colorFilter:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
   hueShift:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 2
   saturation:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: -8
 --- !u!114 &-2517722764101782983
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -168,32 +168,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 0
   redOutRedIn:
-    m_OverrideState: 1
-    m_Value: 90
+    m_OverrideState: 0
+    m_Value: 100
   redOutGreenIn:
     m_OverrideState: 1
-    m_Value: 12
+    m_Value: 10
   redOutBlueIn:
-    m_OverrideState: 1
-    m_Value: 6
+    m_OverrideState: 0
+    m_Value: 0
   greenOutRedIn:
-    m_OverrideState: 1
-    m_Value: -1
+    m_OverrideState: 0
+    m_Value: 0
   greenOutGreenIn:
-    m_OverrideState: 1
-    m_Value: 103
+    m_OverrideState: 0
+    m_Value: 100
   greenOutBlueIn:
     m_OverrideState: 1
-    m_Value: 4
+    m_Value: -10
   blueOutRedIn:
     m_OverrideState: 1
-    m_Value: 16
+    m_Value: 5
   blueOutGreenIn:
-    m_OverrideState: 1
-    m_Value: -15
+    m_OverrideState: 0
+    m_Value: 0
   blueOutBlueIn:
-    m_OverrideState: 1
-    m_Value: 97
+    m_OverrideState: 0
+    m_Value: 100
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

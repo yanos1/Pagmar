@@ -14,19 +14,6 @@ namespace Obstacles
 
         private int currentIndex = 0;
 
-        // Trigger this method to activate the next stone
-        private void OnTriggerEnter2D(Collider2D col)
-        {
-            if (stones == null || stones.Count == 0) return;
-            
-            if (currentIndex >= stones.Count)
-            {
-                Debug.Log("All stones have already fallen.");
-                return;
-            }
-          
-        }
-
         public void ResetToInitialState()
         {
             currentIndex = 0;
@@ -38,6 +25,7 @@ namespace Obstacles
 
         public void OnHit(Vector2 hitDir, PlayerStage stage)
         {
+            if(currentIndex >= stones.Count) {return;}
             FallingStone stone = stones[currentIndex];
             stone.Activate();
             stone.GetComponent<Rigidbody2D>().AddForce(fallForce, ForceMode2D.Impulse);

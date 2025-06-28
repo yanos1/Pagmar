@@ -225,7 +225,6 @@ namespace Terrain.Environment
                 float t = timer / gentleMoveDuration;
                 float easedT = gentleMoveCurve.Evaluate(t);
                 transform.position = Vector3.Lerp(originalPos, downPos, easedT);
-                print($"lerp pos {transform.position} eased t {easedT} timer {timer} move duration {gentleMoveDuration} % { t}");
                 timer += Time.deltaTime;
                 yield return null;
             }

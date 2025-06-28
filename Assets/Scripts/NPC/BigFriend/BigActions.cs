@@ -17,6 +17,7 @@ namespace NPC.BigFriend
         [SerializeField] private GameObject healText;
         [SerializeField] private GameObject headCol;
         [SerializeField] private MMF_Player healFeedbacks;
+        [SerializeField] private MMF_Player sleepingHealRequestFeedbacks;
 
         public void ShowQuestionMarkForSeconds(float duration = 3f)
         {
@@ -92,6 +93,11 @@ namespace NPC.BigFriend
         public void Unmeterialize()
         {
             GetComponent<CapsuleCollider2D>().isTrigger = true;
+        }
+
+        public void ShowSleepHeallRequest()
+        {
+            sleepingHealRequestFeedbacks?.PlayFeedbacks();
         }
     }
 }

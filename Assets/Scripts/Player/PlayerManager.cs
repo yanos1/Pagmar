@@ -28,6 +28,8 @@ namespace Player
         [SerializeField] private MMF_Player LowCameraShakeFeedBack;
         [SerializeField] private MMF_Player MediumCameraShakeFeedBack;
         [SerializeField] private MMF_Player HighCameraShakeFeedBack;
+        [SerializeField] private DoSpineFlash doSpineFlash;
+
 
         private Rigidbody2D _rb;
         private bool isDead = false;
@@ -40,9 +42,7 @@ namespace Player
         private const float comboTimeWindow = 0.5f;
         public bool InputEnabled => inputEnabled;
         public bool IsMoving => Mathf.Abs(_rb.linearVelocity.x) > 0.2;
-
-        private Coroutine flashCoroutine;
-
+        
 
         public void DisableInput()
         {
@@ -325,10 +325,7 @@ namespace Player
 
         private void OnRammedFeedback()
         {
-            if (flashCoroutine != null)
-                StopCoroutine(flashCoroutine);
-
-            StartCoroutine(DoSpineFlash(0.07f, new Color(0.1f, 0.1f, 0.1f, 1f)));
+            doSpineFlash.OnRammedFeedback();
             StartCoroutine(DoTimeFreeze(0.07f));
             MakeScreenShakeDependingOnLife();
         }
@@ -356,28 +353,6 @@ namespace Player
             Time.timeScale = 0f;
             yield return new WaitForSecondsRealtime(time);
             Time.timeScale = 1f;
-        }
-
-    private IEnumerator DoSpineFlash(float duration, Color flashColor)
-        {
-            Debug.Log("Spine flash started");
-            var skeleton = spineControl.skeletonAnimation.Skeleton;
-
-            // Store the original slot colors
-            var originalColors = new Dictionary<Spine.Slot, Color>();
-            foreach (var slot in skeleton.Slots)
-            {
-                originalColors[slot] = slot.GetColor();
-                slot.SetColor(flashColor); // Apply flash color
-            }
-
-            yield return new WaitForSeconds(duration);
-
-            // Restore the original slot colors
-            foreach (var kvp in originalColors)
-            {
-                kvp.Key.SetColor(kvp.Value);
-            }
         }
 
 

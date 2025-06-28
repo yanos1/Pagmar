@@ -25,6 +25,9 @@ namespace Player
         [SerializeField] private SpineControl spineControl;
         [SerializeField] private PlayerStage _playerStage = PlayerStage.Young;
         [SerializeField] private SpineControl _spineControl;
+        [SerializeField] private MMF_Player LowCameraShakeFeedBack;
+        [SerializeField] private MMF_Player MediumCameraShakeFeedBack;
+        [SerializeField] private MMF_Player HighCameraShakeFeedBack;
 
         private Rigidbody2D _rb;
         private bool isDead = false;
@@ -327,6 +330,25 @@ namespace Player
 
             StartCoroutine(DoSpineFlash(0.07f, new Color(0.1f, 0.1f, 0.1f, 1f)));
             StartCoroutine(DoTimeFreeze(0.07f));
+            MakeScreenShakeDependingOnLife();
+        }
+
+        private void MakeScreenShakeDependingOnLife()
+        {
+            var curLife = _damageHandler.currentDamage;
+            
+            if (curLife < 30f)
+            {
+                LowCameraShakeFeedBack.PlayFeedbacks();
+            }
+            else if (curLife < 60f)
+            {
+                MediumCameraShakeFeedBack.PlayFeedbacks();
+            }
+            else
+            {
+                HighCameraShakeFeedBack.PlayFeedbacks();
+            }
         }
 
         private IEnumerator DoTimeFreeze(float time)

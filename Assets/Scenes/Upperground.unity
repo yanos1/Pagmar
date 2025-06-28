@@ -851,7 +851,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2092236705
-  m_SortingLayer: -1
+  m_SortingLayer: -4
   m_SortingOrder: 1
   m_Sprite: {fileID: 4908875841858503026, guid: fdb6f6a1619b02b4dbc7c922a0ff0018, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1017,7 +1017,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2092236705
-  m_SortingLayer: -1
+  m_SortingLayer: -4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.4784314, g: 0.69803923, b: 0.6666667, a: 1}
@@ -7959,6 +7959,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
   m_PrefabInstance: {fileID: 295399164}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &299839567 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1092145239225147536, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+  m_PrefabInstance: {fileID: 920217983}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &313195416
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19261,6 +19272,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5662022951266685875, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: dashFeedback
+      value: 
+      objectReference: {fileID: 299839567}
+    - target: {fileID: 5662022951266685875, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: enableWallJump
       value: 0
       objectReference: {fileID: 0}
@@ -19457,6 +19472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f56a2130044a7d9f2a9e030f0ce5af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _globalActions: {fileID: 0}
 --- !u!114 &920217988 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8509487364657399828, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
@@ -35942,6 +35958,7 @@ MonoBehaviour:
   longslowMotionFeedbacks: {fileID: 0}
   undergroundCanvas: {fileID: 0}
   endGameUiFeedbacks: {fileID: 0}
+  creditsFeedbacks: {fileID: 0}
 --- !u!4 &1431531964
 Transform:
   m_ObjectHideFlags: 0
@@ -42475,7 +42492,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2092236705
-  m_SortingLayer: -1
+  m_SortingLayer: -4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.10137059, g: 0.21897863, b: 0.3207547, a: 1}

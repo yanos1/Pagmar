@@ -12,7 +12,7 @@ namespace Loader
         {
             [SerializeField] private GameLoaderUI loaderUI;
             [SerializeField] private ScenesManager sceneManager;
-
+            
             private Animator animator;
             private float loadSpeed = 0.005f;
 

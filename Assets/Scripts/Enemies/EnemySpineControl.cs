@@ -5,7 +5,7 @@ using Spine.Unity;
 
 public class EnemySpineControl : MonoBehaviour
 {
-    [SerializeField] private SkeletonAnimation skeletonAnimation;
+    public SkeletonAnimation skeletonAnimation;
     
     private string currentActionAnimation = "";
     

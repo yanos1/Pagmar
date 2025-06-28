@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7558305614794456467}
   - component: {fileID: 4755587141613487392}
   - component: {fileID: 6238833751704306004}
+  - component: {fileID: 7464781788439388851}
   m_Layer: 7
   m_Name: SheepEnemy
   m_TagString: Enemy
@@ -30,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.11918376, w: 0.99287224}
   m_LocalPosition: {x: 133.94, y: -6.2, z: 0}
-  m_LocalScale: {x: 0.49999997, y: 0.72, z: 0.72}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.72}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1649888750260155571}
   - {fileID: 4683767067931476282}
@@ -66,11 +67,10 @@ MonoBehaviour:
     m_Bits: 8
   groundCheckDistance: 0.3
   wallDetectionDistance: 0.7
-  e: {fileID: 0}
-  f: {fileID: 0}
   hitFeedbacks: {fileID: 6380413419108009971}
   spineControl: {fileID: 6238833751704306004}
   sounds: {fileID: 11400000, guid: 06cba468de9bc1745a200b9c41b06460, type: 2}
+  doSpineFlash: {fileID: 7464781788439388851}
   currentDirection: {x: 1, y: 0}
   hitsToKill: 2
 --- !u!50 &7558305614794456467
@@ -160,6 +160,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skeletonAnimation: {fileID: 3195694374254602192}
   _lockIdleState: 0
+--- !u!114 &7464781788439388851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521004622479609906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf2cb73630248475da687ec0e00e9b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spineControl: {fileID: 6238833751704306004}
+  playerSpineControl: {fileID: 0}
+  flashDuration: 0.07
+  flashColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
+  numOfFlashes: 1
 --- !u!1 &2677713914642190187
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ namespace Player
         private PlayerHornDamageHandler _damageHandler;
         private PlayerSoundHandler soundHandler;
         private Npc followedBy;
-        
+
 
         [SerializeField] private MMF_Player liftFeedbacks;
 
@@ -31,13 +31,13 @@ namespace Player
         private bool isKnockbacked = false;
         private bool inputEnabled = true;
         private float hitDamage = 0.5f;
-        
+
         private float lastRammedTime = -1f;
         private int ramComboCount = 0;
         private const float comboTimeWindow = 0.5f;
         public bool InputEnabled => inputEnabled;
         public bool IsMoving => Mathf.Abs(_rb.linearVelocity.x) > 0.2;
-        
+
         private Coroutine flashCoroutine;
 
 
@@ -59,6 +59,7 @@ namespace Player
             DisableInput();
             _playerMovement.StopAllMovement(null);
         }
+
         public bool IsKnockBacked => isKnockbacked;
 
         public bool IsDead => isDead;
@@ -116,7 +117,7 @@ namespace Player
         public void UpgradeState()
         {
             int next = (int)playerStage + 1;
-            
+
             SetPlayerStage((PlayerStage)next);
         }
 
@@ -239,6 +240,7 @@ namespace Player
             {
                 OnRammedFeedback();
             }
+
             if (Input.GetKeyDown(KeyCode.F12))
             {
                 Die();
@@ -324,9 +326,17 @@ namespace Player
                 StopCoroutine(flashCoroutine);
 
             StartCoroutine(DoSpineFlash(0.07f, new Color(0.1f, 0.1f, 0.1f, 1f)));
+            StartCoroutine(DoTimeFreeze(0.07f));
         }
-        
-        private IEnumerator DoSpineFlash(float duration, Color flashColor)
+
+        private IEnumerator DoTimeFreeze(float time)
+        {
+            Time.timeScale = 0f;
+            yield return new WaitForSecondsRealtime(time);
+            Time.timeScale = 1f;
+        }
+
+    private IEnumerator DoSpineFlash(float duration, Color flashColor)
         {
             Debug.Log("Spine flash started");
             var skeleton = spineControl.skeletonAnimation.Skeleton;

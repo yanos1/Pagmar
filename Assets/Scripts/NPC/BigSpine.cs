@@ -23,8 +23,7 @@ public class BigSpine : MonoBehaviour
 
     public enum SpineAnim
     {
-        Idle, Walk, Run, Jump, JumpAir, JumpLand, Crouch, Dash, Blink, GettingUp, LookDownBack, Smile,
-        Sleeping
+        Idle, Walk, Run, Jump, JumpAir, JumpLand, Crouch, Dash, Blink, GettingUp, LookDownBack, Smile
     }
 
     public string GetAnimName(SpineAnim anim)

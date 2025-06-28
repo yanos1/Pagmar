@@ -10,7 +10,7 @@ using MoreMountains.Feedbacks;
 
 namespace Player
 {
-    public class PlayerManager : Rammer, IResettable
+    public class PlayerManager : Rammer
     {
         private PlayerMovement _playerMovement;
         private PlayerHornDamageHandler _damageHandler;
@@ -48,7 +48,7 @@ namespace Player
             inputEnabled = true;
         }
 
-        public void StopAndDisableMovement(object o)
+        public void StopAndDisableMovement()
         {
             DisableInput();
             _playerMovement.StopAllMovement(null);
@@ -82,21 +82,21 @@ namespace Player
             print("player listen to cut scen");
             playerStage = playerStage; // swaps animation at start for debug.
             CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, OnEnterCutScene);
-            CoreManager.Instance.EventManager.AddListener(EventNames.EndCutScene, EnableInputExternally);
-            CoreManager.Instance.EventManager.AddListener(EventNames.PlayerMeetSmall, StopAndDisableMovement);
+            CoreManager.Instance.EventManager.AddListener(EventNames.EndCutScene, (o) => EnableInput());
+            CoreManager.Instance.EventManager.AddListener(EventNames.PlayerMeetSmall, (o) =>
+            {
+                print("STOP MOVEMENT");
+                StopAndDisableMovement();
+            });
         }
 
         private void OnDisable()
         {
             CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, OnEnterCutScene);
-            CoreManager.Instance.EventManager.RemoveListener(EventNames.EndCutScene, EnableInputExternally);
-            CoreManager.Instance.EventManager.RemoveListener(EventNames.PlayerMeetSmall, StopAndDisableMovement);
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.EndCutScene, (o) => EnableInput());
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.PlayerMeetSmall, (o) => DisableInput());
         }
 
-        public void EnableInputExternally(object o)
-        {
-            EnableInput();
-        }
         public void UnlockAnimations()
         {
             spineControl.SetIdleLock(false);
@@ -318,13 +318,9 @@ namespace Player
             {
                 return;
             }
+            DisableInput();
             isKnockbacked = true;
-            if (inputEnabled)
-            {
-                DisableInput();
-                StartCoroutine(ReturnInputAfterRammed());
-            }
-       
+            StartCoroutine(ReturnInputAfterRammed());
 
             _rb.linearVelocity = Vector2.zero;
             _rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
@@ -396,15 +392,6 @@ namespace Player
             DisableInput();
             yield return new WaitForSeconds(seconds);
             EnableInput();
-        }
-
-        public void ResetToInitialState()
-        {
-            StopAllCoroutines();
-            Revive();
-            EnableInput();
-            isDead = false;
-            isKnockbacked = false;
         }
     }
 }

@@ -56,7 +56,8 @@ namespace Managers
             }
 
             CoreManager.Instance.UiManager.HideLoadingScreen();
-        
+            CoreManager.Instance.Player.EnableInput();
+            CoreManager.Instance.Player.Revive();
 
             if (restoreCheckpoint)
             {

@@ -6,7 +6,6 @@ using Enemies;
 using Interfaces;
 using Managers;
 using NPC.NpcActions;
-using Player;
 using SpongeScene;
 using Terrain;
 using Terrain.Environment;
@@ -38,7 +37,6 @@ namespace NPC
 
         private bool _isFollowing;
         private bool _isFollowed;
-        private bool isJumpedOn;
 
         public NpcAction CurrentAction => currentAction;
 
@@ -69,7 +67,6 @@ namespace NPC
         public NpcState State => state;
         public Rigidbody2D Rb => rb;
         public int ActionIndex => actionIndex;
-        public bool IsJumpedOn => isJumpedOn;
 
         private void OnEnable()
         {
@@ -224,19 +221,6 @@ namespace NPC
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (other.gameObject.GetComponent<PlayerMovement>() is { } playerMovement)
-            {
-                print($"current time is {Time.time} player last jump time {playerMovement.LastJumpTime}");
-                if (Time.time - playerMovement.LastJumpTime < 2 && playerMovement.LastJumpTime > 0) // we detect this as jumping on the npc
-                {
-                    isJumpedOn = true;
-                    StartCoroutine(UtilityFunctions.WaitAndInvokeAction(5, () => isJumpedOn = false));
-                }
-            }
-        }
-
         public void Heal()
         {
             CoreManager.Instance.EventManager.InvokeEvent(EventNames.BigPickUpHeal, null);
@@ -271,9 +255,6 @@ namespace NPC
                     break;
                 case NpcState.GetUp:
                     spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.GettingUp), false);
-                    break;
-                case NpcState.Sleeping:
-                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Sleeping), true);
                     break;
             }
         }
@@ -340,7 +321,6 @@ namespace NPC
         Jumping,
         Charging,
         Crouching,
-        GetUp,
-        Sleeping
+        GetUp
     }
 }

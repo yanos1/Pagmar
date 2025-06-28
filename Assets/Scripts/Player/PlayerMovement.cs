@@ -77,7 +77,6 @@ public class PlayerMovement : MonoBehaviour
     public bool IsDashing => _isDashing;
     public Vector2 DashDirection => _lastDashDir;
     public Vector3 GroundCheckPos => groundCheckPosition.position;
-    public float LastJumpTime => LastPressedJumpTime;
 
     private bool isTouchingWall = false;
     private bool isWallJumping = false;
@@ -380,7 +379,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void StartJumping()
     {
-        LastPressedJumpTime = Time.time;
+        LastPressedJumpTime = 0f;
         jumpIsPressed = true;
         jumpTimer = StartCoroutine(JumpTimeout(0.4f));
         _rb.gravityScale = regularGravity;
@@ -447,7 +446,7 @@ public class PlayerMovement : MonoBehaviour
     private bool IsHittingSomething(Vector2 dir)
     {
         dir.Normalize();
-        print($"dir is {dir}");
+
         // Check ceiling if moving diagonally upward (both x and y are significant)
         if (dir.y > 0.45f)
         {
@@ -506,7 +505,6 @@ public class PlayerMovement : MonoBehaviour
     private void CheckForBreakable(Collider2D collider, Vector2 dir)
     {
         var breakable = collider.GetComponent<IBreakable>();
-        print($"hit {collider.name}");
         if (breakable != null)
         {
             print("breakable found");

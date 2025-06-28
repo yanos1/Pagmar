@@ -20,7 +20,6 @@ public class CameraControlTrigger : MonoBehaviour
     { 
         if(other.gameObject.CompareTag("Player"))
         {
-            print("triggered camera ");
             if (customInspectorObjects.panCameraOnContact)
             {
                 CameraManager.GetInstance().PanCameraOnContact(customInspectorObjects.panDistance,customInspectorObjects.panTime,customInspectorObjects.panDirection,false);

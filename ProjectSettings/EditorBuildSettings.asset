@@ -12,26 +12,23 @@ EditorBuildSettings:
     path: Assets/Scenes/PersistentScene.unity
     guid: 55f680ca5a3bdb6429fb62bdca62d1ae
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: f04979042f2f66a41ad184f7876b69e6
-  - enabled: 1
     path: Assets/Scenes/House.unity
     guid: 2abc15b12a3ccd449b95a0954c8bc091
   - enabled: 1
     path: Assets/Scenes/Upperground-art.unity
     guid: e3a002deaa56a471e817d38d6ff37b75
   - enabled: 1
-    path: Assets/Scenes/Falldown-attempt.unity
-    guid: 57715c46c51c0da448f2902bf10b14ed
-  - enabled: 1
-    path: Assets/Scenes/Underground.unity
-    guid: 6b6d63645146cbb4ab15ff2977391e28
+    path: Assets/Scenes/Falldown.unity
+    guid: fc09b3d5342432f4e8150495783a8274
   - enabled: 1
     path: Assets/Scenes/Ending.unity
     guid: dc3f528ba7dd41744a5b2049260845e6
-  - enabled: 0
-    path: Assets/Scenes/Falldown.unity
-    guid: fc09b3d5342432f4e8150495783a8274
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: f04979042f2f66a41ad184f7876b69e6
+  - enabled: 1
+    path: Assets/Scenes/Underground.unity
+    guid: 6b6d63645146cbb4ab15ff2977391e28
   - enabled: 0
     path: Assets/Scenes/Upperground.unity
     guid: f6ba66f992b0f9f46bc06c4c68f71e83

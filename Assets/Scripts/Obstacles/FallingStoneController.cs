@@ -24,6 +24,7 @@ namespace Obstacles
                 Debug.Log("All stones have already fallen.");
                 return;
             }
+          
         }
 
         public void ResetToInitialState()
@@ -37,7 +38,6 @@ namespace Obstacles
 
         public void OnHit(Vector2 hitDir, PlayerStage stage)
         {
-            print("start stone fall");
             FallingStone stone = stones[currentIndex];
             stone.Activate();
             stone.GetComponent<Rigidbody2D>().AddForce(fallForce, ForceMode2D.Impulse);

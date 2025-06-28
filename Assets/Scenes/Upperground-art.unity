@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2577590}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: BigTriggers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1032,7 +1032,7 @@ GameObject:
   - component: {fileID: 55223844}
   - component: {fileID: 55223846}
   - component: {fileID: 55223845}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: PlayerCrossedTreeTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1214,7 +1214,7 @@ GameObject:
   - component: {fileID: 61674884}
   - component: {fileID: 61674886}
   - component: {fileID: 61674885}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: EnemyCharningTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4443,7 +4443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 251971740}
   - component: {fileID: 251971741}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: HealedTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11586,7 +11586,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 331724645}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: TimelineTriggers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15631,7 +15631,7 @@ GameObject:
   - component: {fileID: 589204463}
   - component: {fileID: 589204465}
   - component: {fileID: 589204464}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: StartUppergroundTimelineTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18720,7 +18720,7 @@ GameObject:
   - component: {fileID: 743055092}
   - component: {fileID: 743055094}
   - component: {fileID: 743055093}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: DevCreditsTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18815,7 +18815,7 @@ GameObject:
   - component: {fileID: 753204486}
   - component: {fileID: 753204488}
   - component: {fileID: 753204487}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: StopFollowTrigger2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19366,7 +19366,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 800932217}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: CreditsFeedbacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19512,7 +19512,7 @@ GameObject:
   - component: {fileID: 820309438}
   - component: {fileID: 820309439}
   - component: {fileID: 820309440}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: DayNightTimelineTigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23608,7 +23608,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1031521887}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Triggers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26669,11 +26669,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 138.71
+      value: 138.47
       objectReference: {fileID: 0}
     - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.97
+      value: 4.23
       objectReference: {fileID: 0}
     - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -34129,7 +34129,7 @@ GameObject:
   - component: {fileID: 1460182917}
   - component: {fileID: 1460182919}
   - component: {fileID: 1460182918}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: BigStartTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55176,7 +55176,7 @@ GameObject:
   - component: {fileID: 1584883446}
   - component: {fileID: 1584883448}
   - component: {fileID: 1584883447}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: StopFollowTrigger1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55271,7 +55271,7 @@ GameObject:
   - component: {fileID: 1589102265}
   - component: {fileID: 1589102267}
   - component: {fileID: 1589102266}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: StopBegingFollowedTrigger2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64218,7 +64218,7 @@ Transform:
   m_GameObject: {fileID: 1819989092}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 212.8, y: 7.6, z: 0}
+  m_LocalPosition: {x: 212.8, y: 8.009999, z: 0}
   m_LocalScale: {x: 4.4399996, y: 4.4399996, z: 4.4399996}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -64581,7 +64581,7 @@ GameObject:
   - component: {fileID: 1830150305}
   - component: {fileID: 1830150307}
   - component: {fileID: 1830150306}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: MusicTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73098,7 +73098,7 @@ GameObject:
   - component: {fileID: 2088692431}
   - component: {fileID: 2088692433}
   - component: {fileID: 2088692432}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: SoundCredits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74406,7 +74406,7 @@ GameObject:
   - component: {fileID: 2122763764}
   - component: {fileID: 2122763766}
   - component: {fileID: 2122763765}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: ArtCredits
   m_TagString: Untagged
   m_Icon: {fileID: 0}

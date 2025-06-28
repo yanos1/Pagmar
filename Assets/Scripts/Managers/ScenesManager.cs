@@ -184,6 +184,7 @@ namespace Managers
                 }
                 
                 CoreManager.Instance.GameManager.OnEndCutScene(null); // returning input if was disabled at the end of the scene.
+                CoreManager.Instance.UiManager.OnEndCutScene(null); // returning input if was disabled at the end of the scene.
                 AsyncOperation loadOperation = SceneManager.LoadSceneAsync(newSceneIndex, LoadSceneMode.Additive);
                 while (!loadOperation.isDone)
                 {

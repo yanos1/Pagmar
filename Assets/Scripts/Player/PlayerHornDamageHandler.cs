@@ -16,26 +16,27 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
     private bool isDead = false;
     private Coroutine healingCoroutine;
 
-    // 🔸 Track time of last damage
     private float lastDamageTime = -1f;
-    private bool garualHeal;
-    private const float damageCooldown = 0.35f;
+    private float lastDamageValue = -1f;
 
+    private bool gradualHeal;
+    private const float damageCooldown = 0.35f;
 
     private void OnEnable()
     {
         CoreManager.Instance.EventManager.AddListener(EventNames.PickupBoneHeal, Heal);
     }
-    
+
     private void OnDisable()
     {
         CoreManager.Instance.EventManager.RemoveListener(EventNames.PickupBoneHeal, Heal);
     }
 
-    void Update()
+    private void Update()
     {
         if (isDead) return;
-        if (currentDamage >= 0f && !garualHeal)
+
+        if (currentDamage > 0f && !gradualHeal)
         {
             PassiveHeal();
         }
@@ -44,17 +45,17 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
     public void AddDamage(float addedDamage = 12)
     {
         if (isDead) return;
-        
-        // 🔸 Check damage cooldown
-        if (Time.time - lastDamageTime < damageCooldown)
+
+        // Block if same damage value and within cooldown
+        if (Mathf.Approximately(addedDamage, lastDamageValue) && Time.time - lastDamageTime < damageCooldown)
             return;
 
         currentDamage += addedDamage;
         currentDamage = Mathf.Clamp(currentDamage, 0f, 100f);
         damageUI?.UpdateUI(currentDamage);
 
-        // 🔸 Record the time of this damage
         lastDamageTime = Time.time;
+        lastDamageValue = addedDamage;
 
         if (currentDamage >= 100f)
         {
@@ -69,7 +70,6 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         currentDamage -= passiveHealRate * Time.deltaTime;
         currentDamage = Mathf.Clamp(currentDamage, 0f, 100f);
         damageUI?.UpdateUI(currentDamage);
-
     }
 
     public void Heal(object o)
@@ -78,43 +78,47 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         {
             if (healingCoroutine != null)
                 StopCoroutine(healingCoroutine);
-            print("HEAL!!!");
-            healingCoroutine = StartCoroutine(GradualHeal(healAmount, 2));
+
+            Debug.Log("HEAL!!!");
+            healingCoroutine = StartCoroutine(GradualHeal(healAmount, 2f));
         }
-       
     }
 
     private IEnumerator GradualHeal(int healAmount, float duration)
     {
-        garualHeal = true;
+        gradualHeal = true;
+
         float startDamage = currentDamage;
         float elapsed = 0f;
 
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            currentDamage = Mathf.Lerp(startDamage, Mathf.Max(startDamage -healAmount,0), elapsed / duration);
+            currentDamage = Mathf.Lerp(startDamage, Mathf.Max(startDamage - healAmount, 0), elapsed / duration);
             damageUI?.UpdateUI(currentDamage);
             yield return null;
         }
 
-        currentDamage = 0f;
+        currentDamage = Mathf.Clamp(currentDamage, 0f, 100f);
         damageUI?.UpdateUI(currentDamage);
         healingCoroutine = null;
-        garualHeal = false;
+        gradualHeal = false;
     }
 
     public void ResetToInitialState()
     {
         isDead = false;
         currentDamage = 0f;
+        lastDamageValue = -1f;
+        lastDamageTime = -1f;
         damageUI?.UpdateUI(currentDamage);
-        if (healingCoroutine is not null)
+
+        if (healingCoroutine != null)
         {
             StopCoroutine(healingCoroutine);
             healingCoroutine = null;
         }
-        garualHeal = false;
 
+        gradualHeal = false;
     }
 }

@@ -11,7 +11,7 @@ namespace Triggers
         [SerializeField] protected String trigger;
         private Collider2D col;
 
-        private void Start()
+        public virtual void Start()
         {
             col = GetComponent<Collider2D>();
         }

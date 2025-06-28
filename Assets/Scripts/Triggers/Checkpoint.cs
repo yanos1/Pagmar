@@ -18,7 +18,7 @@ namespace Triggers
         private Npc recordedNpc;
         private int recorededNpcCurrentActionIndex;
         private Vector3 recordedNpcPposition;
-        private bool triggered;
+        protected bool triggered;
         
         [SerializeField] MMF_Player checkpointFeedback;
         [SerializeField] private bool callEventOnReach;

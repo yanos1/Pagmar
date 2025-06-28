@@ -23,6 +23,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Falldown.unity
     guid: fc09b3d5342432f4e8150495783a8274
+    path: Assets/Scenes/Falldown-attempt.unity
+    guid: 57715c46c51c0da448f2902bf10b14ed
   - enabled: 1
     path: Assets/Scenes/Underground.unity
     guid: 6b6d63645146cbb4ab15ff2977391e28

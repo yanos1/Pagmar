@@ -161,7 +161,7 @@ namespace Managers
         {
             if (newSceneIndex >= 0 && newSceneIndex < SceneManager.sceneCountInBuildSettings)
             {
-
+            
                 print($"current scene is {currentSceneIndex} {SceneManager.GetActiveScene().name}");
                 if (doFade)
                 {
@@ -170,6 +170,8 @@ namespace Managers
                     {
                         yield return null;
                     }
+                    CoreManager.Instance.AudioManager.StopAllSounds();
+
                     if (CoreManager.Instance.Player != null)
                     {
                         CoreManager.Instance.Player.GetComponent<PlayerInput>()?.gameObject

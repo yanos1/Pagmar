@@ -17,6 +17,7 @@ namespace Triggers
             {
                 triggered = true;
                 feedbacks?.PlayFeedbacks();
+                print("start feedbacks of text");
             }
         }
 

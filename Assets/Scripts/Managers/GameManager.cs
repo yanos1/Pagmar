@@ -24,10 +24,6 @@ namespace Managers
             CoreManager.Instance.EventManager.RemoveListener(EventNames.EndCutScene, OnEndCutScene);
         }
 
-        private void Update() {
-            InputSystem.Update();
-        }
-
         public void OnEndCutScene(object obj)
         { 
             inCutScene = false;

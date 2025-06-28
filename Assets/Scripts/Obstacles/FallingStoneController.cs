@@ -13,7 +13,6 @@ namespace Obstacles
         [SerializeField] private Vector2 fallForce;
 
         private int currentIndex = 0;
-
         public void ResetToInitialState()
         {
             currentIndex = 0;

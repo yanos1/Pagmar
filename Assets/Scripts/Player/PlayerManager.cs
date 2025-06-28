@@ -5,8 +5,10 @@ using Managers;
 using NPC;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Enemies;
 using MoreMountains.Feedbacks;
+using Spine.Unity;
 
 namespace Player
 {
@@ -17,23 +19,30 @@ namespace Player
         private PlayerSoundHandler soundHandler;
         private Npc followedBy;
 
+
         [SerializeField] private MMF_Player liftFeedbacks;
 
         [SerializeField] private SpineControl spineControl;
         [SerializeField] private PlayerStage _playerStage = PlayerStage.Young;
         [SerializeField] private SpineControl _spineControl;
+        [SerializeField] private MMF_Player LowCameraShakeFeedBack;
+        [SerializeField] private MMF_Player MediumCameraShakeFeedBack;
+        [SerializeField] private MMF_Player HighCameraShakeFeedBack;
+        [SerializeField] private DoSpineFlash doSpineFlash;
+
 
         private Rigidbody2D _rb;
         private bool isDead = false;
         private bool isKnockbacked = false;
         private bool inputEnabled = true;
         private float hitDamage = 0.5f;
-        
+
         private float lastRammedTime = -1f;
         private int ramComboCount = 0;
         private const float comboTimeWindow = 0.5f;
         public bool InputEnabled => inputEnabled;
         public bool IsMoving => Mathf.Abs(_rb.linearVelocity.x) > 0.2;
+        
 
         public void DisableInput()
         {
@@ -53,6 +62,7 @@ namespace Player
             DisableInput();
             _playerMovement.StopAllMovement(null);
         }
+
         public bool IsKnockBacked => isKnockbacked;
 
         public bool IsDead => isDead;
@@ -110,7 +120,7 @@ namespace Player
         public void UpgradeState()
         {
             int next = (int)playerStage + 1;
-            
+
             SetPlayerStage((PlayerStage)next);
         }
 
@@ -229,6 +239,11 @@ namespace Player
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                OnRammedFeedback();
+            }
+
             if (Input.GetKeyDown(KeyCode.F12))
             {
                 Die();
@@ -290,6 +305,7 @@ namespace Player
             InjuryManager.Instance.ApplyDamage(hitDamage * fromForce);
             _damageHandler.AddDamage(hitDamage * 100);
             spineControl.PlayAnimationOnBaseTrack("hit", false);
+            OnRammedFeedback();
 
             float currentTime = Time.time;
 
@@ -305,6 +321,38 @@ namespace Player
 
             lastRammedTime = currentTime;
 
+        }
+
+        private void OnRammedFeedback()
+        {
+            doSpineFlash.OnRammedFeedback();
+            StartCoroutine(DoTimeFreeze(0.07f));
+            MakeScreenShakeDependingOnLife();
+        }
+
+        private void MakeScreenShakeDependingOnLife()
+        {
+            var curLife = _damageHandler.currentDamage;
+            
+            if (curLife < 30f)
+            {
+                LowCameraShakeFeedBack.PlayFeedbacks();
+            }
+            else if (curLife < 60f)
+            {
+                MediumCameraShakeFeedBack.PlayFeedbacks();
+            }
+            else
+            {
+                HighCameraShakeFeedBack.PlayFeedbacks();
+            }
+        }
+
+        private IEnumerator DoTimeFreeze(float time)
+        {
+            Time.timeScale = 0f;
+            yield return new WaitForSecondsRealtime(time);
+            Time.timeScale = 1f;
         }
 
 

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
 using Managers;
+using Spine.Unity;
 
 public class ChasingEnemy : Rammer, IResettable
 {
@@ -16,7 +17,6 @@ public class ChasingEnemy : Rammer, IResettable
     private Vector3 startingPosition;
     private Vector3 playerResetPosition;
     private bool chase = false;
-
     private float positionHistoryDuration = 17f;
     private List<(float time, Vector3 position)> positionHistory = new List<(float, Vector3)>();
 
@@ -24,6 +24,7 @@ public class ChasingEnemy : Rammer, IResettable
     private Vector3 lastProcessedPlayerResetPos = Vector3.positiveInfinity;
     private Vector3 cachedBestResetPosition = Vector3.zero;
     private bool hasCachedReset = false;
+
 
     private void OnEnable()
     {
@@ -91,7 +92,10 @@ public class ChasingEnemy : Rammer, IResettable
         agent.velocity = Vector3.zero;
     }
 
-    public override void OnRammed(float fromForce) { }
+    public override void OnRammed(float fromForce)
+    {
+    }
+    
 
     public override void ApplyKnockback(Vector2 direction, float force) { }
 

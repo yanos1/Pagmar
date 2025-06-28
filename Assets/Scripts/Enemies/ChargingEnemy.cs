@@ -1,13 +1,11 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
 using Obstacles;
 using Player;
 using ScripableObjects;
-using Spine.Unity;
 using SpongeScene;
 using UnityEngine;
 
@@ -23,7 +21,6 @@ namespace Enemies
         public float rotationAmount = 10f;
         public float rotationSpeed = 5f;
         public float minDistanceActivation = 3f;
-
 
         [SerializeField] private bool sleepAtStart;
         [SerializeField] private bool canRoam = true;
@@ -43,7 +40,6 @@ namespace Enemies
         [SerializeField] private MMF_Player hitFeedbacks;
         [SerializeField] private EnemySpineControl spineControl;
         [SerializeField] private ChargingEnemySounds sounds;
-        [SerializeField] private DoSpineFlash doSpineFlash;
 
 
         private bool isPreparingCharge = false;
@@ -113,10 +109,6 @@ namespace Enemies
             if (player is null || isSleeping)
             {
                 return;
-            }
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                doSpineFlash.OnRammedFeedback();
             }
 
             if (flipCooldownTimer > 0f)
@@ -525,7 +517,6 @@ namespace Enemies
 
         public override void OnRammed(float fromForce)
         {
-            doSpineFlash.OnRammedFeedback();
             Debug.Log($"Enemy rammed with force {fromForce}");
             print($"hits left {hitsToKill - hitCounter + 1}");
 
@@ -544,7 +535,6 @@ namespace Enemies
             isPreparingCharge = false;
             StopAllCoroutines();
         }
-
 
         public override void ApplyKnockback(Vector2 direction, float force)
         {

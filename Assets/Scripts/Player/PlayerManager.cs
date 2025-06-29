@@ -470,10 +470,16 @@ namespace Player
         public void ResetToInitialState()
         {
             StopAllCoroutines();
+            ChangeToOriginalColor();
             Revive();
             EnableInput();
             isDead = false;
             isKnockbacked = false;
+        }
+
+        private void ChangeToOriginalColor()
+        {
+            doSpineFlash.RestoreOriginalColors();
         }
     }
 }

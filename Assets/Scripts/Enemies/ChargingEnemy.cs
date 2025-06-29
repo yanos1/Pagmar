@@ -468,6 +468,7 @@ namespace Enemies
         public override void ResetToInitialState()
         {
             base.ResetToInitialState();
+            doSpineFlash.RestoreOriginalColors();
             gameObject.SetActive(true);
             StopCharging();
             StopPlayingWalkSound();

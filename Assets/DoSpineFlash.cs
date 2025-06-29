@@ -48,4 +48,20 @@ public class DoSpineFlash : MonoBehaviour
         }
         flashCoroutine = null;
     }
+    public void RestoreOriginalColors()
+    {
+        if (spineControl == null && playerSpineControl == null)
+        {
+            Debug.LogError("No SpineControl or PlayerSpineControl assigned.");
+            return;
+        }
+
+        var skeleton = playerSpineControl != null ? playerSpineControl.skeletonAnimation.Skeleton : spineControl.skeletonAnimation.Skeleton;
+
+        foreach (var slot in skeleton.Slots)
+        {
+            slot.SetColor(Color.white); // Or your desired default color
+        }
+    }
+
 }

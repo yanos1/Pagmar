@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace unity2DDestruction.Assets._2D_Destruction.Scripts
 {
-    public class BecomeDebreeAddon : ExplodableAddon
+    public class CollideWithNothingAddon : ExplodableAddon
     {
         private List<GameObject> fragments;
         private bool stop = false;
@@ -27,7 +27,7 @@ namespace unity2DDestruction.Assets._2D_Destruction.Scripts
             // Create a LayerMask for the ground (make sure "Ground" layer exists)
             foreach (var frag in fragments)
             {
-                frag.layer = LayerMask.NameToLayer("Debree");
+                frag.layer = LayerMask.NameToLayer("CollideWithothing");
             }
         }
     }

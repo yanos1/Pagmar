@@ -118,7 +118,7 @@ public class ChasingEnemy : Rammer, IResettable
         foreach (var (time, pos) in positionHistory)
         {
             float distance = Vector3.Distance(playerResetPosition, pos);
-            if (pos.x < playerResetPosition.x && distance > 13f)
+            if (pos.x < playerResetPosition.x && distance > 14.5f)
             {
                 considerablePositions[distance] = pos;
             }

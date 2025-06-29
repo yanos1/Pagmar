@@ -9277,7 +9277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1648803552949502452, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1648803552949502452, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: m_TagString
@@ -9285,11 +9285,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598407459085447982, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: customInspectorObjects.panTime
-      value: 0.45
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 6598407459085447982, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: customInspectorObjects.panDistance
-      value: 1.2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 6598407459085447982, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: customInspectorObjects.swapCameras
@@ -9301,7 +9301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598407459085447982, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: customInspectorObjects.panDirection
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6598407459085447982, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: customInspectorObjects.cameraOnRight
@@ -9317,11 +9317,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 107.43
+      value: 55.81
       objectReference: {fileID: 0}
     - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.26
+      value: 8.21
       objectReference: {fileID: 0}
     - target: {fileID: 7178597637800812667, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -24720,7 +24720,7 @@ Transform:
   m_GameObject: {fileID: 1941960997}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 59.5, y: -9.7, z: 0}
+  m_LocalPosition: {x: 61.6, y: -9.67, z: 0}
   m_LocalScale: {x: 15.34, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24770,7 +24770,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.22, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1941961000
 MonoBehaviour:

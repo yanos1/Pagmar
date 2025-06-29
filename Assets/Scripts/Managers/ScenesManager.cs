@@ -145,7 +145,7 @@ namespace Managers
             {
                 doFade = true;
             }
-
+        
             return doFade;
         }
         
@@ -165,6 +165,7 @@ namespace Managers
                 print($"current scene is {currentSceneIndex} {SceneManager.GetActiveScene().name}");
                 if (doFade)
                 {
+                   print("do fade for scene");
                     CoreManager.Instance.UiManager.ShowLoadingScreen();
                     while (!CoreManager.Instance.UiManager.IsFadeInFinished())
                     {
@@ -186,7 +187,6 @@ namespace Managers
                 }
                 
                 CoreManager.Instance.GameManager.OnEndCutScene(null); // returning input if was disabled at the end of the scene.
-                CoreManager.Instance.UiManager.OnEndCutScene(null); // returning input if was disabled at the end of the scene.
                 AsyncOperation loadOperation = SceneManager.LoadSceneAsync(newSceneIndex, LoadSceneMode.Additive);
                 while (!loadOperation.isDone)
                 {

@@ -109,13 +109,13 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, StopAllMovement);
-        CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, OnNewScene);
+        // CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, OnNewScene);
     }
 
     private void OnDisable()
     {
         CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, StopAllMovement);
-        CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, OnNewScene);
+        // CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, OnNewScene);
 
     }
 
@@ -173,28 +173,28 @@ public class PlayerMovement : MonoBehaviour
     }
     
     
-    private void OnNewScene(object obj)
-    {
-        if (SceneManager.GetActiveScene().name == "Falldown")
-        {
-            StartCoroutine(MoveRightForSeconds());
-        
-        }
-    }
+    // private void OnNewScene(object obj)
+    // {
+    //     if (SceneManager.GetActiveScene().name == "Falldown")
+    //     {
+    //         StartCoroutine(MoveRightForSeconds());
+    //     
+    //     }
+    // }
 
-    private IEnumerator MoveRightForSeconds()
-    {
-        _moveInputX = 0.79876f;
-        _moveInputY = 0;
-        _moveInput = Vector2.right;
-        yield return new WaitForSeconds(2);
-        if (Mathf.Approximately(_moveInputX, 0.79876f)) // if the player hasnt touchd the input this will be the input and we will stop
-        {
-            _moveInputX = 0;
-            _moveInput.y = 0;
-            _moveInput = Vector2.right;
-        }
-    }
+    // private IEnumerator MoveRightForSeconds()
+    // {
+    //     _moveInputX = 0.79876f;
+    //     _moveInputY = 0;
+    //     _moveInput = Vector2.right;
+    //     yield return new WaitForSeconds(2);
+    //     if (Mathf.Approximately(_moveInputX, 0.79876f)) // if the player hasnt touchd the input this will be the input and we will stop
+    //     {
+    //         _moveInputX = 0;
+    //         _moveInput.y = 0;
+    //         _moveInput = Vector2.right;
+    //     }
+    // }
 
     private void CheckIfFalling()
     {
@@ -276,6 +276,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
+        print($"attemp to move knockback: {player.IsKnockBacked}");
         if (player.IsKnockBacked) return;
         if (Mathf.Abs(_moveInputX) > 0.1)
         {
@@ -288,9 +289,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (player.InputEnabled)
         {
+            print("do move");
+
             _rb.linearVelocity =
                 new Vector2(
-                    _moveInputX * MovementSpeed * (1 - InjuryManager.Instance.injuryMagnitude / 2f) *
+                    _moveInputX * MovementSpeed *
                     Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
         }
     }
@@ -301,7 +304,8 @@ public class PlayerMovement : MonoBehaviour
         _moveInput = context.ReadValue<Vector2>();
         _moveInputX = _moveInput.x;
         _moveInputY = _moveInput.y;
-
+        print($"reading {_moveInputX} on x");
+        
 
         if (_moveInputX != 0)
         {

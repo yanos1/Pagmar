@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 517369806863453422}
   - component: {fileID: 301235171506959740}
   - component: {fileID: 2943051009445237764}
-  - component: {fileID: 2131541447888863297}
-  - component: {fileID: 2311293388392247612}
+  - component: {fileID: 822364636829184480}
   m_Layer: 3
   m_Name: logbig_0
   m_TagString: Untagged
@@ -164,7 +163,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 6.24, y: 0.77}
   m_EdgeRadius: 0
---- !u!114 &2131541447888863297
+--- !u!114 &822364636829184480
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,17 +175,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a40287d33994393a06b5c7f791e395e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHits: 1
+  maxHits: 5
   hitFeedback: {fileID: 0}
   e: {fileID: 0}
   f: {fileID: 0}
   hitSound:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 982625841
+      Data2: 1216845696
+      Data3: 8652720
+      Data4: 485719813
+    Path: event:/Objects/WoodPlatformRotate
   breakSound:
     Guid:
       Data1: -183777271
@@ -194,17 +193,3 @@ MonoBehaviour:
       Data3: -256928597
       Data4: 1008953857
     Path: event:/Objects/WoodBreak
---- !u!114 &2311293388392247612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7177096677977205966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f17f0753a6af4c619e2225ade635face, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  force: 1200
-  hitFeedbacks: {fileID: 0}

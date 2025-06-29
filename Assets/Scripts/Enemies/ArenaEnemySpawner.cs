@@ -17,6 +17,7 @@ namespace Enemies
         [SerializeField] private List<Gate> gates;
         private bool triggered = false;
         private int timesActivated = 0;
+        private bool finishedBattle = false;
 
 
         private void Start()
@@ -73,18 +74,17 @@ namespace Enemies
 
         private IEnumerator OpenGatesWhenAllDead()
         {
-            while (true)
+            while (!finishedBattle)
             {
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(2f);
                 if (enemies.TrueForAll(enemy =>
-                        !enemy.gameObject.activeInHierarchy)) 
+                        !enemy.gameObject.activeInHierarchy))
                 {
+                    finishedBattle = true;
                     OpenGates(); 
-                    print("open gates they are all dead");
-
+                
                     yield break; 
                 }
-                print("dont open gates some are alive");
             }
         }
 
@@ -107,7 +107,7 @@ namespace Enemies
                 enemy.gameObject.SetActive(false);
             }
 
-            if (timesActivated > 0)  // this means the player has diied and is trying again to do the arena battle. we wait the cameras here to show enemies then give input back
+            if (timesActivated > 0 && !finishedBattle)  // this means the player has diied and is trying again to do the arena battle. we wait the cameras here to show enemies then give input back
             {
                 CoreManager.Instance.Player.DisableInputForDuration(4f);
             }

@@ -64,7 +64,7 @@ namespace Managers
             Vector2 dirA = (a.transform.position - b.transform.position).normalized;
             if (forceA ==0 && forceB == 0 && a.IsCharging) 
             {
-                a.ApplyKnockback(dirA, baseForce/2);
+                a.ApplyKnockback(dirA, baseForce*0.7f);
 
                 return;
             }
@@ -81,6 +81,8 @@ namespace Managers
                     playerHitFeedback?.PlayFeedbacks();
                     a.ApplyKnockback(dirA, baseForce);
                     b.ApplyKnockback(dirB, baseForce);
+                    a.OnRammed(b.CurrentForce);
+                    b.OnRammed(a.CurrentForce);
                 }
                 return;
             }
@@ -116,7 +118,11 @@ namespace Managers
                 };
 
                 Vector2 winDir = (winner.transform.position - loser.transform.position).normalized;
-                winner.ApplyKnockback(new Vector2(winDir.x, yForce),  10);
+                if (player.playerStage != PlayerStage.Adult)
+                {
+                    winner.ApplyKnockback(new Vector2(winDir.x, yForce),  10);
+                }
+               
                 print($"APPLY KNOICKBACK to {new Vector2(winDir.x, yForce)} with knockback {baseForce* knockbackForce} o0");
                 loser.ApplyKnockback(new Vector2(loseDir.x, 0.5f),(winnerForce-loserForce) *baseForce/2);
                 playerHitFeedback?.PlayFeedbacks();

@@ -210,7 +210,7 @@ namespace Player
                 Vector2 directionToPlayer = (transform.position - rammer.transform.position).normalized;
                 float dot = Mathf.Abs(Vector2.Dot(directionToPlayer, Vector2.right));
 
-                if (rammer.GetComponent<ChargingEnemy>() is not null && dot > 0.6f) // horizontal impact check
+                if (rammer.GetComponent<ChargingEnemy>() is not null && dot > 0.75f) // horizontal impact check
                 {
                     RammerManager.Instance.ResolveRam(this, rammer);
                 }
@@ -361,6 +361,7 @@ namespace Player
             if (ramComboCount > 1 && !liftFeedbacks.IsPlaying && CoreManager.Instance.GameManager.InCutScene)  // this is horrilbe code. i just dont ahve time.
             {
                 liftFeedbacks?.PlayFeedbacks();
+                isKnockbacked = false;
                 return;
             } else if (liftFeedbacks.IsPlaying)
             {

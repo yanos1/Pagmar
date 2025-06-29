@@ -39,9 +39,9 @@ TagManager:
   - Back
   - Front
   - Debree
-  - NoParticleCollision
+  - CollideOnlyWithPlayer
   - Background
-  - OnlyPlayerCollidesWith
+  - CollideWithothing
   - Trigger
   - WoodPlank
   - GroundEvening

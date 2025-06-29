@@ -1,124 +1,212 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Interfaces;
 using Managers;
+using MoreMountains.Feedbacks;
 using Player;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHornDamageHandler : MonoBehaviour, IResettable
 {
-    [Range(0f, 100f)]
-    public float currentDamage = 0f;
+    [Header("Damage System")]
+    [SerializeField] private List<Sprite> hornStates; // From healthy to broken
+    [SerializeField] private Image hornImage; // The current horn image
+    [SerializeField] private MMFeedbacks takeDamageFeedbacks;
 
-    [SerializeField] private float passiveHealRate = 2.7f; // % per second
-    [SerializeField] private HornDamageHandlerUI damageUI;
+    [Header("Healing System")]
+    [SerializeField] private Image healBar;
+    [SerializeField] private float healInterval = 5f;
 
-    private bool isDead = false;
-    private Coroutine healingCoroutine;
+    [Header("UI")]
+    [SerializeField] private TextMeshProUGUI healthText; // Health number display
 
-    private float lastDamageTime = -1f;
-    private float lastDamageValue = -1f;
-
-    private bool gradualHeal;
+    private int currentDamageIndex = 0; // 0 = full health, 6 = broken
+    private float healTimer = 0f;
+    private bool isHealing = false;
+    private int deferredDamage = 0;
+    private int lastDamageAmount;
     private const float damageCooldown = 0.35f;
+    private float lastDamageTime;
+
+    private PlayerManager player;
+    private Coroutine healRoutine;
+    private Coroutine healthTextRoutine;
+
+    public int currentIndex => currentDamageIndex;
+
+    public int HealthPercentage
+    {
+        get
+        {
+            int maxIndex = hornStates.Count - 1;
+            float ratio = 1f - ((float)currentDamageIndex / maxIndex);
+            return Mathf.RoundToInt(ratio * 100f);
+        }
+    }
+
+    private void Start()
+    {
+        player = GetComponent<PlayerManager>();
+        hornImage.sprite = hornStates[0];
+        UpdateVisual();
+    }
 
     private void OnEnable()
     {
-        CoreManager.Instance.EventManager.AddListener(EventNames.PickupBoneHeal, Heal);
+        CoreManager.Instance.EventManager.AddListener(EventNames.PickupBoneHeal, StartFullHeal);
     }
 
     private void OnDisable()
     {
-        CoreManager.Instance.EventManager.RemoveListener(EventNames.PickupBoneHeal, Heal);
+        CoreManager.Instance.EventManager.RemoveListener(EventNames.PickupBoneHeal, StartFullHeal);
     }
 
     private void Update()
     {
-        if (isDead) return;
+        if (isHealing || player.IsDead) return;
 
-        if (currentDamage > 0f && !gradualHeal)
+        if (currentDamageIndex != 0)
         {
-            PassiveHeal();
+            healTimer += Time.deltaTime;
+            healBar.fillAmount = healTimer / healInterval;
+
+            if (healTimer >= healInterval)
+            {
+                healTimer = 0f;
+                HealOne();
+            }
         }
     }
 
-    public void AddDamage(float addedDamage = 12)
+    private void HealOne()
     {
-        if (isDead) return;
-
-        // Block if same damage value and within cooldown
-        if (Mathf.Approximately(addedDamage, lastDamageValue) && Time.time - lastDamageTime < damageCooldown)
-            return;
-
-        currentDamage += addedDamage;
-        currentDamage = Mathf.Clamp(currentDamage, 0f, 100f);
-        damageUI?.UpdateUI(currentDamage);
-
-        lastDamageTime = Time.time;
-        lastDamageValue = addedDamage;
-
-        if (currentDamage >= 100f)
+        if (currentDamageIndex > 0)
         {
-            Debug.Log("DIE!!!");
-            isDead = true;
-            CoreManager.Instance.Player.Die();
+            currentDamageIndex--;
+            UpdateVisual();
         }
     }
 
-    private void PassiveHeal()
+    private void UpdateVisual()
     {
-        currentDamage -= passiveHealRate * Time.deltaTime;
-        currentDamage = Mathf.Clamp(currentDamage, 0f, 100f);
-        damageUI?.UpdateUI(currentDamage);
+        hornImage.sprite = hornStates[Mathf.Clamp(currentDamageIndex, 0, hornStates.Count - 1)];
+        UpdateHealthTextSmooth(HealthPercentage);
     }
 
-    public void Heal(object o)
+    private void UpdateHealthTextSmooth(int targetValue)
     {
-        if (o is int healAmount)
-        {
-            if (healingCoroutine != null)
-                StopCoroutine(healingCoroutine);
+        if (healthText == null) return;
 
-            Debug.Log("HEAL!!!");
-            healingCoroutine = StartCoroutine(GradualHeal(healAmount, 2f));
-        }
+        if (healthTextRoutine != null)
+            StopCoroutine(healthTextRoutine);
+
+        healthTextRoutine = StartCoroutine(AnimateHealthText(targetValue));
     }
 
-    private IEnumerator GradualHeal(int healAmount, float duration)
+    private IEnumerator AnimateHealthText(int targetValue)
     {
-        gradualHeal = true;
+        int startValue = 0;
+        int.TryParse(healthText.text, out startValue);
 
-        float startDamage = currentDamage;
+        float duration = 0.4f;
         float elapsed = 0f;
 
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            currentDamage = Mathf.Lerp(startDamage, Mathf.Max(startDamage - healAmount, 0), elapsed / duration);
-            damageUI?.UpdateUI(currentDamage);
+            float t = Mathf.Clamp01(elapsed / duration);
+            int value = Mathf.RoundToInt(Mathf.Lerp(startValue, targetValue, t));
+            healthText.text = value.ToString();
             yield return null;
         }
 
-        currentDamage = Mathf.Clamp(currentDamage, 0f, 100f);
-        damageUI?.UpdateUI(currentDamage);
-        healingCoroutine = null;
-        gradualHeal = false;
+        healthText.text = targetValue.ToString();
+    }
+
+    public void AddDamage(int amount, bool activateFeedbacks = true)
+    {
+        if (Mathf.Approximately(amount, lastDamageAmount) && Time.time - lastDamageTime < damageCooldown)
+            return;
+
+        if (isHealing)
+        {
+            deferredDamage += amount;
+            return;
+        }
+
+        currentDamageIndex += amount;
+        lastDamageTime = Time.time;
+
+        if (currentDamageIndex >= hornStates.Count)
+        {
+            Die();
+            return;
+        }
+
+        UpdateVisual();
+        takeDamageFeedbacks?.PlayFeedbacks();
+    }
+
+    private void Die()
+    {
+        currentDamageIndex = hornStates.Count - 1;
+        UpdateVisual();
+        Debug.Log("Horn is fully broken. Dead.");
+        player.Die();
+    }
+
+    public void StartFullHeal(object o)
+    {
+        if (healRoutine != null) StopCoroutine(healRoutine);
+        healRoutine = StartCoroutine(HealGradually(3f));
+    }
+
+    private IEnumerator HealGradually(float duration)
+    {
+        isHealing = true;
+        float elapsed = 0f;
+        int startingIndex = currentDamageIndex;
+        healBar.fillAmount = 1f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            int newIndex = Mathf.RoundToInt(Mathf.Lerp(startingIndex, 0, t));
+
+            if (newIndex != currentDamageIndex)
+            {
+                currentDamageIndex = newIndex;
+                UpdateVisual();
+            }
+
+            yield return null;
+        }
+
+        currentDamageIndex = 0;
+        UpdateVisual();
+        isHealing = false;
+
+        if (deferredDamage > 0)
+        {
+            AddDamage(deferredDamage, false);
+            deferredDamage = 0;
+        }
     }
 
     public void ResetToInitialState()
     {
-        isDead = false;
-        currentDamage = 0f;
-        lastDamageValue = -1f;
-        lastDamageTime = -1f;
-        damageUI?.UpdateUI(currentDamage);
+        if (healRoutine != null) StopCoroutine(healRoutine);
+        if (healthTextRoutine != null) StopCoroutine(healthTextRoutine);
 
-        if (healingCoroutine != null)
-        {
-            StopCoroutine(healingCoroutine);
-            healingCoroutine = null;
-        }
-
-        gradualHeal = false;
+        currentDamageIndex = 0;
+        deferredDamage = 0;
+        isHealing = false;
+        healTimer = 0f;
+        UpdateVisual();
+        healBar.fillAmount = 1f;
     }
 }

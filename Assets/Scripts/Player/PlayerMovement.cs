@@ -654,7 +654,7 @@ public class PlayerMovement : MonoBehaviour
                 hitSomethingDuringDash = true;
                 if (!player.IsGodMode)
                 {
-                    hornDamageHandler.AddDamage();
+                    hornDamageHandler.AddDamage(1);
                 }
             }
 

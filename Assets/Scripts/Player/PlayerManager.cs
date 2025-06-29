@@ -321,7 +321,7 @@ namespace Player
         {
             Debug.Log($"Player got rammed with force {fromForce}");
             InjuryManager.Instance.ApplyDamage(hitDamage * fromForce);
-            _damageHandler.AddDamage(hitDamage * 100);
+            _damageHandler.AddDamage(2);
             spineControl.PlayAnimationOnBaseTrack("hit", false);
             OnRammedFeedback();
 
@@ -344,7 +344,7 @@ namespace Player
         public override void OnTie(float fromForce)
         {
             InjuryManager.Instance.ApplyDamage(hitDamage/2 * fromForce);
-            _damageHandler.AddDamage(hitDamage/2 * 100);
+            _damageHandler.AddDamage(1);
             spineControl.PlayAnimationOnBaseTrack("hit", false);
             OnRammedFeedback();
 
@@ -363,13 +363,13 @@ namespace Player
             if (currentlyPlayingShake != null && currentlyPlayingShake.IsPlaying)
                 return;
 
-            var curLife = _damageHandler.currentDamage;
+            var curLife = _damageHandler.currentIndex;
 
-            if (curLife < 30f)
+            if (curLife >=5 )
             {
                 currentlyPlayingShake = LowCameraShakeFeedBack;
             }
-            else if (curLife < 60f)
+            else if (curLife >=3)
             {
                 currentlyPlayingShake = MediumCameraShakeFeedBack;
             }

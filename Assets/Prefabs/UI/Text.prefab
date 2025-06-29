@@ -241,7 +241,7 @@ MonoBehaviour:
   InScriptDrivenPause: 0
   FeedbacksList:
   - rid: 2208691390166597859
-  - rid: 2208691390166597860
+  - rid: 2208691931827929191
   KeepPlayModeChanges: 0
   PerformanceMode: 0
   RestoreInitialValuesOnDisable: 0
@@ -363,7 +363,7 @@ MonoBehaviour:
         CurveRemapOne: 1
         DestinationAlpha: 1
         AllowAdditivePlays: 0
-    - rid: 2208691390166597860
+    - rid: 2208691931827929191
       type: {class: MMF_TMPAlpha, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
         Active: 1
@@ -378,7 +378,7 @@ MonoBehaviour:
           TimescaleMode: 1
           ExcludeFromHoldingPauses: 0
           ContributeToTotalDuration: 1
-          InitialDelay: 3.8
+          InitialDelay: 20
           CooldownDuration: 0
           InterruptsOnStop: 1
           NumberOfRepeats: 0
@@ -437,7 +437,7 @@ MonoBehaviour:
           ButtonText: 
         Owner: {fileID: 1177704370521060532}
         DebugActive: 0
-        TargetTMPText: {fileID: 5162454423766294232}
+        TargetTMPText: {fileID: 0}
         AlphaMode: 1
         Duration: 1.2
         InstantAlpha: 1

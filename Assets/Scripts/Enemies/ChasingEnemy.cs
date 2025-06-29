@@ -95,7 +95,12 @@ public class ChasingEnemy : Rammer, IResettable
     public override void OnRammed(float fromForce)
     {
     }
-    
+
+    public override void OnTie(float fromForce)
+    {
+        return;
+    }
+
 
     public override void ApplyKnockback(Vector2 direction, float force) { }
 

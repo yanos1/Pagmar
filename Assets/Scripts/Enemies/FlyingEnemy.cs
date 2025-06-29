@@ -211,6 +211,11 @@ namespace Enemies
             gameObject.SetActive(false);
         }
 
+        public override void OnTie(float fromForce)
+        {
+            return;
+        }
+
         public override void ApplyKnockback(Vector2 direction, float force)
         {
             if (knockbackCoroutine != null)

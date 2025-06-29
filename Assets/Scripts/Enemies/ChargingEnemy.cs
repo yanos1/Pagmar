@@ -382,7 +382,8 @@ namespace Enemies
             CurrentForce = 0;
             transform.rotation = Quaternion.identity;
             currentChargeDelay = chargeDelay - accumulatedChargePrepareTime;
-            print($"NEW CHARGE CD: {chargeDelay}");
+            accumulatedChargePrepareTime = 0;
+            print($"NEW CHARGE DELAY: {currentChargeDelay}");
         }
 
         private bool HitWall()
@@ -546,17 +547,22 @@ namespace Enemies
             StopAllCoroutines();
         }
 
+        public override void OnTie(float fromForce)
+        {
+            OnRammed(fromForce);
+        }
+        
 
         public override void ApplyKnockback(Vector2 direction, float force)
         {
             print($"add force to enemy {force} dir: {direction.normalized}");
             AbortCharge();
             isKnockbacked = true;
-            _col.enabled = false;
-            if (gameObject.activeInHierarchy)
-            {
-                StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.05f, () => _col.enabled = true));
-            }
+            // _col.enabled = false;
+            // if (gameObject.activeInHierarchy)
+            // {
+            //     StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.02f, () => _col.enabled = true));
+            // }
 
             _rb.bodyType = RigidbodyType2D.Dynamic;
             _rb?.AddForce(direction.normalized * force, ForceMode2D.Impulse);

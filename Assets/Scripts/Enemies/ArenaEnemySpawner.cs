@@ -94,6 +94,7 @@ namespace Enemies
             {
                 gate.OpenDontClose();
             }
+            CoreManager.Instance.Player.ExitGodMode();
         }
 
 

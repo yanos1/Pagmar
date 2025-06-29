@@ -276,7 +276,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        print($"attemp to move knockback: {player.IsKnockBacked}");
         if (player.IsKnockBacked) return;
         if (Mathf.Abs(_moveInputX) > 0.1)
         {
@@ -289,7 +288,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (player.InputEnabled)
         {
-            print("do move");
 
             _rb.linearVelocity =
                 new Vector2(
@@ -654,7 +652,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 print("called is hitting something");
                 hitSomethingDuringDash = true;
-                hornDamageHandler.AddDamage();
+                if (!player.IsGodMode)
+                {
+                    hornDamageHandler.AddDamage();
+                }
             }
 
             if (player.IsKnockBacked)

@@ -81,8 +81,8 @@ namespace Managers
                     playerHitFeedback?.PlayFeedbacks();
                     a.ApplyKnockback(dirA, baseForce);
                     b.ApplyKnockback(dirB, baseForce);
-                    a.OnRammed(b.CurrentForce);
-                    b.OnRammed(a.CurrentForce);
+                    a.OnTie(b.CurrentForce);
+                    b.OnTie(a.CurrentForce);
                 }
                 return;
             }

@@ -29,6 +29,7 @@ namespace Player
         [SerializeField] private MMF_Player MediumCameraShakeFeedBack;
         [SerializeField] private MMF_Player HighCameraShakeFeedBack;
         [SerializeField] private DoSpineFlash doSpineFlash;
+        [SerializeField] private GameObject light;
         private MMF_Player currentlyPlayingShake;
 
 
@@ -42,8 +43,12 @@ namespace Player
         private float lastRammedTime = -1f;
         private int ramComboCount = 0;
         private const float comboTimeWindow = 0.5f;
+
+        private bool isGodMode = false;
         public bool InputEnabled => inputEnabled;
         public bool IsMoving => Mathf.Abs(_rb.linearVelocity.x) > 0.2;
+
+        public bool IsGodMode => isGodMode;
         
 
         public void DisableInput()
@@ -59,6 +64,17 @@ namespace Player
             inputEnabled = true;
         }
 
+        public void EnterGodMode()
+        {
+            isGodMode = true;
+            light.SetActive(true);
+        }
+
+        public void ExitGodMode()
+        {
+            isGodMode = false;
+            light.SetActive(false);
+        }
         public void StopAndDisableMovement(object o)
         {
             DisableInput();
@@ -211,7 +227,7 @@ namespace Player
             {
                 Vector2 directionToPlayer = (transform.position - rammer.transform.position).normalized;
                 float dot = Mathf.Abs(Vector2.Dot(directionToPlayer, Vector2.right));
-
+                print($"hit rammer with dot : {dot}");
                 if (rammer.GetComponent<ChargingEnemy>() is not null && dot > 0.75f) // horizontal impact check
                 {
                     RammerManager.Instance.ResolveRam(this, rammer);
@@ -323,6 +339,16 @@ namespace Player
 
             lastRammedTime = currentTime;
 
+        }
+
+        public override void OnTie(float fromForce)
+        {
+            InjuryManager.Instance.ApplyDamage(hitDamage/2 * fromForce);
+            _damageHandler.AddDamage(hitDamage/2 * 100);
+            spineControl.PlayAnimationOnBaseTrack("hit", false);
+            OnRammedFeedback();
+
+            float currentTime = Time.time;
         }
 
         private void OnRammedFeedback()

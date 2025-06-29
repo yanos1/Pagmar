@@ -42,12 +42,12 @@ namespace Terrain.Environment
 
                 if (playerMovement2.IsDashing)
                 {
-                    if (hitCooldownTimer <= 0f)
-                    {
-                        PlaySound(boxHit);
-                        OnHit(hitDirection, CoreManager.Instance.Player.playerStage);
-                        hitCooldownTimer = hitCooldownDuration;
-                    }
+                    // if (hitCooldownTimer <= 0f)
+                    // {
+                    //     PlaySound(boxHit);
+                    //     // OnHit(hitDirection, CoreManager.Instance.Player.playerStage);
+                    //     hitCooldownTimer = hitCooldownDuration;
+                    // }
                 }
                 else // not dashing
                 {

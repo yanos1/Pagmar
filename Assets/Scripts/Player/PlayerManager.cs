@@ -29,6 +29,8 @@ namespace Player
         [SerializeField] private MMF_Player MediumCameraShakeFeedBack;
         [SerializeField] private MMF_Player HighCameraShakeFeedBack;
         [SerializeField] private DoSpineFlash doSpineFlash;
+        private MMF_Player currentlyPlayingShake;
+
 
 
         private Rigidbody2D _rb;
@@ -332,21 +334,39 @@ namespace Player
 
         private void MakeScreenShakeDependingOnLife()
         {
+            if (currentlyPlayingShake != null && currentlyPlayingShake.IsPlaying)
+                return;
+
             var curLife = _damageHandler.currentDamage;
-            
+
             if (curLife < 30f)
             {
-                LowCameraShakeFeedBack.PlayFeedbacks();
+                currentlyPlayingShake = LowCameraShakeFeedBack;
             }
             else if (curLife < 60f)
             {
-                MediumCameraShakeFeedBack.PlayFeedbacks();
+                currentlyPlayingShake = MediumCameraShakeFeedBack;
             }
             else
             {
-                HighCameraShakeFeedBack.PlayFeedbacks();
+                currentlyPlayingShake = HighCameraShakeFeedBack;
+            }
+
+            currentlyPlayingShake.PlayFeedbacks();
+
+            StartCoroutine(ClearShakeAfterFeedback(currentlyPlayingShake));
+        }
+
+        private IEnumerator ClearShakeAfterFeedback(MMF_Player shake)
+        {
+            yield return new WaitUntil(() => !shake.IsPlaying);
+
+            if (currentlyPlayingShake == shake)
+            {
+                currentlyPlayingShake = null;
             }
         }
+
 
         private IEnumerator DoTimeFreeze(float time)
         {
@@ -450,10 +470,16 @@ namespace Player
         public void ResetToInitialState()
         {
             StopAllCoroutines();
+            ChangeToOriginalColor();
             Revive();
             EnableInput();
             isDead = false;
             isKnockbacked = false;
+        }
+
+        private void ChangeToOriginalColor()
+        {
+            doSpineFlash.RestoreOriginalColors();
         }
     }
 }

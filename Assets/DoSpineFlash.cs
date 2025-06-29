@@ -15,10 +15,8 @@ public class DoSpineFlash : MonoBehaviour
     
     public void OnRammedFeedback()
     {
-        if (flashCoroutine != null)
-            StopCoroutine(flashCoroutine);
-
-        flashCoroutine = StartCoroutine(SpineFlash(flashDuration, flashColor, numOfFlashes));
+        if (flashCoroutine == null)
+            flashCoroutine = StartCoroutine(SpineFlash(flashDuration, flashColor, numOfFlashes));
     }
 
     private IEnumerator SpineFlash(float duration, Color flashColor, int flashes)
@@ -48,5 +46,6 @@ public class DoSpineFlash : MonoBehaviour
 
             yield return new WaitForSeconds(duration);
         }
+        flashCoroutine = null;
     }
 }

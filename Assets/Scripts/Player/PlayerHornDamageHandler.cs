@@ -15,6 +15,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
     [SerializeField] private List<Sprite> hornStates; // From healthy to broken
     [SerializeField] private Image hornImage; // The current horn image
     [SerializeField] private MMFeedbacks takeDamageFeedbacks;
+    [SerializeField] private MMF_Player lastHealthFeedbakcs; // Feedback when horn is fully broken
 
     [Header("Healing System")]
     [SerializeField] private Image healBar;
@@ -23,7 +24,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI healthText; // Health number display
 
-    private int currentDamageIndex = 0; // 0 = full health, 6 = broken
+    private int currentDamageIndex = 0; // 0 = full health, max = fully broken
     private float healTimer = 0f;
     private bool isHealing = false;
     private int deferredDamage = 0;
@@ -34,6 +35,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
     private PlayerManager player;
     private Coroutine healRoutine;
     private Coroutine healthTextRoutine;
+    private bool lastHealthPlayed = false;
 
     public int currentIndex => currentDamageIndex;
 
@@ -52,6 +54,12 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         player = GetComponent<PlayerManager>();
         hornImage.sprite = hornStates[0];
         UpdateVisual();
+
+        if (lastHealthFeedbakcs != null)
+        {
+            lastHealthFeedbakcs.StopFeedbacks();
+            lastHealthFeedbakcs.ResetFeedbacks();
+        }
     }
 
     private void OnEnable()
@@ -86,6 +94,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         if (currentDamageIndex > 0)
         {
             currentDamageIndex--;
+            lastHealthPlayed = false;
             UpdateVisual();
         }
     }
@@ -94,6 +103,12 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
     {
         hornImage.sprite = hornStates[Mathf.Clamp(currentDamageIndex, 0, hornStates.Count - 1)];
         UpdateHealthTextSmooth(HealthPercentage);
+
+        if (currentDamageIndex == hornStates.Count - 1 && !lastHealthPlayed)
+        {
+            lastHealthFeedbakcs?.PlayFeedbacks();
+            lastHealthPlayed = true;
+        }
     }
 
     private void UpdateHealthTextSmooth(int targetValue)
@@ -180,6 +195,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
             if (newIndex != currentDamageIndex)
             {
                 currentDamageIndex = newIndex;
+                lastHealthPlayed = false;
                 UpdateVisual();
             }
 
@@ -187,6 +203,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         }
 
         currentDamageIndex = 0;
+        lastHealthPlayed = false;
         UpdateVisual();
         isHealing = false;
 
@@ -206,7 +223,15 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         deferredDamage = 0;
         isHealing = false;
         healTimer = 0f;
+        lastHealthPlayed = false;
+
         UpdateVisual();
         healBar.fillAmount = 1f;
+
+        if (lastHealthFeedbakcs != null)
+        {
+            lastHealthFeedbakcs.StopFeedbacks();
+            lastHealthFeedbakcs.ResetFeedbacks();
+        }
     }
 }

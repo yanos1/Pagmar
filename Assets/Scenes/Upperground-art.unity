@@ -25019,6 +25019,10 @@ PrefabInstance:
       propertyPath: _animationName
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8809581157957407575, guid: ca6751e52459ca7479027c3b0bcd950e, type: 3}
+      propertyPath: physicsMovementRelativeTo
+      value: 
+      objectReference: {fileID: 1049342042}
     - target: {fileID: 8945411767509838653, guid: ca6751e52459ca7479027c3b0bcd950e, type: 3}
       propertyPath: headCol
       value: 
@@ -54078,6 +54082,10 @@ PrefabInstance:
       propertyPath: _animationName
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8809581157957407575, guid: ca6751e52459ca7479027c3b0bcd950e, type: 3}
+      propertyPath: physicsMovementRelativeTo
+      value: 
+      objectReference: {fileID: 1526155317}
     - target: {fileID: 8945411767509838653, guid: ca6751e52459ca7479027c3b0bcd950e, type: 3}
       propertyPath: headCol
       value: 

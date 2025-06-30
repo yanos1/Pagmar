@@ -21617,7 +21617,8 @@ PrefabInstance:
       propertyPath: managedReferences[2686085626848084048].InstantiateParticlesPosition
       value: 
       objectReference: {fileID: 1650567086}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3088307183588550955, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

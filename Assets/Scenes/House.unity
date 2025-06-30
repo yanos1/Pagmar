@@ -26566,6 +26566,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3088307183588550955, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4057480337948966328, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.3
@@ -26714,7 +26718,8 @@ PrefabInstance:
       propertyPath: managedReferences[2686085626848084048].InstantiateParticlesPosition
       value: 
       objectReference: {fileID: 1820920237}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3088307183588550955, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

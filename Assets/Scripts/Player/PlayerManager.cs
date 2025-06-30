@@ -314,14 +314,24 @@ namespace Player
         {
             Debug.Log($"Player rammed with force against {againstForce}");
             // CurrentForce = Mathf.Max(0, CurrentForce - againstForce * 0.5f);
-            ApplyKnockback(ramDirNegative, againstForce / 3); // we are ramming, take 1/3 of the knockback
+            if (_playerStage != PlayerStage.Adult)
+            {
+                ApplyKnockback(ramDirNegative, againstForce / 3); // we are ramming, take 1/3 of the knockback
+            }
         }
 
         public override void OnRammed(float fromForce)
         {
             Debug.Log($"Player got rammed with force {fromForce}");
             InjuryManager.Instance.ApplyDamage(hitDamage * fromForce);
-            _damageHandler.AddDamage(2);
+            if (_playerStage == PlayerStage.Adult)
+            {
+                _damageHandler.AddDamage(1);
+            }
+            else
+            {
+                _damageHandler.AddDamage(2);
+            }
             spineControl.PlayAnimationOnBaseTrack("hit", false);
             OnRammedFeedback();
 

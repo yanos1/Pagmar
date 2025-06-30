@@ -302,7 +302,6 @@ public class PlayerMovement : MonoBehaviour
         _moveInput = context.ReadValue<Vector2>();
         _moveInputX = _moveInput.x;
         _moveInputY = _moveInput.y;
-        print($"reading {_moveInputX} on x");
         
 
         if (_moveInputX != 0)
@@ -466,7 +465,7 @@ public class PlayerMovement : MonoBehaviour
                 return true;
             }
         }
-        else if (Mathf.Abs(dir.x) > 0.45f && Mathf.Abs(dir.y )< 0.45)
+        else if (Mathf.Abs(dir.x) > 0.3f && Mathf.Abs(dir.y )< 0.75)
         {
             Collider2D wallHit = Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0f,
                 LayerMask.GetMask("Ground", "Default", "Enemy", "Environment", "WoodPlank"));

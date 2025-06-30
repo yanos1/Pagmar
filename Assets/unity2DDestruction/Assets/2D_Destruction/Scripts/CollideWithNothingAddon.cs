@@ -27,7 +27,7 @@ namespace unity2DDestruction.Assets._2D_Destruction.Scripts
             // Create a LayerMask for the ground (make sure "Ground" layer exists)
             foreach (var frag in fragments)
             {
-                frag.layer = LayerMask.NameToLayer("UI");
+                frag.layer = LayerMask.NameToLayer("CollideWithothing");
             }
         }
     }

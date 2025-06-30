@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Atmosphere.TileExplostion;
 using Interfaces;
 using UnityEditor;
 
@@ -200,8 +201,12 @@ public class Explodable : MonoBehaviour, IResettable
 
     public void ResetToInitialState()
     {
+        
+        if (GetComponent<ExplodableTile>() is not null)
+        {
+            print("calling reset on explodable component of exploding tile tile.");
+        }
         gameObject.SetActive(true);
-
         GetComponent<Collider2D>().enabled = true;
         GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
         // make colorful again
@@ -215,6 +220,7 @@ public class Explodable : MonoBehaviour, IResettable
 
         if (hasExploded)
         {
+            print("generating fragments for explidng tile");
             deleteFragments();
             generateFragments();
         }

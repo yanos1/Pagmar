@@ -1,5 +1,6 @@
 ﻿using System;
 using Managers;
+using Player;
 using UnityEngine;
 
 namespace Triggers
@@ -8,10 +9,10 @@ namespace Triggers
         {
             private void OnTriggerEnter2D(Collider2D other)
             {
-                if (other.GetComponent<PlayerMovement>() is { } player)
+                if (other.GetComponent<PlayerManager>() is { } player)
                 {
                     print("enter death zone");
-                    CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
+                    player.Die();
                 }
             }
         }

@@ -24,6 +24,7 @@ namespace Atmosphere.TileExplostion
 
         public void ResetToInitialState()
         {
+            print("reset explodable tile");
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0;
             transform.position = startingPos;

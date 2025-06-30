@@ -324,7 +324,7 @@ namespace SpongeScene
 
 
         public static Vector3 UIToWorldNearCamera(RectTransform uiElement, Canvas canvas, UnityEngine.Camera camera,
-            float distanceFromCamera = 5f)
+            float distanceFromCamera = 0f)
         {
             Vector3 screenPoint = Vector3.zero;
 
@@ -332,18 +332,21 @@ namespace SpongeScene
             {
                 // Directly use the UI position since it's in screen space
                 screenPoint = uiElement.position;
+                Debug.Log($"found pos of ui is {screenPoint}");
             }
             else
             {
                 // Convert UI position to screen space
                 screenPoint = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, uiElement.position);
+                Debug.Log($"found pos of ui is {screenPoint} option2");
+
             }
 
             // Convert the screen position to a world point in front of the camera
             Vector3 worldPoint =
-                camera.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, distanceFromCamera));
-
-            return worldPoint;
+                camera.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, 0));
+            Debug.Log($"world point found {worldPoint}");
+            return new Vector3(worldPoint.x, worldPoint.y, 0);
         }
 
 

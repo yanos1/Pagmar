@@ -5,13 +5,15 @@ using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
 using Player;
+using SpongeScene;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHornDamageHandler : MonoBehaviour, IResettable
 {
-    [Header("Damage System")]
+    [Header("Damage System")] [SerializeField]
+    private Canvas c;
     [SerializeField] private List<Sprite> hornStates; // From healthy to broken
     [SerializeField] private Image hornImage; // The current horn image
     [SerializeField] private MMFeedbacks takeDamageFeedbacks;
@@ -23,6 +25,8 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI healthText; // Health number display
+
+    [SerializeField] private ParticleSystem p;
 
     private int currentDamageIndex = 0; // 0 = full health, max = fully broken
     private float healTimer = 0f;
@@ -39,27 +43,13 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
 
     public int currentIndex => currentDamageIndex;
 
-    public int HealthPercentage
-    {
-        get
-        {
-            int maxIndex = hornStates.Count - 1;
-            float ratio = 1f - ((float)currentDamageIndex / maxIndex);
-            return Mathf.RoundToInt(ratio * 100f);
-        }
-    }
+    public int Health => hornStates.Count - currentDamageIndex - 1;
 
     private void Start()
     {
         player = GetComponent<PlayerManager>();
         hornImage.sprite = hornStates[0];
         UpdateVisual();
-
-        if (lastHealthFeedbakcs != null)
-        {
-            lastHealthFeedbakcs.StopFeedbacks();
-            lastHealthFeedbakcs.ResetFeedbacks();
-        }
     }
 
     private void OnEnable()
@@ -87,6 +77,13 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
                 HealOne();
             }
         }
+
+        if (lastHealthPlayed)
+        {
+            print($"rect transform pos {hornImage.rectTransform.position}");
+            p.transform.position =
+                UtilityFunctions.UIToWorldNearCamera(hornImage.rectTransform, c, UnityEngine.Camera.main);
+        }
     }
 
     private void HealOne()
@@ -94,31 +91,38 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         if (currentDamageIndex > 0)
         {
             currentDamageIndex--;
-            lastHealthPlayed = false;
             UpdateVisual();
+        }
+
+        if (lastHealthPlayed)
+        {
+            lastHealthPlayed = false;
+            lastHealthFeedbakcs.StopFeedbacks();
         }
     }
 
     private void UpdateVisual()
     {
         hornImage.sprite = hornStates[Mathf.Clamp(currentDamageIndex, 0, hornStates.Count - 1)];
-        UpdateHealthTextSmooth(HealthPercentage);
+        UpdateHealthTextSmooth(Health);
 
         if (currentDamageIndex == hornStates.Count - 1 && !lastHealthPlayed)
         {
             lastHealthFeedbakcs?.PlayFeedbacks();
             lastHealthPlayed = true;
         }
+       
     }
 
     private void UpdateHealthTextSmooth(int targetValue)
     {
-        if (healthText == null) return;
+        healthText.text = targetValue.ToString();
+        // if (healthText == null) return;
 
-        if (healthTextRoutine != null)
-            StopCoroutine(healthTextRoutine);
+        // if (healthTextRoutine != null)
+        //     StopCoroutine(healthTextRoutine);
 
-        healthTextRoutine = StartCoroutine(AnimateHealthText(targetValue));
+        // healthTextRoutine = StartCoroutine(AnimateHealthText(targetValue));
     }
 
     private IEnumerator AnimateHealthText(int targetValue)
@@ -185,7 +189,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         float elapsed = 0f;
         int startingIndex = currentDamageIndex;
         healBar.fillAmount = 1f;
-
+        
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
@@ -198,7 +202,11 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
                 lastHealthPlayed = false;
                 UpdateVisual();
             }
-
+            else
+            {
+                break;
+            }
+        
             yield return null;
         }
 
@@ -227,11 +235,8 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
 
         UpdateVisual();
         healBar.fillAmount = 1f;
-
-        if (lastHealthFeedbakcs != null)
-        {
-            lastHealthFeedbakcs.StopFeedbacks();
-            lastHealthFeedbakcs.ResetFeedbacks();
-        }
+      
+        lastHealthFeedbakcs.StopFeedbacks();
+        
     }
 }

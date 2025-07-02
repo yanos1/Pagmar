@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Atmosphere.TileExplostion;
+using FMODUnity;
 using Interfaces;
 using Managers;
 using SpongeScene;
@@ -20,6 +21,8 @@ namespace Obstacles
         [SerializeField] private float beamAdvanceDistance = 7f;
         [SerializeField] private int toggleLimit;
         [SerializeField] private ParticleSystem smokeParticleSystem;
+        [SerializeField] private EventReference eruptionSound;
+        [SerializeField] private EventReference buildUpSound;
 
         private Vector3 startingPos;
         private bool hasFinished;
@@ -49,27 +52,32 @@ namespace Obstacles
                 print("waiting beam..");
                 yield return new WaitForSeconds(offTime - warningTime);
 
-                // warning.transform.position = new Vector3(
-                //     transform.position.x,
-                //     CoreManager.Instance.Player.transform.position.y + 2.3f,
-                //     0
-                // );
-                // StartCoroutine(UtilityFunctions.FadeImage(warning, 0.6f, 0, warningTime, null));
-                smokeParticleSystem.transform.position = new Vector3(transform.position.x, CoreManager.Instance.Player.transform.position.y);
+                // Build-up warning
+                CoreManager.Instance.AudioManager.PlayOneShot(buildUpSound, transform.position);
+
+                smokeParticleSystem.transform.position = new Vector3(
+                    transform.position.x,
+                    CoreManager.Instance.Player.transform.position.y
+                );
                 smokeParticleSystem.Play();
+
                 yield return new WaitForSeconds(warningTime);
 
                 // Beam ON
                 col.enabled = true;
                 print("BEAM ON!!");
 
-                CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.LavaBurstParticles).Play(new Vector3(transform.position.x, -37,0)); // lava is placed at -34 y
+                CoreManager.Instance.AudioManager.PlayOneShot(eruptionSound, transform.position);
+
+                CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.LavaBurstParticles)
+                    .Play(new Vector3(transform.position.x, -37, 0)); // lava is placed at -34 y
+
                 yield return new WaitForSeconds(onTime);
 
                 // Beam OFF
                 col.enabled = false;
                 print("resetin beam");
-                // Trigger event if needed
+
                 if (onFinished is not EventNames.None)
                 {
                     CoreManager.Instance.EventManager.InvokeEvent(onFinished, null);
@@ -79,12 +87,6 @@ namespace Obstacles
                 Vector3 futurePos = transform.position + Vector3.right * beamAdvanceDistance;
                 transform.position = futurePos;
                 print("move beam forward");
-                // Update warning position for next cycle
-                // warning.transform.position = new Vector3(
-                //     futurePos.x,
-                //     CoreManager.Instance.Player.transform.position.y + 2.3f,
-                //     0
-                // );
 
                 toggleCount++;
             }
@@ -93,6 +95,7 @@ namespace Obstacles
             hasFinished = true;
             col.enabled = false;
         }
+
 
         private void OnTriggerEnter2D(Collider2D other)
         {

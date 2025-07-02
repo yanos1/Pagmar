@@ -4695,12 +4695,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd3d2561f0cc43b0bfb3e8ad4c063697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  src: {fileID: 0}
-  boxHit: {fileID: 8300000, guid: eb417e6b0f7d3b24196b748cabb7300b, type: 3}
-  boxPush: {fileID: 8300000, guid: 6d5b3588b3564b248b20d483cf51e54a, type: 3}
-  boxDrop: {fileID: 8300000, guid: d18699675dadb7140946262431623169, type: 3}
-  e: {fileID: 0}
-  f: {fileID: 0}
+  boxHitEvent:
+    Guid:
+      Data1: 982625841
+      Data2: 1216845696
+      Data3: 8652720
+      Data4: 485719813
+    Path: event:/Objects/WoodPlatformRotate
+  boxPushEvent:
+    Guid:
+      Data1: 1320823649
+      Data2: 1106701084
+      Data3: -348150395
+      Data4: 1680074538
+    Path: event:/Objects/WoodBoxPush
+  boxDropEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   boxBreakSound:
     Guid:
       Data1: -183777271
@@ -4708,6 +4723,8 @@ MonoBehaviour:
       Data3: -256928597
       Data4: 1008953857
     Path: event:/Objects/WoodBreak
+  e: {fileID: 0}
+  f: {fileID: 0}
 --- !u!50 &2746951127055160538
 Rigidbody2D:
   serializedVersion: 5

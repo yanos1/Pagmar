@@ -25,6 +25,9 @@
 	</object>
 	<object class="MixerBusPanner" id="{4ccedbde-6f82-40ca-8de3-6c2cf73095cb}" />
 	<object class="SFXReverbEffect" id="{497f57bc-bbc3-435c-9b4e-10cba4e2aa7d}">
+		<property name="lowShelfFrequency">
+			<value>390</value>
+		</property>
 		<property name="wetLevel">
 			<value>0</value>
 		</property>

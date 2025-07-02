@@ -1,9 +1,7 @@
-﻿using System;
-using FMODUnity;
+﻿using FMODUnity;
+using FMOD.Studio;
 using Interfaces;
 using Managers;
-using Obstacles;
-using Player;
 using UnityEngine;
 
 namespace Terrain.Environment
@@ -16,13 +14,17 @@ namespace Terrain.Environment
         private bool isDropping;
         private Vector3 startingPosition;
 
-        [SerializeField] private AudioSource src;
-        [SerializeField] private AudioClip boxHit;
-        [SerializeField] private AudioClip boxPush;
-        [SerializeField] private AudioClip boxDrop;
+        [SerializeField] private EventReference boxHitEvent;
+        [SerializeField] private EventReference boxPushEvent;
+        [SerializeField] private EventReference boxDropEvent;
+        [SerializeField] private EventReference boxBreakSound;
+
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
-        [SerializeField] private EventReference boxBreakSound;
+
+        private EventInstance pushInstance;
+        private bool isPushSoundPlaying = false;
+
         private float hitCooldownTimer = 0f;
         private const float hitCooldownDuration = 0.5f;
 
@@ -30,8 +32,19 @@ namespace Terrain.Environment
         {
             rb = GetComponent<Rigidbody2D>();
             startingPosition = transform.position;
+
+            // Create push sound instance
+            if (boxPushEvent.IsNull == false)
+            {
+                pushInstance = CoreManager.Instance.AudioManager.CreateEventInstance(boxPushEvent);
+            }
         }
-        
+
+        private void OnDestroy()
+        {
+            pushInstance.release();
+        }
+
         private void OnCollisionEnter2D(Collision2D other)
         {
             PlayerMovement playerMovement2 = other.gameObject.GetComponent<PlayerMovement>();
@@ -42,16 +55,17 @@ namespace Terrain.Environment
 
                 if (playerMovement2.IsDashing)
                 {
+                    // Uncomment this if you want dash-hit logic
                     // if (hitCooldownTimer <= 0f)
                     // {
-                    //     PlaySound(boxHit);
-                    //     // OnHit(hitDirection, CoreManager.Instance.Player.playerStage);
+                    //     CoreManager.Instance.AudioManager.PlayOneShot(boxHitEvent, transform.position);
+                    //     OnHit(hitDirection, CoreManager.Instance.Player.playerStage);
                     //     hitCooldownTimer = hitCooldownDuration;
                     // }
                 }
-                else // not dashing
+                else // Not dashing, so just pushing
                 {
-                    PlaySound(boxPush, loop: true);
+                    PlayPushSound();
                     isMoving = true;
                 }
             }
@@ -59,7 +73,7 @@ namespace Terrain.Environment
 
         public void OnBreak()
         {
-            if (e is not null && f is not null)
+            if (e != null && f != null)
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, transform.position);
                 e.explode();
@@ -69,14 +83,12 @@ namespace Terrain.Environment
 
         public void OnHit(Vector2 hitDirection, PlayerStage stage)
         {
-            print("box hit 88");
             if (stage == PlayerStage.Adult)
             {
-                print("box break 88");
                 OnBreak();
             }
-            else{
-                
+            else
+            {
                 rb.AddForce(hitDirection * hitForce, ForceMode2D.Impulse);
             }
         }
@@ -85,30 +97,11 @@ namespace Terrain.Environment
         {
             if (hitCooldownTimer > 0f)
                 hitCooldownTimer -= Time.deltaTime;
-            
+
             if (isMoving && rb.linearVelocity.magnitude < 0.1f)
             {
                 isMoving = false;
-                StopSound();
-            }
-        }
-
-        private void PlaySound(AudioClip clip, bool loop = false)
-        {
-            if (src != null && clip != null)
-            {
-                src.clip = clip;
-                src.loop = loop;
-                src.Play();
-            }
-        }
-
-        private void StopSound()
-        {
-            if (src != null && src.isPlaying)
-            {
-                src.loop = false;
-                src.Stop();
+                StopPushSound();
             }
         }
 
@@ -117,12 +110,31 @@ namespace Terrain.Environment
             if (Mathf.Approximately(rb.linearVelocity.y, 0) && isDropping)
             {
                 isDropping = false;
-                PlaySound(boxDrop);
+                CoreManager.Instance.AudioManager.PlayOneShot(boxDropEvent, transform.position);
             }
+
             if (rb.linearVelocity.y < -0.1f)
             {
                 isDropping = true;
-                
+            }
+        }
+
+        private void PlayPushSound()
+        {
+            if (!isPushSoundPlaying)
+            {
+                pushInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+                pushInstance.start();
+                isPushSoundPlaying = true;
+            }
+        }
+
+        private void StopPushSound()
+        {
+            if (isPushSoundPlaying)
+            {
+                pushInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                isPushSoundPlaying = false;
             }
         }
 
@@ -131,7 +143,9 @@ namespace Terrain.Environment
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0;
             transform.position = startingPosition;
-            hitCooldownTimer = 0;
+            hitCooldownTimer = 0f;
+
+            StopPushSound();
         }
     }
 }

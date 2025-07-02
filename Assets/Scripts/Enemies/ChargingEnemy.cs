@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
@@ -74,6 +75,7 @@ namespace Enemies
         private float accumulatedChargePrepareTime = 0;
         private float currentChargeCooldown;
         private float currentChargeDelay;
+        private EventInstance sleepInstance;
 
 
         public bool IsDead => isDead;
@@ -96,7 +98,16 @@ namespace Enemies
             _col = GetComponent<BoxCollider2D>();
 
             if (sleepAtStart)
+            {
+                if (sleepingImage is not null)  // is actually sleeping in game and not jsut dormant.
+                {
+                    sleepInstance = CoreManager.Instance.AudioManager.CreateEventInstance(sounds.sleepSound);
+                    sleepInstance.start();
+
+                }
                 isSleeping = true;
+            }
+          
 
             baseDir = currentDirection;
 
@@ -177,7 +188,7 @@ namespace Enemies
         {
             if (other.GetComponent<AlternatingLavaBeam>() is not null)
             {
-                print($"explosion at {transform.position}");
+                // print($"explosion at {transform.position}");
             }
         }
 
@@ -189,6 +200,8 @@ namespace Enemies
                 if (sleepingImage)
                 {
                     sleepingImage.SetActive(false);
+                    sleepInstance.stop(STOP_MODE.ALLOWFADEOUT);
+                    sleepInstance.release();
                 }
             }
 
@@ -490,7 +503,12 @@ namespace Enemies
 
             if (sleepAtStart)
             {
-                if (sleepingImage) sleepingImage.SetActive(true);
+                if (sleepingImage)
+                {
+                    sleepingImage.SetActive(true);
+                    sleepInstance = CoreManager.Instance.AudioManager.CreateEventInstance(sounds.sleepSound);
+                    sleepInstance.start();
+                }
                 isSleeping = true;
             }
 

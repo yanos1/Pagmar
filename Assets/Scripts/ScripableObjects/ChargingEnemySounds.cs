@@ -11,6 +11,7 @@ namespace ScripableObjects
         public EventReference damagedSound;
         public EventReference deathSound;
         public EventReference hitSound;
+        public EventReference wakeUpSound;
+        public EventReference sleepSound;
     }
-
 }

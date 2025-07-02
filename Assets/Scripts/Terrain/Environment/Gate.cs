@@ -1,4 +1,5 @@
 ﻿using System;
+using FMODUnity;
 using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
@@ -12,6 +13,7 @@ namespace Terrain.Environment
 
         [SerializeField] private MMF_Player openFeedbacks;
         [SerializeField] private MMF_Player openDontClose;
+        [SerializeField] private EventReference openSound;
 
         private void Start()
         {
@@ -20,11 +22,14 @@ namespace Terrain.Environment
         
         public void Open()
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(openSound, transform.position);
             openFeedbacks?.PlayFeedbacks();
         }
         
         public void OpenDontClose()
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(openSound, transform.position);
+
             openDontClose?.PlayFeedbacks();
         }
      

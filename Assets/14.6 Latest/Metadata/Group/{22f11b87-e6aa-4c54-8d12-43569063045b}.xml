@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="MixerGroup" id="{22f11b87-e6aa-4c54-8d12-43569063045b}">
+		<property name="name">
+			<value>GiantVox</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{b25da6f9-b696-4e11-a435-027bb7f12cca}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{ad351c6c-9f20-4556-a895-2abffc06b2b7}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{80da1e88-ddd2-4089-aa22-d44afbd48164}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{b25da6f9-b696-4e11-a435-027bb7f12cca}">
+		<relationship name="effects">
+			<destination>{34da1832-77b1-457b-92a3-acb18cd2e72a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{ad351c6c-9f20-4556-a895-2abffc06b2b7}" />
+	<object class="MixerBusFader" id="{34da1832-77b1-457b-92a3-acb18cd2e72a}" />
+</objects>

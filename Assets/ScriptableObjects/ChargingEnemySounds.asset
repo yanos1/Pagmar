@@ -47,3 +47,17 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  wakeUpSound:
+    Guid:
+      Data1: 873770032
+      Data2: 1184725846
+      Data3: -1312130125
+      Data4: -2120989982
+    Path: event:/Enemy/EnemyWakesUp
+  sleepSound:
+    Guid:
+      Data1: 1373468407
+      Data2: 1085255587
+      Data3: -1016743247
+      Data4: 1470477786
+    Path: event:/Enemy/EnemySleeping

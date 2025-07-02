@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{4228f554-a5fa-4472-9b65-08eef2323717}">
+		<property name="assetPath">
+			<value>footsteps giant rock-002.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.63049999999999995</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a9044247-395f-4438-af47-acfafbe18e57}</destination>
+		</relationship>
+	</object>
+</objects>

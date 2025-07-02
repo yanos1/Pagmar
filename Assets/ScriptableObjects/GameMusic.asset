@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b63f9e7fee4b5ea7143f3513f43556, type: 3}
+  m_Name: GameMusic
+  m_EditorClassIdentifier: 
+  musics:
+  - type: 6
+    music:
+      Guid:
+        Data1: 448064356
+        Data2: 1092033754
+        Data3: -2064534124
+        Data4: -800355988
+      Path: event:/Music/ForestMusic1
+  - type: 7
+    music:
+      Guid:
+        Data1: 249484252
+        Data2: 1342151627
+        Data3: 1379269527
+        Data4: 2106137587
+      Path: event:/Music/ForestMusic2
+  - type: 1
+    music:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+  - type: 7
+    music:
+      Guid:
+        Data1: 1924874756
+        Data2: 1116272985
+        Data3: -2059532123
+        Data4: 1873640528
+      Path: event:/Music/UndergroundMusic
+  - type: 3
+    music:
+      Guid:
+        Data1: 1191486303
+        Data2: 1268933453
+        Data3: -430298693
+        Data4: 1267285475
+      Path: event:/Music/EruptionMusic

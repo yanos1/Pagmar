@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -15.21, y: 1.66, z: 0}
-  m_LocalScale: {x: 4.69, y: 13.89, z: 1}
+  m_LocalScale: {x: 5.47, y: 13.89, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1518999254780331263}
@@ -781,6 +781,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openFeedbacks: {fileID: 8355980461528077696}
   openDontClose: {fileID: 1510034713238003786}
+  openSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!212 &1984774602045987036
 SpriteRenderer:
   m_ObjectHideFlags: 0

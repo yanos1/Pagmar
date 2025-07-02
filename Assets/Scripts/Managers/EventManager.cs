@@ -72,5 +72,6 @@ namespace Managers
         EnterSlowMotion=19,
         PlayerMeetSmall=20,
         BigPickUpHeal = 21,
+        ChangeMusic = 22,
     }
 }

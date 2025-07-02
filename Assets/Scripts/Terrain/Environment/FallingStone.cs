@@ -1,4 +1,6 @@
 ﻿using System;
+using FMODUnity;
+using FMOD.Studio;
 using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
@@ -15,8 +17,14 @@ namespace Terrain.Environment
         [SerializeField] private ExplosionForce f;
         [SerializeField] private bool canKillPlayer = true;
         [SerializeField] private bool resetSceneAfterDeath = false;
+        [SerializeField] private EventReference rollSound;
+        [SerializeField] private EventReference hitSound;
+
         protected Rigidbody2D rb;
         private Vector3 startingPos;
+
+        private EventInstance rollSoundInstance;
+        private bool isRollSoundPlaying = false;
 
         private void Start()
         {
@@ -24,27 +32,42 @@ namespace Terrain.Environment
             startingPos = transform.position;
         }
 
+        private void Update()
+        {
+            if (isRollSoundPlaying && rb.linearVelocity.y < -1f)
+            {
+                StopRollSound();
+            }
+        }
+
         public void Activate()
         {
             rb.bodyType = RigidbodyType2D.Dynamic;
-        }
-        private System.Collections.IEnumerator ApplyTemporaryVelocity(Vector2 direction, float speed, float duration)
-        {
-            float timer = 0f;
-            while (timer < duration)
-            {
-                rb.linearVelocity = direction * speed;
-                timer += Time.deltaTime;
-                yield return null;
-            }
 
-            // Optionally reset velocity if needed
+            // Create and start roll sound instance
+            rollSoundInstance = CoreManager.Instance.AudioManager.CreateEventInstance(rollSound);
+            RuntimeManager.AttachInstanceToGameObject(rollSoundInstance, gameObject, GetComponent<Rigidbody2D>());
+            rollSoundInstance.start();
+            isRollSoundPlaying = true;
+        }
+
+        private void StopRollSound()
+        {
+            if (isRollSoundPlaying)
+            {
+                rollSoundInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                rollSoundInstance.release();
+                isRollSoundPlaying = false;
+            }
         }
 
         public virtual void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.CompareTag("WeakRock") || other.gameObject.CompareTag("Metal") || other.gameObject.CompareTag("Player"))  // surfaces that collide with the stone.
+            if (other.gameObject.CompareTag("WeakRock") || other.gameObject.CompareTag("Metal") || other.gameObject.CompareTag("Player"))
             {
+                // Play hit sound as one-shot
+                CoreManager.Instance.AudioManager.PlayOneShot(hitSound, transform.position);
+
                 if (e is not null)
                     e.explode();
                 if (f is not null)
@@ -54,14 +77,14 @@ namespace Terrain.Environment
 
         public virtual void ResetToInitialState()
         {
-            print("reset stone 77");
             gameObject.SetActive(true);
             rb.bodyType = RigidbodyType2D.Kinematic;
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
-            // rb.bodyType = RigidbodyType2D.Kinematic; 
             transform.position = startingPos;
             transform.rotation = Quaternion.identity;
+
+            StopRollSound();
         }
 
         public void HitPlayer()
@@ -71,9 +94,9 @@ namespace Terrain.Environment
 
         public virtual bool IsDeadly()
         {
-            print("445 kill player");
             var deadly = rb.linearVelocity.y < 0 && canKillPlayer;
-            if (deadly && resetSceneAfterDeath) ScenesManager.Instance.ReloadCurrentScene();
+            if (deadly && resetSceneAfterDeath)
+                ScenesManager.Instance.ReloadCurrentScene();
             return deadly;
         }
     }

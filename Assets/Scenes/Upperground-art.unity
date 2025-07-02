@@ -14969,12 +14969,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd3d2561f0cc43b0bfb3e8ad4c063697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  src: {fileID: 0}
-  boxHit: {fileID: 0}
-  boxPush: {fileID: 0}
-  boxDrop: {fileID: 0}
-  e: {fileID: 396182010}
-  f: {fileID: 1828702717}
+  boxHitEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  boxPushEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  boxDropEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   boxBreakSound:
     Guid:
       Data1: 0
@@ -14982,6 +14997,8 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  e: {fileID: 396182010}
+  f: {fileID: 1828702717}
 --- !u!1 &398881723
 GameObject:
   m_ObjectHideFlags: 0
@@ -15278,12 +15295,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd3d2561f0cc43b0bfb3e8ad4c063697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  src: {fileID: 0}
-  boxHit: {fileID: 0}
-  boxPush: {fileID: 0}
-  boxDrop: {fileID: 0}
-  e: {fileID: 407217929}
-  f: {fileID: 7608642}
+  boxHitEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  boxPushEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  boxDropEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   boxBreakSound:
     Guid:
       Data1: 0
@@ -15291,6 +15323,8 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  e: {fileID: 407217929}
+  f: {fileID: 7608642}
 --- !u!43 &408418454
 Mesh:
   m_ObjectHideFlags: 0
@@ -25527,11 +25561,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
-  far clip plane: 5000
-  field of view: 40
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 29.4
   orthographic: 0
-  orthographic size: 10
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -25556,7 +25590,7 @@ Transform:
   m_GameObject: {fileID: 857027753}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -62.70866, y: -2.659462, z: -20}
+  m_LocalPosition: {x: -66.13, y: -4.976172, z: -25.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42854,6 +42888,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
   m_PrefabInstance: {fileID: 1465334648}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1470002685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1470002686}
+  - component: {fileID: 1470002687}
+  m_Layer: 0
+  m_Name: Forest1Music
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1470002686
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470002685}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1772677317}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1470002687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470002685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 390aaa1a8f35455a8d7f3477cd87c82f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 6
+  activatorTag: Player
 --- !u!1 &1473155680
 GameObject:
   m_ObjectHideFlags: 0
@@ -73958,6 +74038,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1772677316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1772677317}
+  m_Layer: 0
+  m_Name: MusicTriggers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1772677317
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772677316}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -24.311495, y: 10.557542, z: -0.27496096}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1470002686}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1773726233
 GameObject:
   m_ObjectHideFlags: 0
@@ -88748,12 +88860,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd3d2561f0cc43b0bfb3e8ad4c063697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  src: {fileID: 0}
-  boxHit: {fileID: 0}
-  boxPush: {fileID: 0}
-  boxDrop: {fileID: 0}
-  e: {fileID: 2354502906573871400}
-  f: {fileID: 1735255239}
+  boxHitEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  boxPushEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  boxDropEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   boxBreakSound:
     Guid:
       Data1: 0
@@ -88761,6 +88888,8 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  e: {fileID: 2354502906573871400}
+  f: {fileID: 1735255239}
 --- !u!1001 &5222775778937677414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -89196,3 +89325,4 @@ SceneRoots:
   - {fileID: 274228248}
   - {fileID: 1065354489}
   - {fileID: 2055327008}
+  - {fileID: 1772677317}

@@ -1,14 +1,11 @@
 ﻿using Interfaces;
 using Managers;
-using Player;
-using Unity.Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
+
 
 namespace Triggers
 {
-    public class LevelAmbienceTrigger : MonoBehaviour, IResettable
+    public class LevelAmbienceTrigger : MonoBehaviour
     {
         [SerializeField] private AmbienceType ambienceType;
         private bool triggered = false;
@@ -19,11 +16,6 @@ namespace Triggers
                 CoreManager.Instance.EventManager.InvokeEvent(EventNames.ChangeAmbience, ambienceType);
                 triggered = true;
             } 
-        }
-
-        public void ResetToInitialState()
-        {
-            triggered = false;
         }
     }
     

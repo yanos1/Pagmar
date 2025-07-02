@@ -11,21 +11,26 @@ namespace Managers
 {
     public class AudioManager : MonoBehaviour
     {
-        [SerializeField]
-        private GameAmbience _gameAmbience;
+        [SerializeField] private GameAmbience _gameAmbience;
+        [SerializeField] private GameMusic _gameMusic;
 
         private EventInstance currentAmbience;
+        private EventInstance currentMusic;
         private void OnEnable()
         {
             CoreManager.Instance.EventManager.AddListener(EventNames.ChangeAmbience, OnChangeAmbience);
+            CoreManager.Instance.EventManager.AddListener(EventNames.ChangeMusic, OnChangeMusic);
             CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, StopOldScneeSounds);
         }
         private void OnDisable()
         {
             CoreManager.Instance.EventManager.RemoveListener(EventNames.ChangeAmbience, OnChangeAmbience);
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.ChangeMusic, OnChangeMusic);
+
             CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, StopOldScneeSounds);
         }
-        
+
+     
         public void StopAllSounds()
         {
             Bus masterBus = RuntimeManager.GetBus("bus:/");
@@ -35,6 +40,19 @@ namespace Managers
         private void StopOldScneeSounds(object obj)
         {
             currentAmbience.stop(STOP_MODE.IMMEDIATE);
+        }
+
+        private void OnChangeMusic(object obj)
+        {
+            if (obj is MusicType musicType)
+            {
+                var ambience = _gameMusic.GetMusic(musicType);
+                if (ambience.IsNull) return;
+
+                currentAmbience = RuntimeManager.CreateInstance(ambience);
+                currentAmbience.start();
+                
+            }        
         }
 
 
@@ -86,6 +104,19 @@ namespace Managers
         Upperground = 1,
         Underground = 2,
         Battle = 3,
+    }
+    
+    [Serializable]
+    public enum MusicType
+    {
+        None = 0,
+        Underground1 = 1,
+        Underground2 = 2,
+        Eruption = 3,
+        ArenaMusic = 4,
+        ChaseMusic = 5,
+        Upperground1 = 6,
+        Upperground2 = 7,
     }
    
 }

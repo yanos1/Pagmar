@@ -34,7 +34,7 @@ namespace Terrain.Environment
 
         private void Update()
         {
-            if (isRollSoundPlaying && rb.linearVelocity.y < -1f)
+            if (isRollSoundPlaying && rb.linearVelocity.y < -2f)
             {
                 StopRollSound();
             }

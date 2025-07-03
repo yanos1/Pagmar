@@ -110,4 +110,9 @@ public class GlobalActions : MonoBehaviour
         print("show credits!");
         creditsFeedbacks?.PlayFeedbacks();
     }
+
+    public void EnterNightAmbience()
+    {
+        CoreManager.Instance.AudioManager.SetGlobalParameter("Time", 1); // this changes ambience to night ambience
+    }
 }

@@ -273,7 +273,7 @@ namespace NPC
                     spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.GettingUp), false);
                     break;
                 case NpcState.Sleeping:
-                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Sleeping), true);
+                    // spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Sleeping), true);
                     break;
             }
         }

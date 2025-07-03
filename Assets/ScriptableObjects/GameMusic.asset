@@ -32,19 +32,11 @@ MonoBehaviour:
   - type: 1
     music:
       Guid:
-        Data1: 0
-        Data2: 0
-        Data3: 0
-        Data4: 0
-      Path: 
-  - type: 7
-    music:
-      Guid:
-        Data1: 1924874756
-        Data2: 1116272985
-        Data3: -2059532123
-        Data4: 1873640528
-      Path: event:/Music/UndergroundMusic
+        Data1: -2092694961
+        Data2: 1194779772
+        Data3: -1786697344
+        Data4: -53469122
+      Path: event:/Music/UndergroundMusic1
   - type: 3
     music:
       Guid:
@@ -53,3 +45,19 @@ MonoBehaviour:
         Data3: -430298693
         Data4: 1267285475
       Path: event:/Music/EruptionMusic
+  - type: 4
+    music:
+      Guid:
+        Data1: 2039686507
+        Data2: 1087942226
+        Data3: 458929550
+        Data4: 78729304
+      Path: event:/Music/ColloseumMusic
+  - type: 2
+    music:
+      Guid:
+        Data1: 1924874756
+        Data2: 1116272985
+        Data3: -2059532123
+        Data4: 1873640528
+      Path: event:/Music/UndergroundMusic2

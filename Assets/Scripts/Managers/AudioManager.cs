@@ -21,12 +21,13 @@ namespace Managers
             CoreManager.Instance.EventManager.AddListener(EventNames.ChangeAmbience, OnChangeAmbience);
             CoreManager.Instance.EventManager.AddListener(EventNames.ChangeMusic, OnChangeMusic);
             CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, StopOldScneeSounds);
+            CoreManager.Instance.EventManager.AddListener(EventNames.PickUpFakeRune, StopOldScneeSounds);
         }
         private void OnDisable()
         {
             CoreManager.Instance.EventManager.RemoveListener(EventNames.ChangeAmbience, OnChangeAmbience);
             CoreManager.Instance.EventManager.RemoveListener(EventNames.ChangeMusic, OnChangeMusic);
-
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.PickUpFakeRune, StopOldScneeSounds);
             CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, StopOldScneeSounds);
         }
 
@@ -40,17 +41,30 @@ namespace Managers
         private void StopOldScneeSounds(object obj)
         {
             currentAmbience.stop(STOP_MODE.IMMEDIATE);
+            currentMusic.stop(STOP_MODE.ALLOWFADEOUT);
+            currentMusic.release();
+            currentAmbience.release();
+
         }
 
         private void OnChangeMusic(object obj)
         {
             if (obj is MusicType musicType)
             {
+                
+                currentMusic.getPlaybackState(out PLAYBACK_STATE state);
+
+                if (state == PLAYBACK_STATE.PLAYING)
+                {
+                    currentMusic.stop(STOP_MODE.ALLOWFADEOUT);
+                    currentMusic.release();
+                }
+                
                 var ambience = _gameMusic.GetMusic(musicType);
                 if (ambience.IsNull) return;
 
-                currentAmbience = RuntimeManager.CreateInstance(ambience);
-                currentAmbience.start();
+                currentMusic = RuntimeManager.CreateInstance(ambience);
+                currentMusic.start();
                 
             }        
         }
@@ -58,8 +72,17 @@ namespace Managers
 
         public void OnChangeAmbience(object obj)
         {
+            
             if (obj is AmbienceType ambienceType)
             {
+                currentAmbience.getPlaybackState(out PLAYBACK_STATE state);
+
+                if (state == PLAYBACK_STATE.PLAYING)
+                {
+                    currentAmbience.stop(STOP_MODE.ALLOWFADEOUT);
+                    currentAmbience.release();
+                }
+          
                 var ambience = _gameAmbience.GetAmbience(ambienceType);
                 if (ambience.IsNull) return;
 
@@ -71,9 +94,11 @@ namespace Managers
 
         public void PlayOneShot(EventReference sound, Vector3 worldPos)
         {
-            RuntimeManager.PlayOneShot(sound, worldPos);
+            if (!sound.IsNull)
+            {
+                RuntimeManager.PlayOneShot(sound, worldPos);
+            }
         }
-        
       
 
 
@@ -103,7 +128,6 @@ namespace Managers
         None = 0,
         Upperground = 1,
         Underground = 2,
-        Battle = 3,
     }
     
     [Serializable]

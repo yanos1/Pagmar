@@ -95,9 +95,8 @@ namespace Enemies
                 gate.OpenDontClose();
             }
             CoreManager.Instance.Player.ExitGodMode();
+            CoreManager.Instance.AudioManager.SetGlobalParameter("ColloseumEnemiesCleared", 1);
         }
-
-
         public void ResetToInitialState()
         {
             StopAllCoroutines();

@@ -1,6 +1,7 @@
 ﻿using System;
 using Interfaces;
 using Managers;
+using SpongeScene;
 using UnityEngine;
 
 
@@ -10,15 +11,17 @@ namespace Triggers
     {
         [SerializeField] private MusicType type;
         [SerializeField] private String activatorTag;
+        [SerializeField] private float delayBeforeStartMusic;
         private bool triggered = false;
-        public void OnTriggerEnter2D(Collider2D other) 
+
+        public void OnTriggerEnter2D(Collider2D other)
         {
             if (!triggered && other.CompareTag(activatorTag))
             {
-                CoreManager.Instance.EventManager.InvokeEvent(EventNames.ChangeMusic, type);
+                StartCoroutine(UtilityFunctions.WaitAndInvokeAction(delayBeforeStartMusic,
+                    () => CoreManager.Instance.EventManager.InvokeEvent(EventNames.ChangeMusic, type)));
                 triggered = true;
-            } 
+            }
         }
     }
-    
 }

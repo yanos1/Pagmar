@@ -22,6 +22,7 @@ namespace Terrain.House
 
         public void ResetToInitialState()
         {
+            
             shakeFeedbacks?.StopFeedbacks();
             transform.position = startingPos;
             rb.linearVelocity = Vector2.zero;

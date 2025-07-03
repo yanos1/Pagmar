@@ -393,18 +393,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedSound:
     Guid:
-      Data1: 982625841
-      Data2: 1216845696
-      Data3: 8652720
-      Data4: 485719813
-    Path: event:/Objects/WoodPlatformRotate
+      Data1: 1064531266
+      Data2: 1084547932
+      Data3: 1274896780
+      Data4: -374590627
+    Path: event:/UI/UINav
   pressSound:
     Guid:
-      Data1: -407706925
-      Data2: 1223479639
-      Data3: -1340617045
-      Data4: 1032067631
-    Path: event:/Objects/HealingOrb
+      Data1: -31150751
+      Data2: 1262750752
+      Data3: -1347892843
+      Data4: 271570288
+    Path: event:/UI/UISelect
   buttonsToActions:
   - button: {fileID: 1446104076}
     action:
@@ -2387,6 +2387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameAmbience: {fileID: 11400000, guid: d4827e7e315ca7044bd69be194545a4d, type: 2}
+  _gameMusic: {fileID: 11400000, guid: e4aa70cdb1e5d37418beec65cafa6d34, type: 2}
 --- !u!4 &1005575757
 Transform:
   m_ObjectHideFlags: 0

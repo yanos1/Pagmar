@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      hanging-lamps_0: -3093499055644706155
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

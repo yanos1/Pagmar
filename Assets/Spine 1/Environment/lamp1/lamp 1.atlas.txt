@@ -1,0 +1,10 @@
+lamp 1.png
+size:218,135
+filter:Linear,Linear
+pma:true
+lamp
+bounds:2,2,88,177
+rotate:90
+middle-chain
+bounds:2,92,41,214
+rotate:90

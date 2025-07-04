@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bg-rocks-ceiling_0: -1275911901407798422
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      rock-bridge_0: 4751664527982163639
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

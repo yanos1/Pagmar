@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      elevator-chain_0: 7851406104222083243
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -18,7 +18,7 @@ namespace Terrain.Environment
     {
         [Header("Movement Settings")] 
         [SerializeField] private Vector3 targetOffset;
-        [SerializeField] private Vector3 triggerDirection;
+        [SerializeField] protected Vector3 triggerDirection;
         [SerializeField] private float moveDuration = 2f;
         [SerializeField] private float secondsBeforeReturn;
         [SerializeField] private AnimationCurve movementCurve;
@@ -122,8 +122,10 @@ namespace Terrain.Environment
         private void PlaySound()
         {
             moveInstance = CoreManager.Instance.AudioManager.CreateEventInstance(moveSound);
+            moveInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
             moveInstance.start();
         }
+
 
         private void StopSound()
         {

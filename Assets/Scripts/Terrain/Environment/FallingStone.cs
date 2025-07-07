@@ -45,10 +45,13 @@ namespace Terrain.Environment
             rb.bodyType = RigidbodyType2D.Dynamic;
 
             // Create and start roll sound instance
-            rollSoundInstance = CoreManager.Instance.AudioManager.CreateEventInstance(rollSound);
-            RuntimeManager.AttachInstanceToGameObject(rollSoundInstance, gameObject, GetComponent<Rigidbody2D>());
-            rollSoundInstance.start();
-            isRollSoundPlaying = true;
+            if (!rollSound.IsNull)
+            {
+                rollSoundInstance = CoreManager.Instance.AudioManager.CreateEventInstance(rollSound);
+                RuntimeManager.AttachInstanceToGameObject(rollSoundInstance, gameObject, GetComponent<Rigidbody2D>());
+                rollSoundInstance.start();
+                isRollSoundPlaying = true;
+            }
         }
 
         private void StopRollSound()

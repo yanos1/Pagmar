@@ -13,7 +13,7 @@ namespace Terrain.Environment
         {
             if (c.gameObject.GetComponent<PlayerManager>() is { } playerManager)
             {
-                if (!hasMoved)
+                if (!isMoving)
                 {
                     StartCoroutine(DelayedMove(playerManager));
                 }

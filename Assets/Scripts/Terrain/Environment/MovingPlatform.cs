@@ -37,10 +37,10 @@ namespace Terrain.Environment
         [SerializeField] private EventReference moveSound;
         
         
-        
         private Vector3 startPos;
         private Vector3 targetPos;
-        protected bool hasMoved = false;
+        protected bool isMoving = false;
+        protected bool isReturning = false;
         private bool isGentlyMoving = false;
         private bool isLooping = false;
         private Coroutine moveslightlyCor;
@@ -67,9 +67,9 @@ namespace Terrain.Environment
         {
             print("move platform!");
             
-            if (hasMoved) yield break;
-            hasMoved = true;
-            
+            if (isMoving) yield break;
+            isMoving = true;
+            print("yes move");
             if (moveslightlyCor != null)
             {
                 StopCoroutine(moveslightlyCor);
@@ -82,20 +82,21 @@ namespace Terrain.Environment
                 float easedT = movementCurve.Evaluate(t);
                 transform.position = Vector3.Lerp(startPos, targetPos, easedT);
                 timer += Time.fixedDeltaTime;
+                print($"moving - transform is {transform.position}");
                 yield return new WaitForFixedUpdate();
             }
 
             transform.position = targetPos;
             StopSound();
-            yield return new WaitForSeconds(secondsBeforeReturn);
+            isMoving = false;
+            print($"stop moving after {moveDuration}");
 
+            yield return new WaitForSeconds(secondsBeforeReturn);
             if (returnWhenDone)
             {
                 yield return StartCoroutine(ReturnPlatform());
             }
         }
-        
-        
         
         private IEnumerator MovePlatformHalfwayFast()
         {
@@ -116,7 +117,7 @@ namespace Terrain.Environment
             }
             StopSound();
             transform.position = halfTarget;
-            hasMoved = false;
+            isMoving = false;
         }
 
         private void PlaySound()
@@ -135,6 +136,7 @@ namespace Terrain.Environment
 
         private IEnumerator ReturnPlatform()
         {
+            isReturning = true;
             float timer = 0f;
             PlaySound();
             while (timer < moveDuration)
@@ -147,7 +149,7 @@ namespace Terrain.Environment
             }
             StopSound();
             transform.position = startPos;
-            hasMoved = false;
+            isReturning = false;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -192,7 +194,7 @@ namespace Terrain.Environment
                     return;
                 }
 
-                if (hasMoved) return;
+                if (isMoving) return;
 
                 // Check dash direction
                 Vector3 dashDir = player.DashDirection;
@@ -307,7 +309,7 @@ namespace Terrain.Environment
             StopAllCoroutines();
             moveCoroutine = null;
             moveslightlyCor = null;
-            hasMoved = false;
+            isMoving = false;
             transform.position = startPos;
             gameObject.SetActive(true);
         }

@@ -371,7 +371,6 @@ namespace Enemies
 
         private void StopCharging()
         {
-            print("stop charge");
             detectionRange = 60f; // once charged, knows where to fijnd plyer from a distance
             chargeCoroutine = null;
             isPreparingCharge = false;

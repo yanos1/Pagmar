@@ -5030,7 +5030,47 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Path
+      value: event:/Objects/BoulderCrash2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Path
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data1
+      value: -617873461
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data2
+      value: 1148839897
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data3
+      value: -1457380212
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data4
+      value: -1688627979
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
       propertyPath: resetSceneAfterDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data4
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2339809118571441525, guid: 1db45eab54a208b419ff33972302073f, type: 3}
@@ -7167,7 +7207,47 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Path
+      value: event:/Objects/BoulderCrash2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Path
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data1
+      value: -617873461
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data2
+      value: 1148839897
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data3
+      value: -1457380212
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data4
+      value: -1688627979
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
       propertyPath: resetSceneAfterDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data4
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2339809118571441525, guid: 1db45eab54a208b419ff33972302073f, type: 3}
@@ -30129,7 +30209,47 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Path
+      value: event:/Objects/BoulderCrash2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Path
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data1
+      value: -617873461
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data2
+      value: 1148839897
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data3
+      value: -1457380212
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data4
+      value: -1688627979
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
       propertyPath: resetSceneAfterDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data4
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2339809118571441525, guid: 1db45eab54a208b419ff33972302073f, type: 3}
@@ -42384,7 +42504,47 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Path
+      value: event:/Objects/BoulderCrash2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Path
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data1
+      value: -617873461
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data2
+      value: 1148839897
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data3
+      value: -1457380212
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data4
+      value: -1688627979
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
       propertyPath: resetSceneAfterDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data4
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2339809118571441525, guid: 1db45eab54a208b419ff33972302073f, type: 3}
@@ -59776,7 +59936,47 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Path
+      value: event:/Objects/BoulderCrash2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Path
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data1
+      value: -617873461
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data2
+      value: 1148839897
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data3
+      value: -1457380212
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: hitSound.Guid.Data4
+      value: -1688627979
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
       propertyPath: resetSceneAfterDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046454379007527946, guid: 1db45eab54a208b419ff33972302073f, type: 3}
+      propertyPath: rollSound.Guid.Data4
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2339809118571441525, guid: 1db45eab54a208b419ff33972302073f, type: 3}

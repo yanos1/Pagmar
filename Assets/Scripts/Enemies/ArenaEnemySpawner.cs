@@ -62,11 +62,15 @@ namespace Enemies
         {
             triggered = true;
             yield return new WaitForSeconds(0.3f);
-
+            int countTwo = 0;
             foreach (var enemy in enemies)
             {
                 print("set enemy activate");
                 enemy.gameObject.SetActive(true);
+                if (++countTwo % 2 == 0)
+                {
+                    yield return new WaitForSeconds(0.25f);
+                }
             }
 
             StartCoroutine(OpenGatesWhenAllDead());

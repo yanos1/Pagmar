@@ -73,5 +73,7 @@ namespace Managers
         PlayerMeetSmall=20,
         BigPickUpHeal = 21,
         ChangeMusic = 22,
+        StopMusic = 23,
+        StartLoadNextScene = 24,
     }
 }

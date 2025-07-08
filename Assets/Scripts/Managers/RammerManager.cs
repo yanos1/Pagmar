@@ -129,7 +129,7 @@ namespace Managers
                 return;
             }
             // Knockback loser
-            loser.ApplyKnockback(new Vector2(loseDir.x, 0.5f), baseForce);
+            loser.ApplyKnockback(new Vector2(loseDir.x, 0.25f), baseForce);
         }
     }
 

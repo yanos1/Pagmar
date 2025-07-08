@@ -81,6 +81,14 @@ public class ChasingEnemy : Rammer, IResettable
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.GetComponent<IBreakable>() is { } breakable)
+        {
+            breakable.OnBreak();
+        }
+    }
+
     private float MapYToZRotation(float y)
     {
         return Mathf.Lerp(0f, 180f, (y + 1f) / 2f);

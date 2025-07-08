@@ -17,8 +17,6 @@ namespace Triggers
                 triggered = true;
             } 
         }
-        
-        
     }
     
 }

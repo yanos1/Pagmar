@@ -1062,7 +1062,7 @@ MonoBehaviour:
         Owner: {fileID: 600586924}
         DebugActive: 0
         Mode: 0
-        Duration: 0.8
+        Duration: 0.4
         StartsOff: 0
         EndsOff: 0
         RelativeValues: 0
@@ -5533,7 +5533,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1927295039
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5694,7 +5694,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2090354178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5707,84 +5707,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 423869f8c53247818e23f9afe1ba241a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  injuryMagnitude: 0
-  redVignetteCanvasGroup: {fileID: 1927295040}
-  injuryAudioSource: {fileID: 0}
-  vignetteCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  pitchCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  volumeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  enablePassiveHealing: 1
-  passiveHealingRate: 0.13
-  healingDelay: 2
+  screenColor: {fileID: 0}
+  postProcessingVolume: {fileID: 0}
 --- !u!4 &2090354179
 Transform:
   m_ObjectHideFlags: 0

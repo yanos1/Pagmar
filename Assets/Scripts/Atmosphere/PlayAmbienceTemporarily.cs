@@ -9,7 +9,7 @@ using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Triggers
 {
-    public class PlayAmbienceTemporarly : MonoBehaviour
+    public class TemporalAmbiencePlayer : MonoBehaviour
     {
         [SerializeField] private EventReference ambience;
         private EventInstance e;

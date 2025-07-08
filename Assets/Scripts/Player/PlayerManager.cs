@@ -317,13 +317,13 @@ namespace Player
             if (_playerStage != PlayerStage.Adult)
             {
                 ApplyKnockback(ramDirNegative, againstForce / 3); // we are ramming, take 1/3 of the knockback
+                InjuryFeedbacks.Instance.UpdateVisualFeedback();
             }
         }
 
         public override void OnRammed(float fromForce)
         {
             Debug.Log($"Player got rammed with force {fromForce}");
-            InjuryManager.Instance.ApplyDamage(hitDamage * fromForce);
             if (_playerStage == PlayerStage.Adult)
             {
                 _damageHandler.AddDamage(1);
@@ -332,6 +332,8 @@ namespace Player
             {
                 _damageHandler.AddDamage(2);
             }
+            InjuryFeedbacks.Instance.UpdateVisualFeedback(true);
+
             spineControl.PlayAnimationOnBaseTrack("hit", false);
             OnRammedFeedback();
 
@@ -353,8 +355,9 @@ namespace Player
 
         public override void OnTie(float fromForce)
         {
-            InjuryManager.Instance.ApplyDamage(hitDamage/2 * fromForce);
             _damageHandler.AddDamage(1);
+            InjuryFeedbacks.Instance.UpdateVisualFeedback();
+
             spineControl.PlayAnimationOnBaseTrack("hit", false);
             OnRammedFeedback();
 

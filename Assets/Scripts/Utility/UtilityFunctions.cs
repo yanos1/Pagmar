@@ -321,6 +321,24 @@ namespace SpongeScene
             renderer.material.color = toColor;
             onComplete?.Invoke();
         }
+        public static Vector3 GetTopLeftCornerWorldPosition(UnityEngine.Camera camera, float xOffset, float yOffset)
+        {
+            // Distance from the camera to the Z = 0 plane
+            float zDistance = -camera.transform.position.z;
+
+            // Viewport (0,1) is top-left
+            Vector3 viewportPoint = new Vector3(0f, 1f, zDistance);
+            Vector3 worldTopLeft = camera.ViewportToWorldPoint(viewportPoint);
+
+            // Apply world-space offset
+            worldTopLeft += new Vector3(xOffset, -yOffset, 0f);
+
+            // Clamp Z to exactly 0
+            worldTopLeft.z = 0f;
+
+            return worldTopLeft;
+        }
+
 
 
         public static Vector3 UIToWorldNearCamera(RectTransform uiElement, Canvas canvas, UnityEngine.Camera camera,

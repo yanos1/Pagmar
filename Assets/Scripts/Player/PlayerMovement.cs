@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Camera;
+using FMOD.Studio;
 using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
@@ -105,16 +106,18 @@ public class PlayerMovement : MonoBehaviour
     private PlayerHornDamageHandler hornDamageHandler;
     [SerializeField] SpineControl spineControl;
     private Coroutine dashHitCoroutine;
+    private EventInstance fallInstance;
 
     private void OnEnable()
     {
         CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, StopAllMovement);
+        CoreManager.Instance.EventManager.AddListener(EventNames.StartLoadNextScene, OnLoadNewScene);
         // CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, OnNewScene);
     }
 
     private void OnDisable()
     {
-        CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, StopAllMovement);
+        CoreManager.Instance.EventManager.RemoveListener(EventNames.StartLoadNextScene, OnLoadNewScene);
         // CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, OnNewScene);
 
     }
@@ -172,6 +175,11 @@ public class PlayerMovement : MonoBehaviour
         _moveInput = Vector2.zero;
     }
     
+    private void OnLoadNewScene(object obj)
+    {
+        fallInstance.stop(STOP_MODE.ALLOWFADEOUT);
+        fallInstance.release();
+    }
     
     // private void OnNewScene(object obj)
     // {
@@ -208,7 +216,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!isFalling)
             {
-                CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.fallSound, transform.position);
+                 fallInstance = CoreManager.Instance.AudioManager.CreateEventInstance(playerSounds.fallSound);
             }
 
             isFalling = true;

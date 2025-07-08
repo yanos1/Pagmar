@@ -12,7 +12,7 @@ namespace Terrain.House
         private Vector3 startingPos;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private MMF_Player shakeFeedbacks;
-        
+
         private void Start()
         {
             startingPos = transform.position;
@@ -22,17 +22,20 @@ namespace Terrain.House
 
         public void ResetToInitialState()
         {
-            
             shakeFeedbacks?.StopFeedbacks();
             transform.position = startingPos;
             rb.linearVelocity = Vector2.zero;
             rb.bodyType = RigidbodyType2D.Kinematic;
-            shakeFeedbacks?.PlayFeedbacks();
+            if (Vector3.Distance(CoreManager.Instance.Player.transform.position, transform.position) <
+                25) // we are near house. 
+            {
+                shakeFeedbacks?.PlayFeedbacks();
+            }
         }
 
         public void OnEndShake()
         {
-            if(CoreManager.Instance.Player.IsDead) return;  // avoids a bug
+            if (CoreManager.Instance.Player.IsDead) return; // avoids a bug
             rb.bodyType = RigidbodyType2D.Dynamic;
         }
     }

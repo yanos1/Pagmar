@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FMOD.Studio;
 using UnityEngine;
 using FMODUnity;
@@ -13,9 +14,19 @@ namespace Managers
     {
         [SerializeField] private GameAmbience _gameAmbience;
         [SerializeField] private GameMusic _gameMusic;
+        [SerializeField] private List<AmbienceInstance> temporalAmbiencesPlaying = new();
 
         private EventInstance currentAmbience;
         private EventInstance currentMusic;
+        
+        private Bus masterBus;
+
+        private void Awake()
+        {
+            masterBus = RuntimeManager.GetBus("bus:/");
+        }
+        
+        
         private void OnEnable()
         {
             CoreManager.Instance.EventManager.AddListener(EventNames.ChangeAmbience, OnChangeAmbience);
@@ -69,6 +80,44 @@ namespace Managers
             }        
         }
 
+        public void MuteAll()
+        {
+            masterBus.setMute(true);
+        }
+
+        public void UnmuteAll()
+        {
+            masterBus.setMute(false);
+        }
+        
+        public void PauseAllAudio()
+        {
+            masterBus.setPaused(true);
+        }
+
+        public void ResumeAllAudio()
+        {
+            masterBus.setPaused(false);
+        }
+        
+        public void AddTemporalAmbience(AmbienceType ambienceType, EventReference ambience)
+        {
+            var addedAmbience = CreateEventInstance(ambience);
+            temporalAmbiencesPlaying.Add(new AmbienceInstance(ambienceType, addedAmbience));
+            addedAmbience.start();
+        }
+
+        public void RemoveTemporalAmbience(AmbienceType ambienceType)
+        {
+            foreach (AmbienceInstance instance in temporalAmbiencesPlaying)
+            {
+                if (ambienceType == instance.type)
+                {
+                    instance.ambience.stop(STOP_MODE.ALLOWFADEOUT);
+                    instance.ambience.release();
+                }
+            }
+        }
 
         public void OnChangeAmbience(object obj)
         {
@@ -128,6 +177,7 @@ namespace Managers
         None = 0,
         Upperground = 1,
         Underground = 2,
+        EarthQuake = 3,
     }
     
     [Serializable]

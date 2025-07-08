@@ -8,6 +8,7 @@ using Player;
 using SpongeScene;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerHornDamageHandler : MonoBehaviour, IResettable
@@ -17,30 +18,36 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
     [SerializeField] private List<Sprite> hornStates; // From healthy to broken
     [SerializeField] private Image hornImage; // The current horn image
     [SerializeField] private MMFeedbacks takeDamageFeedbacks;
-    [SerializeField] private MMF_Player lastHealthFeedbakcs; // Feedback when horn is fully broken
+    [SerializeField] private MMFeedbacks revealFeedbacks; 
+    [SerializeField] private MMF_Player lowHealthFeedbacks; // Feedback when horn is fully broken
 
     [Header("Healing System")]
     [SerializeField] private Image healBar;
-    [SerializeField] private float healInterval = 5f;
+    [SerializeField] private float healInterval;
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI healthText; // Health number display
 
-    [SerializeField] private ParticleSystem p;
+    [SerializeField] private MMF_Player healthWarningTextFeedbacks; // used one time when the player reaches low health.
+
+    [SerializeField] private ParticleSystem lowHealthParticles;
 
     private int currentDamageIndex = 0; // 0 = full health, max = fully broken
     private float healTimer = 0f;
     private bool isHealing = false;
     private int deferredDamage = 0;
     private int lastDamageAmount;
+    private int lowHealthThreshold = 5;
     private const float damageCooldown = 0.35f;
     private float lastDamageTime;
 
     private PlayerManager player;
     private Coroutine healRoutine;
     private Coroutine healthTextRoutine;
-    private bool lastHealthPlayed = false;
-
+    private bool lowHealthPlayed = false;
+    private bool hasBeenRevealed = false;
+    private bool shownHealthWarning;
+    private UnityEngine.Camera mainCamera;
     public int currentIndex => currentDamageIndex;
 
     public int Health => hornStates.Count - currentDamageIndex - 1;
@@ -48,6 +55,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
     private void Start()
     {
         player = GetComponent<PlayerManager>();
+        InjuryFeedbacks.Instance.Init(Health, healInterval);
         hornImage.sprite = hornStates[0];
         UpdateVisual();
     }
@@ -78,11 +86,10 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
             }
         }
 
-        if (lastHealthPlayed)
+        if (lowHealthPlayed)
         {
-            print($"rect transform pos {hornImage.rectTransform.position}");
-            p.transform.position =
-                UtilityFunctions.UIToWorldNearCamera(hornImage.rectTransform, c, UnityEngine.Camera.main);
+            lowHealthParticles.transform.position =
+                UtilityFunctions.GetTopLeftCornerWorldPosition(mainCamera, 2,2);
         }
     }
 
@@ -91,28 +98,59 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         if (currentDamageIndex > 0)
         {
             currentDamageIndex--;
+            InjuryFeedbacks.Instance.Heal(1);
             UpdateVisual();
         }
 
-        if (lastHealthPlayed)
+        if (currentDamageIndex < lowHealthThreshold)
         {
-            lastHealthPlayed = false;
-            lastHealthFeedbakcs.StopFeedbacks();
+            lowHealthPlayed = false;
+            lowHealthFeedbacks?.StopFeedbacks();
+            lowHealthParticles.Stop();
+            UpdateVisual();
         }
     }
-
+    
     private void UpdateVisual()
     {
         hornImage.sprite = hornStates[Mathf.Clamp(currentDamageIndex, 0, hornStates.Count - 1)];
         UpdateHealthTextSmooth(Health);
 
-        if (currentDamageIndex == hornStates.Count - 1 && !lastHealthPlayed)
+        if (currentDamageIndex >= lowHealthThreshold)
         {
-            lastHealthFeedbakcs?.PlayFeedbacks();
-            lastHealthPlayed = true;
+            int overThreshold = currentDamageIndex - lowHealthThreshold;
+
+            var emission = lowHealthParticles.emission;
+            var main = lowHealthParticles.main;
+
+            if (overThreshold == 0)
+            {
+                emission.rateOverTime = 5f;
+                main.startLifetime = 0.3f;
+            }
+            else if (overThreshold == 1)
+            {
+                emission.rateOverTime = 10f;
+                main.startLifetime = 0.5f;
+            }
+            else if (overThreshold >= 2)
+            {
+                emission.rateOverTime = 20f;
+                main.startLifetime = 1f;
+            }
+
+            if (!lowHealthPlayed)
+            {
+                lowHealthParticles.gameObject.SetActive(true);
+
+                lowHealthParticles.Play();
+                lowHealthFeedbacks?.PlayFeedbacks();
+                lowHealthPlayed = true;
+                mainCamera = UnityEngine.Camera.main;
+            }
         }
-       
     }
+
 
     private void UpdateHealthTextSmooth(int targetValue)
     {
@@ -146,7 +184,15 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
     }
 
     public void AddDamage(int amount, bool activateFeedbacks = true)
-    {
+    {            
+        InjuryFeedbacks.Instance.ApplyDamage(amount);
+        
+        if (!hasBeenRevealed)
+        {
+            hasBeenRevealed = true;
+            revealFeedbacks.PlayFeedbacks();
+        }
+        
         if (Mathf.Approximately(amount, lastDamageAmount) && Time.time - lastDamageTime < damageCooldown)
             return;
 
@@ -159,6 +205,12 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         currentDamageIndex += amount;
         lastDamageTime = Time.time;
 
+        if (!shownHealthWarning && currentDamageIndex >= lowHealthThreshold)
+        {
+            shownHealthWarning = true;
+            healthWarningTextFeedbacks?.PlayFeedbacks();
+
+        }
         if (currentDamageIndex >= hornStates.Count)
         {
             Die();
@@ -199,7 +251,10 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
             if (newIndex != currentDamageIndex)
             {
                 currentDamageIndex = newIndex;
-                lastHealthPlayed = false;
+                lowHealthPlayed = false;
+                lowHealthParticles.Stop();
+                lowHealthParticles.gameObject.SetActive(false);
+
                 UpdateVisual();
             }
             else
@@ -211,7 +266,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         }
 
         currentDamageIndex = 0;
-        lastHealthPlayed = false;
+        lowHealthPlayed = false;
         UpdateVisual();
         isHealing = false;
 
@@ -231,12 +286,14 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         deferredDamage = 0;
         isHealing = false;
         healTimer = 0f;
-        lastHealthPlayed = false;
+        lowHealthPlayed = false;
 
         UpdateVisual();
         healBar.fillAmount = 1f;
-      
-        lastHealthFeedbakcs.StopFeedbacks();
+        lowHealthParticles.Stop();
+        lowHealthParticles.gameObject.SetActive(false);
+
+        lowHealthFeedbacks?.StopFeedbacks();
         
     }
 }

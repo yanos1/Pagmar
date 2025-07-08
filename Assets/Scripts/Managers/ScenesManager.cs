@@ -171,7 +171,9 @@ namespace Managers
                     {
                         yield return null;
                     }
-                    CoreManager.Instance.AudioManager.StopAllSounds();
+                    
+                    
+                    // CoreManager.Instance.AudioManager.StopAllSounds();
 
                     if (CoreManager.Instance.Player != null)
                     {
@@ -185,14 +187,15 @@ namespace Managers
         
                     }
                 }
-                
+                // CoreManager.Instance.AudioManager.PauseAllAudio();
                 CoreManager.Instance.GameManager.OnEndCutScene(null); // returning input if was disabled at the end of the scene.
                 AsyncOperation loadOperation = SceneManager.LoadSceneAsync(newSceneIndex, LoadSceneMode.Additive);
                 while (!loadOperation.isDone)
                 {
                     yield return null;
                 }
-
+                
+                // CoreManager.Instance.AudioManager.ResumeAllAudio();
                 // Set the new scene as active
                 SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(newSceneIndex));
             }
@@ -212,7 +215,6 @@ namespace Managers
                 else
                 {
                     unloadOperation = SceneManager.UnloadSceneAsync(currentSceneIndex);
-
                 }
                 while (!unloadOperation.isDone)
                 {

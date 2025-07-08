@@ -115,4 +115,10 @@ public class GlobalActions : MonoBehaviour
     {
         CoreManager.Instance.AudioManager.SetGlobalParameter("Time", 1); // this changes ambience to night ambience
     }
+
+    public void EnterEchoEarthQuakeAmbience()
+    {
+        CoreManager.Instance.AudioManager.SetGlobalParameter("CaveExited", 1); // this changes ambience to night ambience
+
+    }
 }

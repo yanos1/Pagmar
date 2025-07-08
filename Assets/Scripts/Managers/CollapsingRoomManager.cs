@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
+using FMODUnity;
 using Interfaces;
 using MoreMountains.Feedbacks;
 using Terrain.Environment;
@@ -13,11 +15,16 @@ namespace Managers
     {
         [SerializeField] private List<MMF_Player> collapsefeebacks;
         [SerializeField] private List<FallingStone> stones;
+        [SerializeField] private EventReference earthquake;
         private int currentIndex = 0;
         private List<FallingStone> remainingStones;
 
         public void InvokeNextFeedbacks()
         {
+            if (currentIndex == 0)
+            {
+                CoreManager.Instance.AudioManager.AddTemporalAmbience(AmbienceType.EarthQuake, earthquake); // play earthquake sound
+            }
             collapsefeebacks[currentIndex]?.StopFeedbacks();
             collapsefeebacks[currentIndex++]?.PlayFeedbacks();
             if (currentIndex >= collapsefeebacks.Count)

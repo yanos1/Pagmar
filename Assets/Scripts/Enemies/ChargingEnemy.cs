@@ -218,7 +218,7 @@ namespace Enemies
         public void AffectedByExternalKnockback()
         {
             print("cancel charge 77");
-            ApplyKnockback(-currentDirection, 25);
+            ApplyKnockback(-currentDirection, 20);
             // _rb.bodyType = RigidbodyType2D.Dynamic;
         }
 

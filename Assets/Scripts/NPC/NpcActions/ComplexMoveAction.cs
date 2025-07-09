@@ -25,6 +25,7 @@ namespace NPC.NpcActions
             protected bool waitingForPlayer = false;
             protected Vector2 currentDir = Vector2.right;
             private float lastTimePlayerMoved;
+            protected BigStepsSoundHandler stepSounds;
 
 
             protected Coroutine walkRoutine;
@@ -33,6 +34,7 @@ namespace NPC.NpcActions
             public override void StartAction(Npc npc)
             {
                 base.StartAction(npc);
+                stepSounds = npc.GetComponent<BigStepsSoundHandler>();
                 lastTimePlayerMoved = Time.time;
 
             }
@@ -48,10 +50,11 @@ namespace NPC.NpcActions
                     lastTimePlayerMoved = Time.time;
                 }
 
-                if (Time.time - lastTimePlayerMoved > 6) // player hasnt moved for 6 seconds, ponder
+                if (Time.time - lastTimePlayerMoved > 3.5f) // player hasnt moved for 3.5 seconds, ponder
                 {
                     npc.TurnAround(CoreManager.Instance.Player.transform.position - npc.transform.position);
                     Debug.Log("try to turn on question mark");
+                    stepSounds.StopStepSounds();
                     npc.GetComponent<BigActions>()?.ShowQuestionMarkForSeconds();
                     npc.GetComponent<BigActions>()?.DoPonderAnim();
                     lastTimePlayerMoved = Time.time; // just so it doesnt call itself endlessly.
@@ -194,6 +197,7 @@ namespace NPC.NpcActions
                 Debug.Log("stop walking called");
                 if (walkRoutine != null)
                 {
+                    stepSounds.StopStepSounds();
                     Debug.Log("stop walking");
                     npc.SetState(NpcState.Idle);
                     CoreManager.Instance.Runner.StopCoroutine(walkRoutine);
@@ -204,7 +208,7 @@ namespace NPC.NpcActions
             private IEnumerator WalkRoutine(Npc npc, Vector2 direction, float speed)
             {
                 direction = direction.normalized;
-
+                stepSounds.HandleStepSounds();
                 while (true)
                 {
                     Vector2 currentPos = npc.transform.position;
@@ -213,7 +217,6 @@ namespace NPC.NpcActions
                     npc.transform.position = Vector2.MoveTowards(currentPos, nextPos, speed * Time.deltaTime);
         
                     yield return new WaitForFixedUpdate();
-                    Debug.Log("walking");
                 }
             }
 

@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using FMODUnity;
 using Managers;
 using NPC;
 using Player;
@@ -9,6 +10,7 @@ namespace Terrain.Environment
     public class NpcHealRune : HealRune
     {
         private bool isCarried = false;
+        [SerializeField] private EventReference healSound;
         public override void OnTriggerEnter2D(Collider2D other)
         {
             if (other.GetComponent<PlayerManager>() is { } carrier && isCarried == false)

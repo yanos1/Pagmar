@@ -60,11 +60,11 @@ MonoBehaviour:
   eventName: 
   EventReference:
     Guid:
-      Data1: -401077193
-      Data2: 1277706423
-      Data3: -1528542579
-      Data4: -1871443246
-    Path: event:/Player/PlayerFootsteps
+      Data1: -517130392
+      Data2: 1181177016
+      Data3: -865989993
+      Data4: -182035155
+    Path: event:/Giant/Giant Approaching Footsteps
   StopType: 0
   Parameters: []
 --- !u!114 &-6955640235615074646
@@ -111,11 +111,11 @@ MonoBehaviour:
   eventName: 
   EventReference:
     Guid:
-      Data1: -401077193
-      Data2: 1277706423
-      Data3: -1528542579
-      Data4: -1871443246
-    Path: event:/Player/PlayerFootsteps
+      Data1: -517130392
+      Data2: 1181177016
+      Data3: -865989993
+      Data4: -182035155
+    Path: event:/Giant/Giant Approaching Footsteps
   StopType: 0
   Parameters: []
 --- !u!114 &-4610091039623053493
@@ -250,11 +250,11 @@ MonoBehaviour:
   eventName: 
   EventReference:
     Guid:
-      Data1: -401077193
-      Data2: 1277706423
-      Data3: -1528542579
-      Data4: -1871443246
-    Path: event:/Player/PlayerFootsteps
+      Data1: -517130392
+      Data2: 1181177016
+      Data3: -865989993
+      Data4: -182035155
+    Path: event:/Giant/Giant Approaching Footsteps
   StopType: 0
   Parameters: []
 --- !u!114 &-1162024789216074627
@@ -317,11 +317,11 @@ MonoBehaviour:
   eventName: 
   EventReference:
     Guid:
-      Data1: -401077193
-      Data2: 1277706423
-      Data3: -1528542579
-      Data4: -1871443246
-    Path: event:/Player/PlayerFootsteps
+      Data1: -517130392
+      Data2: 1181177016
+      Data3: -865989993
+      Data4: -182035155
+    Path: event:/Giant/Giant Approaching Footsteps
   StopType: 0
   Parameters: []
 --- !u!114 &11400000
@@ -469,7 +469,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: PlayerFootsteps
+    m_DisplayName: Giant Approaching Footsteps
   - m_Version: 1
     m_Start: 1
     m_ClipIn: 0
@@ -538,7 +538,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: PlayerFootsteps
+    m_DisplayName: Giant Approaching Footsteps
   - m_Version: 1
     m_Start: 2
     m_ClipIn: 0
@@ -607,7 +607,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: PlayerFootsteps
+    m_DisplayName: Giant Approaching Footsteps
   - m_Version: 1
     m_Start: 3
     m_ClipIn: 0
@@ -676,7 +676,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: PlayerFootsteps
+    m_DisplayName: Giant Approaching Footsteps
   m_Markers:
     m_Objects: []
   template:

@@ -317,8 +317,8 @@ MonoBehaviour:
   switchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: Assets/14.6 Latest/Horns Game.fspro
-  sourceBankPath: Assets/14.6 Latest/Build
+  sourceProjectPath: Assets/9.7 Latest/Horns Game.fspro
+  sourceBankPath: Assets/9.7 Latest/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1

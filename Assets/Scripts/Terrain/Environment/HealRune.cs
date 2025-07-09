@@ -2,6 +2,7 @@
 using Interfaces;
 using Managers;
 using Player;
+using UnityEngine.Serialization;
 
 namespace Terrain.Environment
 {
@@ -18,7 +19,7 @@ namespace Terrain.Environment
         [SerializeField] protected EventNames onPickup;
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private float groundCheckDistance = 0.1f;
-        [SerializeField] protected EventReference healSound;
+        [SerializeField] protected EventReference pickUpHealSound;
 
         private Vector3 _startPos;
         protected Rigidbody2D _rb;
@@ -80,7 +81,7 @@ namespace Terrain.Environment
             print($"invoked {onPickup} 12");
             CoreManager.Instance.EventManager.InvokeEvent(onPickup, healAmount);
             gameObject.SetActive(false);
-            CoreManager.Instance.AudioManager.PlayOneShot(healSound, transform.position);
+            CoreManager.Instance.AudioManager.PlayOneShot(pickUpHealSound, transform.position);
         }
 
         public virtual void ResetToInitialState()

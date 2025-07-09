@@ -1,8 +1,12 @@
 using System.Numerics;
 using DG.Tweening;
+using FMODUnity;
+using Managers;
 using MoreMountains.Feedbacks;
+using SpongeScene;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Vector3 = System.Numerics.Vector3;
 
 namespace NPC.BigFriend
 {
@@ -18,11 +22,15 @@ namespace NPC.BigFriend
         [SerializeField] private GameObject headCol;
         [SerializeField] private MMF_Player healFeedbacks;
         [SerializeField] private MMF_Player sleepingHealRequestFeedbacks;
+        [SerializeField] private EventReference approachSound;
+        [SerializeField] private EventReference apearSound;
+        [SerializeField] private EventReference ponderingSound;
 
         public void ShowQuestionMarkForSeconds(float duration = 3f)
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(ponderingSound, transform.position + Vector3Int.right*8);
             questionMark.SetActive(true);
-
+            
             Sequence seq = DOTween.Sequence();
 
             seq.Append(questionMarkRenderer.DOFade(1f, 0.3f).SetEase(Ease.OutSine)) // Fade in
@@ -61,8 +69,13 @@ namespace NPC.BigFriend
             print("show big!");
             bigVisuals.SetActive(true);
             Materialize();
+            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.3f, () =>
+            {
+                print("playing appear sound");
+                CoreManager.Instance.AudioManager.PlayOneShot(apearSound, transform.position + Vector3Int.right*8);
+            }));
         }
-
+        
         public void DoSmileAnim(float seconds)
         {
             print("call do smile");
@@ -98,6 +111,13 @@ namespace NPC.BigFriend
         public void ShowSleepHeallRequest()
         {
             sleepingHealRequestFeedbacks?.PlayFeedbacks();
+        }
+
+        public void PlayApproachSound()
+        {
+            print("playing Approach sound");
+
+            CoreManager.Instance.AudioManager.PlayOneShot(approachSound, transform.position + Vector3Int.right*8);
         }
     }
 }

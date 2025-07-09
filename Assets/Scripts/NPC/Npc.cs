@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Enemies;
+using FMODUnity;
 using Interfaces;
 using Managers;
 using NPC.NpcActions;
@@ -124,11 +125,11 @@ namespace NPC
                 }
             }
 
-            if (waitingForLanding && isGrounded)
-            {
-                waitingForLanding = false;
-                OnLanding();
-            }
+            // if (waitingForLanding && isGrounded)
+            // {
+            //     waitingForLanding = false;
+            //     OnLanding();
+            // }
         }
 
         public void TurnAround(Vector2 newDir)
@@ -138,15 +139,15 @@ namespace NPC
             spine.transform.rotation = targetRotation;
         }
 
-        private void OnLanding()
-        {
-            spine.PlayAnimation(
-                spine.GetAnimName(BigSpine.SpineAnim.JumpLand),
-                loop: false,
-                fallbackAnimation: GetNextGroundedAnimation(),
-                force: true
-            );
-        }
+        // private void OnLanding()
+        // {
+        //     spine.PlayAnimation(
+        //         spine.GetAnimName(BigSpine.SpineAnim.JumpLand),
+        //         loop: false,
+        //         fallbackAnimation: GetNextGroundedAnimation(),
+        //         force: true
+        //     );
+        // }
 
 
         private IEnumerator WaitAndMoveToNextAction(float delayAfterAction)
@@ -260,11 +261,11 @@ namespace NPC
                     spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Walk), true);
                     break;
                 case NpcState.Jumping:
-                    PlayJumpSequence();
+                    // PlayJumpSequence();
                     break;
                 case NpcState.Charging:
-                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Dash), false,
-                        spine.GetAnimName(BigSpine.SpineAnim.Run));
+                    // spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Dash), false,
+                    //     spine.GetAnimName(BigSpine.SpineAnim.Run));
                     break;
                 case NpcState.Crouching:
                     spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Crouch), true);
@@ -301,10 +302,10 @@ namespace NPC
 
         private string GetNextGroundedAnimation()
         {
-            if (_isFollowing)
+            // if (_isFollowing)
                 return spine.GetAnimName(BigSpine.SpineAnim.Walk);
-            if (IsFollowed)
-                return spine.GetAnimName(BigSpine.SpineAnim.Run);
+            // if (IsFollowed)
+            //     return spine.GetAnimName(BigSpine.SpineAnim.Run);
 
             return spine.GetAnimName(BigSpine.SpineAnim.Idle);
         }

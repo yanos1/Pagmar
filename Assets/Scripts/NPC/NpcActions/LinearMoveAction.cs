@@ -4,6 +4,7 @@ using Camera;
 using DG.Tweening;
 using Managers;
 using MoreMountains.Feedbacks;
+using NPC.BigFriend;
 using ScripableObjects;
 using ScriptableObjects;
 using UnityEngine;
@@ -13,13 +14,14 @@ namespace NPC.NpcActions
     [Serializable]
     public class LinearMoveAction : MoveAction
     {
-        [SerializeField] private PlayerSounds sounds;
         [SerializeField] private MMF_Player stepFeedbacks;
+        private BigStepsSoundHandler stepshandler;
 
         private Coroutine moveCoroutine;
 
         public override void StartAction(Npc npc)
         {
+            stepshandler = npc.GetComponent<BigStepsSoundHandler>();
             base.StartAction(npc);
             npc.SetState(NpcState.Walking);
             PerformMovement(npc);
@@ -31,11 +33,7 @@ namespace NPC.NpcActions
         protected override void PerformMovement(Npc npc)
         {
             Debug.Log($"[Coroutine] Moving NPC over {duration} seconds");
-
-            if (sounds != null)
-            {
-                CoreManager.Instance.AudioManager.PlayOneShot(sounds.walkSound, npc.transform.position);
-            }
+            stepshandler.HandleStepSounds();
 
             stepFeedbacks?.PlayFeedbacks();
 
@@ -70,21 +68,22 @@ namespace NPC.NpcActions
                 npc.transform.position = Vector3.LerpUnclamped(startPos, endPos, easedT);
 
                 // Play sound/feedback every 0.5 seconds
-                if (stepTimer >= stepInterval)
-                {
-                    stepTimer = 0f;
-
-                    if (sounds != null)
-                    {
-                        CoreManager.Instance.AudioManager.PlayOneShot(sounds.walkSound, npc.transform.position);
-                    }
-
-                    stepFeedbacks?.PlayFeedbacks();
-                }
+                // if (stepTimer >= stepInterval)
+                // {
+                //     stepTimer = 0f;
+                //
+                //     if (sounds != null)
+                //     {
+                //         CoreManager.Instance.AudioManager.PlayOneShot(sounds.walkSound, npc.transform.position);
+                //     }
+                //
+                //     stepFeedbacks?.PlayFeedbacks();
+                // }
             }
 
             npc.transform.position = endPos;
             isCompleted = true;
+            stepshandler.StopStepSounds();
             Debug.Log("Completed Coroutine Movement!");
         }
 

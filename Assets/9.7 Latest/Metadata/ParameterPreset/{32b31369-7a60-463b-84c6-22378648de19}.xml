@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{32b31369-7a60-463b-84c6-22378648de19}">
+		<property name="name">
+			<value>GiantMaterial_Local</value>
+		</property>
+		<relationship name="folder">
+			<destination>{1aa9b83b-b73d-4e8a-bb20-d710b0896e83}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{2af786a2-d563-49c6-942c-266486ab8df8}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{2af786a2-d563-49c6-942c-266486ab8df8}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>Grass</value>
+			<value>Wood</value>
+		</property>
+		<property name="isHeld">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+		<relationship name="automators">
+			<destination>{3569a505-e77b-47b1-b563-eefbc7a81264}</destination>
+		</relationship>
+	</object>
+	<object class="Automator" id="{3569a505-e77b-47b1-b563-eefbc7a81264}">
+		<property name="nameOfPropertyBeingAutomated">
+			<value>cursorPosition</value>
+		</property>
+		<relationship name="automationCurves">
+			<destination>{fc7ca31b-4623-4826-bcee-2033f19c4bbd}</destination>
+		</relationship>
+	</object>
+	<object class="AutomationCurve" id="{fc7ca31b-4623-4826-bcee-2033f19c4bbd}">
+		<relationship name="parameter">
+			<destination>{b21227ba-0b9f-483d-88d0-3882b369bf0b}</destination>
+		</relationship>
+		<relationship name="automationPoints">
+			<destination>{a37488f5-0343-47b5-9e84-dd4c3989cd82}</destination>
+			<destination>{3d126456-6f4d-425e-9c11-dfac2d1aa1cf}</destination>
+		</relationship>
+	</object>
+	<object class="AutomationPoint" id="{a37488f5-0343-47b5-9e84-dd4c3989cd82}">
+		<property name="position">
+			<value>1</value>
+		</property>
+		<property name="value">
+			<value>1</value>
+		</property>
+	</object>
+	<object class="AutomationPoint" id="{3d126456-6f4d-425e-9c11-dfac2d1aa1cf}">
+		<property name="position">
+			<value>0</value>
+		</property>
+		<property name="value">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

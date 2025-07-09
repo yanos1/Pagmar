@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{594cf9fd-be31-4e9d-9fdb-d5715683fd8b}">
+		<property name="name">
+			<value>giantarriving</value>
+		</property>
+		<relationship name="folder">
+			<destination>{1aa9b83b-b73d-4e8a-bb20-d710b0896e83}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{0737556e-a824-4fee-8626-082dc2f15172}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{0737556e-a824-4fee-8626-082dc2f15172}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

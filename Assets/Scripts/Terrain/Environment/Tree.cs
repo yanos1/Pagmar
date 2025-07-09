@@ -8,6 +8,7 @@ using Player;
 using SpongeScene;
 using Triggers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Terrain.Environment
 {
@@ -16,8 +17,9 @@ namespace Terrain.Environment
         [SerializeField] private float power;
         [SerializeField] private Trigger trigger;
         [SerializeField] private GameObject impass;
-        [SerializeField] private EventReference treeHit;
+        [SerializeField] private EventReference treeFall;
         [SerializeField] private EventReference treeImpact;
+        [SerializeField] private EventReference treeHit;
         private Rigidbody2D rb;
         private bool hasFallen = false;
 
@@ -37,7 +39,7 @@ namespace Terrain.Environment
             {
                 hasFallen = true;
                 CoreManager.Instance.AudioManager.PlayOneShot(treeImpact, transform.position);
-                
+
                 StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.3f, () =>
                 {
                     rb.linearVelocity = Vector2.zero;
@@ -50,19 +52,20 @@ namespace Terrain.Environment
 
         public void OnBreak()
         {
-            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.5f,() => CoreManager.Instance.AudioManager.PlayOneShot(treeHit, transform.position)));
-           
+            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.5f,
+                () => CoreManager.Instance.AudioManager.PlayOneShot(treeFall, transform.position)));
+
             rb.AddForce(Vector2.left * power);
         }
 
         public void OnHit(Vector2 hitDir, PlayerStage stage)
         {
             print($"hit dir is {hitDir}");
-            if (stage == PlayerStage.Adult && hitDir.x < 0 ) // we are to the right of the tree
+            CoreManager.Instance.AudioManager.PlayOneShot(treeHit, transform.position);
+            if (stage == PlayerStage.Adult && hitDir.x < 0) // we are to the right of the tree
             {
                 OnBreak();
             }
         }
-        
     }
 }

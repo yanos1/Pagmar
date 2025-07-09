@@ -30,6 +30,7 @@ namespace Terrain.Environment
                 isCarried = true;
                 transform.SetParent(carrier.transform);
                 _rb.bodyType = RigidbodyType2D.Kinematic;
+                CoreManager.Instance.AudioManager.PlayOneShot(pickUpHealSound, transform.position);
                 CoreManager.Instance.EventManager.InvokeEvent(onPickup, healAmount);
 
             }

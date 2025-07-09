@@ -1,10 +1,9 @@
 ﻿using System;
 using DG.Tweening;
 using Enemies;
+using FMODUnity;
 using Interfaces;
 using NPC.BigFriend;
-using Player;
-using Terrain;
 using UnityEngine;
 using Sequence = DG.Tweening.Sequence;
 
@@ -21,6 +20,7 @@ namespace NPC.NpcActions
         private float targetOffset;
         private Transform target;
         private bool isChargingAnimPlaying = false;
+        [SerializeField] private EventReference hitSound;
 
         public override void StartAction(Npc npc)
         {
@@ -39,7 +39,6 @@ namespace NPC.NpcActions
             targetOffset = target.position.x - npc.transform.position.x;
             npc.TurnAround(new Vector2(targetOffset, 0));
 
-            // ▶️ Start Run Animation
             string runAnim = _spine.GetAnimName(BigSpine.SpineAnim.Run);
             Debug.Log($"[ChargeAction] Playing Run Animation: {runAnim}");
             _spine.PlayAnimation(runAnim, loop: true, fallbackAnimation: null, force: true);
@@ -53,7 +52,7 @@ namespace NPC.NpcActions
                 return;
 
             float distToTarget = Vector2.Distance(npc.transform.position, target.position);
-            if (distToTarget < 5f)
+            if (distToTarget < 10f)
             {
                 string chargeAnim = _spine.GetAnimName(BigSpine.SpineAnim.Dash);
                 Debug.Log($"[ChargeAction] Distance to target < 5. Switching to Charge Animation: {chargeAnim}");

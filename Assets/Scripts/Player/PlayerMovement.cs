@@ -118,6 +118,8 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable()
     {
         CoreManager.Instance.EventManager.RemoveListener(EventNames.StartLoadNextScene, OnLoadNewScene);
+        CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, StopAllMovement);
+
         // CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, OnNewScene);
 
     }

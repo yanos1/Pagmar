@@ -1,4 +1,6 @@
 ﻿using System;
+using FMOD.Studio;
+using FMODUnity;
 using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
@@ -12,6 +14,7 @@ namespace Terrain.House
         private Vector3 startingPos;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private MMF_Player shakeFeedbacks;
+        [SerializeField] private EventReference earthQuake;
 
         private void Start()
         {
@@ -26,10 +29,16 @@ namespace Terrain.House
             transform.position = startingPos;
             rb.linearVelocity = Vector2.zero;
             rb.bodyType = RigidbodyType2D.Kinematic;
-            if (Vector3.Distance(CoreManager.Instance.Player.transform.position, transform.position) <
-                25) // we are near house. 
+            if (Mathf.Abs(CoreManager.Instance.Player.transform.position.x - transform.position.x) <
+                40) // we are near house. 
             {
+                print("play earthquake again!");
                 shakeFeedbacks?.PlayFeedbacks();
+                CoreManager.Instance.AudioManager.AddTemporalAmbience(AmbienceType.EarthQuake, earthQuake); // play earthquake sound
+            }
+            else
+            {
+                print("deistance too large dont player ambience agian");
             }
         }
 

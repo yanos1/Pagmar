@@ -12,8 +12,9 @@ namespace Terrain.Environment
         [SerializeField] private float wheelRotationSpeed = 360f; // degrees per second
         private float directionSign = 1f;
 
-        private void OnCollisionEnter2D(Collision2D c)
+        public override void OnCollisionEnter2D(Collision2D c)
         {
+            base.OnCollisionEnter2D(c);
             if (c.gameObject.GetComponent<PlayerManager>() is { } playerManager)
             {
                 if (!isMoving)
@@ -41,7 +42,6 @@ namespace Terrain.Environment
         {
             if (isMoving)
             {
-                print("is moving");
                 RotateWheels();
             } else if (isReturning)
             {

@@ -232,7 +232,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
     public void StartFullHeal(object o)
     {
         if (healRoutine != null) StopCoroutine(healRoutine);
-        healRoutine = StartCoroutine(HealGradually(3f));
+        healRoutine = StartCoroutine(HealGradually(1f));
     }
 
     private IEnumerator HealGradually(float duration)
@@ -264,8 +264,8 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         
             yield return null;
         }
-
-        currentDamageIndex = 0;
+        InjuryFeedbacks.Instance.Heal(Health);
+        currentDamageIndex = 0; 
         lowHealthPlayed = false;
         UpdateVisual();
         isHealing = false;

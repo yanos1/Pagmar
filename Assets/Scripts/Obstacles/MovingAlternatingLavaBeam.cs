@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Atmosphere.TileExplostion;
+using Enemies;
 using FMODUnity;
 using Interfaces;
 using Managers;
@@ -109,7 +110,12 @@ namespace Obstacles
             if (other.gameObject.GetComponent<Explodable>() is { } explodable)
             {
                 explodable.explode();
-            } 
+            }
+
+            if (other.gameObject.GetComponent<ChargingEnemy>() is { } enemy)
+            {
+                enemy.Die();   
+            }
         }
 
         private void CheckTileMapHit(Collider2D other)

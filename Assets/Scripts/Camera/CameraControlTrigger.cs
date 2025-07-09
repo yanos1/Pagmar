@@ -1,6 +1,7 @@
 
 using System;
 using Camera;
+using Managers;
 using Unity.Cinemachine;
 using UnityEditor;
 using UnityEngine;
@@ -10,14 +11,34 @@ public class CameraControlTrigger : MonoBehaviour
     public CustomInspectorObjects customInspectorObjects;
     
     private Collider2D _collider2D;
+    [SerializeField] private bool stopWorkingAfterEvent = false;
+    private bool eventCalled = false;
+    [SerializeField] private EventNames eventName;
 
     private void Start()
     {
         _collider2D = GetComponent<Collider2D>();
     }
 
+    private void OnEnable()
+    {
+        CoreManager.Instance.EventManager.AddListener(EventNames.PickUpRuneForBig, OnPickUp);
+    }
+    
+    private void OnDisable()
+    {
+        CoreManager.Instance.EventManager.RemoveListener(EventNames.PickUpRuneForBig, OnPickUp);
+    }
+
+    private void OnPickUp(object obj)
+    {
+        eventCalled = true;
+    }
+
+
     private void OnTriggerEnter2D(Collider2D other)
     { 
+        if(stopWorkingAfterEvent && eventCalled) return;
         if(other.gameObject.CompareTag("Player"))
         {
             print("triggered camera ");
@@ -29,7 +50,7 @@ public class CameraControlTrigger : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        
+        if(stopWorkingAfterEvent && eventCalled) return;
         if(other.gameObject.CompareTag("Player"))
         {
             Vector2 exitDirection = (other.transform.position - _collider2D.bounds.center).normalized;
@@ -67,6 +88,7 @@ public class CustomInspectorObjects
     [HideInInspector] public PanDirection panDirection;
     [HideInInspector] public float panDistance = 3f;
     [HideInInspector] public float panTime     = 0.35f;
+    
 }
 
 public enum PanDirection

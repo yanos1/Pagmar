@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 1046725}
   - component: {fileID: 1046727}
   - component: {fileID: 1046726}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: StartTimelineTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40435,7 +40435,7 @@ GameObject:
   - component: {fileID: 1381519423}
   - component: {fileID: 1381519422}
   - component: {fileID: 1381519421}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: checkpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48741,7 +48741,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1663974824}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Triggers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55545,6 +55545,10 @@ PrefabInstance:
       value: Floor1 (11)
       objectReference: {fileID: 0}
     - target: {fileID: 2886464244972018413, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2886464244972018413, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -55562,7 +55566,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.33
+      value: 0.84
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -55570,7 +55574,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalRotation.x
@@ -55582,7 +55586,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -55594,7 +55598,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7251204352028894907, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_Color.b
@@ -55622,8 +55626,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2886464244972018413, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
   m_PrefabInstance: {fileID: 1928289978}
   m_PrefabAsset: {fileID: 0}
---- !u!58 &1928289980
-CircleCollider2D:
+--- !u!70 &1928289980
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -55632,7 +55636,7 @@ CircleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 560a5dd9b6b295c4f9370feac7cbe636, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -55656,8 +55660,9 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.00000011920929, y: -0.0000076293945}
-  m_Radius: 0.5000002
+  m_Offset: {x: -0.15, y: 0.42}
+  m_Size: {x: 0.68, y: 4.34}
+  m_Direction: 0
 --- !u!1 &1932442223
 GameObject:
   m_ObjectHideFlags: 0

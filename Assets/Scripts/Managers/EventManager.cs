@@ -75,5 +75,6 @@ namespace Managers
         ChangeMusic = 22,
         StopMusic = 23,
         StartLoadNextScene = 24,
+        PickUpRuneForBig = 25,
     }
 }

@@ -61,3 +61,11 @@ MonoBehaviour:
         Data3: -2059532123
         Data4: 1873640528
       Path: event:/Music/UndergroundMusic2
+  - type: 5
+    music:
+      Guid:
+        Data1: 1191486303
+        Data2: 1268933453
+        Data3: -430298693
+        Data4: 1267285475
+      Path: event:/Music/EruptionMusic

@@ -4,8 +4,11 @@ using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
+using Atmosphere.TileExplostion;
+using Enemies;
 using Managers;
 using Spine.Unity;
+using UnityEngine.Tilemaps;
 
 public class ChasingEnemy : Rammer, IResettable
 {
@@ -19,6 +22,9 @@ public class ChasingEnemy : Rammer, IResettable
     private bool chase = false;
     private float positionHistoryDuration = 17f;
     private List<(float time, Vector3 position)> positionHistory = new List<(float, Vector3)>();
+    
+    public Tilemap tilemap;
+    private Dictionary<Vector3Int, TileBase> removedTiles = new Dictionary<Vector3Int, TileBase>();
 
     // Caching
     private Vector3 lastProcessedPlayerResetPos = Vector3.positiveInfinity;
@@ -81,12 +87,30 @@ public class ChasingEnemy : Rammer, IResettable
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void CheckTileMapHit(Collider2D other)
+    {
+        Vector3 hitPos = other.ClosestPoint(transform.position);
+        Vector3Int cellPos = tilemap.WorldToCell(hitPos);
+        print("checking hit with tilemap");
+        if (tilemap.HasTile(cellPos))
+        {
+            print("hit a tile!!");
+            TileBase tile = tilemap.GetTile(cellPos);
+            var particles = CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.ExplodableTileParticles);
+            particles.Play(cellPos + Vector3.right*23.3f); // my grid is off by 23.3 ..... bad code.
+            removedTiles.TryAdd(cellPos, tile); // Store only once
+            tilemap.SetTile(cellPos, null);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.GetComponent<IBreakable>() is { } breakable)
         {
             breakable.OnBreak();
         }
+        
+        CheckTileMapHit(other);
     }
 
     private float MapYToZRotation(float y)
@@ -161,6 +185,13 @@ public class ChasingEnemy : Rammer, IResettable
             lastProcessedPlayerResetPos = playerResetPosition;
             cachedBestResetPosition = bestPosition;
             hasCachedReset = true;
+            
+            foreach (var kvp in removedTiles)
+            {
+                tilemap.SetTile(kvp.Key, kvp.Value);
+            }
+
+            removedTiles.Clear();
         }
     }
 

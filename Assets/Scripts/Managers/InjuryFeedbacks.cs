@@ -81,6 +81,21 @@ namespace Managers
         public void Heal(int amount)
         {
             currentDamageTaken = Mathf.Max(0, currentDamageTaken - amount);
+            if (vignetteFadeCoroutine is not null)
+            {
+                vignette.intensity.value = 0f;
+                vignette.active = false;
+                StopCoroutine(vignetteFadeCoroutine);
+                vignetteFadeCoroutine = null;
+
+            }
+
+            if (screenColorFadeCoroutine is not null)
+            {
+                screenColor.alpha = 0f;
+                StopCoroutine(screenColorFadeCoroutine);
+                screenColorFadeCoroutine = null;
+            }
         }
 
         public void ResetToInitialState()

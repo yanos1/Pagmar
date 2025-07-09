@@ -9,12 +9,15 @@ namespace Terrain.Environment
     {
         [SerializeField] private Transform center;
 
-        private void OnCollisionEnter2D(Collision2D c)
+        private bool triggered = false;
+        public override void OnCollisionEnter2D(Collision2D c)
         {
+            // base.OnCollisionEnter2D(c);
             if (c.gameObject.GetComponent<PlayerManager>() is { } playerManager)
             {
-                if (!isMoving)
+                if (!isMoving && !triggered)
                 {
+                    triggered = true;
                     StartCoroutine(DelayedMove(playerManager));
                 }
             }

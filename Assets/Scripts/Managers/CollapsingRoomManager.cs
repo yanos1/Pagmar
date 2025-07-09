@@ -76,6 +76,7 @@ namespace Managers
 
             // Optional: clear any camera impulses left hanging
             CinemachineImpulseManager.Instance.Clear();
+            
         }
 
     }

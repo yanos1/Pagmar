@@ -21,9 +21,7 @@ namespace Enemies
         public float chargeDelay; // the time from when the player seens the player till a charge is discharged
         public float chargeCooldown; // time until a new charge can be done
         public float chargeDuration;
-        public float rotationAmount = 10f;
-        public float rotationSpeed = 5f;
-        public float minDistanceActivation = 3f;
+        public float minDistanceActivation;
 
 
         [SerializeField] private bool sleepAtStart;
@@ -58,7 +56,7 @@ namespace Enemies
         [SerializeField] private Vector2 currentDirection;
         private bool hit = false;
         private bool isKnockbacked = false;
-        private const float visibilityThreshold = 0.2f;
+        [SerializeField] private  float visibilityThreshold = 0.2f;
         private float visibiliyTimer = 0f;
         private bool falling = false;
         private float lastChargeTime = 0f;
@@ -453,13 +451,6 @@ namespace Enemies
             }
         }
 
-        private void RotateEnemy()
-        {
-            rotationTimer += Time.fixedDeltaTime * rotationSpeed;
-            float rotationZ = Mathf.Sin(rotationTimer) * rotationAmount;
-            transform.rotation = Quaternion.Euler(0, 0, rotationZ);
-        }
-
         private void CheckForGround()
         {
             var ground = GroundAhead();
@@ -551,9 +542,7 @@ namespace Enemies
             if (Time.time - lastRammedTime > rammedCd && ++hitCounter == hitsToKill)
             {
                 lastRammedTime = Time.time;
-                hitFeedbacks?.StopFeedbacks();
-                isDead = true;
-                CoreManager.Instance.AudioManager.PlayOneShot(sounds.deathSound, transform.position);
+                Die();
                 return;
             }
 
@@ -562,6 +551,14 @@ namespace Enemies
 
             isPreparingCharge = false;
             StopAllCoroutines();
+        }
+
+        public void Die()
+        {
+            hitFeedbacks?.StopFeedbacks();
+            isDead = true;
+            CoreManager.Instance.AudioManager.PlayOneShot(sounds.deathSound, transform.position);
+            gameObject.SetActive(false);
         }
 
         public override void OnTie(float fromForce)

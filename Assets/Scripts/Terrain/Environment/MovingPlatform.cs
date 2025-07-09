@@ -35,6 +35,7 @@ namespace Terrain.Environment
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
         [SerializeField] private EventReference moveSound;
+        [SerializeField] private BoxCollider2D col;
         
         
         private Vector3 startPos;
@@ -82,7 +83,6 @@ namespace Terrain.Environment
                 float easedT = movementCurve.Evaluate(t);
                 transform.position = Vector3.Lerp(startPos, targetPos, easedT);
                 timer += Time.fixedDeltaTime;
-                print($"moving - transform is {transform.position}");
                 yield return new WaitForFixedUpdate();
             }
 
@@ -152,7 +152,7 @@ namespace Terrain.Environment
             isReturning = false;
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        public virtual void OnCollisionEnter2D(Collision2D collision)
         {
             
             FallingStone rock = collision.collider.GetComponent<FallingStone>();
@@ -178,8 +178,10 @@ namespace Terrain.Environment
                     return;
                 }
                 // Attach player to platform
-                if (player.GroundCheckPos.y -0.2f> transform.position.y )
+                print($"p{player.GroundCheckPos.y +0.2f} e {col.bounds.max.y}");
+                if (player.transform.position.y +0.2f> col.bounds.max.y)
                 {
+                    print("setting parent elevator");
                     collision.collider.transform.SetParent(transform);
                 }
                 

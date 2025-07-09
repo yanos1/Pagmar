@@ -33,6 +33,7 @@ namespace Managers
             CoreManager.Instance.EventManager.AddListener(EventNames.ChangeMusic, OnChangeMusic);
             CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, StopOldScneeSounds);
             CoreManager.Instance.EventManager.AddListener(EventNames.PickUpFakeRune, StopOldScneeSounds);
+            CoreManager.Instance.EventManager.AddListener(EventNames.StopMusic, OnChangeMusic);
         }
         private void OnDisable()
         {
@@ -40,6 +41,9 @@ namespace Managers
             CoreManager.Instance.EventManager.RemoveListener(EventNames.ChangeMusic, OnChangeMusic);
             CoreManager.Instance.EventManager.RemoveListener(EventNames.PickUpFakeRune, StopOldScneeSounds);
             CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, StopOldScneeSounds);
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.StopMusic, OnChangeMusic);
+
+            
         }
 
      
@@ -60,21 +64,21 @@ namespace Managers
 
         private void OnChangeMusic(object obj)
         {
+            currentMusic.getPlaybackState(out PLAYBACK_STATE state);
+
+            if (state == PLAYBACK_STATE.PLAYING)
+            {
+                print("stop music !");
+                currentMusic.stop(STOP_MODE.ALLOWFADEOUT);
+                currentMusic.release();
+            }
             if (obj is MusicType musicType)
             {
-                
-                currentMusic.getPlaybackState(out PLAYBACK_STATE state);
+                print("start new music !");
+                var music = _gameMusic.GetMusic(musicType);
+                if (music.IsNull) return;
 
-                if (state == PLAYBACK_STATE.PLAYING)
-                {
-                    currentMusic.stop(STOP_MODE.ALLOWFADEOUT);
-                    currentMusic.release();
-                }
-                
-                var ambience = _gameMusic.GetMusic(musicType);
-                if (ambience.IsNull) return;
-
-                currentMusic = RuntimeManager.CreateInstance(ambience);
+                currentMusic = RuntimeManager.CreateInstance(music);
                 currentMusic.start();
                 
             }        

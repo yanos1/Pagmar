@@ -1,0 +1,13 @@
+plant.png
+size:746,112
+filter:Linear,Linear
+pma:true
+Layer 11
+bounds:332,10,213,100
+Layer 12
+bounds:547,2,108,111
+rotate:90
+Layer 8
+bounds:2,3,328,107
+Layer 9
+bounds:660,25,84,85

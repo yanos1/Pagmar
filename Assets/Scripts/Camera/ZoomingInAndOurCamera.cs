@@ -27,7 +27,7 @@ namespace Camera
 
         public void ZoomIn()
         {
-            StartCoroutine(SmoothZoom(2f, 17f, new Vector3(0, 1.5f, 0)));
+            StartCoroutine(SmoothZoom(2f, 20f, new Vector3(0, 1.2f, 0)));
         }
         
         public void ZoomOut()

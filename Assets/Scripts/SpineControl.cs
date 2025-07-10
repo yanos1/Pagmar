@@ -110,7 +110,7 @@ public class SpineControl : MonoBehaviour
         if (!force && currentActionAnimation == animationName)
             return;      
         
-        // print($"trying to play {animationName}");
+        print($"trying to play {animationName}");
 
         currentActionAnimation = animationName;
 
@@ -195,17 +195,42 @@ public class SpineControl : MonoBehaviour
         skeletonAnimation.AnimationState.SetAnimation(0, "blink", true);
         skeletonAnimation.AnimationState.SetAnimation(2, "idlev2", true);
     }
+    // public void SetIdleLock(bool value)
+    // {
+    //     _lockIdleState = value;
+    //
+    //     if (value)
+    //     {
+    //         skeletonAnimation.AnimationState.ClearTrack(2);
+    //         currentActionAnimation = "";
+    //         skeletonAnimation.AnimationState.SetAnimation(0, "blink", true);
+    //         skeletonAnimation.AnimationState.SetAnimation(2, "idlev2", true);
+    //     }
+    // }
+
     public void SetIdleLock(bool value)
     {
         _lockIdleState = value;
 
         if (value)
         {
-            skeletonAnimation.AnimationState.ClearTrack(2);
+            // Only change to idle if not already playing idle
+            var current0 = skeletonAnimation.AnimationState.GetCurrent(0);
+            var current2 = skeletonAnimation.AnimationState.GetCurrent(2);
+
+            // Optional: Skip if already playing idle
+            if (current0 == null || current0.Animation.Name != "blink")
+            {
+                skeletonAnimation.AnimationState.SetAnimation(0, "blink", true);
+            }
+
+            if (current2 == null || current2.Animation.Name != "idlev2")
+            {
+                // Use a Mix instead of ClearTrack to avoid interrupting violently
+                skeletonAnimation.AnimationState.SetAnimation(2, "idlev2", true);
+            }
+
             currentActionAnimation = "";
-            skeletonAnimation.AnimationState.SetAnimation(0, "blink", true);
-            skeletonAnimation.AnimationState.SetAnimation(2, "idlev2", true);
         }
     }
-
 }

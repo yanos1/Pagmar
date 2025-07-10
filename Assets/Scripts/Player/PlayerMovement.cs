@@ -16,7 +16,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using AnimationState = UnityEngine.AnimationState;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IResettable
 {
     [Header("Movement")] [SerializeField] private float MovementSpeed = 200f;
     [SerializeField] private Rigidbody2D _rb;
@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
     public bool enableAdvancedDash = false;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private bool isWalkingScene;
+    [SerializeField] private Transform finalFormSpine;
 
 
     [Header("CammeraFollowObject")] [SerializeField]
@@ -90,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
     private float wallJumpDirection;
     private float wallJumpCounter;
     private bool hasWallJumped = false;
-    private bool isWallSliding = false;
+    public bool isWallSliding = false;
     private bool _wasGroundedLastFrame = false;
     private bool _playedStartJump = false;
     private bool _preventAnimOverride = false;
@@ -106,8 +107,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private MMF_Player landFeedback;
     [SerializeField] private MMF_Player dashFeedback;
-
-
     [SerializeField] public bool enableWallJump;
     private PlayerManager player;
     private PlayerHornDamageHandler hornDamageHandler;
@@ -233,6 +232,8 @@ public class PlayerMovement : MonoBehaviour
         _moveInputX = 0;
         _moveInputY = 0;
         _moveInput = Vector2.zero;
+        _isDashing = false;
+        print("stopped all movement!");
         spineControl.PlayAnimation("idlev2",true,force: true);
     }
     
@@ -500,6 +501,24 @@ public class PlayerMovement : MonoBehaviour
 
         _isFacingRight = !_isFacingRight;
     }
+    
+    public void FlipSpecial() // edge caes with wall sliding and dying at teh same time
+    {
+        if (_isFacingRight)
+        {
+            var rotator = new Vector3(transform.rotation.x, 0, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(rotator);
+        }
+        else
+        {
+            var rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(rotator);
+        }
+
+        _cameraFollowObject.CallTurn();
+
+        _isFacingRight = !_isFacingRight;
+    }
 
     private bool IsGrounded()
     {
@@ -593,13 +612,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void WallSlide()
     {
-        if (player.playerStage == PlayerStage.Young || player.playerStage == PlayerStage.Teen) return;
+        if (player.playerStage == PlayerStage.Young || player.playerStage == PlayerStage.Teen || player.playerStage == PlayerStage.Adult) return;
         if (isTouchingWall && !IsGrounded() && !isWallJumping &&
             ((_isFacingRight && _moveInputX > 0) || (!_isFacingRight && _moveInputX < 0)))
         {
             if (_rb.linearVelocity.y < 0)
             {
                 isWallSliding = true;
+                
                 _rb.linearVelocity = new Vector2(0, Mathf.Clamp(_rb.linearVelocity.y, -wallSlideSpeed, float.MaxValue));
             }
             else
@@ -730,7 +750,7 @@ public class PlayerMovement : MonoBehaviour
         _isDashAttacking = true;
         _rb.gravityScale = 0;
 
-        while (Time.time - startTime <= dashAttackTime)
+        while (Time.time - startTime <= dashAttackTime && _isDashing)
         {
             if (!hitSomethingDuringDash && HornDamageManager.Instance.allowHornDamage && IsHittingSomething(dir))
             {
@@ -804,4 +824,22 @@ public class PlayerMovement : MonoBehaviour
     //
     //         yield return null;
     //     }
+    public void ForcePlayerFlip()
+    {
+       
+    }
+
+    public void ResetToInitialState()
+    {
+        if (!isWallSliding) return;
+        isWallSliding = false;
+        Skeleton skeleton = spineControl.skeletonAnimation.Skeleton;
+        skeleton.RootBone.Rotation = 0;
+        skeleton.RootBone.ScaleX = 1;
+        skeleton.RootBone.ScaleY = 1;
+        skeleton.UpdateWorldTransform(Skeleton.Physics.None);
+        // var rotator = new Vector3(transform.rotation.x, Mathf.Approximately(transform.rotation.y, 0) ? 180 : 0  , transform.rotation.z);
+        // finalFormSpine.transform.rotation = Quaternion.Euler(rotator);
+     
+    }
 }

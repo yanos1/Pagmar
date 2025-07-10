@@ -244,13 +244,14 @@ namespace Player
                 float dot = Mathf.Abs(Vector2.Dot(directionToPlayer, Vector2.right));
                 if (rammer.GetComponent<ChargingEnemy>() is not null && dot > 0.75f) // horizontal impact check
                 {
+                    print("resolve ram");
                     RammerManager.Instance.ResolveRam(this, rammer);
                 }
 
                 else if (rammer.GetComponent<ChasingEnemy>() is not null && isDead == false)
                 {
                     print("player died");
-                    Die();
+                    Die(false);
                     // RammerManager.Instance.ResolveRam(this, rammer);
                 }
 
@@ -470,12 +471,12 @@ namespace Player
             CurrentForce = 0f;
         }
 
-        public void Die()
+        public void Die(bool lockAnimationsAfterDeath = true)
         {
             if(isDead) return;
             isDead = true;
             isKnockbacked = false;
-            LockAnimations();
+            if(lockAnimationsAfterDeath) LockAnimations();
             CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
         }
 
@@ -506,7 +507,7 @@ namespace Player
 
         public void StopAllMovement()
         {
-            _rb.linearVelocity = Vector2.zero;
+            _playerMovement.StopAllMovement(null);
         }
 
         public void DisableInputForDuration(float seconds)
@@ -530,6 +531,11 @@ namespace Player
             EnableInput();
             isDead = false;
             isKnockbacked = false;
+            // if (_playerMovement.isWallSliding)
+            // {
+            //     print("force flip" );
+            //     _playerMovement.ForcePlayerFlip();
+            // }
         }
 
         private void ChangeToOriginalColor()

@@ -67,10 +67,10 @@ public class GlobalActions : MonoBehaviour
         undergroundCanvas.TurnOnTextForDuration();
     }
 
-    public void EndCutScene()
+    public void EndCutScene(bool enableInput = true)
     {
         print("called end cutscne");
-        CoreManager.Instance.EventManager.InvokeEvent(EventNames.EndCutScene, null);
+        CoreManager.Instance.EventManager.InvokeEvent(EventNames.EndCutScene, enableInput);
     }
 
     public void EnterCutScene()

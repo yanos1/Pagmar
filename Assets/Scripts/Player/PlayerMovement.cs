@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     public bool enableDash = true;
     public bool enableAdvancedDash = false;
     [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private bool isWalkingScene;
 
 
     [Header("CammeraFollowObject")] [SerializeField]
@@ -92,6 +93,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isFalling;
     private float timeFalling;
     private bool _isPlayingWallJumpLand = false;
+    
+    private bool enteredInput = false;
 
 
     [Header("MM Feedback")] [SerializeField]
@@ -169,12 +172,48 @@ public class PlayerMovement : MonoBehaviour
         UpdateAnimation();
     }
 
+    public void Sleep()
+    {
+        _preventAnimOverride = true;
+        spineControl.PlayAnimation("sleep",loop:true,force:true);
+    }
+
+    public void WakeUp()
+    {
+        StartCoroutine(WakeUpRoutine());
+    }
+
+    private IEnumerator WakeUpRoutine()
+    {
+
+        // Wait until the animation is finished (assuming it's around 1.2 seconds, adjust accordingly)
+        yield return new WaitUntil(() => 
+            Keyboard.current.anyKey.wasPressedThisFrame || 
+            Gamepad.current.buttonSouth.wasPressedThisFrame ||
+            Gamepad.current.leftStick.ReadValue().magnitude > 0.1f// A (Xbox), X (PS)
+        );       
+        spineControl.PlayAnimation("wake-up", loop: false, force: true, onComplete: () =>
+        {
+            spineControl.PlayAnimation("wake-up-jump", loop: false, force: true, onComplete: () =>
+            {
+                // Return to idle and re-enable input
+                _preventAnimOverride = false;
+                player.EnableInput();
+                spineControl.PlayAnimation("idlev2", loop: true, force: true);
+            });
+        });
+
+    
+
+    }
+    
     public void StopAllMovement(object obj)
     {
         _rb.linearVelocity = Vector2.zero;
         _moveInputX = 0;
         _moveInputY = 0;
         _moveInput = Vector2.zero;
+        spineControl.PlayAnimation("idlev2",true,force: true);
     }
     
     private void OnLoadNewScene(object obj)
@@ -308,7 +347,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void HandleMovment(InputAction.CallbackContext context)
     {
-        if (player.InputEnabled == false) return;
+        if (player.InputEnabled == false)
+        {
+            print("enput is disabled, make entereted input true");
+            enteredInput = true; // used for the start of the game, wakiping the player up
+            return;
+        }
+
         _moveInput = context.ReadValue<Vector2>();
         _moveInputX = _moveInput.x;
         _moveInputY = _moveInput.y;
@@ -625,7 +670,15 @@ public class PlayerMovement : MonoBehaviour
         else if (!_isDashing && !_preventAnimOverride && !_playedStartJump)
         {
             if (isCurrentlyGrounded && Mathf.Abs(_moveInputX) > 0.1f)
-                spineControl.PlayAnimation("run", true);
+                if (isWalkingScene)
+                {
+                    spineControl.PlayAnimation("walk2", true);
+
+                }
+                else
+                {
+                    spineControl.PlayAnimation("run", true);
+                }
             else if (isCurrentlyGrounded)
                 spineControl.PlayAnimation("idlev2", true);
         }

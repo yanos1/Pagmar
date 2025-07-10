@@ -48,7 +48,6 @@ public class Explodable : MonoBehaviour, IResettable
                 {
                     if (addon.enabled)
                     {
-                        print("addod spotted !!!!!");
                         addon.OnFragmentsExploded(fragments);
                     }
                 }
@@ -57,7 +56,6 @@ public class Explodable : MonoBehaviour, IResettable
         //if fragments exist destroy the original
         if (fragments.Count > 0)
         {
-            print("ORIGINAL COLLIDER TURN OFF");
             GetComponent<Collider2D>().enabled = false;
             
             // make invis

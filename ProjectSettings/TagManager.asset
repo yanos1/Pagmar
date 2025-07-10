@@ -25,6 +25,7 @@ TagManager:
   - NightTransition
   - MeetBig
   - StartUpperground
+  - HouseCollapse
   layers:
   - Default
   - TransparentFX

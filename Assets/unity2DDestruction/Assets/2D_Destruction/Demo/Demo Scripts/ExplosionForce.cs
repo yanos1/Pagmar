@@ -24,12 +24,9 @@ public class ExplosionForce : MonoBehaviour {
     /// <returns></returns>
 	private IEnumerator waitAndExplode(){
 		yield return new WaitForFixedUpdate();
-	    print("rry explode levle 2 !!");
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position,radius);
-		print($"found {colliders.Length} colliders to explode!!");
 		foreach(Collider2D coll in colliders){
 			if(coll.GetComponent<Rigidbody2D>()&& !coll.CompareTag("Player")){
-				print($"{coll.gameObject.name} can explode!!");
                 AddExplosionForce(coll.GetComponent<Rigidbody2D>(), force, transform.position, radius, upliftModifer);
 			}
 		}

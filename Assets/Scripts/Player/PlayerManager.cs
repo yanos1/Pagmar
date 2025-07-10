@@ -75,6 +75,7 @@ namespace Player
             isGodMode = false;
             light.SetActive(false);
         }
+        
         public void StopAndDisableMovement(object o)
         {
             DisableInput();
@@ -123,7 +124,18 @@ namespace Player
 
         public void EnableInputExternally(object o)
         {
-            EnableInput();
+            if (o is bool enableInput)
+            {
+                if (enableInput)
+                {
+                    print("enable input");
+                    EnableInput();
+                }
+                else
+                {
+                    print($"enable input is {enableInput} so non input");
+                }
+            }
         }
         public void UnlockAnimations()
         {
@@ -155,6 +167,9 @@ namespace Player
                         break;
                     case "StartUpperground":
                         EnterStartUppergroundCutScene();
+                        break;
+                    case "HouseCollapse":
+                        DisableInput();
                         break;
                     default:
                         DisableInput();

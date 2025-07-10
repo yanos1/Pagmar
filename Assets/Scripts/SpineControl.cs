@@ -27,15 +27,22 @@ public class SpineControl : MonoBehaviour
 
     public void PlayAnimation(string animationName, bool loop = false, string fallbackAnimation = "idlev2", bool force = false, Action onComplete = null)
     {
+        print($"attempt to play {animationName}");
         if (_lockIdleState) return;
-        
+        print($"attempt to play {animationName}1");
+
         if (string.IsNullOrEmpty(animationName)) return;
+        print($"attempt to play {animationName}2");
+
 
         if (!force && currentActionAnimation == "jump-land" && animationName == "idlev2" && skeletonAnimation.AnimationState.GetCurrent(2) != null)
             return;
+        print($"attempt to play {animationName}3");
 
         if (!force && currentActionAnimation == animationName)
-            return;
+            return;      
+        
+        print($"trying to play {animationName}");
 
         currentActionAnimation = animationName;
 

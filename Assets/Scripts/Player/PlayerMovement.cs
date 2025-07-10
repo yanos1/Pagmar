@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Camera;
@@ -175,7 +176,9 @@ public class PlayerMovement : MonoBehaviour
     public void Sleep()
     {
         _preventAnimOverride = true;
-        spineControl.PlayAnimation("sleep",loop:true,force:true);
+
+        // Set "sleep" animation on track 3 with looping
+        spineControl.PlayAnimation("sleep", 3, loop: true, force: true);
     }
 
     public void WakeUp()
@@ -185,26 +188,24 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator WakeUpRoutine()
     {
+        // Wait until any input is pressed
+        yield return new WaitUntil(() =>
+            Keyboard.current?.anyKey.wasPressedThisFrame == true ||
+            Gamepad.current?.buttonSouth.wasPressedThisFrame == true ||
+            Gamepad.current?.leftStick.ReadValue().magnitude > 0.1f
+        );
 
-        // Wait until the animation is finished (assuming it's around 1.2 seconds, adjust accordingly)
-        yield return new WaitUntil(() => 
-            Keyboard.current.anyKey.wasPressedThisFrame || 
-            Gamepad.current.buttonSouth.wasPressedThisFrame ||
-            Gamepad.current.leftStick.ReadValue().magnitude > 0.1f// A (Xbox), X (PS)
-        );       
-        spineControl.PlayAnimation("wake-up", loop: false, force: true, onComplete: () =>
+        player.DisableInput(); // just in case
+
+        // Crossfade from sleep to wake-up (track 3)
+        spineControl.PlayAnimation("wake-up", 3, loop: false, force: true, onComplete: () =>
         {
-            spineControl.PlayAnimation("wake-up-jump", loop: false, force: true, onComplete: () =>
+            spineControl.QueueAnimation("wake-up-jump", 3, loop: false, fallbackAnimation: "idlev2", onComplete: () =>
             {
-                // Return to idle and re-enable input
                 _preventAnimOverride = false;
                 player.EnableInput();
-                spineControl.PlayAnimation("idlev2", loop: true, force: true);
             });
         });
-
-    
-
     }
     
     public void StopAllMovement(object obj)

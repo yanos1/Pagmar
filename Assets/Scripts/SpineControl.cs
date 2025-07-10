@@ -19,11 +19,91 @@ public class SpineControl : MonoBehaviour
     private void Awake()
     {
         skeletonAnimation = skeletonAnimationYoung;
-        
+
+        // Set idle and blink on their own tracks
         skeletonAnimation.AnimationState.SetAnimation(0, "blink", true);
-        
         skeletonAnimation.AnimationState.SetAnimation(1, "idlev2", true);
+
+        // Setup animation blends (mixing)
+        SetupMixes();
     }
+
+    private void SetupMixes()
+    {
+        var stateData = skeletonAnimation.AnimationState.Data;
+
+        stateData.SetMix("sleep", "wake-up", 1f);
+        stateData.SetMix("wake-up", "wake-up-jump", 0f);
+        stateData.SetMix("wake-up-jump", "idlev2", 0.2f);
+    }
+
+
+    public void PlayAnimation(string animationName,  int channel, bool loop = false, string fallbackAnimation = "idlev2",
+        bool force = false, Action onComplete = null)
+    {
+        print($"attempt to play {animationName}");
+        if (_lockIdleState) return;
+        print($"attempt to play {animationName}1");
+
+        if (string.IsNullOrEmpty(animationName)) return;
+        print($"attempt to play {animationName}2");
+
+
+        if (!force && currentActionAnimation == "jump-land" && animationName == "idlev2" && skeletonAnimation.AnimationState.GetCurrent(channel) != null)
+            return;
+        print($"attempt to play {animationName}3");
+
+        if (!force && currentActionAnimation == animationName)
+            return;      
+        
+        print($"trying to play {animationName}");
+
+        currentActionAnimation = animationName;
+
+        var entry = skeletonAnimation.AnimationState.SetAnimation(2, animationName, loop);
+
+        if (!loop)
+        {
+            entry.Complete += _ =>
+            {
+                currentActionAnimation = "";
+
+                if (animationName == "walljump-jump")
+                {
+                    skeletonAnimation.AnimationState.AddAnimation(channel, "walljump-air", true, 0f);
+                }
+                else if (!string.IsNullOrEmpty(fallbackAnimation))
+                {
+                    skeletonAnimation.AnimationState.AddAnimation(channel, fallbackAnimation, true, 0f);
+                }
+
+                onComplete?.Invoke();
+            };
+        }
+    }
+    
+    public void QueueAnimation(string animationName, int track = 2, bool loop = false, float delay = 0f, string fallbackAnimation = "idlev2", Action onComplete = null)
+    {
+        if (_lockIdleState || string.IsNullOrEmpty(animationName)) return;
+
+        var entry = skeletonAnimation.AnimationState.AddAnimation(track, animationName, loop, delay);
+
+        if (!loop)
+        {
+            entry.Complete += _ =>
+            {
+                currentActionAnimation = "";
+
+                if (!string.IsNullOrEmpty(fallbackAnimation))
+                {
+                    skeletonAnimation.AnimationState.AddAnimation(track, fallbackAnimation, true, 0f);
+                }
+
+                onComplete?.Invoke();
+            };
+        }
+    }
+
 
     public void PlayAnimation(string animationName, bool loop = false, string fallbackAnimation = "idlev2", bool force = false, Action onComplete = null)
     {

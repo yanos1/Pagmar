@@ -22,9 +22,11 @@ namespace NPC.BigFriend
         [SerializeField] private GameObject headCol;
         [SerializeField] private MMF_Player healFeedbacks;
         [SerializeField] private MMF_Player sleepingHealRequestFeedbacks;
+        [SerializeField] private MMF_Player landFeedbacks;
         [SerializeField] private EventReference approachSound;
         [SerializeField] private EventReference apearSound;
         [SerializeField] private EventReference ponderingSound;
+        [SerializeField] private EventReference requestHealSound;
 
         public void ShowQuestionMarkForSeconds(float duration = 3f)
         {
@@ -110,6 +112,7 @@ namespace NPC.BigFriend
 
         public void ShowSleepHeallRequest()
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(requestHealSound, transform.position);
             sleepingHealRequestFeedbacks?.PlayFeedbacks();
         }
 
@@ -118,6 +121,11 @@ namespace NPC.BigFriend
             print("playing Approach sound");
 
             CoreManager.Instance.AudioManager.PlayOneShot(approachSound, transform.position + Vector3Int.right*8);
+        }
+
+        public void PlayLandFeedbacks()
+        {
+            landFeedbacks?.PlayFeedbacks();
         }
     }
 }

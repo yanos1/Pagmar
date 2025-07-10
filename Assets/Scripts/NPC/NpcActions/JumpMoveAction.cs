@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Managers;
+using MoreMountains.Feedbacks;
+using NPC.BigFriend;
 using UnityEngine;
 
 namespace NPC.NpcActions
 {
-
     [Serializable]
     public class JumpMoveAction : MoveAction
     {
@@ -21,6 +22,7 @@ namespace NPC.NpcActions
             this.jumpPower = jumpPower;
             this.numJumps = numJumps;
         }
+
         public JumpMoveAction(float jumpPower, Vector3 targetPosition, float duration, int numJumps = 1)
         {
             this.jumpPower = jumpPower;
@@ -48,12 +50,10 @@ namespace NPC.NpcActions
         {
             Debug.Log("[PerformMovement] Starting movement.");
 
-            // 1. Play Jump animation
             string jumpAnim = _spine.GetAnimName(BigSpine.SpineAnim.Jump);
             Debug.Log($"[PerformMovement] Playing Jump animation: {jumpAnim}");
             _spine.PlayAnimation(jumpAnim, loop: false, fallbackAnimation: null, force: true);
 
-            // 2. Start jump tween immediately
             Vector3 targetWorldPosition = npc.transform.position + targetPosition;
             Debug.Log($"[PerformMovement] Starting DOJump to: {targetWorldPosition}, Power: {jumpPower}, NumJumps: {numJumps}, Duration: {duration}");
 
@@ -61,70 +61,41 @@ namespace NPC.NpcActions
                 .SetEase(easeType)
                 .OnStart(() =>
                 {
-                    // 3. Wait a short moment, then switch to JumpAir while in motion
-                    CoreManager.Instance.Runner.StartCoroutine(SwitchToJumpAirAfterDelay(0.5f)); // adjust delay as needed
+                    CoreManager.Instance.Runner.StartCoroutine(SwitchAnimationsOverTime());
                 })
                 .OnComplete(() =>
                 {
-                    // 4. On landing
-                    string landAnim = _spine.GetAnimName(BigSpine.SpineAnim.JumpLand);
-                    string fallbackAnim = _spine.GetAnimName(BigSpine.SpineAnim.Walk);
-
-                    Debug.Log($"[PerformMovement] DOJump complete. Playing JumpLand animation: {landAnim} with fallback: {fallbackAnim}");
-
-                    _spine.PlayAnimation(
-                        landAnim,
-                        loop: false,
-                        fallbackAnimation: fallbackAnim,
-                        force: true,
-                        onComplete: () =>
-                        {
-                            isCompleted = true;
-                            Debug.Log("[PerformMovement] Movement completed.");
-                        });
-
+                    // Ensures cleanup if needed
+                    npc.GetComponent<BigActions>().PlayLandFeedbacks();
+                    isCompleted = true;
+                    Debug.Log("[PerformMovement] DOJump complete. Movement completed.");
                 });
         }
 
-        private IEnumerator SwitchToJumpAirAfterDelay(float delay)
+        private IEnumerator SwitchAnimationsOverTime()
         {
-            yield return new WaitForSeconds(delay);
+            float t1 = duration * 0.33f;
+            float t2 = duration * 0.6f;
 
+            yield return new WaitForSeconds(t1);
             string jumpAirAnim = _spine.GetAnimName(BigSpine.SpineAnim.JumpAir);
-            Debug.Log($"[PerformMovement] Switching to JumpAir animation: {jumpAirAnim}");
+            Debug.Log($"[Jump] Switching to JumpAir animation at {t1}s: {jumpAirAnim}");
+            _spine.PlayAnimation(jumpAirAnim, loop: true, fallbackAnimation: null, force: true);
+
+            yield return new WaitForSeconds(t2 - t1);
+            string landAnim = _spine.GetAnimName(BigSpine.SpineAnim.JumpLand);
+            string fallbackAnim = _spine.GetAnimName(BigSpine.SpineAnim.Walk);
+            Debug.Log($"[Jump] Switching to JumpLand animation at {t2}s: {landAnim}");
 
             _spine.PlayAnimation(
-                jumpAirAnim,
-                loop: true,
-                fallbackAnimation: null,
-                force: true
-            );
-        }
-
-
-
-
-
-        private IEnumerator WaitForGround(Npc npc, Rigidbody2D rb)
-        {
-            int groundLayer = LayerMask.GetMask("Ground");
-
-            while (true)
-            {
-                // Raycast down to check if touching ground
-                RaycastHit2D hit = Physics2D.Raycast(npc.transform.position, Vector2.down, 0.1f, groundLayer);
-
-                if (hit.collider != null)
+                landAnim,
+                loop: false,
+                fallbackAnimation: fallbackAnim,
+                force: true,
+                onComplete: () =>
                 {
-                    // Hit the ground
-
-                    rb.bodyType = RigidbodyType2D.Kinematic; // Optional: Stop physics after landing
-                    yield break;
-                }
-
-                yield return null; // Wait a frame
-            }
-        
+                    Debug.Log("[PerformMovement] JumpLand animation completed.");
+                });
         }
 
         public override void UpdateAction(Npc npc)
@@ -132,5 +103,4 @@ namespace NPC.NpcActions
             return;
         }
     }
-
 }

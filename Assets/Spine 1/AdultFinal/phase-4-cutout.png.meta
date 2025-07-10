@@ -1,0 +1,975 @@
+fileFormatVersion: 2
+guid: 1716ea1f4688546f1b41bd64200933f5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3293701918852833524
+    second: phase-4-cutout_0
+  - first:
+      213: -7938818939191734919
+    second: phase-4-cutout_1
+  - first:
+      213: -1519743720997451292
+    second: phase-4-cutout_2
+  - first:
+      213: -1284897484410072583
+    second: phase-4-cutout_3
+  - first:
+      213: -9099722656806348966
+    second: phase-4-cutout_4
+  - first:
+      213: -1011373305196036539
+    second: phase-4-cutout_5
+  - first:
+      213: 2220227468289167854
+    second: phase-4-cutout_6
+  - first:
+      213: -3600149499710006502
+    second: phase-4-cutout_7
+  - first:
+      213: 2407385284749313947
+    second: phase-4-cutout_8
+  - first:
+      213: -7879171780492351605
+    second: phase-4-cutout_9
+  - first:
+      213: 6242891144165814667
+    second: phase-4-cutout_10
+  - first:
+      213: 6967520700529136220
+    second: phase-4-cutout_11
+  - first:
+      213: -8511640953322623615
+    second: phase-4-cutout_12
+  - first:
+      213: 1169415316788317736
+    second: phase-4-cutout_13
+  - first:
+      213: 156053733870180730
+    second: phase-4-cutout_14
+  - first:
+      213: 5672934775103765485
+    second: phase-4-cutout_15
+  - first:
+      213: 1752031265395630954
+    second: phase-4-cutout_16
+  - first:
+      213: -995005977321792191
+    second: phase-4-cutout_17
+  - first:
+      213: 7059837151215848250
+    second: phase-4-cutout_18
+  - first:
+      213: -5818208604427685992
+    second: phase-4-cutout_19
+  - first:
+      213: 4232482925590657176
+    second: phase-4-cutout_20
+  - first:
+      213: 7823586289604588489
+    second: phase-4-cutout_21
+  - first:
+      213: 8952210525363828611
+    second: phase-4-cutout_22
+  - first:
+      213: -1150473546508962030
+    second: phase-4-cutout_23
+  - first:
+      213: -9013520135916484391
+    second: phase-4-cutout_24
+  - first:
+      213: 7485847804149070162
+    second: phase-4-cutout_25
+  - first:
+      213: -1835914202269159698
+    second: phase-4-cutout_26
+  - first:
+      213: 2422476651568058221
+    second: phase-4-cutout_27
+  - first:
+      213: 5878489525063928381
+    second: phase-4-cutout_28
+  - first:
+      213: -4930340845925809079
+    second: phase-4-cutout_29
+  - first:
+      213: 8210428141401550926
+    second: phase-4-cutout_30
+  - first:
+      213: -4622785771189836089
+    second: phase-4-cutout_31
+  - first:
+      213: -9113039365245411138
+    second: phase-4-cutout_32
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 0
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: phase-4-cutout_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 412
+        width: 172
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f0ee35c17495bd20800000000000000
+      internalID: 3293701918852833524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_1
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 413
+        width: 65
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97d45598c36a3d190800000000000000
+      internalID: -7938818939191734919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_2
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 412
+        width: 65
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e901504329c8eae0800000000000000
+      internalID: -1519743720997451292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_3
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 410
+        width: 102
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f1d1fcab802b2ee0800000000000000
+      internalID: -1284897484410072583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_4
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 411
+        width: 172
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a57db7eb47a47b180800000000000000
+      internalID: -9099722656806348966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_5
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 397
+        width: 149
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54e3a706651e6f1f0800000000000000
+      internalID: -1011373305196036539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_6
+      rect:
+        serializedVersion: 2
+        x: 732
+        y: 396
+        width: 82
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee1d0ff7e15dfce10800000000000000
+      internalID: 2220227468289167854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_7
+      rect:
+        serializedVersion: 2
+        x: 814
+        y: 372
+        width: 369
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1b1c7bba13b90ec0800000000000000
+      internalID: -3600149499710006502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_8
+      rect:
+        serializedVersion: 2
+        x: 1191
+        y: 491
+        width: 30
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b974cfe5920c86120800000000000000
+      internalID: 2407385284749313947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_9
+      rect:
+        serializedVersion: 2
+        x: 1226
+        y: 307
+        width: 302
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b87a873e20f87a290800000000000000
+      internalID: -7879171780492351605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_10
+      rect:
+        serializedVersion: 2
+        x: 1529
+        y: 398
+        width: 102
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b817f6b5b6433a650800000000000000
+      internalID: 6242891144165814667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_11
+      rect:
+        serializedVersion: 2
+        x: 1632
+        y: 397
+        width: 72
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c525830692b91b060800000000000000
+      internalID: 6967520700529136220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_12
+      rect:
+        serializedVersion: 2
+        x: 1705
+        y: 421
+        width: 36
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18da98946a390e980800000000000000
+      internalID: -8511640953322623615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_13
+      rect:
+        serializedVersion: 2
+        x: 1743
+        y: 421
+        width: 72
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82e8118e8099a3010800000000000000
+      internalID: 1169415316788317736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_14
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2
+        width: 260
+        height: 409
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a79943d4b0a6a2200800000000000000
+      internalID: 156053733870180730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_15
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 1
+        width: 260
+        height: 409
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: deb35081f105abe40800000000000000
+      internalID: 5672934775103765485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_16
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 2
+        width: 283
+        height: 393
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a63e8493727705810800000000000000
+      internalID: 1752031265395630954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_17
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 2
+        width: 145
+        height: 369
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14d185cd5570132f0800000000000000
+      internalID: -995005977321792191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_18
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 313
+        width: 161
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3b83520c7499f160800000000000000
+      internalID: 7059837151215848250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_19
+      rect:
+        serializedVersion: 2
+        x: 1119
+        y: 313
+        width: 26
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89f67f7b912914fa0800000000000000
+      internalID: -5818208604427685992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_20
+      rect:
+        serializedVersion: 2
+        x: 1183
+        y: 320
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 898bcb1dbccccba30800000000000000
+      internalID: 4232482925590657176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_21
+      rect:
+        serializedVersion: 2
+        x: 1529
+        y: 304
+        width: 104
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c37f7d7746f29c60800000000000000
+      internalID: 7823586289604588489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_22
+      rect:
+        serializedVersion: 2
+        x: 1635
+        y: 344
+        width: 39
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 387f2deba04ac3c70800000000000000
+      internalID: 8952210525363828611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_23
+      rect:
+        serializedVersion: 2
+        x: 1687
+        y: 339
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21779d8a762b800f0800000000000000
+      internalID: -1150473546508962030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_24
+      rect:
+        serializedVersion: 2
+        x: 1727
+        y: 339
+        width: 88
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d80eda213b89e280800000000000000
+      internalID: -9013520135916484391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_25
+      rect:
+        serializedVersion: 2
+        x: 1147
+        y: 313
+        width: 32
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25971f88ae213e760800000000000000
+      internalID: 7485847804149070162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_26
+      rect:
+        serializedVersion: 2
+        x: 1640
+        y: 168
+        width: 169
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eeee6a792c58586e0800000000000000
+      internalID: -1835914202269159698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_27
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 2
+        width: 268
+        height: 309
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6f44650ead5e9120800000000000000
+      internalID: 2422476651568058221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_28
+      rect:
+        serializedVersion: 2
+        x: 1226
+        y: 2
+        width: 244
+        height: 304
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3a4a45d317949150800000000000000
+      internalID: 5878489525063928381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_29
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 258
+        width: 161
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9444ef86f19e39bb0800000000000000
+      internalID: -4930340845925809079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_30
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 2
+        width: 166
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e403c16d4ec41f170800000000000000
+      internalID: 8210428141401550926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_31
+      rect:
+        serializedVersion: 2
+        x: 1640
+        y: 85
+        width: 172
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c6ef7b65d098dfb0800000000000000
+      internalID: -4622785771189836089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase-4-cutout_32
+      rect:
+        serializedVersion: 2
+        x: 1640
+        y: 2
+        width: 172
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb06562fafaf78180800000000000000
+      internalID: -9113039365245411138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      phase-4-cutout_0: 3293701918852833524
+      phase-4-cutout_1: -7938818939191734919
+      phase-4-cutout_10: 6242891144165814667
+      phase-4-cutout_11: 6967520700529136220
+      phase-4-cutout_12: -8511640953322623615
+      phase-4-cutout_13: 1169415316788317736
+      phase-4-cutout_14: 156053733870180730
+      phase-4-cutout_15: 5672934775103765485
+      phase-4-cutout_16: 1752031265395630954
+      phase-4-cutout_17: -995005977321792191
+      phase-4-cutout_18: 7059837151215848250
+      phase-4-cutout_19: -5818208604427685992
+      phase-4-cutout_2: -1519743720997451292
+      phase-4-cutout_20: 4232482925590657176
+      phase-4-cutout_21: 7823586289604588489
+      phase-4-cutout_22: 8952210525363828611
+      phase-4-cutout_23: -1150473546508962030
+      phase-4-cutout_24: -9013520135916484391
+      phase-4-cutout_25: 7485847804149070162
+      phase-4-cutout_26: -1835914202269159698
+      phase-4-cutout_27: 2422476651568058221
+      phase-4-cutout_28: 5878489525063928381
+      phase-4-cutout_29: -4930340845925809079
+      phase-4-cutout_3: -1284897484410072583
+      phase-4-cutout_30: 8210428141401550926
+      phase-4-cutout_31: -4622785771189836089
+      phase-4-cutout_32: -9113039365245411138
+      phase-4-cutout_4: -9099722656806348966
+      phase-4-cutout_5: -1011373305196036539
+      phase-4-cutout_6: 2220227468289167854
+      phase-4-cutout_7: -3600149499710006502
+      phase-4-cutout_8: 2407385284749313947
+      phase-4-cutout_9: -7879171780492351605
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

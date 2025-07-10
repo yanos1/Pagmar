@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
 using Enemies;
-using FMODUnity;
 using Interfaces;
 using Managers;
 using NPC.NpcActions;
-using Player;
 using SpongeScene;
-using Terrain;
-using Terrain.Environment;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace NPC
 {
@@ -241,7 +234,7 @@ namespace NPC
         public void Heal()
         {
             CoreManager.Instance.EventManager.InvokeEvent(EventNames.BigPickUpHeal, null);
-            // add effect here
+            spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Heal));
         }
 
         public void SetState(NpcState newState)

@@ -31,6 +31,7 @@ namespace NPC.BigFriend
         public void ShowQuestionMarkForSeconds(float duration = 3f)
         {
             CoreManager.Instance.AudioManager.PlayOneShot(ponderingSound, transform.position + Vector3Int.right*8);
+            bigSpine.PlayAnimation(bigSpine.GetAnimName(BigSpine.SpineAnim.HeadTilt));
             questionMark.SetActive(true);
             
             Sequence seq = DOTween.Sequence();
@@ -56,7 +57,8 @@ namespace NPC.BigFriend
         public void ShowHealRequest()
         {
             // enter animation of tired.
-            healText.SetActive(true);
+            bigSpine.PlayAnimation(bigSpine.GetAnimName(BigSpine.SpineAnim.Tired), loop: true);
+            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(2, () => healText.SetActive(true)));
         }
         
         public void RemoveHealRequest()
@@ -83,12 +85,6 @@ namespace NPC.BigFriend
             print("call do smile");
             bigSpine.DoSmile(seconds);
         }
-
-        public void DoPonderAnim()
-        {
-         // bigSpine.PlayAnimation(bigSpine.GetAnimName(BigSpine.SpineAnim.LookDownBack));   
-        }
-
         public void EnableHeadCollider()
         {
             headCol.SetActive(true);

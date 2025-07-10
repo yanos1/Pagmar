@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Enemies;
 using MoreMountains.Feedbacks;
 using Spine.Unity;
+using SpongeScene;
 
 namespace Player
 {
@@ -33,7 +34,6 @@ namespace Player
         private MMF_Player currentlyPlayingShake;
 
 
-
         private Rigidbody2D _rb;
         private bool isDead = false;
         private bool isKnockbacked = false;
@@ -45,11 +45,12 @@ namespace Player
         private const float comboTimeWindow = 0.5f;
 
         private bool isGodMode = false;
+         private int healsPickedUp;
         public bool InputEnabled => inputEnabled;
         public bool IsMoving => Mathf.Abs(_rb.linearVelocity.x) > 0.2;
 
         public bool IsGodMode => isGodMode;
-        
+
 
         public void DisableInput()
         {
@@ -75,7 +76,7 @@ namespace Player
             isGodMode = false;
             light.SetActive(false);
         }
-        
+
         public void StopAndDisableMovement(object o)
         {
             DisableInput();
@@ -113,6 +114,8 @@ namespace Player
             CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, OnEnterCutScene);
             CoreManager.Instance.EventManager.AddListener(EventNames.EndCutScene, EnableInputExternally);
             CoreManager.Instance.EventManager.AddListener(EventNames.PlayerMeetSmall, StopAndDisableMovement);
+            CoreManager.Instance.EventManager.AddListener(EventNames.BigDoingSomethingNice, OnBigDoingSomethingNice);
+            CoreManager.Instance.EventManager.AddListener(EventNames.BigPickUpHeal, OnBigPickUpHeal);
         }
 
         private void OnDisable()
@@ -120,6 +123,38 @@ namespace Player
             CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, OnEnterCutScene);
             CoreManager.Instance.EventManager.RemoveListener(EventNames.EndCutScene, EnableInputExternally);
             CoreManager.Instance.EventManager.RemoveListener(EventNames.PlayerMeetSmall, StopAndDisableMovement);
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.BigDoingSomethingNice, OnBigDoingSomethingNice);
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.BigPickUpHeal, OnBigPickUpHeal);
+
+        }
+
+        private void OnBigPickUpHeal(object obj)
+        {
+            if(++healsPickedUp < 2) return;
+            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.5f, () =>
+            {
+                spineControl.PlayAnimation("look-up-smile",
+                    3, loop: false, fallbackAnimation: "idlev2", force: true, onComplete: () =>
+                    {
+                        spineControl.ClearActionAnimation(3);
+                    });
+            }));        }
+
+        private void OnBigDoingSomethingNice(object obj)
+        {
+            print("player smiles!");
+            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(1.8f, () =>
+            {
+                var rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
+                transform.rotation = Quaternion.Euler(rotator);           
+                DisableInput();
+                spineControl.PlayAnimation("look-up-smile",
+                    3, loop: false, fallbackAnimation: "idlev2", force: true, onComplete: () =>
+                    {
+                        spineControl.ClearActionAnimation(3);
+                        EnableInput();
+                    });
+            }));
         }
 
         public void EnableInputExternally(object o)
@@ -137,6 +172,7 @@ namespace Player
                 }
             }
         }
+
         public void UnlockAnimations()
         {
             spineControl.SetIdleLock(false);
@@ -221,7 +257,6 @@ namespace Player
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-
             if (other.gameObject.GetComponent<IKillPlayer>() is { } killPlayer && killPlayer.IsDeadly())
             {
                 Die();
@@ -348,6 +383,7 @@ namespace Player
             {
                 _damageHandler.AddDamage(2);
             }
+
             InjuryFeedbacks.Instance.UpdateVisualFeedback(true);
 
             spineControl.PlayAnimationOnBaseTrack("hit", false);
@@ -366,7 +402,6 @@ namespace Player
             }
 
             lastRammedTime = currentTime;
-
         }
 
         public override void OnTie(float fromForce)
@@ -394,11 +429,11 @@ namespace Player
 
             var curLife = _damageHandler.currentIndex;
 
-            if (curLife >=5 )
+            if (curLife >= 5)
             {
                 currentlyPlayingShake = LowCameraShakeFeedBack;
             }
-            else if (curLife >=3)
+            else if (curLife >= 3)
             {
                 currentlyPlayingShake = MediumCameraShakeFeedBack;
             }
@@ -433,22 +468,25 @@ namespace Player
 
         public override void ApplyKnockback(Vector2 direction, float force)
         {
-            if (ramComboCount > 1 && !liftFeedbacks.IsPlaying && CoreManager.Instance.GameManager.InCutScene)  // this is horrilbe code. i just dont ahve time.
+            if (ramComboCount > 1 && !liftFeedbacks.IsPlaying &&
+                CoreManager.Instance.GameManager.InCutScene) // this is horrilbe code. i just dont ahve time.
             {
                 liftFeedbacks?.PlayFeedbacks();
                 isKnockbacked = false;
                 return;
-            } else if (liftFeedbacks.IsPlaying)
+            }
+            else if (liftFeedbacks.IsPlaying)
             {
                 return;
             }
+
             isKnockbacked = true;
             if (inputEnabled)
             {
                 DisableInput();
                 StartCoroutine(ReturnInputAfterRammed());
             }
-       
+
 
             _rb.linearVelocity = Vector2.zero;
             _rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
@@ -462,7 +500,7 @@ namespace Player
                 PlayerStage.Young => 0f,
                 PlayerStage.Teen => 1f,
                 PlayerStage.Adult => 2f,
-                PlayerStage.FinalForm =>2f,
+                PlayerStage.FinalForm => 2f,
             };
         }
 
@@ -473,10 +511,10 @@ namespace Player
 
         public void Die(bool lockAnimationsAfterDeath = true)
         {
-            if(isDead) return;
+            if (isDead) return;
             isDead = true;
             isKnockbacked = false;
-            if(lockAnimationsAfterDeath) LockAnimations();
+            if (lockAnimationsAfterDeath) LockAnimations();
             CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
         }
 
@@ -486,7 +524,7 @@ namespace Player
             _playerMovement.StopAllMovement(null);
         }
 
-    public void GetMounted()
+        public void GetMounted()
         {
             _rb.bodyType = RigidbodyType2D.Kinematic;
             // turn right
@@ -512,12 +550,14 @@ namespace Player
 
         public void DisableInputForDuration(float seconds)
         {
-            StartCoroutine(DisableInputForDurationCoroutine( seconds));
+            StartCoroutine(DisableInputForDurationCoroutine(seconds));
         }
 
         private IEnumerator DisableInputForDurationCoroutine(float seconds)
         {
-            yield return new WaitUntil(() => isDead == false); //reset maanger will give input back after player died, we wait and then disable it for 4 seconds
+            yield return
+                new WaitUntil(() =>
+                    isDead == false); //reset maanger will give input back after player died, we wait and then disable it for 4 seconds
             DisableInput();
             yield return new WaitForSeconds(seconds);
             EnableInput();

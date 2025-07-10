@@ -50,13 +50,12 @@ namespace NPC.NpcActions
                     lastTimePlayerMoved = Time.time;
                 }
 
-                if (Time.time - lastTimePlayerMoved > 3.5f) // player hasnt moved for 3.5 seconds, ponder
+                if (Time.time - lastTimePlayerMoved > 5f) // player hasnt moved for 3.5 seconds, ponder
                 {
                     npc.TurnAround(CoreManager.Instance.Player.transform.position - npc.transform.position);
                     Debug.Log("try to turn on question mark");
                     stepSounds.StopStepSounds();
                     npc.GetComponent<BigActions>()?.ShowQuestionMarkForSeconds();
-                    npc.GetComponent<BigActions>()?.DoPonderAnim();
                     lastTimePlayerMoved = Time.time; // just so it doesnt call itself endlessly.
                     CoreManager.Instance.Runner.StartCoroutine(TurnWhenPlayerMoves(npc));
 

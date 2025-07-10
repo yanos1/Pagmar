@@ -96,7 +96,8 @@ public class SpineControl : MonoBehaviour
 
     public void PlayAnimation(string animationName, bool loop = false, string fallbackAnimation = "idlev2", bool force = false, Action onComplete = null)
     {
-        if (_lockIdleState) return;
+        
+        if (animationName != "scared" && _lockIdleState) return; // this is bad code just have no time...
         // print($"attempt to play {animationName}1");
 
         if (string.IsNullOrEmpty(animationName)) return;

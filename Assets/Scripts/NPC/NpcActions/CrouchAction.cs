@@ -1,4 +1,5 @@
 ﻿using System;
+using Managers;
 
 namespace NPC.NpcActions
 {
@@ -10,6 +11,7 @@ namespace NPC.NpcActions
         {
             base.StartAction(npc);
             npc.SetState(NpcState.Crouching);
+            CoreManager.Instance.EventManager.InvokeEvent(EventNames.BigDoingSomethingNice, null);
             isCompleted = true;
         }
 

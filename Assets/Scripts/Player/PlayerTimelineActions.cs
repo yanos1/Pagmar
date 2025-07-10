@@ -12,6 +12,8 @@ namespace Player
         private PlayerMovement _playerMovement;
         private int currentRotation = 0;
         [SerializeField] private GlobalActions _globalActions;
+        private int bumpCount;
+        
 
         private void Start()
         {
@@ -22,6 +24,11 @@ namespace Player
         public void BumpUp()
         {
             if(_playerMovement.jumpIsPressed) return;
+            if (++bumpCount == 2 || bumpCount == 4)
+            {
+                print("be scared");
+                GetComponent<SpineControl>().PlayAnimation("scared", force:true);
+            }
             rb.AddForce(Vector2.up * force);
             force += forceAddition;
         }

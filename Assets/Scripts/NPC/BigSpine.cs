@@ -20,11 +20,15 @@ public class BigSpine : MonoBehaviour
     private const string _run = "run";
     private const string _smile = "smile";
     private const string _walk = "walk2";
+    private const string _headTilt = "headtilt";
+    private const string _tired = "tired";
+    private const string _heal = "heal";
+    private const string _sleeping = "sleeping";
 
     public enum SpineAnim
     {
         Idle, Walk, Run, Jump, JumpAir, JumpLand, Crouch, Dash, Blink, GettingUp, LookDownBack, Smile,
-        Sleeping
+        Sleeping, HeadTilt, Tired, Heal
     }
 
     public string GetAnimName(SpineAnim anim)
@@ -43,6 +47,10 @@ public class BigSpine : MonoBehaviour
             SpineAnim.GettingUp => _gettingUp,
             SpineAnim.LookDownBack => _lookDownBack,
             SpineAnim.Smile => _smile,
+            SpineAnim.HeadTilt => _headTilt,
+            SpineAnim.Tired => _tired,
+            SpineAnim.Heal => _heal,
+            SpineAnim.Sleeping => _sleeping,
             _ => _idle
         };
     }

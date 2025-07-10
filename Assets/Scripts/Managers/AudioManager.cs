@@ -65,7 +65,7 @@ namespace Managers
         private void OnChangeMusic(object obj)
         {
             currentMusic.getPlaybackState(out PLAYBACK_STATE state);
-
+            print("try to stop music");
             if (state == PLAYBACK_STATE.PLAYING)
             {
                 print("stop music !");
@@ -166,12 +166,18 @@ namespace Managers
 
             return instance;
         }
-
         
         public void SetGlobalParameter(string parameter, float value)
         {
+            print($"set global parameter {parameter}");
             RuntimeManager.StudioSystem.setParameterByName(parameter, value);
 
+        }
+        
+        public void SetMusicLocalParameter(string parameter, float value)
+        {
+            print($"Set local parameter '{parameter}' to {value}");
+            currentMusic.setParameterByName(parameter, value);
         }
     }
 

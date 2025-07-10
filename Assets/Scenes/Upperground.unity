@@ -11898,7 +11898,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 16.43
+      value: 18.38
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalScale.y
@@ -11906,7 +11906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.4702635
+      value: 7.49
       objectReference: {fileID: 0}
     - target: {fileID: 3483109121732776478, guid: f8989fb1622fdd946886b0de0a5cd8a1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -15919,7 +15919,7 @@ Transform:
   m_GameObject: {fileID: 355778679}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -32.258854, y: -3.6147337, z: -17}
+  m_LocalPosition: {x: -32.106956, y: -3.1590362, z: -17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -30498,6 +30498,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 132289031360698083, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: _animationName
+      value: idlev2
+      objectReference: {fileID: 0}
+    - target: {fileID: 132289031360698083, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: initialSkinName
       value: main-creat-nodots
       objectReference: {fileID: 0}
@@ -30511,11 +30515,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4057480337948966328, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -77.26
+      value: -66.66
       objectReference: {fileID: 0}
     - target: {fileID: 4057480337948966328, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.61
+      value: -8.59
       objectReference: {fileID: 0}
     - target: {fileID: 4057480337948966328, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_LocalPosition.z
@@ -34713,7 +34717,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2493455076438759907, guid: ca6751e52459ca7479027c3b0bcd950e, type: 3}
       propertyPath: managedReferences[2208691682680242290].delayAfterAction
-      value: 2.2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2493455076438759907, guid: ca6751e52459ca7479027c3b0bcd950e, type: 3}
       propertyPath: managedReferences[2208691728210198620].delayAfterAction
@@ -34861,7 +34865,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2493455076438759907, guid: ca6751e52459ca7479027c3b0bcd950e, type: 3}
       propertyPath: managedReferences[2208691682680242290].beforeActionCallBack.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2493455076438759907, guid: ca6751e52459ca7479027c3b0bcd950e, type: 3}
       propertyPath: managedReferences[2208691728210198620].beforeActionCallBack.m_PersistentCalls.m_Calls.Array.size
@@ -42865,7 +42869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1648803552949502452, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1648803552949502452, guid: 4730dc334752442b1b5fd582feab42c5, type: 3}
       propertyPath: m_TagString
@@ -44045,7 +44049,7 @@ Transform:
   m_GameObject: {fileID: 1313544746}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 255.25, y: 11.62, z: 0}
+  m_LocalPosition: {x: 254, y: 11.51, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -51772,20 +51776,21 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 10b4fa6851e16984db38f3e7c0eba051, type: 2}
     - {fileID: 11400000, guid: d423cf684690dec4bbe3735198c3becd, type: 2}
     - {fileID: 11400000, guid: de65f3ed67191e24bab610d055afb81b, type: 2}
+    - {fileID: 11400000, guid: a33ed5ee8c91e3f45a781bc7c5aa7205, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1431531963}
           m_TargetAssemblyTypeName: GlobalActions, Assembly-CSharp
           m_MethodName: EndCutScene
-          m_Mode: 1
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
@@ -51874,6 +51879,20 @@ MonoBehaviour:
         - m_Target: {fileID: 1431531963}
           m_TargetAssemblyTypeName: GlobalActions, Assembly-CSharp
           m_MethodName: EnterNightAmbience
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1431531963}
+          m_TargetAssemblyTypeName: GlobalActions, Assembly-CSharp
+          m_MethodName: StartForestMusic
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -73395,7 +73414,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1517781506}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}

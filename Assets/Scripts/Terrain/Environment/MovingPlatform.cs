@@ -94,6 +94,7 @@ namespace Terrain.Environment
             yield return new WaitForSeconds(secondsBeforeReturn);
             if (returnWhenDone)
             {
+                print("return platform");
                 yield return StartCoroutine(ReturnPlatform());
             }
         }
@@ -102,7 +103,6 @@ namespace Terrain.Environment
         {
             if (moveslightlyCor != null)
                 StopCoroutine(moveslightlyCor);
-            PlaySound();
             float fastDuration = moveDuration / 1.5f;
             Vector3 halfTarget = transform.position + targetOffset * 0.5f;
 
@@ -115,7 +115,6 @@ namespace Terrain.Environment
                 timer += Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate();
             }
-            StopSound();
             transform.position = halfTarget;
             isMoving = false;
         }
@@ -172,12 +171,12 @@ namespace Terrain.Environment
             if (player is not null)
             {
                 print("player hit platform");
-                if (CoreManager.Instance.Player.playerStage == PlayerStage.Adult && player.IsDashing)  // this is a stupid work around since onhit doesnt work and i dont know why.
+                if (CoreManager.Instance.Player.playerStage == PlayerStage.FinalForm && player.IsDashing)  // this is a stupid work around since onhit doesnt work and i dont know why.
                 {
+                    print("break");
                     OnBreak();
                     return;
                 }
-                // Attach player to platform
                 print($"p{player.GroundCheckPos.y +0.2f} e {col.bounds.max.y}");
                 if (player.transform.position.y +0.2f> col.bounds.max.y)
                 {
@@ -196,7 +195,7 @@ namespace Terrain.Environment
                     return;
                 }
 
-                if (isMoving) return;
+                if (isMoving || !player.IsDashing) return;
 
                 // Check dash direction
                 Vector3 dashDir = player.DashDirection;
@@ -314,21 +313,24 @@ namespace Terrain.Environment
             isMoving = false;
             transform.position = startPos;
             gameObject.SetActive(true);
+            col.enabled = true;
         }
 
         public void OnBreak()
         {
             StopSound();
+            col.enabled = false;
             e.explode();
             f.doExplosion(f.transform.position);
         }
 
         public void OnHit(Vector2 hitDir, PlayerStage stage)  // player stge is max since this aperas only in game end
         {
-            print("player hit!");
-            if (e is not null && f is not null)
+            print("player hit moving platform!");
+            if (stage == PlayerStage.FinalForm && e is not null && f is not null)
             {
-                print("break!");
+                col.enabled = false;
+                print(" moving platform break!");
                 OnBreak();
             }
         }

@@ -83,7 +83,7 @@ namespace Terrain.Environment
 
         public void OnHit(Vector2 hitDirection, PlayerStage stage)
         {
-            if (stage == PlayerStage.Adult)
+            if (stage == PlayerStage.FinalForm)
             {
                 OnBreak();
             }

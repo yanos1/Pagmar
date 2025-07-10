@@ -213,7 +213,7 @@ namespace NPC
             if (breakable is not null && state == NpcState.Charging)
             {
                 breakable.OnHit(other.transform.position - transform.position,
-                    PlayerStage.Adult); // Big is starting as adult
+                    PlayerStage.FinalForm); // Big is starting as adult
                 return;
             }
 

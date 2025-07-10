@@ -107,6 +107,7 @@ namespace Managers
                 {
                     PlayerStage.Teen => 0.7f,
                     PlayerStage.Adult => 0.3f,
+                    PlayerStage.FinalForm => 0.3f,
                     _ => 1f // default for Young or any other unexpected value
                 };
                 
@@ -114,11 +115,12 @@ namespace Managers
                 {   
                     PlayerStage.Teen => 0.5f,
                     PlayerStage.Adult => 0.35f,
+                    PlayerStage.FinalForm => 0.35f,
                     _ => 1f // default for Young or any other unexpected value
                 };
 
                 Vector2 winDir = (winner.transform.position - loser.transform.position).normalized;
-                if (player.playerStage != PlayerStage.Adult)
+                if (player.playerStage != PlayerStage.FinalForm)
                 {
                     winner.ApplyKnockback(new Vector2(winDir.x, yForce),  10);
                 }

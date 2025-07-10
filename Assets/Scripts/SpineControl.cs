@@ -9,6 +9,7 @@ public class SpineControl : MonoBehaviour
     [SerializeField] private SkeletonAnimation skeletonAnimationYoung;
     [SerializeField] private SkeletonAnimation skeletonAnimationTeen;
     [SerializeField] private SkeletonAnimation skeletonAnimationAdult;
+    [SerializeField] private SkeletonAnimation skeletonAnimationFinalForm;
     
     public SkeletonAnimation skeletonAnimation;
     private string currentActionAnimation = "";
@@ -24,43 +25,31 @@ public class SpineControl : MonoBehaviour
         skeletonAnimation.AnimationState.SetAnimation(0, "blink", true);
         skeletonAnimation.AnimationState.SetAnimation(1, "idlev2", true);
 
-        // Setup animation blends (mixing)
-        SetupMixes();
     }
 
-    private void SetupMixes()
-    {
-        var stateData = skeletonAnimation.AnimationState.Data;
-
-        stateData.SetMix("sleep", "wake-up", 1f);
-        stateData.SetMix("wake-up", "wake-up-jump", 0f);
-        stateData.SetMix("wake-up-jump", "idlev2", 0.2f);
-    }
-
-
-    public void PlayAnimation(string animationName,  int channel, bool loop = false, string fallbackAnimation = "idlev2",
+    public void PlayAnimation(string animationName,  int channel, bool loop = false, string fallbackAnimation = null,
         bool force = false, Action onComplete = null)
     {
-        print($"attempt to play {animationName}");
+        // print($"attempt to play {animationName}");
         if (_lockIdleState) return;
-        print($"attempt to play {animationName}1");
+        // print($"attempt to play {animationName}1");
 
         if (string.IsNullOrEmpty(animationName)) return;
-        print($"attempt to play {animationName}2");
+        // print($"attempt to play {animationName}2");
 
 
         if (!force && currentActionAnimation == "jump-land" && animationName == "idlev2" && skeletonAnimation.AnimationState.GetCurrent(channel) != null)
             return;
-        print($"attempt to play {animationName}3");
+        // print($"attempt to play {animationName}3");
 
         if (!force && currentActionAnimation == animationName)
             return;      
         
-        print($"trying to play {animationName}");
+        // print($"trying to play {animationName}");
 
         currentActionAnimation = animationName;
 
-        var entry = skeletonAnimation.AnimationState.SetAnimation(2, animationName, loop);
+        var entry = skeletonAnimation.AnimationState.SetAnimation(channel, animationName, loop);
 
         if (!loop)
         {
@@ -107,22 +96,21 @@ public class SpineControl : MonoBehaviour
 
     public void PlayAnimation(string animationName, bool loop = false, string fallbackAnimation = "idlev2", bool force = false, Action onComplete = null)
     {
-        print($"attempt to play {animationName}");
         if (_lockIdleState) return;
-        print($"attempt to play {animationName}1");
+        // print($"attempt to play {animationName}1");
 
         if (string.IsNullOrEmpty(animationName)) return;
-        print($"attempt to play {animationName}2");
+        // print($"attempt to play {animationName}2");
 
 
         if (!force && currentActionAnimation == "jump-land" && animationName == "idlev2" && skeletonAnimation.AnimationState.GetCurrent(2) != null)
             return;
-        print($"attempt to play {animationName}3");
+        // print($"attempt to play {animationName}3");
 
         if (!force && currentActionAnimation == animationName)
             return;      
         
-        print($"trying to play {animationName}");
+        // print($"trying to play {animationName}");
 
         currentActionAnimation = animationName;
 
@@ -173,10 +161,10 @@ public class SpineControl : MonoBehaviour
     }
 
 
-    public void ClearActionAnimation()
+    public void ClearActionAnimation(int track = 2)
     {
         currentActionAnimation = "";
-        skeletonAnimation.AnimationState.ClearTrack(2);
+        skeletonAnimation.AnimationState.ClearTrack(track);
     }
     
     public void changeSkelatonAnimation(PlayerStage playerStage)
@@ -198,12 +186,14 @@ public class SpineControl : MonoBehaviour
                 skeletonAnimationAdult.gameObject.SetActive(true);
                 skeletonAnimation = skeletonAnimationAdult;
                 break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(playerStage), playerStage, null);
+            case PlayerStage.FinalForm:
+                skeletonAnimationFinalForm.gameObject.SetActive(true);
+                skeletonAnimation = skeletonAnimationFinalForm;
+                break;
         }
         
         skeletonAnimation.AnimationState.SetAnimation(0, "blink", true);
-        skeletonAnimation.AnimationState.SetAnimation(1, "idlev2", true);
+        skeletonAnimation.AnimationState.SetAnimation(2, "idlev2", true);
     }
     public void SetIdleLock(bool value)
     {
@@ -214,7 +204,7 @@ public class SpineControl : MonoBehaviour
             skeletonAnimation.AnimationState.ClearTrack(2);
             currentActionAnimation = "";
             skeletonAnimation.AnimationState.SetAnimation(0, "blink", true);
-            skeletonAnimation.AnimationState.SetAnimation(1, "idlev2", true);
+            skeletonAnimation.AnimationState.SetAnimation(2, "idlev2", true);
         }
     }
 

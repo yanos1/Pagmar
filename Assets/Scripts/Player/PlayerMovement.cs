@@ -8,10 +8,13 @@ using Managers;
 using MoreMountains.Feedbacks;
 using Player;
 using ScripableObjects;
+using Spine;
+using Spine.Unity;
 using SpongeScene;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using AnimationState = UnityEngine.AnimationState;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -163,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
         if (isWallJumping)
         {
             wallJumpCounter -= Time.deltaTime;
-            if (wallJumpCounter <= 0) //&& _rb.linearVelocity.y > 0 ?? why was this in the if statement?
+            if (wallJumpCounter <= 0) 
             {
                 isWallJumping = false;
                 _rb.gravityScale = regularGravity;
@@ -176,9 +179,8 @@ public class PlayerMovement : MonoBehaviour
     public void Sleep()
     {
         _preventAnimOverride = true;
-
         // Set "sleep" animation on track 3 with looping
-        spineControl.PlayAnimation("sleep", 3, loop: true, force: true);
+        spineControl.PlayAnimation("sleep", 3, loop: true, force: true, fallbackAnimation: null);
     }
 
     public void WakeUp()
@@ -194,16 +196,33 @@ public class PlayerMovement : MonoBehaviour
             Gamepad.current?.buttonSouth.wasPressedThisFrame == true ||
             Gamepad.current?.leftStick.ReadValue().magnitude > 0.1f
         );
-
-        player.DisableInput(); // just in case
-
+        
+        
         // Crossfade from sleep to wake-up (track 3)
-        spineControl.PlayAnimation("wake-up", 3, loop: false, force: true, onComplete: () =>
+        spineControl.PlayAnimation("wake-up", 4, loop: false, force: true, fallbackAnimation:null, onComplete: () =>
         {
-            spineControl.QueueAnimation("wake-up-jump", 3, loop: false, fallbackAnimation: "idlev2", onComplete: () =>
+            spineControl.PlayAnimation("wake-up-jump", 4, loop: false, fallbackAnimation: null, onComplete: () =>
             {
+                // spineControl.ClearActionAnimation(4);
+                spineControl.ClearActionAnimation(3);
+
                 _preventAnimOverride = false;
                 player.EnableInput();
+              
+
+// Assuming you have a reference to your SkeletonAnimation
+                SkeletonAnimation skeletonAnimation = spineControl.skeletonAnimation;
+                Spine.AnimationState state = skeletonAnimation.AnimationState;
+
+                for (int i = 0; i < state.Tracks.Count; i++)
+                {
+                    TrackEntry entry = state.GetCurrent(i);
+                    if (entry != null)
+                    {
+                        Debug.Log($"Track {i}: {entry.Animation.Name} (Loop: {entry.Loop})");
+                    }
+                }
+
             });
         });
     }
@@ -291,7 +310,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.heavyLandSound, transform.position);
             }
-            else 
+            else if (timeFalling >0.25f)
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.landSound, transform.position);
             }
@@ -670,16 +689,18 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (!_isDashing && !_preventAnimOverride && !_playedStartJump)
         {
-            if (isCurrentlyGrounded && Mathf.Abs(_moveInputX) > 0.1f)
+            if (isCurrentlyGrounded && Mathf.Abs(_moveInputX) > 0.2f)
+            {
                 if (isWalkingScene)
                 {
-                    spineControl.PlayAnimation("walk2", true);
 
+                    spineControl.PlayAnimation("walkv2", true);
                 }
                 else
                 {
                     spineControl.PlayAnimation("run", true);
                 }
+            }
             else if (isCurrentlyGrounded)
                 spineControl.PlayAnimation("idlev2", true);
         }

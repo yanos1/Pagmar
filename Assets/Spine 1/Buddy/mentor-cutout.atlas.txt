@@ -44,6 +44,8 @@ bounds:1891,438,85,40
 rotate:90
 eyes-happy
 bounds:917,536,92,23
+eyes-tired
+bounds:1826,51,83,31
 foot-back
 bounds:326,16,103,52
 foot-front

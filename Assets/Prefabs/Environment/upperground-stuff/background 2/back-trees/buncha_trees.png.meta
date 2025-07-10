@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      buncha_trees_0: -3935582776963342536
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

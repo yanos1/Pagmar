@@ -31533,6 +31533,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 132289031360698083, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: _animationName
+      value: sleep
+      objectReference: {fileID: 0}
+    - target: {fileID: 132289031360698083, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: initialSkinName
       value: main-creat-nodots
       objectReference: {fileID: 0}
@@ -31626,11 +31630,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4057480337948966328, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -97.24
+      value: -97.48
       objectReference: {fileID: 0}
     - target: {fileID: 4057480337948966328, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -17.37
+      value: -17.17
       objectReference: {fileID: 0}
     - target: {fileID: 4057480337948966328, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_LocalPosition.z
@@ -31678,7 +31682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5662022951266685875, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: isWalkingScene
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5662022951266685875, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: _cameraFollowObject

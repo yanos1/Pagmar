@@ -242,16 +242,16 @@ namespace Player
             {
                 Vector2 directionToPlayer = (transform.position - rammer.transform.position).normalized;
                 float dot = Mathf.Abs(Vector2.Dot(directionToPlayer, Vector2.right));
-                print($"hit rammer with dot : {dot}");
                 if (rammer.GetComponent<ChargingEnemy>() is not null && dot > 0.75f) // horizontal impact check
                 {
+                    print("resolve ram");
                     RammerManager.Instance.ResolveRam(this, rammer);
                 }
 
                 else if (rammer.GetComponent<ChasingEnemy>() is not null && isDead == false)
                 {
                     print("player died");
-                    Die();
+                    Die(false);
                     // RammerManager.Instance.ResolveRam(this, rammer);
                 }
 
@@ -320,6 +320,7 @@ namespace Player
             {
                 PlayerStage.Teen => 0.25f,
                 PlayerStage.Adult => 0.17f,
+                PlayerStage.FinalForm => 0.17f,
                 _ => 0.5f
             };
         }
@@ -329,7 +330,7 @@ namespace Player
         {
             Debug.Log($"Player rammed with force against {againstForce}");
             // CurrentForce = Mathf.Max(0, CurrentForce - againstForce * 0.5f);
-            if (_playerStage != PlayerStage.Adult)
+            if (_playerStage != PlayerStage.FinalForm)
             {
                 ApplyKnockback(ramDirNegative, againstForce / 3); // we are ramming, take 1/3 of the knockback
                 InjuryFeedbacks.Instance.UpdateVisualFeedback();
@@ -339,7 +340,7 @@ namespace Player
         public override void OnRammed(float fromForce)
         {
             Debug.Log($"Player got rammed with force {fromForce}");
-            if (_playerStage == PlayerStage.Adult)
+            if (_playerStage == PlayerStage.FinalForm)
             {
                 _damageHandler.AddDamage(1);
             }
@@ -461,7 +462,7 @@ namespace Player
                 PlayerStage.Young => 0f,
                 PlayerStage.Teen => 1f,
                 PlayerStage.Adult => 2f,
-                _ => 0f
+                PlayerStage.FinalForm =>2f,
             };
         }
 
@@ -470,12 +471,12 @@ namespace Player
             CurrentForce = 0f;
         }
 
-        public void Die()
+        public void Die(bool lockAnimationsAfterDeath = true)
         {
             if(isDead) return;
             isDead = true;
             isKnockbacked = false;
-            LockAnimations();
+            if(lockAnimationsAfterDeath) LockAnimations();
             CoreManager.Instance.EventManager.InvokeEvent(EventNames.Die, null);
         }
 
@@ -506,7 +507,7 @@ namespace Player
 
         public void StopAllMovement()
         {
-            _rb.linearVelocity = Vector2.zero;
+            _playerMovement.StopAllMovement(null);
         }
 
         public void DisableInputForDuration(float seconds)
@@ -530,6 +531,11 @@ namespace Player
             EnableInput();
             isDead = false;
             isKnockbacked = false;
+            // if (_playerMovement.isWallSliding)
+            // {
+            //     print("force flip" );
+            //     _playerMovement.ForcePlayerFlip();
+            // }
         }
 
         private void ChangeToOriginalColor()
@@ -545,4 +551,5 @@ public enum PlayerStage
     Young = 0,
     Teen = 1,
     Adult = 2,
+    FinalForm = 3,
 }

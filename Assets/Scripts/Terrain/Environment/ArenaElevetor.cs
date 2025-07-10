@@ -2,6 +2,7 @@
 using UnityEngine;
 using Managers;
 using Player;
+using WaitForSeconds = UnityEngine.WaitForSeconds;
 
 namespace Terrain.Environment
 {
@@ -14,10 +15,11 @@ namespace Terrain.Environment
         {
             // base.OnCollisionEnter2D(c);
             if (c.gameObject.GetComponent<PlayerManager>() is { } playerManager)
-            {
+            {   
                 if (!isMoving && !triggered)
                 {
                     triggered = true;
+                    
                     StartCoroutine(DelayedMove(playerManager));
                 }
             }
@@ -25,14 +27,16 @@ namespace Terrain.Environment
 
         private IEnumerator DelayedMove(PlayerManager playerManager)
         {
-            yield return new WaitForSeconds(1.6f);
+            yield return new WaitForSeconds(1f);
+            playerManager.StopAllMovement();
+            playerManager.DisableInput();
+            yield return new WaitForSeconds(0.6f);
             MovePlatformAndTakeInput(playerManager);
         }
 
         public void MovePlatformAndTakeInput(PlayerManager playerManager)
         {
             playerManager.transform.position = center.position;
-            playerManager.StopAllMovement();
             MovePlatformExternally();
             CoreManager.Instance.EventManager.InvokeEvent(EventNames.EnterCutScene, null);
         }

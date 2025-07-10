@@ -149,7 +149,6 @@ namespace Managers
         {
             if (!sound.IsNull)
             {
-                print($"sound {sound.ToString()} is not null play it");
                 RuntimeManager.PlayOneShot(sound, worldPos);
             }
         }

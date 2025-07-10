@@ -50,16 +50,12 @@ namespace Managers
 
         public void ResolveRam(Rammer a, Rammer b)
         {
-            if (rammersHistory.GetValueOrDefault(a).Item1 == b)
-            {
-                return; // not enough time passed to do a second ram.
-            }
+         
 
-            rammersHistory[a] = (b, Time.time);
+        
             float forceA = a.CurrentForce;
             float forceB = b.CurrentForce;
-           
-            print($"{a.CurrentForce} {b.CurrentForce}");
+            print($"forces : ours: {a.CurrentForce} enemy: {b.CurrentForce}");
             
             Vector2 dirA = (a.transform.position - b.transform.position).normalized;
             if (forceA ==0 && forceB == 0 && a.IsCharging) 
@@ -68,6 +64,16 @@ namespace Managers
 
                 return;
             }
+            if (rammersHistory.GetValueOrDefault(a).Item1 == b)
+            {
+                print("return from ram no time");
+                return; // not enough time passed to do a second ram.
+            }
+            
+            rammersHistory[a] = (b, Time.time);
+         
+          
+            
             dirA = new Vector2(dirA.x, 0.5f);
             
             // If same force, both knockback
@@ -107,6 +113,7 @@ namespace Managers
                 {
                     PlayerStage.Teen => 0.7f,
                     PlayerStage.Adult => 0.3f,
+                    PlayerStage.FinalForm => 0.3f,
                     _ => 1f // default for Young or any other unexpected value
                 };
                 
@@ -114,22 +121,23 @@ namespace Managers
                 {   
                     PlayerStage.Teen => 0.5f,
                     PlayerStage.Adult => 0.35f,
+                    PlayerStage.FinalForm => 0.35f,
                     _ => 1f // default for Young or any other unexpected value
                 };
 
                 Vector2 winDir = (winner.transform.position - loser.transform.position).normalized;
-                if (player.playerStage != PlayerStage.Adult)
+                if (player.playerStage != PlayerStage.FinalForm)
                 {
                     winner.ApplyKnockback(new Vector2(winDir.x, yForce),  10);
                 }
                
                 print($"APPLY KNOICKBACK to {new Vector2(winDir.x, yForce)} with knockback {baseForce* knockbackForce} o0");
-                loser.ApplyKnockback(new Vector2(loseDir.x, 0.5f),(winnerForce-loserForce) *baseForce/2);
+                loser.ApplyKnockback(new Vector2(loseDir.x, 0.25f),(winnerForce-loserForce) *baseForce/2);
                 playerHitFeedback?.PlayFeedbacks();
                 return;
             }
             // Knockback loser
-            loser.ApplyKnockback(new Vector2(loseDir.x, 0.25f), baseForce);
+            loser.ApplyKnockback(new Vector2(loseDir.x, 0.4f), baseForce);
         }
     }
 

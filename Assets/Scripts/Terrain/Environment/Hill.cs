@@ -103,7 +103,7 @@ namespace Terrain.Environment
                 accumulatedForce += addedForce;
             }
 
-            if (playerStage == PlayerStage.Adult && ++currentHits == hitsToDestroy)
+            if (playerStage == PlayerStage.FinalForm && ++currentHits == hitsToDestroy)
             {
                 OnBreak();
             }

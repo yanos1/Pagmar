@@ -62,7 +62,7 @@ namespace Terrain.Environment
         {
             print($"hit dir is {hitDir}");
             CoreManager.Instance.AudioManager.PlayOneShot(treeHit, transform.position);
-            if (stage == PlayerStage.Adult && hitDir.x < 0) // we are to the right of the tree
+            if (stage == PlayerStage.FinalForm && hitDir.x < 0) // we are to the right of the tree
             {
                 OnBreak();
             }

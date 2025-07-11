@@ -52,8 +52,9 @@ namespace Terrain.Environment
 
         public void OnHit(Vector2 hitDir, PlayerStage stage)
         {
+            print("try to activate hinge");
             if (isFalling) return;
-
+            print("activate hinge!");
             rb.bodyType = RigidbodyType2D.Dynamic;
             hinge.enabled = true;
             _woodPlank.ActivateHinge();

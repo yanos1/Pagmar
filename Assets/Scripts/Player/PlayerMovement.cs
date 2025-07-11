@@ -600,7 +600,6 @@ public class PlayerMovement : MonoBehaviour, IResettable
     private bool IsHittingSomething(Vector2 dir)
     {
         dir.Normalize();
-        print($"dir is {dir}");
         // Check ceiling if moving diagonally upward (both x and y are significant)
         if (dir.y > 0.45f)
         {
@@ -631,18 +630,46 @@ public class PlayerMovement : MonoBehaviour, IResettable
         }
         else
         {
-            Collider2D groundHit = Physics2D.OverlapBox(groundCheckPosition.position, GroundCheckPos, 0f,
+            Collider2D[] groundHits = Physics2D.OverlapBoxAll(transform.position -Vector3.down*0.2f, wallCheckSize, 0f,
                 LayerMask.GetMask("Ground", "Default", "Enemy", "Environment", "WoodPlank"));
-            if (IsValidHit(groundHit))
+            
+            StartCoroutine(DrawOverlapBoxForSeconds(groundCheckPosition.position, wallCheckSize, Color.green, 3f));
+            foreach (var hit in groundHits)
             {
-                Debug.Log($"Hit ground with {groundHit.name}");
-                CheckForBreakable(groundHit, dir);
-                return true;
+                if (IsValidHit(hit))
+                {
+                    Debug.Log($"Hit ground with {hit.name}");
+                    CheckForBreakable(hit, dir);
+                    return true;
+                }
             }
+          
         }
      
 
         return false;
+    }
+
+    private IEnumerator DrawOverlapBoxForSeconds(Vector2 center, Vector2 size, Color color, float duration)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            Vector2 halfSize = size * 0.5f;
+
+            Vector2 topLeft = center + new Vector2(-halfSize.x, halfSize.y);
+            Vector2 topRight = center + new Vector2(halfSize.x, halfSize.y);
+            Vector2 bottomRight = center + new Vector2(halfSize.x, -halfSize.y);
+            Vector2 bottomLeft = center + new Vector2(-halfSize.x, -halfSize.y);
+
+            Debug.DrawLine(topLeft, topRight, color);
+            Debug.DrawLine(topRight, bottomRight, color);
+            Debug.DrawLine(bottomRight, bottomLeft, color);
+            Debug.DrawLine(bottomLeft, topLeft, color);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
     }
 
 

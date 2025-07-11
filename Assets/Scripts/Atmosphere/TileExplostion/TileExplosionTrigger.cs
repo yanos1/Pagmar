@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
@@ -19,7 +20,7 @@ namespace Atmosphere.TileExplostion
         [SerializeField] private ExplodableTile t;
         [SerializeField] private MMF_Player explosionFeedbacks;
         [SerializeField] private MMF_Player resetFeedbacks;
-
+        [SerializeField] private EventReference explosionSound;
         private Dictionary<Vector3Int, TileBase> removedTiles = new Dictionary<Vector3Int, TileBase>();
         private Collider2D col;
         private bool exploded;
@@ -75,6 +76,10 @@ namespace Atmosphere.TileExplostion
         {
             
             print("GROUIND EXPLODING!");
+            if (!explosionSound.IsNull)
+            {
+                CoreManager.Instance.AudioManager.PlayOneShot(explosionSound,transform.position);
+            }
             forceExplosionTriggered = true;
             // ExplodableTile t = CoreManager.Instance.PoolManager.GetFromPool<ExplodableTile>(PoolEnum.ExplodableTile);
             t.gameObject.SetActive(true);

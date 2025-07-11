@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using FMODUnity;
 using UnityEngine;
 using Managers;
 using Player;
@@ -9,6 +10,7 @@ namespace Terrain.Environment
     public class ArenaElevetor : MovingPlatform
     {
         [SerializeField] private Transform center;
+        [SerializeField] private EventReference ArenaMusic;
 
         private bool triggered = false;
         public override void OnCollisionEnter2D(Collision2D c)
@@ -38,6 +40,7 @@ namespace Terrain.Environment
         {
             playerManager.transform.position = center.position;
             MovePlatformExternally();
+            CoreManager.Instance.EventManager.InvokeEvent(EventNames.ChangeMusic, ArenaMusic);
             CoreManager.Instance.EventManager.InvokeEvent(EventNames.EnterCutScene, null);
         }
 

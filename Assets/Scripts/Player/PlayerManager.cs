@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Enemies;
 using MoreMountains.Feedbacks;
+using ScripableObjects;
 using Spine.Unity;
 using SpongeScene;
 
@@ -31,6 +32,7 @@ namespace Player
         [SerializeField] private MMF_Player HighCameraShakeFeedBack;
         [SerializeField] private DoSpineFlash doSpineFlash;
         [SerializeField] private GameObject light;
+        [SerializeField] private PlayerSounds sounds;
         private MMF_Player currentlyPlayingShake;
 
 
@@ -380,6 +382,8 @@ namespace Player
                 ApplyKnockback(ramDirNegative, againstForce / 3); // we are ramming, take 1/3 of the knockback
                 InjuryFeedbacks.Instance.UpdateVisualFeedback();
             }
+            CoreManager.Instance.AudioManager.PlayOneShot(sounds.attackSound, transform.position);
+
         }
 
         public override void OnRammed(float fromForce)
@@ -397,6 +401,7 @@ namespace Player
             InjuryFeedbacks.Instance.UpdateVisualFeedback(true);
 
             spineControl.PlayAnimationOnBaseTrack("hit", false);
+            CoreManager.Instance.AudioManager.PlayOneShot(sounds.damagedSound, transform.position);
             OnRammedFeedback();
 
             float currentTime = Time.time;
@@ -417,6 +422,7 @@ namespace Player
         public override void OnTie(float fromForce)
         {
             _damageHandler.AddDamage(1);
+            CoreManager.Instance.AudioManager.PlayOneShot(sounds.clashSound, transform.position);
             InjuryFeedbacks.Instance.UpdateVisualFeedback();
 
             spineControl.PlayAnimationOnBaseTrack("hit", false);
@@ -508,8 +514,8 @@ namespace Player
             CurrentForce = playerStage switch
             {
                 PlayerStage.Young => 0f,
-                PlayerStage.Teen => 1f,
-                PlayerStage.Adult => 2f,
+                PlayerStage.Teen => 0f,
+                PlayerStage.Adult => 1f,
                 PlayerStage.FinalForm => 2f,
             };
         }

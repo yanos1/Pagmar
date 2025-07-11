@@ -1,5 +1,6 @@
 ﻿using FMODUnity;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ScripableObjects
 {
@@ -13,9 +14,11 @@ namespace ScripableObjects
         public EventReference heavyLandSound;
         public EventReference dashSound;
         public EventReference wallJumpSound;
-        public EventReference damageSound;
+        public EventReference damagedSound;
         public EventReference deathSound;
         public EventReference attackSound;
+        public EventReference clashSound;
+
     }
 
 }

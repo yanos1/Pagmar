@@ -17,6 +17,7 @@ namespace Terrain.Environment
         [SerializeField] private float baseForce = 300f;
         [SerializeField] private float addedForce = 50;
         [SerializeField] private MMF_Player hitFeedbacks;
+        [SerializeField] private MMF_Player breakFeedbacks;
         [SerializeField] private Vector2 dir = Vector2.up;
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
@@ -24,6 +25,7 @@ namespace Terrain.Environment
         [SerializeField] private LayerMask objectOnTopLayer;
         [SerializeField] private int hitsToDestroy = 1;
         [SerializeField] private EventReference hitSound;
+        [SerializeField] private EventReference breakSound;
         private bool isObjectOnTop = false;
         private float accumulatedForce;
         private Collider2D _collider;
@@ -85,6 +87,8 @@ namespace Terrain.Environment
         {
             if (f is not null && e is not null)
             {
+                print("play hill feedbacks");
+                breakFeedbacks?.PlayFeedbacks();
                 e.explode();
                 f.doExplosion(transform.position);
             }

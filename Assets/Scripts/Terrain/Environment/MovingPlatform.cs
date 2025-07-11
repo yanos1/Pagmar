@@ -68,7 +68,7 @@ namespace Terrain.Environment
         {
             print("move platform!");
             
-            if (isMoving) yield break;
+            if (isMoving || isReturning) yield break;
             isMoving = true;
             print("yes move");
             if (moveslightlyCor != null)
@@ -88,15 +88,16 @@ namespace Terrain.Environment
 
             transform.position = targetPos;
             StopSound();
-            isMoving = false;
-            print($"stop moving after {moveDuration}");
-
             yield return new WaitForSeconds(secondsBeforeReturn);
+
+            print($"stop moving after {moveDuration}");
+            isMoving = false;
             if (returnWhenDone)
             {
                 print("return platform");
                 yield return StartCoroutine(ReturnPlatform());
             }
+           
         }
         
         private IEnumerator MovePlatformHalfwayFast()

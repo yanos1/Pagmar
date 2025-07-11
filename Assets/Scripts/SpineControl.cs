@@ -195,7 +195,7 @@ public class SpineControl : MonoBehaviour
         }
         
         skeletonAnimation.AnimationState.SetAnimation(0, "blink", true);
-        skeletonAnimation.AnimationState.SetAnimation(2, "idlev2", true);
+        skeletonAnimation.AnimationState.SetAnimation(2, "run", true);
     }
     // public void SetIdleLock(bool value)
     // {

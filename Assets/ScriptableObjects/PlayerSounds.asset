@@ -61,13 +61,13 @@ MonoBehaviour:
       Data3: 705236621
       Data4: -1195065082
     Path: event:/Player/PlayerWallJump
-  damageSound:
+  damagedSound:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -987388079
+      Data2: 1336546974
+      Data3: 1453633160
+      Data4: 1540509142
+    Path: event:/Enemy/player hit by horns
   deathSound:
     Guid:
       Data1: 0
@@ -82,3 +82,10 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  clashSound:
+    Guid:
+      Data1: -644497638
+      Data2: 1093996968
+      Data3: -1634270574
+      Data4: -5920447
+    Path: event:/Enemy/horns clash

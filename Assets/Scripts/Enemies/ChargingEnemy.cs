@@ -99,7 +99,10 @@ namespace Enemies
             {
                 if (sleepingImage is not null)  // is actually sleeping in game and not jsut dormant.
                 {
+                    print("sleep animation active");
                     sleepInstance = CoreManager.Instance.AudioManager.CreateEventInstance(sounds.sleepSound);
+                    spineControl.PlayAnimation("sleeping",loop:true);
+
                     sleepInstance.start();
 
                 }
@@ -146,7 +149,7 @@ namespace Enemies
                 FlipTowardsPlayer();
             }
 
-            if (Time.time - lastChargeTime > 1 && canRoam && !IsCharging && !isPreparingCharge && !falling)
+            if (Time.time - lastChargeTime > 1 && canRoam && !IsCharging && !isPreparingCharge && !falling && !isDead)
             {
                 // print($"canRoam {canRoam} and chargeCD {chargeCooldown} and is charging {IsCharging} and is preparing chage {isPreparingCharge}");
                 if (!isRoaming)
@@ -173,7 +176,7 @@ namespace Enemies
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 2.8f, groundLayer);
             Debug.DrawRay(transform.position, Vector2.up * 2.8f, hit.collider ? Color.red : Color.green);
 
-            if (!isRoaming && !IsCharging && !isPreparingCharge && !falling && !player.IsDead && !isKnockbacked)
+            if (!isDead && !isRoaming && !IsCharging && !isPreparingCharge && !falling && !player.IsDead && !isKnockbacked)
             {
                 if (!spineControl.IsAnyNonLoopingAnimationPlaying())
                 {
@@ -313,7 +316,8 @@ namespace Enemies
         IEnumerator PrepareCharge(Vector2 dir)
         {
             if(isDead) yield break;
-            StartCharging();
+            
+            spineControl?.PlayAnimation("charge-attack", true);
             FlipSprite(dir.x > 0);
             print($"current charge delay {currentChargeDelay}");
             yield return new WaitForSeconds(currentChargeDelay);
@@ -330,6 +334,8 @@ namespace Enemies
             float timer = 0f;
             IsCharging = true;
             lastChargeTime = Time.time;
+            spineControl?.PlayAnimation("run", true, "Idle", true);
+
             while (!HitWall() && IsCharging && timer < chargeDuration)
             {
                 MoveAndRotate(dir);
@@ -364,7 +370,6 @@ namespace Enemies
         private void StartCharging()
         {
             print("start charge 9-");
-            spineControl?.PlayAnimation("run", true);
         }
 
         private void StopCharging()
@@ -444,10 +449,10 @@ namespace Enemies
                 _rb.angularVelocity = 0;
                 _rb.bodyType = RigidbodyType2D.Kinematic;
                 isKnockbacked = false;
-                if (isDead)
-                {
-                    gameObject.SetActive(false);
-                }
+                // if (isDead)
+                // {
+                //     gameObject.SetActive(false);
+                // }
             }
         }
 
@@ -556,9 +561,12 @@ namespace Enemies
         public void Die()
         {
             hitFeedbacks?.StopFeedbacks();
+            spineControl.PlayAnimation("die", loop: true, onComplete: (() =>
+            {
+                _col.enabled = false;
+            }));
             isDead = true;
             CoreManager.Instance.AudioManager.PlayOneShot(sounds.deathSound, transform.position);
-            gameObject.SetActive(false);
         }
 
         public override void OnTie(float fromForce)

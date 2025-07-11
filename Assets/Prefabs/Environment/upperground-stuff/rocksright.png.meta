@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8fc0340ff05abe040bc79d8bb287b945
+guid: e3c06c4e2c2a745fb98f08da15b5c9b0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3603556060819865620
-    second: ball_0
+      213: 6443213344261571754
+    second: rocksright_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ball_0
+      name: rocksright_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 82
-        height: 83
+        width: 835
+        height: 358
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cef30aaead89dfdc0800000000000000
-      internalID: -3603556060819865620
+      spriteID: aa484c42664ea6950800000000000000
+      internalID: 6443213344261571754
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      ball_0: -3603556060819865620
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

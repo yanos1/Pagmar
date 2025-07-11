@@ -100,6 +100,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
     private bool _isPlayingWallJumpLand = false;
     
     private bool enteredInput = false;
+    private bool cutSceneEnded = false;
 
 
     [Header("MM Feedback")] [SerializeField]
@@ -118,6 +119,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
     {
         CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, StopAllMovement);
         CoreManager.Instance.EventManager.AddListener(EventNames.StartLoadNextScene, OnLoadNewScene);
+        CoreManager.Instance.EventManager.AddListener(EventNames.EndCutScene, OnEndCutScene);
         // CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, OnNewScene);
     }
 
@@ -125,11 +127,12 @@ public class PlayerMovement : MonoBehaviour, IResettable
     {
         CoreManager.Instance.EventManager.RemoveListener(EventNames.StartLoadNextScene, OnLoadNewScene);
         CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, StopAllMovement);
+        CoreManager.Instance.EventManager.RemoveListener(EventNames.EndCutScene, OnEndCutScene);
 
         // CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, OnNewScene);
 
     }
-
+    
 
     private void Awake()
     {
@@ -174,9 +177,17 @@ public class PlayerMovement : MonoBehaviour, IResettable
 
         UpdateAnimation();
     }
+    
+    private void OnEndCutScene(object obj)
+    {
+        cutSceneEnded = true;
+        StartCoroutine(UtilityFunctions.WaitAndInvokeAction(1f, () => cutSceneEnded = false));
+    }
+
 
     public void Sleep()
     {
+        print("player is sleeping");
         _preventAnimOverride = true;
         // Set "sleep" animation on track 3 with looping
         spineControl.PlayAnimation("sleep", 2, loop: true, force: true, fallbackAnimation: null);
@@ -190,22 +201,35 @@ public class PlayerMovement : MonoBehaviour, IResettable
     private IEnumerator WakeUpRoutine()
     {
         // Wait until any input is pressed
+        print("player is waking up");
         yield return new WaitUntil(() =>
             Keyboard.current?.anyKey.wasPressedThisFrame == true ||
             Gamepad.current?.buttonSouth.wasPressedThisFrame == true ||
-            Gamepad.current?.leftStick.ReadValue().magnitude > 0.1f
+            Gamepad.current?.leftStick.ReadValue().magnitude > 0.1f || cutSceneEnded
         );
-        
+
+        if (cutSceneEnded)
+        {
+            spineControl.PlayAnimation("wake-up-jump", 3, loop: false, force: true, fallbackAnimation: null, onComplete:
+                () =>
+                {
+                    // spineControl.ClearActionAnimation(4);
+                    spineControl.ClearActionAnimation(3);
+
+                    _preventAnimOverride = false;
+                    player.EnableInput();
+                });
+            yield break;
+        }
         
         // Crossfade from sleep to wake-up (track 3)
         spineControl.PlayAnimation("wake-up", 3, loop: false, force: true, fallbackAnimation:null, onComplete: () =>
         {                
-            spineControl.ClearActionAnimation(3);
-            spineControl.PlayAnimation("wake-up-jump", 3, loop: false, fallbackAnimation: null, onComplete: () =>
+            spineControl.PlayAnimation("wake-up-jump", 3, loop: false,force:true, fallbackAnimation:null , onComplete: () =>
             {
                 // spineControl.ClearActionAnimation(4);
                 spineControl.ClearActionAnimation(3);
-
+            
                 _preventAnimOverride = false;
                 player.EnableInput();
               
@@ -235,7 +259,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
         _moveInput = Vector2.zero;
         _isDashing = false;
         print("stopped all movement!");
-        spineControl.PlayAnimation("idlev2",true,force: true);
+        // spineControl.PlayAnimation("idlev2",true,force: true);
     }
     
     private void OnLoadNewScene(object obj)

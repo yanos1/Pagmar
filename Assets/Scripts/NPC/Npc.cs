@@ -267,40 +267,10 @@ namespace NPC
                     spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.GettingUp), false);
                     break;
                 case NpcState.Sleeping:
-                    // spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Sleeping), true);
+                    spine.PlayAnimation(spine.GetAnimName(BigSpine.SpineAnim.Sleeping), true);
+                    print("big sleeping shh");
                     break;
             }
-        }
-
-        public void PlayJumpSequence()
-        {
-            spine.PlayAnimation(
-                spine.GetAnimName(BigSpine.SpineAnim.Jump),
-                loop: false,
-                fallbackAnimation: null,
-                force: true,
-                onComplete: () =>
-                {
-                    spine.PlayAnimation(
-                        spine.GetAnimName(BigSpine.SpineAnim.JumpAir),
-                        loop: true,
-                        fallbackAnimation: null,
-                        force: true
-                    );
-
-                    waitingForLanding = true;
-                }
-            );
-        }
-
-        private string GetNextGroundedAnimation()
-        {
-            // if (_isFollowing)
-                return spine.GetAnimName(BigSpine.SpineAnim.Walk);
-            // if (IsFollowed)
-            //     return spine.GetAnimName(BigSpine.SpineAnim.Run);
-
-            return spine.GetAnimName(BigSpine.SpineAnim.Idle);
         }
 
 
@@ -325,7 +295,6 @@ namespace NPC
             transform.localScale = scale;
         }
     }
-
 
     public enum NpcState
     {

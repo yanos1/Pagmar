@@ -23,7 +23,7 @@ public class BigSpine : MonoBehaviour
     private const string _headTilt = "headtilt";
     private const string _tired = "tired";
     private const string _heal = "heal";
-    private const string _sleeping = "sleeping";
+    private const string _sleeping = "sleep";
 
     public enum SpineAnim
     {

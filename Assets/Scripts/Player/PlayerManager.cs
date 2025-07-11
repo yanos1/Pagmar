@@ -81,6 +81,8 @@ namespace Player
         {
             DisableInput();
             _playerMovement.StopAllMovement(null);
+            spineControl.PlayAnimation("idlev2",true,force: true);
+
         }
 
         public bool IsKnockBacked => isKnockbacked;
@@ -206,6 +208,10 @@ namespace Player
                         EnterStartUppergroundCutScene();
                         break;
                     case "HouseCollapse":
+                        DisableInput();
+                        break;
+                    case "MorningSleep":
+                        print("morinig sleep activared");
                         DisableInput();
                         break;
                     default:
@@ -523,6 +529,7 @@ namespace Player
         {
             isDead = false;
             _playerMovement.StopAllMovement(null);
+            spineControl.PlayAnimation("idlev2",true,force: true);
         }
 
         public void GetMounted()

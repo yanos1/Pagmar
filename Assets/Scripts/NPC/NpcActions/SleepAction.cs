@@ -32,6 +32,7 @@ namespace NPC.NpcActions
 
         public override void ResetAction(Npc npc)
         {
+            Debug.Log("big is waking up");
             isCompleted = false;
             afterActionCallback?.Invoke();
         }

@@ -1709,7 +1709,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7e8ea0ecac37847359875b8a8f4e8173, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1744,7 +1744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonDataAsset: {fileID: 11400000, guid: f8dca4f9664b6415cb5e8355d255ea9e, type: 2}
-  initialSkinName: 
+  initialSkinName: main-creat-nodots
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0
   initialFlipY: 0
@@ -1771,7 +1771,7 @@ MonoBehaviour:
   physicsMovementRelativeTo: {fileID: 0}
   updateTiming: 1
   unscaledTime: 0
-  _animationName: idlev2
+  _animationName: sleep
   loop: 1
   timeScale: 1
 --- !u!1 &7829173624953004204
@@ -3298,10 +3298,13 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
+  isWalkingScene: 0
+  finalFormSpine: {fileID: 0}
   _cameraFollowObject: {fileID: 0}
   playerSounds: {fileID: 11400000, guid: 95ee23c575da8784a8c4dd172025a189, type: 2}
   cielingCheckPos: {fileID: 1821704803393851567}
   jumpIsPressed: 0
+  isWallSliding: 0
   jumpFeedback: {fileID: 2438754083969494194}
   landFeedback: {fileID: 8817475888305650512}
   dashFeedback: {fileID: 1092145239225147536}
@@ -3327,6 +3330,7 @@ MonoBehaviour:
   MediumCameraShakeFeedBack: {fileID: 6394987848336760528}
   HighCameraShakeFeedBack: {fileID: 62208801962687448}
   doSpineFlash: {fileID: 208146694681396}
+  light: {fileID: 0}
 --- !u!114 &4310106491862070194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3342,6 +3346,7 @@ MonoBehaviour:
   skeletonAnimationYoung: {fileID: 132289031360698083}
   skeletonAnimationTeen: {fileID: 1859016325259123509}
   skeletonAnimationAdult: {fileID: 7574523664014284381}
+  skeletonAnimationFinalForm: {fileID: 0}
   skeletonAnimation: {fileID: 0}
   _lockIdleState: 0
 --- !u!114 &6114349743408917925
@@ -3370,9 +3375,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f29042868d224baca9e4f8dc02b22f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentDamage: 0
-  passiveHealRate: 2
-  damageUI: {fileID: 0}
+  c: {fileID: 0}
+  hornStates: []
+  hornImage: {fileID: 0}
+  takeDamageFeedbacks: {fileID: 0}
+  revealFeedbacks: {fileID: 0}
+  lowHealthFeedbacks: {fileID: 0}
+  healBar: {fileID: 0}
+  healInterval: 0
+  healthText: {fileID: 0}
+  healthWarningTextFeedbacks: {fileID: 0}
+  lowHealthParticles: {fileID: 0}
 --- !u!114 &562809240205721375
 MonoBehaviour:
   m_ObjectHideFlags: 0

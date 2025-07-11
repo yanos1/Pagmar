@@ -12,14 +12,14 @@ EditorBuildSettings:
     path: Assets/Scenes/PersistentScene.unity
     guid: 55f680ca5a3bdb6429fb62bdca62d1ae
   - enabled: 1
+    path: Assets/Scenes/House.unity
+    guid: 2abc15b12a3ccd449b95a0954c8bc091
+  - enabled: 1
     path: Assets/Scenes/Upperground.unity
     guid: e3a002deaa56a471e817d38d6ff37b75
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: f04979042f2f66a41ad184f7876b69e6
-  - enabled: 1
-    path: Assets/Scenes/House.unity
-    guid: 2abc15b12a3ccd449b95a0954c8bc091
   - enabled: 1
     path: Assets/Scenes/Falldown.unity
     guid: 57715c46c51c0da448f2902bf10b14ed

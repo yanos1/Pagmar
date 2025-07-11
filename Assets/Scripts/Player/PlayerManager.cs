@@ -145,6 +145,7 @@ namespace Player
             print("player smiles!");
             StartCoroutine(UtilityFunctions.WaitAndInvokeAction(1.8f, () =>
             {
+                if(_playerMovement.isJumping) return;
                 var rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
                 transform.rotation = Quaternion.Euler(rotator);           
                 DisableInput();

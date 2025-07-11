@@ -66,14 +66,26 @@ namespace NPC.BigFriend
         {
             while (true)
             {
-                EventInstance instance = CoreManager.Instance.AudioManager.CreateEventInstance(stepSound, "Material", material);
-                instance.set3DAttributes(RuntimeUtils.To3DAttributes(CoreManager.Instance.Player.transform));
-                instance.start();
-                instance.release(); // let FMOD clean it up after it finishes
+                // Wait until 0.633s to play first step
+                yield return new WaitForSeconds(0.633f);
+                PlayStep(material);
 
-                yield return new WaitForSeconds(0.82f);
+                // Wait the remaining time until end of animation for the second step
+                yield return new WaitForSeconds(1.05f - 0.633f); // 0.417s
+                PlayStep(material);
+
+                // Loop again for the next cycle of animation
             }
         }
+
+        private void PlayStep(int material)
+        {
+            EventInstance instance = CoreManager.Instance.AudioManager.CreateEventInstance(stepSound, "Material", material);
+            instance.set3DAttributes(RuntimeUtils.To3DAttributes(CoreManager.Instance.Player.transform));
+            instance.start();
+            instance.release(); // let FMOD clean it up after it finishes
+        }
+
 
 
         private void CreateStepSoundInstances()

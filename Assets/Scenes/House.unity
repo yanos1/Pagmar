@@ -31532,14 +31532,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 132289031360698083, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
-      propertyPath: _animationName
-      value: sleep
-      objectReference: {fileID: 0}
-    - target: {fileID: 132289031360698083, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
-      propertyPath: initialSkinName
-      value: main-creat-nodots
-      objectReference: {fileID: 0}
     - target: {fileID: 562809240205721375, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_Events.m_Events.Array.size
       value: 4
@@ -31761,6 +31753,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7526274656123140709, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e8ea0ecac37847359875b8a8f4e8173, type: 2}
+    - target: {fileID: 7526274656123140709, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 7e8ea0ecac37847359875b8a8f4e8173, type: 2}
@@ -31784,6 +31780,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8817475888305650512, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: managedReferences[2686085626848084048].ParticlesPrefab
+      value: 
+      objectReference: {fileID: 8776548384395152858, guid: 5a3a218dd0d25264bb22915d317a7042, type: 3}
     - target: {fileID: 8817475888305650512, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: managedReferences[2686085626848084048].InstantiateParticlesPosition
       value: 

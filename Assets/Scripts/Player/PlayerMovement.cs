@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
     private PlayerSoundHandler playerSoundHandler;
 
 
-    private bool isJumping = false;
+    public bool isJumping = false;
     public bool jumpIsPressed = false;
     private float LastPressedJumpTime = 0f;
     private float LastOnGroundTime = 0f;
@@ -179,7 +179,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
     {
         _preventAnimOverride = true;
         // Set "sleep" animation on track 3 with looping
-        spineControl.PlayAnimation("sleep", 3, loop: true, force: true, fallbackAnimation: null);
+        spineControl.PlayAnimation("sleep", 2, loop: true, force: true, fallbackAnimation: null);
     }
 
     public void WakeUp()
@@ -198,9 +198,10 @@ public class PlayerMovement : MonoBehaviour, IResettable
         
         
         // Crossfade from sleep to wake-up (track 3)
-        spineControl.PlayAnimation("wake-up", 4, loop: false, force: true, fallbackAnimation:null, onComplete: () =>
-        {
-            spineControl.PlayAnimation("wake-up-jump", 4, loop: false, fallbackAnimation: null, onComplete: () =>
+        spineControl.PlayAnimation("wake-up", 3, loop: false, force: true, fallbackAnimation:null, onComplete: () =>
+        {                
+            spineControl.ClearActionAnimation(3);
+            spineControl.PlayAnimation("wake-up-jump", 3, loop: false, fallbackAnimation: null, onComplete: () =>
             {
                 // spineControl.ClearActionAnimation(4);
                 spineControl.ClearActionAnimation(3);

@@ -47,7 +47,7 @@ public class CameraFollowObject : MonoBehaviour
 
         if (_bigTransform is not null && _currentTarget == _bigTransform)
         {
-            if (Vector3.Distance(_bigTransform.position, _playerTransform.position) < 3f)
+            if (Vector3.Distance(_bigTransform.position, _playerTransform.position) < 6f)
             {
                 SetFollower();
             }
@@ -84,7 +84,7 @@ public class CameraFollowObject : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = Mathf.SmoothStep(0f, 1f, elapsed / _transitionDuration);
 
-            Vector3 dynamicTargetPos = newTarget.position + _bigFollowOffset;
+            Vector3 dynamicTargetPos = newTarget.position + (newTarget == _bigTransform ? _bigFollowOffset : Vector3.zero);
             transform.position = Vector3.Lerp(start, dynamicTargetPos, t);
 
             yield return null;

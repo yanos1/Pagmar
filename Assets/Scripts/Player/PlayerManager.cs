@@ -214,6 +214,9 @@ namespace Player
                         print("morinig sleep activared");
                         DisableInput();
                         break;
+                    case "Falldown":
+                        DisableInput();
+                        break;
                     default:
                         DisableInput();
                         LockAnimations();

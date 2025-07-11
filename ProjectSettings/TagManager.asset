@@ -27,6 +27,7 @@ TagManager:
   - StartUpperground
   - HouseCollapse
   - MorningSleep
+  - Falldown
   layers:
   - Default
   - TransparentFX

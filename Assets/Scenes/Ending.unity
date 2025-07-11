@@ -13508,7 +13508,7 @@ MonoBehaviour:
   physicsMovementRelativeTo: {fileID: 0}
   updateTiming: 1
   unscaledTime: 0
-  _animationName: jumpv2
+  _animationName: idle-wounded
   loop: 1
   timeScale: 1
 --- !u!23 &910388253
@@ -13914,7 +13914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8509487364657399828, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: _playerStage
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8817475888305650512, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: managedReferences[2686085626848084048].InstantiateParticlesPosition

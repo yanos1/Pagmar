@@ -15575,7 +15575,7 @@ Transform:
   m_GameObject: {fileID: 355778679}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 143.10904, y: -0.5026091, z: -17}
+  m_LocalPosition: {x: 143.22453, y: -0.5026091, z: -17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17440,6 +17440,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1230044510007139982, guid: 0c74cdbb21377ad4098d4c03094b5761, type: 3}
       propertyPath: Lookahead.Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1230044510007139982, guid: 0c74cdbb21377ad4098d4c03094b5761, type: 3}
+      propertyPath: Composition.DeadZone.Size.y
+      value: 0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 1230044510007139982, guid: 0c74cdbb21377ad4098d4c03094b5761, type: 3}
+      propertyPath: Composition.DeadZone.Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1230044510007139982, guid: 0c74cdbb21377ad4098d4c03094b5761, type: 3}
@@ -32927,11 +32935,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
-  far clip plane: 5000
-  field of view: 40
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 29.4
   orthographic: 0
-  orthographic size: 10
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -32956,7 +32964,7 @@ Transform:
   m_GameObject: {fileID: 857027753}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 143.10904, y: -0.5026091, z: -17}
+  m_LocalPosition: {x: -70.7, y: 0.2971201, z: -25.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45079,8 +45087,8 @@ MonoBehaviour:
   Composition:
     ScreenPosition: {x: 0, y: 0.18}
     DeadZone:
-      Enabled: 0
-      Size: {x: 0.2, y: 0.2}
+      Enabled: 1
+      Size: {x: 0.2, y: 0.57}
     HardLimits:
       Enabled: 0
       Size: {x: 0.8, y: 0.8}
@@ -49769,12 +49777,12 @@ MonoBehaviour:
         - m_Target: {fileID: 1431531963}
           m_TargetAssemblyTypeName: GlobalActions, Assembly-CSharp
           m_MethodName: FadeInScreen
-          m_Mode: 1
+          m_Mode: 4
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
-            m_FloatArgument: 0
+            m_FloatArgument: 0.4
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
@@ -49783,12 +49791,12 @@ MonoBehaviour:
         - m_Target: {fileID: 1431531963}
           m_TargetAssemblyTypeName: GlobalActions, Assembly-CSharp
           m_MethodName: FadeOutScreen
-          m_Mode: 1
+          m_Mode: 4
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
-            m_FloatArgument: 0
+            m_FloatArgument: 0.8
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
@@ -76360,7 +76368,7 @@ Transform:
   m_GameObject: {fileID: 1703271888}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -70.7, y: -4.976172, z: -25.77}
+  m_LocalPosition: {x: -70.7, y: 0.2971201, z: -25.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76434,7 +76442,7 @@ MonoBehaviour:
   CameraDistance: 25.77
   DeadZoneDepth: 0
   Composition:
-    ScreenPosition: {x: 0, y: 0.18}
+    ScreenPosition: {x: 0, y: 0.57}
     DeadZone:
       Enabled: 0
       Size: {x: 0.2, y: 0.2}

@@ -77,6 +77,7 @@ namespace Managers
         StartLoadNextScene = 24,
         PickUpRuneForBig = 25,
         BigDoingSomethingNice = 26,
-        
+
+        ReachedFirstObstacle = 27,
     }
 }

@@ -78,14 +78,14 @@ public class GlobalActions : MonoBehaviour
         CoreManager.Instance.EventManager.InvokeEvent(EventNames.EnterCutScene, null);
     }
 
-    public void FadeInScreen()
+    public void FadeInScreen(float duration = 0.4f)
     {
-        CoreManager.Instance.UiManager.ShowLoadingScreen();
+        CoreManager.Instance.UiManager.ShowLoadingScreen(duration);
     }
 
-    public void FadeOutScreen()
+    public void FadeOutScreen(float duration = 0.8f)
     {
-        CoreManager.Instance.UiManager.HideLoadingScreen();
+        CoreManager.Instance.UiManager.HideLoadingScreen(duration);
     }
 
     public void OpenPauseMenu()

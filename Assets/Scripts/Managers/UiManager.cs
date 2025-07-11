@@ -46,18 +46,35 @@ namespace Managers
             ExitCutSceneFeedbacks?.PlayFeedbacks();
         }
         
-        public void ShowLoadingScreen()
+        public void ShowLoadingScreen(float duration = 0.4f)
         {
+            SetCanvasGroupDuration(fadeInFeedbacks, duration);
             fadeInFeedbacks?.PlayFeedbacks();
+        }
+
+        public void HideLoadingScreen(float duration = 0.8f)
+        {
+            SetCanvasGroupDuration(fadeOutFeedbacks, duration);
+            fadeOutFeedbacks?.PlayFeedbacks();
         }
 
         public bool IsFadeInFinished()
         {
             return !fadeInFeedbacks.IsPlaying;
         }
-        public void HideLoadingScreen()
-        {            
-            fadeOutFeedbacks?.PlayFeedbacks();
+
+        private void SetCanvasGroupDuration(MMF_Player feedbacks, float duration)
+        {
+            if (feedbacks == null) return;
+
+            foreach (var feedback in feedbacks.Feedbacks)
+            {
+                if (feedback.GetComponent<MMF_CanvasGroup>() is {} canvasGroupFeedback)
+                {
+                    print("found canvas group");
+                    canvasGroupFeedback.Duration = duration;
+                }
+            }
         }
 
         public void OpenComics()
@@ -68,6 +85,7 @@ namespace Managers
 
         public void OpenPauseMenu()
         {
+            if (Time.timeScale < 0.9) return; // dont pause on slow motion
             pauseMenu.EnableMenu();
         }
 

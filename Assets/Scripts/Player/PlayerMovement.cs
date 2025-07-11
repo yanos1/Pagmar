@@ -101,6 +101,8 @@ public class PlayerMovement : MonoBehaviour, IResettable
     
     private bool enteredInput = false;
     private bool cutSceneEnded = false;
+    private bool makeNextfallHard;
+
 
 
     [Header("MM Feedback")] [SerializeField]
@@ -120,6 +122,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
         CoreManager.Instance.EventManager.AddListener(EventNames.EnterCutScene, StopAllMovement);
         CoreManager.Instance.EventManager.AddListener(EventNames.StartLoadNextScene, OnLoadNewScene);
         CoreManager.Instance.EventManager.AddListener(EventNames.EndCutScene, OnEndCutScene);
+        CoreManager.Instance.EventManager.AddListener(EventNames.ReachedFirstObstacle, StopScaredEyes);
         // CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, OnNewScene);
     }
 
@@ -128,11 +131,13 @@ public class PlayerMovement : MonoBehaviour, IResettable
         CoreManager.Instance.EventManager.RemoveListener(EventNames.StartLoadNextScene, OnLoadNewScene);
         CoreManager.Instance.EventManager.RemoveListener(EventNames.EnterCutScene, StopAllMovement);
         CoreManager.Instance.EventManager.RemoveListener(EventNames.EndCutScene, OnEndCutScene);
+        CoreManager.Instance.EventManager.RemoveListener(EventNames.ReachedFirstObstacle, StopScaredEyes);
+
 
         // CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, OnNewScene);
 
     }
-    
+
 
     private void Awake()
     {
@@ -250,6 +255,28 @@ public class PlayerMovement : MonoBehaviour, IResettable
             });
         });
     }
+
+    public void MakeNextFallHard()
+    {
+        makeNextfallHard = true;
+    }
+
+    public void WakeUpFromFrom()
+    {
+        spineControl.PlayAnimation("scared-eyes", 4, force: true, loop: true);
+        spineControl.PlayAnimation("fall-getup",3, force:true, onComplete: (() =>
+        {
+            spineControl.ClearActionAnimation(3);
+            player.EnableInput();
+
+        }));
+    }
+    
+    private void StopScaredEyes(object obj)
+    {
+        print("stop scared eyes!");
+        spineControl.ClearActionAnimation(4);
+    }
     
     public void StopAllMovement(object obj)
     {
@@ -331,7 +358,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
             //     InjuryManager.Instance.ApplyDamage(0.5f); // this is just effects of damage (slow, screen turns white..)
             //     hornDamageHandler.AddDamage(50); // actual damage
             // }
-
+            
             if (timeFalling > 1.2f)
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.heavyLandSound, transform.position);
@@ -388,6 +415,12 @@ public class PlayerMovement : MonoBehaviour, IResettable
                 new Vector2(
                     _moveInputX * MovementSpeed *
                     Time.fixedDeltaTime, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed));
+        }
+        else
+        {
+            _rb.linearVelocity =
+                new Vector2(
+                    0, Mathf.Max(_rb.linearVelocity.y, maxFallingSpeed -2)); // we are falling, we let falling be faster
         }
     }
 
@@ -724,6 +757,13 @@ public class PlayerMovement : MonoBehaviour, IResettable
         else if (!_wasGroundedLastFrame && isCurrentlyGrounded)
         {
             landFeedback?.PlayFeedbacks();
+            if (makeNextfallHard)
+            {
+                spineControl.PlayAnimation("fall-hard",3, false, "", true);
+                _playedStartJump = false;
+                makeNextfallHard = false;
+                return;
+            }
             spineControl.PlayAnimation("jump-land", false, "", true);
             _playedStartJump = false;
         }

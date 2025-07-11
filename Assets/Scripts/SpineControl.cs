@@ -166,6 +166,7 @@ public class SpineControl : MonoBehaviour
     {
         currentActionAnimation = "";
         skeletonAnimation.AnimationState.ClearTrack(track);
+        skeletonAnimation.Skeleton.SetToSetupPose();
     }
     
     public void changeSkelatonAnimation(PlayerStage playerStage)

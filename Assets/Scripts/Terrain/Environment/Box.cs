@@ -2,6 +2,7 @@
 using FMOD.Studio;
 using Interfaces;
 using Managers;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
@@ -30,6 +31,7 @@ namespace Terrain.Environment
         [Header("Break Effects")]
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
+        [SerializeField] private MMF_Player breakFeedbacks;
 
         private EventInstance pushInstance;
         private bool isPushSoundPlaying = false;
@@ -120,6 +122,7 @@ namespace Terrain.Environment
             if (e != null && f != null)
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, transform.position);
+                breakFeedbacks?.PlayFeedbacks();
                 e.explode();
                 f.doExplosion(transform.position);
             }

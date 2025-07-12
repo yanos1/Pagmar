@@ -32,14 +32,14 @@ namespace NPC.BigFriend
         {
             CoreManager.Instance.AudioManager.PlayOneShot(ponderingSound, transform.position + Vector3Int.right*8);
             bigSpine.PlayAnimation(bigSpine.GetAnimName(BigSpine.SpineAnim.HeadTilt));
-            questionMark.SetActive(true);
+            // questionMark.SetActive(true);
             
-            Sequence seq = DOTween.Sequence();
-
-            seq.Append(questionMarkRenderer.DOFade(1f, 0.3f).SetEase(Ease.OutSine)) // Fade in
-                .AppendInterval(duration) // Wait
-                .Append(questionMarkRenderer.DOFade(0f, 0.3f).SetEase(Ease.InSine)) // Fade out
-                .OnComplete(() => questionMark.SetActive(false)); // Deactivate
+            // Sequence seq = DOTween.Sequence();
+            //
+            // seq.Append(questionMarkRenderer.DOFade(1f, 0.3f).SetEase(Ease.OutSine)) // Fade in
+            //     .AppendInterval(duration) // Wait
+            //     .Append(questionMarkRenderer.DOFade(0f, 0.3f).SetEase(Ease.InSine)) // Fade out
+            //     .OnComplete(() => questionMark.SetActive(false)); // Deactivate
         }
         
         public void ShowExclamationMarkForSeconds(float duration = 3f)

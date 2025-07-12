@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MapRuletile
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: 62453170, guid: c267ca2e690babc49b6bfa10ed829be4, type: 3}
-  m_DefaultGameObject: {fileID: 0}
+  m_DefaultGameObject: {fileID: 8451763539636509651, guid: f302357888a4e2b46b1ca8042fa18420, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 0

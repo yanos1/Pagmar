@@ -14,5 +14,6 @@ namespace ScripableObjects
         public EventReference wakeUpSound;
         public EventReference sleepSound;
         public EventReference ramWall;
+        
     }
 }

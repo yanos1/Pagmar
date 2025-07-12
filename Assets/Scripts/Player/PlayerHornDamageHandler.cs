@@ -5,6 +5,7 @@ using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
 using Player;
+using Spine.Unity;
 using SpongeScene;
 using TMPro;
 using UnityEngine;
@@ -179,7 +180,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
             healthWarningTextFeedbacks?.PlayFeedbacks();
         }
 
-        if (currentDamageIndex >= hornStates.Count)
+        if (currentDamageIndex >= hornStates.Count && transform.position.x < 620)// this means the player is at the end of the map. we dont want to kill him. bad code.
         {
             Die();
             return;

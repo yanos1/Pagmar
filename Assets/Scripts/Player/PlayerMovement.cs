@@ -326,11 +326,12 @@ public class PlayerMovement : MonoBehaviour, IResettable
             CameraManager.GetInstance().LerpYDamping(true);
         }
 
-        if (_rb.linearVelocity.y < -1)
+        if (_rb.linearVelocity.y < -2 && !player.IsKnockBacked)
         {
             if (!isFalling)
             {
                  fallInstance = CoreManager.Instance.AudioManager.CreateEventInstance(playerSounds.fallSound);
+                 fallInstance.start();
             }
 
             isFalling = true;
@@ -363,10 +364,13 @@ public class PlayerMovement : MonoBehaviour, IResettable
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.heavyLandSound, transform.position);
             }
-            else if (timeFalling >0.25f)
+            else if (timeFalling >0.15f)
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.landSound, transform.position);
             }
+
+            fallInstance.stop(STOP_MODE.IMMEDIATE);
+            fallInstance.release();
             
 
             isFalling = false;

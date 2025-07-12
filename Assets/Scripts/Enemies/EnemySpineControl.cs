@@ -48,7 +48,15 @@ public class EnemySpineControl : MonoBehaviour
     }
 
 
-
+    public void LockFinalAnimationFrame() {
+        
+        skeletonAnimation.timeScale = 0f;
+    }
+    
+    public void UnlockAnimation() {
+        
+        skeletonAnimation.timeScale = 1f;
+    }
     
     public void PlayAnimationOnBaseTrack(string animationName, bool loop = false, string fallback = "Idle") {
         

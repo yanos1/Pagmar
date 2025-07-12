@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Atmosphere.TileExplostion;
 using FMOD.Studio;
 using Interfaces;
 using Managers;
@@ -143,7 +144,7 @@ namespace Enemies
             IncrementPlayerVisibleTimer();
 
             float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-            if (!isSleeping && !isRoaming && !IsCharging && !isPreparingCharge && distanceToPlayer < detectionRange &&
+            if (!isDead && !isSleeping && !isRoaming && !IsCharging && !isPreparingCharge && distanceToPlayer < detectionRange &&
                 IsPlayerVisibleLongEnough())
             {
                 FlipTowardsPlayer();
@@ -156,7 +157,6 @@ namespace Enemies
                 {
                     StartPlayingWalkSound();
                 }
-
                 Roam();
             }
             else
@@ -249,14 +249,32 @@ namespace Enemies
 
         private bool ShouldPrepareCharge(float distanceToPlayer)
         {
-            return chargeCoroutine is null && currentChargeCooldown <= 0 &&
+            // Debug.Log(
+            //     $"[ShouldPrepareCharge Check]\n" +
+            //     $"chargeCoroutine == null: {chargeCoroutine is null}\n" +
+            //     $"currentChargeCooldown <= 0: {currentChargeCooldown} <= 0 → {currentChargeCooldown <= 0}\n" +
+            //     $"!isDead: {!isDead}\n" +
+            //     $"distanceToPlayer < detectionRange: {distanceToPlayer} < {detectionRange} → {distanceToPlayer < detectionRange}\n" +
+            //     $"!IsCharging: {!IsCharging}\n" +
+            //     $"!isPreparingCharge: {!isPreparingCharge}\n" +
+            //     $"IsPlayerVisibleLongEnough(): {IsPlayerVisibleLongEnough()}\n" +
+            //     $"!hit: {!hit}\n" +
+            //     $"!player.IsDead: {!player.IsDead}\n" +
+            //     $"!isKnockbacked: {!isKnockbacked}"
+            // );
+
+            return chargeCoroutine is null &&
+                   currentChargeCooldown <= 0 &&
                    !isDead &&
                    distanceToPlayer < detectionRange &&
                    !IsCharging &&
                    !isPreparingCharge &&
                    IsPlayerVisibleLongEnough() &&
-                   !hit && !player.IsDead && !isKnockbacked;
+                   !hit &&
+                   !player.IsDead &&
+                   !isKnockbacked;
         }
+
 
         private bool IsPlayerVisibleLongEnough()
         {
@@ -410,6 +428,8 @@ namespace Enemies
             Debug.DrawRay(origin, currentDirection * wallDetectionDistance, raycast.collider ? Color.red : Color.green);
             if (raycast.collider)
             {
+                CoreManager.Instance.AudioManager.PlayOneShot(sounds.ramWall, transform.position);
+                CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.EnemyHitWallParticles).Play(raycast.point);
                 hitSomething = true;
             }
 
@@ -438,7 +458,7 @@ namespace Enemies
         {
             if (player != null && player.IsDead) StopAllCoroutines();
             if (IsCharging && !isKnockbacked) CheckForGround();
-            ResetIfKnockbackOver();
+            if(!isDead)ResetIfKnockbackOver();
         }
 
         private void ResetIfKnockbackOver()
@@ -481,7 +501,10 @@ namespace Enemies
             gameObject.SetActive(true);
             StopCharging();
             StopPlayingWalkSound();
+            spineControl.UnlockAnimation();
             spineControl?.PlayAnimation("Idle", true);
+            gameObject.layer = LayerMask.NameToLayer("Enemy");
+
 
             // Flip using scale (Spine-compatible)
             Vector3 scale = transform.localScale;
@@ -538,7 +561,57 @@ namespace Enemies
             StopCharging();
         }
 
-        public override void OnRammed(float fromForce)
+        public override void OnRammed(float fromForce, Vector3 collisionPoint)
+        {
+            doSpineFlash.OnRammedFeedback();
+            var clashPart = CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.PlayerHitEnemyParticles);
+            if(CoreManager.Instance.Player.transform.position.x < transform.position.x)
+            {            
+                clashPart.Play(collisionPoint+Vector3.right* 1.5f);
+            }
+            else
+            {
+                clashPart.Play(collisionPoint+Vector3.left* 1.5f);
+            }
+       
+            Debug.Log($"Enemy rammed with force {fromForce}");
+            print($"hits left {hitsToKill - hitCounter + 1}");
+
+            if (Time.time - lastRammedTime > rammedCd && ++hitCounter == hitsToKill)
+            {
+                lastRammedTime = Time.time;
+                CoreManager.Instance.AudioManager.PlayOneShot(sounds.damagedSound, transform.position);
+                CoreManager.Instance.AudioManager.PlayOneShot(sounds.hitSound, transform.position);
+                Die();
+                
+                return;
+            }
+
+            hitFeedbacks?.PlayFeedbacks();
+            CoreManager.Instance.AudioManager.PlayOneShot(sounds.damagedSound, transform.position);
+            CoreManager.Instance.AudioManager.PlayOneShot(sounds.hitSound, transform.position);
+
+            isPreparingCharge = false;
+            StopAllCoroutines();
+        }
+
+        public void Die()
+        {
+            hitFeedbacks?.StopFeedbacks();
+
+            spineControl.PlayAnimation("die", loop: false, onComplete: () =>
+            {
+                // Freeze on last frame
+                spineControl.LockFinalAnimationFrame();
+            });
+
+            isDead = true;
+            gameObject.layer = LayerMask.NameToLayer("Debree");
+            CoreManager.Instance.AudioManager.PlayOneShot(sounds.deathSound, transform.position);
+        }
+
+
+        public override void OnTie(float fromForce, Vector3 collisionPoint)
         {
             doSpineFlash.OnRammedFeedback();
             Debug.Log($"Enemy rammed with force {fromForce}");
@@ -548,30 +621,13 @@ namespace Enemies
             {
                 lastRammedTime = Time.time;
                 Die();
+                
                 return;
             }
-
-            hitFeedbacks?.PlayFeedbacks();
-            CoreManager.Instance.AudioManager.PlayOneShot(sounds.damagedSound, transform.position);
-
             isPreparingCharge = false;
             StopAllCoroutines();
-        }
 
-        public void Die()
-        {
-            hitFeedbacks?.StopFeedbacks();
-            spineControl.PlayAnimation("die", loop: true, onComplete: (() =>
-            {
-                _col.enabled = false;
-            }));
-            isDead = true;
-            CoreManager.Instance.AudioManager.PlayOneShot(sounds.deathSound, transform.position);
-        }
-
-        public override void OnTie(float fromForce)
-        {
-            OnRammed(fromForce);
+            hitFeedbacks?.PlayFeedbacks();
         }
         
 
@@ -587,6 +643,7 @@ namespace Enemies
             // }
 
             _rb.bodyType = RigidbodyType2D.Dynamic;
+            
             _rb?.AddForce(direction.normalized * force, ForceMode2D.Impulse);
         }
 

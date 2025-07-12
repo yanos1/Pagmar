@@ -93,6 +93,10 @@ namespace Managers
         ExplodableTileParticles = 3,
         LavaSplashParticles = 4,
         LavaBurstParticles = 5,
+        ClashParticles = 6,
+        PlayerHitEnemyParticles = 7,
+        EnemyHitPlayerParticles = 8,
+        EnemyHitWallParticles = 9,
 
     }
 }

@@ -38,6 +38,7 @@ namespace Triggers
             if (CoreManager.Instance.Player != null)
             {
                 CoreManager.Instance.Player.transform.position = recordedPlayerPposition;
+                CoreManager.Instance.Player.Revive();
                 // You can also reset velocity or other states here if needed
             }
         }

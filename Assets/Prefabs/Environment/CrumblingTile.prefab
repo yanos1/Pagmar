@@ -50,6 +50,13 @@ MonoBehaviour:
   destroyAfterCrumble: 0
   crumbleDuration: 0.7
   animator: {fileID: 0}
+  crumbleSound:
+    Guid:
+      Data1: 2042792237
+      Data2: 1145514174
+      Data3: -1737614184
+      Data4: -625362664
+    Path: event:/Objects/DirtCollapse
   reset: 1
 --- !u!212 &4000122485883326472
 SpriteRenderer:

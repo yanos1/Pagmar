@@ -74,9 +74,10 @@ namespace Managers
             }
             if (obj is MusicType musicType)
             {
-                print("start new music !");
+                print("try to start new music !");
                 var music = _gameMusic.GetMusic(musicType);
                 if (music.IsNull) return;
+                print("start new music !");
 
                 currentMusic = RuntimeManager.CreateInstance(music);
                 currentMusic.start();

@@ -64,8 +64,8 @@ MonoBehaviour:
   - type: 5
     music:
       Guid:
-        Data1: 1191486303
-        Data2: 1268933453
-        Data3: -430298693
-        Data4: 1267285475
-      Path: event:/Music/EruptionMusic
+        Data1: 1876767216
+        Data2: 1096442651
+        Data3: -753342020
+        Data4: 2133588921
+      Path: event:/Music/ChaseMusic

@@ -8,31 +8,28 @@ using Player;
 using SpongeScene;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerHornDamageHandler : MonoBehaviour, IResettable
 {
-    [Header("Damage System")] [SerializeField]
-    private Canvas c;
+    [Header("Damage System")]
+    [SerializeField] private Canvas c;
     [SerializeField] private List<Sprite> hornStates; // From healthy to broken
-    [SerializeField] private Image hornImage; // The current horn image
+    [SerializeField] private Image hornImage;
     [SerializeField] private MMFeedbacks takeDamageFeedbacks;
     [SerializeField] private MMFeedbacks revealFeedbacks; 
-    [SerializeField] private MMF_Player lowHealthFeedbacks; // Feedback when horn is fully broken
+    [SerializeField] private MMF_Player lowHealthFeedbacks;
 
     [Header("Healing System")]
     [SerializeField] private Image healBar;
     [SerializeField] private float healInterval;
 
     [Header("UI")]
-    [SerializeField] private TextMeshProUGUI healthText; // Health number display
-
-    [SerializeField] private MMF_Player healthWarningTextFeedbacks; // used one time when the player reaches low health.
-
+    [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private MMF_Player healthWarningTextFeedbacks;
     [SerializeField] private ParticleSystem lowHealthParticles;
 
-    private int currentDamageIndex = 0; // 0 = full health, max = fully broken
+    private int currentDamageIndex = 0;
     private float healTimer = 0f;
     private bool isHealing = false;
     private int deferredDamage = 0;
@@ -42,14 +39,13 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
     private float lastDamageTime;
 
     private PlayerManager player;
-    private Coroutine healRoutine;
     private Coroutine healthTextRoutine;
     private bool lowHealthPlayed = false;
     private bool hasBeenRevealed = false;
-    private bool shownHealthWarning;
+    private bool shownHealthWarning = false;
     private UnityEngine.Camera mainCamera;
-    public int currentIndex => currentDamageIndex;
 
+    public int currentIndex => currentDamageIndex;
     public int Health => hornStates.Count - currentDamageIndex - 1;
 
     private void Start()
@@ -89,7 +85,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         if (lowHealthPlayed)
         {
             lowHealthParticles.transform.position =
-                UtilityFunctions.GetTopLeftCornerWorldPosition(mainCamera, 2,2);
+                UtilityFunctions.GetTopLeftCornerWorldPosition(mainCamera, 2, 2);
         }
     }
 
@@ -110,7 +106,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
             UpdateVisual();
         }
     }
-    
+
     private void UpdateVisual()
     {
         hornImage.sprite = hornStates[Mathf.Clamp(currentDamageIndex, 0, hornStates.Count - 1)];
@@ -142,7 +138,6 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
             if (!lowHealthPlayed)
             {
                 lowHealthParticles.gameObject.SetActive(true);
-
                 lowHealthParticles.Play();
                 lowHealthFeedbacks?.PlayFeedbacks();
                 lowHealthPlayed = true;
@@ -151,48 +146,19 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         }
     }
 
-
     private void UpdateHealthTextSmooth(int targetValue)
     {
-        healthText.text = targetValue.ToString();
-        // if (healthText == null) return;
-
-        // if (healthTextRoutine != null)
-        //     StopCoroutine(healthTextRoutine);
-
-        // healthTextRoutine = StartCoroutine(AnimateHealthText(targetValue));
-    }
-
-    private IEnumerator AnimateHealthText(int targetValue)
-    {
-        int startValue = 0;
-        int.TryParse(healthText.text, out startValue);
-
-        float duration = 0.4f;
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / duration);
-            int value = Mathf.RoundToInt(Mathf.Lerp(startValue, targetValue, t));
-            healthText.text = value.ToString();
-            yield return null;
-        }
-
         healthText.text = targetValue.ToString();
     }
 
     public void AddDamage(int amount, bool activateFeedbacks = true)
-    {            
-        InjuryFeedbacks.Instance.ApplyDamage(amount);
-        
+    {
         if (!hasBeenRevealed)
         {
             hasBeenRevealed = true;
             revealFeedbacks.PlayFeedbacks();
         }
-        
+
         if (Mathf.Approximately(amount, lastDamageAmount) && Time.time - lastDamageTime < damageCooldown)
             return;
 
@@ -202,6 +168,8 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
             return;
         }
 
+        InjuryFeedbacks.Instance.ApplyDamage(amount);
+
         currentDamageIndex += amount;
         lastDamageTime = Time.time;
 
@@ -209,8 +177,8 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         {
             shownHealthWarning = true;
             healthWarningTextFeedbacks?.PlayFeedbacks();
-
         }
+
         if (currentDamageIndex >= hornStates.Count)
         {
             Die();
@@ -231,55 +199,31 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
 
     public void StartFullHeal(object o)
     {
-        if (healRoutine != null) StopCoroutine(healRoutine);
-        healRoutine = StartCoroutine(HealGradually(1f));
-    }
+        if (isHealing) return;
 
-    private IEnumerator HealGradually(float duration)
-    {
         isHealing = true;
-        float elapsed = 0f;
-        int startingIndex = currentDamageIndex;
-        healBar.fillAmount = 1f;
-        
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / duration);
-            int newIndex = Mathf.RoundToInt(Mathf.Lerp(startingIndex, 0, t));
 
-            if (newIndex != currentDamageIndex)
-            {
-                currentDamageIndex = newIndex;
-                lowHealthPlayed = false;
-                lowHealthParticles.Stop();
-                lowHealthParticles.gameObject.SetActive(false);
-
-                UpdateVisual();
-            }
-            else
-            {
-                break;
-            }
-        
-            yield return null;
-        }
+        currentDamageIndex = 0;
         InjuryFeedbacks.Instance.Heal(Health);
-        currentDamageIndex = 0; 
         lowHealthPlayed = false;
+        lowHealthParticles.Stop();
+        lowHealthParticles.gameObject.SetActive(false);
+        lowHealthFeedbacks?.StopFeedbacks();
+        healBar.fillAmount = 1f;
+
         UpdateVisual();
         isHealing = false;
 
         if (deferredDamage > 0)
         {
             AddDamage(deferredDamage, false);
+            InjuryFeedbacks.Instance.ApplyDamage(deferredDamage);
             deferredDamage = 0;
         }
     }
 
     public void ResetToInitialState()
     {
-        if (healRoutine != null) StopCoroutine(healRoutine);
         if (healthTextRoutine != null) StopCoroutine(healthTextRoutine);
 
         currentDamageIndex = 0;
@@ -292,8 +236,6 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         healBar.fillAmount = 1f;
         lowHealthParticles.Stop();
         lowHealthParticles.gameObject.SetActive(false);
-
         lowHealthFeedbacks?.StopFeedbacks();
-        
     }
 }

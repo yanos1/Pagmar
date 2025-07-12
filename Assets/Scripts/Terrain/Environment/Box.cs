@@ -3,38 +3,49 @@ using FMOD.Studio;
 using Interfaces;
 using Managers;
 using UnityEngine;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Terrain.Environment
 {
+    [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
     public class Box : MonoBehaviour, IResettable, IBreakable
     {
         private Rigidbody2D rb;
-        private float hitForce = 20; // this is a dummy value that will be obtained from the player.
-        private bool isMoving;
-        private bool isDropping;
-        private Vector3 startingPosition;
+        private BoxCollider2D col;
 
-        [SerializeField] private EventReference boxHitEvent;
-        [SerializeField] private EventReference boxPushEvent;
+        private Vector3 startingPosition;
+        private bool isDropping = false;
+        private bool dropTriggered = false;
+
+        [Header("Drop Detection Settings")]
+        [SerializeField] private float dropVelocityThreshold = -4f;
+        [SerializeField] private float extraRaycastDistance = 0.2f;
+        [SerializeField] private LayerMask groundLayers;
+
+        [Header("FMOD Events")]
         [SerializeField] private EventReference boxDropEvent;
+        [SerializeField] private EventReference boxPushEvent;
         [SerializeField] private EventReference boxBreakSound;
 
+        [Header("Break Effects")]
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
 
         private EventInstance pushInstance;
         private bool isPushSoundPlaying = false;
 
+        private float hitForce = 20f;
         private float hitCooldownTimer = 0f;
         private const float hitCooldownDuration = 0.5f;
+        private bool isMoving;
 
-        private void Start()
+        private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
+            col = GetComponent<BoxCollider2D>();
             startingPosition = transform.position;
 
-            // Create push sound instance
-            if (boxPushEvent.IsNull == false)
+            if (!boxPushEvent.IsNull)
             {
                 pushInstance = CoreManager.Instance.AudioManager.CreateEventInstance(boxPushEvent);
             }
@@ -45,25 +56,58 @@ namespace Terrain.Environment
             pushInstance.release();
         }
 
+        private void FixedUpdate()
+        {
+            float verticalVelocity = rb.linearVelocity.y;
+            bool isFalling = verticalVelocity < dropVelocityThreshold;
+
+            Vector2 rayOrigin = (Vector2)transform.position + col.offset;
+            float castDistance = (col.size.y * 0.5f * transform.localScale.y) + extraRaycastDistance;
+            Vector2 down = -transform.up;
+
+            bool isTouchingGround = Physics2D.Raycast(rayOrigin, down, castDistance, groundLayers);
+
+            if (isFalling)
+            {
+                isDropping = true;
+                dropTriggered = false;
+            }
+
+            if (isDropping && !dropTriggered && isTouchingGround && Mathf.Abs(verticalVelocity) < 0.1f)
+            {
+                isDropping = false;
+                dropTriggered = true;
+
+                CoreManager.Instance.AudioManager.PlayOneShot(boxDropEvent, transform.position);
+                Debug.Log("Box dropped and landed.");
+            }
+        }
+
+        private void Update()
+        {
+            if (hitCooldownTimer > 0f)
+                hitCooldownTimer -= Time.deltaTime;
+
+            if (isMoving && rb.linearVelocity.magnitude < 0.1f)
+            {
+                isMoving = false;
+                StopPushSound();
+            }
+        }
+
         private void OnCollisionEnter2D(Collision2D other)
         {
-            PlayerMovement playerMovement2 = other.gameObject.GetComponent<PlayerMovement>();
+            PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
 
-            if (playerMovement2 != null)
+            if (player != null)
             {
-                Vector2 hitDirection = (transform.position - other.transform.position).normalized;
+                Vector2 hitDir = (transform.position - player.transform.position).normalized;
 
-                if (playerMovement2.IsDashing)
+                if (player.IsDashing)
                 {
-                    // Uncomment this if you want dash-hit logic
-                    // if (hitCooldownTimer <= 0f)
-                    // {
-                    //     CoreManager.Instance.AudioManager.PlayOneShot(boxHitEvent, transform.position);
-                    //     OnHit(hitDirection, CoreManager.Instance.Player.playerStage);
-                    //     hitCooldownTimer = hitCooldownDuration;
-                    // }
+                    // Add dash hit logic if needed
                 }
-                else // Not dashing, so just pushing
+                else
                 {
                     PlayPushSound();
                     isMoving = true;
@@ -89,34 +133,23 @@ namespace Terrain.Environment
             }
             else
             {
+                PlayPushSound();
+                isMoving = true;
                 rb.AddForce(hitDirection * hitForce, ForceMode2D.Impulse);
             }
         }
 
-        private void Update()
+        public void ResetToInitialState()
         {
-            if (hitCooldownTimer > 0f)
-                hitCooldownTimer -= Time.deltaTime;
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            transform.position = startingPosition;
 
-            if (isMoving && rb.linearVelocity.magnitude < 0.1f)
-            {
-                isMoving = false;
-                StopPushSound();
-            }
-        }
+            hitCooldownTimer = 0f;
+            isDropping = false;
+            dropTriggered = false;
 
-        private void FixedUpdate()
-        {
-            if (Mathf.Approximately(rb.linearVelocity.y, 0) && isDropping)
-            {
-                isDropping = false;
-                CoreManager.Instance.AudioManager.PlayOneShot(boxDropEvent, transform.position);
-            }
-
-            if (rb.linearVelocity.y < -0.1f)
-            {
-                isDropping = true;
-            }
+            StopPushSound();
         }
 
         private void PlayPushSound()
@@ -133,19 +166,20 @@ namespace Terrain.Environment
         {
             if (isPushSoundPlaying)
             {
-                pushInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                pushInstance.stop(STOP_MODE.IMMEDIATE);
                 isPushSoundPlaying = false;
             }
         }
 
-        public void ResetToInitialState()
+        private void OnDrawGizmosSelected()
         {
-            rb.linearVelocity = Vector2.zero;
-            rb.angularVelocity = 0;
-            transform.position = startingPosition;
-            hitCooldownTimer = 0f;
+            if (!Application.isPlaying) return;
 
-            StopPushSound();
+            if (col == null) col = GetComponent<BoxCollider2D>();
+            Vector2 rayOrigin = (Vector2)transform.position + col.offset;
+            float castDistance = (col.size.y * 0.5f * transform.localScale.y) + extraRaycastDistance;
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawLine(rayOrigin, rayOrigin + (Vector2)(-transform.up * castDistance));
         }
     }
 }

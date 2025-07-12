@@ -202,19 +202,29 @@ namespace Enemies
             hitFeedbacks?.PlayFeedbacks();
         }
 
-        public override void OnRammed(float fromForce)
+        public override void OnRammed(float fromForce, Vector3 collisionPoint)
         {
-            if (healer)
-            {
-                Instantiate(healingRune, transform.position,Quaternion.identity);
-            }
-            gameObject.SetActive(false);
+            throw new NotImplementedException();
         }
 
-        public override void OnTie(float fromForce)
+        public override void OnTie(float fromForce, Vector3 collisionPoint)
         {
-            return;
+            throw new NotImplementedException();
         }
+
+        // public override void OnRammed(float fromForce)
+        // {
+        //     if (healer)
+        //     {
+        //         Instantiate(healingRune, transform.position,Quaternion.identity);
+        //     }
+        //     gameObject.SetActive(false);
+        // }
+        //
+        // public override void OnTie(float fromForce)
+        // {
+        //     return;
+        // }
 
         public override void ApplyKnockback(Vector2 direction, float force)
         {

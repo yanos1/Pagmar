@@ -10,7 +10,7 @@ namespace Terrain.Environment
     public class ArenaElevetor : MovingPlatform
     {
         [SerializeField] private Transform center;
-        [SerializeField] private EventReference ArenaMusic;
+        [SerializeField] private MusicType ArenaMusic;
 
         private bool triggered = false;
         public override void OnCollisionEnter2D(Collision2D c)

@@ -124,11 +124,11 @@ public class ChasingEnemy : Rammer, IResettable
         agent.velocity = Vector3.zero;
     }
 
-    public override void OnRammed(float fromForce)
+    public override void OnRammed(float fromForce, Vector3 collisionPoint)
     {
     }
 
-    public override void OnTie(float fromForce)
+    public override void OnTie(float fromForce, Vector3 collisionPoint)
     {
         return;
     }

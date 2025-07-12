@@ -3,6 +3,7 @@ using Managers;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
+using FMODUnity;
 
 namespace Terrain.Environment
 {
@@ -18,6 +19,7 @@ namespace Terrain.Environment
         private SpriteRenderer sr;
         private Vector3 initialPosition;
 
+        [SerializeField] private EventReference crumbleSound;
         [SerializeField] private bool reset = true;
 
         // Tween references
@@ -71,13 +73,14 @@ namespace Terrain.Environment
             Crumble();
         }
 
-        public void CrumbleQuick()
+        public void CrumbleQuick() // usued
         {
             fadeTween = sr.DOFade(0f, crumbleDuration).OnComplete(DisablePlatform);
         }
 
         private void Crumble()
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(crumbleSound, transform.position);
             col.enabled = false;
 
             moveTween = transform.DOMoveY(transform.position.y - 2f, crumbleDuration)

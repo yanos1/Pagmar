@@ -181,11 +181,11 @@ MonoBehaviour:
   f: {fileID: 0}
   hitSound:
     Guid:
-      Data1: 982625841
-      Data2: 1216845696
-      Data3: 8652720
-      Data4: 485719813
-    Path: event:/Objects/WoodPlatformRotate
+      Data1: 1644184395
+      Data2: 1137086331
+      Data3: 1009091752
+      Data4: -1411661947
+    Path: event:/Objects/Tree bark impact
   breakSound:
     Guid:
       Data1: -183777271

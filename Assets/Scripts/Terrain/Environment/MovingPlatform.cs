@@ -35,6 +35,7 @@ namespace Terrain.Environment
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
         [SerializeField] private EventReference moveSound;
+        [SerializeField] private EventReference returnSound;
         [SerializeField] private BoxCollider2D col;
         
         
@@ -47,6 +48,7 @@ namespace Terrain.Environment
         private Coroutine moveslightlyCor;
         private Coroutine moveCoroutine;
         private EventInstance moveInstance;
+        private EventInstance returnInstance;
 
         private void Start()
         {
@@ -68,7 +70,7 @@ namespace Terrain.Environment
         {
             print("move platform!");
             
-            if (isMoving || isReturning) yield break;
+            if (isMoving || isReturning)  yield break;
             isMoving = true;
             print("yes move");
             if (moveslightlyCor != null)
@@ -76,7 +78,7 @@ namespace Terrain.Environment
                 StopCoroutine(moveslightlyCor);
             }
             float timer = 0f;
-            PlaySound();
+            PlayMoveSound();
             while (timer < moveDuration)
             {
                 float t = timer / moveDuration;
@@ -87,7 +89,7 @@ namespace Terrain.Environment
             }
 
             transform.position = targetPos;
-            StopSound();
+            StopMoveSound();
             yield return new WaitForSeconds(secondsBeforeReturn);
 
             print($"stop moving after {moveDuration}");
@@ -120,7 +122,7 @@ namespace Terrain.Environment
             isMoving = false;
         }
 
-        private void PlaySound()
+        private void PlayMoveSound()
         {
             moveInstance = CoreManager.Instance.AudioManager.CreateEventInstance(moveSound);
             moveInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
@@ -128,17 +130,33 @@ namespace Terrain.Environment
         }
 
 
-        private void StopSound()
+        private void StopMoveSound()
         {
-            moveInstance.stop(STOP_MODE.ALLOWFADEOUT);
+            moveInstance.stop(STOP_MODE.IMMEDIATE);
             moveInstance.release();
         }
+        
+        private void PlayReturnSound()
+        {
+            returnInstance = CoreManager.Instance.AudioManager.CreateEventInstance(moveSound);
+            returnInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+            returnInstance.start();
+        }
 
+
+        private void StopReturnSound()
+        {
+            returnInstance.stop(STOP_MODE.IMMEDIATE);
+            returnInstance.release();
+        }
+
+        
+        
         private IEnumerator ReturnPlatform()
         {
             isReturning = true;
             float timer = 0f;
-            PlaySound();
+            PlayReturnSound();
             while (timer < moveDuration)
             {
                 float t = timer / moveDuration;
@@ -147,7 +165,7 @@ namespace Terrain.Environment
                 timer += Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate();
             }
-            StopSound();
+            StopReturnSound();
             transform.position = startPos;
             isReturning = false;
         }
@@ -260,7 +278,7 @@ namespace Terrain.Environment
             
             Vector3 originalPos = transform.position;
             Vector3 destination = originalPos + Vector3.up * gentleMoveDistance;
-            PlaySound();
+            PlayMoveSound();
             float timer = 0f;
             while (timer < gentleMoveDuration)
             {
@@ -283,7 +301,7 @@ namespace Terrain.Environment
                 timer += Time.deltaTime;
                 yield return null;
             }
-            StopSound();
+            StopMoveSound();
 
             transform.position = originalPos;
             isGentlyMoving = false;
@@ -307,7 +325,7 @@ namespace Terrain.Environment
 
         public virtual void ResetToInitialState()
         {
-            StopSound();
+            StopMoveSound();
             StopAllCoroutines();
             moveCoroutine = null;
             moveslightlyCor = null;
@@ -319,7 +337,7 @@ namespace Terrain.Environment
 
         public void OnBreak()
         {
-            StopSound();
+            StopMoveSound();
             col.enabled = false;
             e.explode();
             f.doExplosion(f.transform.position);

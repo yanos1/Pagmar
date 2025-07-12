@@ -6,6 +6,7 @@ using NPC;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Atmosphere.TileExplostion;
 using Enemies;
 using MoreMountains.Feedbacks;
 using ScripableObjects;
@@ -33,6 +34,7 @@ namespace Player
         [SerializeField] private DoSpineFlash doSpineFlash;
         [SerializeField] private GameObject light;
         [SerializeField] private PlayerSounds sounds;
+        
         private MMF_Player currentlyPlayingShake;
 
 
@@ -292,7 +294,7 @@ namespace Player
                 if (rammer.GetComponent<ChargingEnemy>() is not null && dot > 0.75f) // horizontal impact check
                 {
                     print("resolve ram");
-                    RammerManager.Instance.ResolveRam(this, rammer);
+                    RammerManager.Instance.ResolveRam(this, rammer, other.GetContact(0).point + Vector2.up);
                 }
 
                 else if (rammer.GetComponent<ChasingEnemy>() is not null && isDead == false)
@@ -304,7 +306,7 @@ namespace Player
 
                 else if (rammer.GetComponent<ChargingEnemy>() is null)
                 {
-                    RammerManager.Instance.ResolveRam(this, rammer); // flying enemy
+                    RammerManager.Instance.ResolveRam(this, rammer, other.GetContact(0).point + Vector2.up); // flying enemy
                 }
             }
         }
@@ -386,9 +388,18 @@ namespace Player
 
         }
 
-        public override void OnRammed(float fromForce)
+        public override void OnRammed(float fromForce, Vector3 collisionPoint)
         {
             Debug.Log($"Player got rammed with force {fromForce}");
+            var clashPart = CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.EnemyHitPlayerParticles);
+            clashPart.Play(collisionPoint +Vector3.left*0.5f);
+            
+            InjuryFeedbacks.Instance.UpdateVisualFeedback(true);
+
+            spineControl.PlayAnimationOnBaseTrack("hit", false);
+            CoreManager.Instance.AudioManager.PlayOneShot(sounds.damagedSound, transform.position);
+            OnRammedFeedback();
+            if(isDead) return;
             if (_playerStage == PlayerStage.FinalForm)
             {
                 _damageHandler.AddDamage(1);
@@ -397,12 +408,6 @@ namespace Player
             {
                 _damageHandler.AddDamage(2);
             }
-
-            InjuryFeedbacks.Instance.UpdateVisualFeedback(true);
-
-            spineControl.PlayAnimationOnBaseTrack("hit", false);
-            CoreManager.Instance.AudioManager.PlayOneShot(sounds.damagedSound, transform.position);
-            OnRammedFeedback();
 
             float currentTime = Time.time;
 
@@ -419,8 +424,10 @@ namespace Player
             lastRammedTime = currentTime;
         }
 
-        public override void OnTie(float fromForce)
+        public override void OnTie(float fromForce, Vector3 collisionPoint)
         {
+            var clashPart = CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.ClashParticles);
+            clashPart.Play(collisionPoint);
             _damageHandler.AddDamage(1);
             CoreManager.Instance.AudioManager.PlayOneShot(sounds.clashSound, transform.position);
             InjuryFeedbacks.Instance.UpdateVisualFeedback();
@@ -584,9 +591,7 @@ namespace Player
         {
             StopAllCoroutines();
             ChangeToOriginalColor();
-            Revive();
             EnableInput();
-            isDead = false;
             isKnockbacked = false;
             // if (_playerMovement.isWallSliding)
             // {

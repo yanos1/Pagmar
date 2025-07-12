@@ -94,10 +94,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e5a8a7789640c1aeec31ee83d0f755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetOffset: {x: 0, y: -7, z: 0}
+  targetOffset: {x: 0, y: -9.5, z: 0}
   triggerDirection: {x: 0, y: -1, z: 0}
-  moveDuration: 3.2
-  secondsBeforeReturn: 1
+  moveDuration: 3.8
+  secondsBeforeReturn: 2
   movementCurve:
     serializedVersion: 2
     m_Curve:
@@ -188,6 +188,14 @@ MonoBehaviour:
       Data3: -1779268717
       Data4: -1804043663
     Path: event:/Objects/Elevator
+  returnSound:
+    Guid:
+      Data1: -1472272352
+      Data2: 1332340814
+      Data3: -1779268717
+      Data4: -1804043663
+    Path: event:/Objects/Elevator
+  col: {fileID: 287640088777926130}
 --- !u!1 &1267597207550698884
 GameObject:
   m_ObjectHideFlags: 0

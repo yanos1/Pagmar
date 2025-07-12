@@ -49,11 +49,8 @@ namespace Managers
             }
         }
 
-        public void ResolveRam(Rammer a, Rammer b)
+        public void ResolveRam(Rammer a, Rammer b, Vector3 collisionPoint)
         {
-         
-
-        
             float forceA = a.CurrentForce;
             float forceB = b.CurrentForce;
             print($"forces : ours: {a.CurrentForce} enemy: {b.CurrentForce}");
@@ -88,8 +85,8 @@ namespace Managers
                     playerHitFeedback?.PlayFeedbacks();
                     a.ApplyKnockback(dirA, baseForce);
                     b.ApplyKnockback(dirB, baseForce);
-                    a.OnTie(b.CurrentForce);
-                    b.OnTie(a.CurrentForce);
+                    a.OnTie(b.CurrentForce, collisionPoint);
+                    b.OnTie(a.CurrentForce, collisionPoint);
                 }
                 return;
             }
@@ -104,7 +101,7 @@ namespace Managers
 
             // Winner rams, loser gets rammed
             winner.OnRam(dirA, loserForce);
-            loser.OnRammed(winnerForce);
+            loser.OnRammed(winnerForce, collisionPoint);
             
             // kmockback player of lower states
             Vector2 loseDir = (loser.transform.position - winner.transform.position).normalized;

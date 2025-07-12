@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GameLoader.unity
+    path: Assets/Resources/Poolables/GameLoader.unity
     guid: 00aec075a37e7ee40bef8b0937f2069d
   - enabled: 1
     path: Assets/Scenes/PersistentScene.unity

@@ -55,8 +55,6 @@ MonoBehaviour:
   chargeDelay: 1.5
   chargeCooldown: 2
   chargeDuration: 2
-  rotationAmount: 10
-  rotationSpeed: 20
   minDistanceActivation: 4.5
   sleepAtStart: 0
   canRoam: 1
@@ -72,6 +70,7 @@ MonoBehaviour:
   sounds: {fileID: 11400000, guid: 06cba468de9bc1745a200b9c41b06460, type: 2}
   doSpineFlash: {fileID: 7464781788439388851}
   currentDirection: {x: 1, y: 0}
+  visibilityThreshold: 0.2
   hitsToKill: 2
 --- !u!50 &7558305614794456467
 Rigidbody2D:

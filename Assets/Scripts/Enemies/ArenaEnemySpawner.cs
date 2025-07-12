@@ -82,7 +82,7 @@ namespace Enemies
             {
                 yield return new WaitForSeconds(2f);
                 if (enemies.TrueForAll(enemy =>
-                        !enemy.gameObject.activeInHierarchy))
+                        enemy.IsDead))
                 {
                     finishedBattle = true;
                     OpenGates(); 

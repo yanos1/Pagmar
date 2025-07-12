@@ -4695,13 +4695,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd3d2561f0cc43b0bfb3e8ad4c063697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxHitEvent:
+  dropVelocityThreshold: -12
+  extraRaycastDistance: 0.2
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  boxDropEvent:
     Guid:
-      Data1: 982625841
-      Data2: 1216845696
-      Data3: 8652720
-      Data4: 485719813
-    Path: event:/Objects/WoodPlatformRotate
+      Data1: -2145694158
+      Data2: 1280829813
+      Data3: 1836900025
+      Data4: 743886859
+    Path: event:/Objects/Wood box fall
   boxPushEvent:
     Guid:
       Data1: 1320823649
@@ -4709,13 +4714,6 @@ MonoBehaviour:
       Data3: -348150395
       Data4: 1680074538
     Path: event:/Objects/WoodBoxPush
-  boxDropEvent:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
   boxBreakSound:
     Guid:
       Data1: -183777271

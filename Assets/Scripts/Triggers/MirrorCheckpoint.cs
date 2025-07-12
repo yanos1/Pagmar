@@ -11,6 +11,7 @@ namespace Triggers
         [SerializeField] private MirrorCheckpointSounds sounds;
         public override void OnTriggerEnter2D(Collider2D other)
         {
+            print("mirror checkpoint reached");
             if (!triggered)
             {
                 base.OnTriggerEnter2D(other);

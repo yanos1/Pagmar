@@ -159,7 +159,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      spin-plate_0: -2205096163441139462
+      spin-plate_1: 1487704777284075993
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

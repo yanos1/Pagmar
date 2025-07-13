@@ -181,7 +181,6 @@ public class ChasingEnemy : Rammer, IResettable
     {
         Vector3 hitPos = other.bounds.center;
         Vector3Int centerCell = tilemap.WorldToCell(hitPos);
-        print($"Checking tile area around {centerCell}");
 
         for (int x = -1; x <= 1; x++)
         {

@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Retroactive: 0
   m_EmitOnce: 0
   m_Asset: {fileID: 11400000, guid: 3e35cb66f9a08bd469973b4e6bcd01c7, type: 2}
---- !u!114 &1763296706645419055
+--- !u!114 &2642041313200255217
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
   m_Name: AnimationPlayableAsset
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 7400000, guid: cb0946f81120cec428bfc7a86b96bcb9, type: 2}
+  m_Clip: {fileID: 7400000, guid: e50077bae8f074846ad5971e136bab48, type: 2}
   m_Position: {x: 0, y: 0, z: 0}
   m_EulerAngles: {x: 0, y: 0, z: 0}
   m_UseTrackMatchFields: 1
@@ -263,10 +263,10 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 9.3
+    m_Start: 6.633333333333334
     m_ClipIn: 0
-    m_Asset: {fileID: 1763296706645419055}
-    m_Duration: 2.1
+    m_Asset: {fileID: 2642041313200255217}
+    m_Duration: 1.1999999999999993
     m_TimeScale: 1
     m_ParentTrack: {fileID: 7680767095993349399}
     m_EaseInDuration: 0
@@ -329,8 +329,8 @@ MonoBehaviour:
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
     m_PostExtrapolationTime: Infinity
-    m_PreExtrapolationTime: 9.3
-    m_DisplayName: Thumbstick 360rot
+    m_PreExtrapolationTime: 6.633333333333334
+    m_DisplayName: l-stick-move
   m_Markers:
     m_Objects: []
   m_InfiniteClipPreExtrapolation: 0

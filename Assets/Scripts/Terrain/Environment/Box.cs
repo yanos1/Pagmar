@@ -147,14 +147,18 @@ namespace Terrain.Environment
         {
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
-            transform.position = startingPosition;
 
+            rb.position = startingPosition; // Use this instead of transform.position
+            rb.rotation = 0f;
+            
             hitCooldownTimer = 0f;
             isDropping = false;
             dropTriggered = false;
+            print("reset box");
 
             StopPushSound();
         }
+
 
         private void PlayPushSound()
         {

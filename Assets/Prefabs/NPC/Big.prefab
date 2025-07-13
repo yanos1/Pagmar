@@ -206,7 +206,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_Sprite: {fileID: 1689158230525410469, guid: 37a5b73b951d2f944baec20fedd4957d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -584,7 +584,6 @@ MonoBehaviour:
         targetPosition: {x: 2.25, y: 0, z: 0}
         duration: 0.75
         easeType: 0
-        sounds: {fileID: 11400000, guid: 95ee23c575da8784a8c4dd172025a189, type: 2}
         stepFeedbacks: {fileID: 1600866656711403547}
     - rid: 2933668851201343608
       type: {class: LinearMoveAction, ns: NPC.NpcActions, asm: Assembly-CSharp}
@@ -611,7 +610,6 @@ MonoBehaviour:
         targetPosition: {x: 2.25, y: 0, z: 0}
         duration: 0.75
         easeType: 0
-        sounds: {fileID: 11400000, guid: 95ee23c575da8784a8c4dd172025a189, type: 2}
         stepFeedbacks: {fileID: 1600866656711403547}
     - rid: 2933668851201343609
       type: {class: LinearMoveAction, ns: NPC.NpcActions, asm: Assembly-CSharp}
@@ -626,7 +624,6 @@ MonoBehaviour:
         targetPosition: {x: 2.5, y: -3, z: 0}
         duration: 1
         easeType: 2
-        sounds: {fileID: 0}
         stepFeedbacks: {fileID: 0}
     - rid: 2933668851201343610
       type: {class: LinearMoveAction, ns: NPC.NpcActions, asm: Assembly-CSharp}
@@ -641,7 +638,6 @@ MonoBehaviour:
         targetPosition: {x: 4, y: 2, z: 0}
         duration: 2
         easeType: 0
-        sounds: {fileID: 0}
         stepFeedbacks: {fileID: 0}
     - rid: 5373309613049905405
       type: {class: LinearMoveAction, ns: NPC.NpcActions, asm: Assembly-CSharp}
@@ -656,7 +652,6 @@ MonoBehaviour:
         targetPosition: {x: 7, y: 0, z: 0}
         duration: 3
         easeType: 4
-        sounds: {fileID: 0}
         stepFeedbacks: {fileID: 0}
     - rid: 5373309635675030014
       type: {class: CompositeAction, ns: NPC.NpcActions.NPC.NpcActions, asm: Assembly-CSharp}
@@ -712,7 +707,6 @@ MonoBehaviour:
         targetPosition: {x: 4.9, y: 0, z: 0}
         duration: 1.2
         easeType: 8
-        sounds: {fileID: 0}
         stepFeedbacks: {fileID: 0}
     - rid: 5373309635675030017
       type: {class: JumpCancelDashUpAction, ns: NPC.NpcActions, asm: Assembly-CSharp}
@@ -742,7 +736,6 @@ MonoBehaviour:
         targetPosition: {x: 6, y: 0, z: 0}
         duration: 2
         easeType: 1
-        sounds: {fileID: 0}
         stepFeedbacks: {fileID: 0}
     - rid: 5373309635675030019
       type: {class: ChargeAction, ns: NPC.NpcActions, asm: Assembly-CSharp}
@@ -758,6 +751,13 @@ MonoBehaviour:
         duration: 0.8
         easeType: 8
         obstacleCheckDistance: 10
+        hitSound:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
     - rid: 5373309635675030035
       type: {class: ChargeAction, ns: NPC.NpcActions, asm: Assembly-CSharp}
       data:
@@ -772,6 +772,13 @@ MonoBehaviour:
         duration: 1.8
         easeType: 8
         obstacleCheckDistance: 20
+        hitSound:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
 --- !u!70 &7381501981741370908
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -821,10 +828,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6376a7a5bbf05d043be9708dd7d10d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bigSpine: {fileID: 0}
   bigVisuals: {fileID: 0}
   questionMarkRenderer: {fileID: 5787955287091357524}
+  exclamationMarkRenderer: {fileID: 0}
   questionMark: {fileID: 6421388458576123707}
+  exclamationMark: {fileID: 0}
   healText: {fileID: 5958306581473034046}
+  headCol: {fileID: 0}
+  healFeedbacks: {fileID: 0}
+  sleepingHealRequestFeedbacks: {fileID: 0}
+  landFeedbacks: {fileID: 0}
+  approachSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  apearSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  ponderingSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  requestHealSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!58 &8103869744455607076
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1423,7 +1465,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.5348434, g: 0.9528302, b: 0.64713836, a: 1}
   m_FlipX: 0

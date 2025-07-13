@@ -1,17 +1,14 @@
-using System;
 using System.Collections;
 using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
 using Atmosphere.TileExplostion;
-using Enemies;
 using FMOD.Studio;
 using FMODUnity;
 using Managers;
 using Spine.Unity;
 using UnityEngine.Tilemaps;
-using EventManager = FMODUnity.EventManager;
 using Random = UnityEngine.Random;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 

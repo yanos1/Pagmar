@@ -1,8 +1,11 @@
 using UnityEngine;
 
 /// <summary>
-/// Expanding white ring (“hoop”) that restarts whenever the component/GameObject
-/// is re‑enabled – handy for one‑click resets in the Inspector.
+/// Expanding white ring (“hoop”) that
+///   • grows from startRadius → finalRadius in lifeTime seconds,
+///   • then destroys itself **and**
+///   • spawns a particle‑effect prefab at the centre, handing it the hoop’s colour
+///     and final radius for synchronised visuals.
 /// Attach it to a GameObject that already has a LineRenderer.
 /// </summary>
 [RequireComponent(typeof(LineRenderer))]
@@ -11,17 +14,24 @@ public class GrowHoop : MonoBehaviour
     /* ── Tweaks ─────────────────────────────────────────── */
 
     [Header("Timing")]
-    [SerializeField] float lifeTime = 0.5f;         // seconds to finish
+    [SerializeField] float lifeTime = 0.5f;
     [SerializeField] AnimationCurve sizeCurve =
-        AnimationCurve.EaseInOut(0, 0, 1, 1);       // ease‑out
+        AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-    [Header("Radius")]
-    [SerializeField] float startRadius = 0.2f;      // world units
+    [Header("Radius (world units)")]
+    [SerializeField] float startRadius = 0.2f;
     [SerializeField] float finalRadius = 2.5f;
 
     [Header("Visuals")]
-    [SerializeField] int   segments   = 64;         // circle fidelity
+    [SerializeField] int   segments   = 64;
     [SerializeField] float lineWidth  = 0.08f;
+    [SerializeField] Color lineColor  = Color.white;
+
+    [Header("Particles on Complete")]
+    [Tooltip("Prefab with a ParticleSystem (optional).\n" +
+             "If it has a script that implements IGrowHoopSync, " +
+             "the hoop’s colour & radius are passed to it.")]
+    [SerializeField] GameObject particlePrefab;
 
     /* ── Internals ──────────────────────────────────────── */
 
@@ -29,19 +39,25 @@ public class GrowHoop : MonoBehaviour
     float _elapsed;
     bool  _playing;
 
+    /* ───────────────────────────────────────────────────── */
+
     void Awake()
     {
         _lr = GetComponent<LineRenderer>();
 
-        // Set some sensible defaults for the line
-        _lr.loop        = true;
-        _lr.useWorldSpace = false;                  // local space so parent scaling works
+        // Make sure the LineRenderer is ready
+        _lr.loop          = true;
+        _lr.useWorldSpace = false;
         _lr.positionCount = segments;
-        _lr.startColor = _lr.endColor = Color.white;
-        _lr.startWidth = _lr.endWidth = lineWidth;
+        _lr.startWidth    = _lr.endWidth = lineWidth;
+        _lr.startColor    = _lr.endColor = lineColor;
+
+        // Safe material: if no material set in the Inspector, give a basic one
+        if (_lr.material == null)
+            _lr.material = new Material(Shader.Find("Sprites/Default"));
     }
 
-    /* Restart whenever enabled (toggle checkbox, SetActive, etc.) */
+    /* Restart automatically whenever enabled */
     void OnEnable()  => Restart();
     void OnDisable() => _playing = false;
 
@@ -50,13 +66,17 @@ public class GrowHoop : MonoBehaviour
         if (!_playing) return;
 
         _elapsed += Time.deltaTime;
-        float t   = Mathf.Clamp01(_elapsed / lifeTime);
+        float t = Mathf.Clamp01(_elapsed / lifeTime);
 
         float radius = Mathf.Lerp(startRadius, finalRadius, sizeCurve.Evaluate(t));
         DrawCircle(radius);
 
         if (_elapsed >= lifeTime)
+        {
             _playing = false;
+            SpawnParticles();   // 1️⃣ fire the VFX
+            // Destroy(gameObject); // 2️⃣ disappear
+        }
     }
 
     /* Manual restart – also called by OnEnable */
@@ -65,19 +85,40 @@ public class GrowHoop : MonoBehaviour
     {
         _elapsed = 0f;
         _playing = true;
-        DrawCircle(startRadius);                    // start small
+        DrawCircle(startRadius);
     }
 
     /* Draws the circle at the given radius */
     void DrawCircle(float r)
     {
-        float angleStep = 360f / segments;
+        float step = 360f / segments;
         for (int i = 0; i < segments; i++)
         {
-            float angle = Mathf.Deg2Rad * (i * angleStep);
-            _lr.SetPosition(i, new Vector3(Mathf.Cos(angle) * r,
-                                           Mathf.Sin(angle) * r,
+            float a = Mathf.Deg2Rad * (i * step);
+            _lr.SetPosition(i, new Vector3(Mathf.Cos(a) * r,
+                                           Mathf.Sin(a) * r,
                                            0f));
         }
     }
+
+    /* Spawns the particle effect and passes sync data if requested */
+    void SpawnParticles()
+    {
+        if (particlePrefab == null) return;
+
+        GameObject go = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+
+        // If the prefab has a script that wants sync data, hand it over
+        var sync = go.GetComponent<IGrowHoopSync>();
+        if (sync != null)
+            sync.Init(lineColor, finalRadius);
+    }
+}
+
+/* ── Optional interface for particle prefabs ────────────────────────── */
+/* Implement this on a script inside your particle prefab if you want  */
+/* to receive the hoop’s colour and final radius at spawn time.         */
+public interface IGrowHoopSync
+{
+    void Init(Color hoopColor, float hoopRadius);
 }

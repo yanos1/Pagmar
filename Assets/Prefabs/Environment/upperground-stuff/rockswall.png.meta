@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c24332cec3fe08648b952eda235a5466
+guid: 0725c009f8b8d49cc9bbab40668d0bb6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -141211029917218311
-    second: 3-midright_0
+      213: 2045076714879155490
+    second: rockswall_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 3-midright_0
+      name: rockswall_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 766
-        height: 595
+        width: 1465
+        height: 261
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9f9ca6301515a0ef0800000000000000
-      internalID: -141211029917218311
+      spriteID: 22d7bc8df62916c10800000000000000
+      internalID: 2045076714879155490
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 1cff02d7b05294405b22fee7c0796b70
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      3-midright_0: -141211029917218311
+      rockswall_0: 2045076714879155490
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

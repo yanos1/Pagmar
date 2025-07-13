@@ -42,17 +42,15 @@ namespace UI
             selectButtonFeedbacks.PlayFeedbackForTarget(buttonsToActions[0].button.transform);
         }
 
-      
 
         public void Navigate(InputAction.CallbackContext context)
         {
-            if(!gameObject.activeInHierarchy) return;
+            if (!gameObject.activeInHierarchy) return;
             var direction = context.ReadValue<Vector2>();
             print($"navigating with {direction}");
 
             if (Time.unscaledTime - lastInputTime < inputDelay)
             {
-
                 return;
             }
 
@@ -69,7 +67,7 @@ namespace UI
 
         public void Submit(InputAction.CallbackContext context)
         {
-            if(!gameObject.activeInHierarchy) return;
+            if (!gameObject.activeInHierarchy) return;
 
             if (Time.unscaledTime - lastSubmitTime < submitDelay)
                 return;
@@ -78,7 +76,6 @@ namespace UI
 
             buttonsToActions[selectedButtonIndex].action.Invoke();
             print("pressing button!");
-
         }
 
         private void ChangeSelection(int direction)
@@ -86,14 +83,19 @@ namespace UI
             if (buttonsToActions == null || buttonsToActions.Count == 0)
                 return;
             print("selecting new button!");
-            CoreManager.Instance.AudioManager.PlayOneShot(selectedSound, transform.position);
+            if (buttonsToActions.Count > 1)
+            {
+                CoreManager.Instance.AudioManager.PlayOneShot(selectedSound, transform.position);
+            }
+
             deselectButtonFeedbacks.PlayFeedbackForTarget(buttonsToActions[selectedButtonIndex].button.transform);
 
             selectedButtonIndex += direction;
 
             if (selectedButtonIndex < 0)
             {
-                selectedButtonIndex = (selectedButtonIndex % buttonsToActions.Count + buttonsToActions.Count) % buttonsToActions.Count;
+                selectedButtonIndex = (selectedButtonIndex % buttonsToActions.Count + buttonsToActions.Count) %
+                                      buttonsToActions.Count;
             }
             else
             {

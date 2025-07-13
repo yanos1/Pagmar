@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{44b2917e-9295-4dee-a9e5-22e20c388b79}">
+		<property name="assetPath">
+			<value>Horns game main menu.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>107.78572916666667</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a9044247-395f-4438-af47-acfafbe18e57}</destination>
+		</relationship>
+	</object>
+</objects>

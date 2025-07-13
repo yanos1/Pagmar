@@ -52,13 +52,15 @@ namespace Terrain.Environment
 
         public void OnBreak()
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(treeHit, transform.position);
+
             StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.5f,
                 () => CoreManager.Instance.AudioManager.PlayOneShot(treeFall, transform.position)));
 
             rb.AddForce(Vector2.left * power);
         }
 
-        public void OnHit(Vector2 hitDir, PlayerStage stage)
+        public void OnHit(Vector2 hitDir, PlayerStage stage) // unused
         {
             print($"hit dir is {hitDir}");
             CoreManager.Instance.AudioManager.PlayOneShot(treeHit, transform.position);

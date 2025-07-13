@@ -33,7 +33,7 @@ namespace Player
             force += forceAddition;
         }
 
-        public void EndGameAnimationSequence()
+        public void EndGameAnimationSequence() // unused
         {
             Rotate();
             // play  look down

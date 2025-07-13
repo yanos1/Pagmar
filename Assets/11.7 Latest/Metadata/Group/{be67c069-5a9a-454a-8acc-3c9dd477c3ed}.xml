@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="MixerGroup" id="{be67c069-5a9a-454a-8acc-3c9dd477c3ed}">
+		<property name="name">
+			<value>SFX non diagetic no reverb</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{fcf0f410-48f6-4cd9-8369-05e28e23de61}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{3dcdef2c-4f2d-4dd8-89d5-fac532829577}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{cd085cb6-a581-462a-b216-fa0337439df0}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{fcf0f410-48f6-4cd9-8369-05e28e23de61}">
+		<relationship name="effects">
+			<destination>{6ea12eac-fcb6-4132-8078-1027b900699f}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{3dcdef2c-4f2d-4dd8-89d5-fac532829577}" />
+	<object class="MixerBusFader" id="{6ea12eac-fcb6-4132-8078-1027b900699f}" />
+</objects>

@@ -349,7 +349,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
             CameraManager.GetInstance().LerpYDamping(false);
         }
 
-        if (isFalling && _rb.linearVelocity.y >= 0)
+        if (isFalling && _rb.linearVelocity.y >= -0.12)
         {
             print($"time falling {timeFalling}");
             // if (timeFalling > 2.5)

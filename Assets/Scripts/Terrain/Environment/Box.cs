@@ -119,9 +119,10 @@ namespace Terrain.Environment
 
         public void OnBreak()
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, transform.position);
+
             if (e != null && f != null)
             {
-                CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, transform.position);
                 breakFeedbacks?.PlayFeedbacks();
                 e.explode();
                 f.doExplosion(transform.position);

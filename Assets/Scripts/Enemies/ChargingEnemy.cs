@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using Atmosphere.TileExplostion;
 using FMOD.Studio;
 using FMODUnity;
@@ -10,7 +8,6 @@ using MoreMountains.Feedbacks;
 using Obstacles;
 using Player;
 using ScripableObjects;
-using Spine.Unity;
 using SpongeScene;
 using UnityEngine;
 using STOP_MODE = FMOD.Studio.STOP_MODE;

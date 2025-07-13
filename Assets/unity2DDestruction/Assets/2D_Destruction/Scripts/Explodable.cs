@@ -56,7 +56,11 @@ public class Explodable : MonoBehaviour, IResettable
         //if fragments exist destroy the original
         if (fragments.Count > 0)
         {
-            GetComponent<Collider2D>().enabled = false;
+            Collider2D[] colliders = GetComponents<Collider2D>();
+            foreach (var col in colliders)
+            {
+                col.enabled = false;
+            }
             
             // make invis
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
@@ -205,7 +209,12 @@ public class Explodable : MonoBehaviour, IResettable
             print("calling reset on explodable component of exploding tile tile.");
         }
         gameObject.SetActive(true);
-        GetComponent<Collider2D>().enabled = true;
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        foreach (var col in colliders)
+        {
+            col.enabled = true;
+        }
+
         GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
         // make colorful again
         SpriteRenderer sr = GetComponent<SpriteRenderer>();

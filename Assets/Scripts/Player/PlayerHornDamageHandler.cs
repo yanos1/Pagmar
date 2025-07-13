@@ -195,7 +195,10 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         currentDamageIndex = hornStates.Count - 1;
         UpdateVisual();
         Debug.Log("Horn is fully broken. Dead.");
-        player.Die();
+        if (!player.IsDead)
+        {
+            player.Die();
+        }
     }
 
     public void StartFullHeal(object o)

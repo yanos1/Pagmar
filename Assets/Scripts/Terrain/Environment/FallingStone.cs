@@ -11,7 +11,6 @@ namespace Terrain.Environment
 {
     public class FallingStone : MonoBehaviour, IResettable, IKillPlayer
     {
-        [SerializeField] private MMF_Player fallFeedbacks;
         [SerializeField] private MMF_Player landFeedBacks;
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
@@ -67,8 +66,10 @@ namespace Terrain.Environment
         public virtual void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.CompareTag("WeakRock") || other.gameObject.CompareTag("Metal") || other.gameObject.CompareTag("Player"))
-            {
+            {   
+               
                 // Play hit sound as one-shot
+                landFeedBacks?.PlayFeedbacks();
                 CoreManager.Instance.AudioManager.PlayOneShot(hitSound, transform.position);
 
                 if (e is not null)

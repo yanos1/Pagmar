@@ -28,14 +28,14 @@ namespace Terrain.Environment
         [SerializeField] private EventReference breakSound;
         private bool isObjectOnTop = false;
         private float accumulatedForce;
-        private Collider2D _collider;
+        [SerializeField] private Collider2D _collider;
         private int currentHits;
 
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _collider = GetComponent<Collider2D>();
+            
             startingPos = transform.position;
             accumulatedForce = baseForce;
         }
@@ -109,6 +109,7 @@ namespace Terrain.Environment
 
             if (playerStage == PlayerStage.FinalForm && ++currentHits == hitsToDestroy)
             {
+                print("call break on pillar");
                 OnBreak();
             }
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Xml.Schema;
 using Enemies;
 using FMOD.Studio;
@@ -17,7 +18,7 @@ namespace Terrain.Environment
     public class MovingPlatform : MonoBehaviour, IResettable,IBreakable
     {
         [Header("Movement Settings")] 
-        [SerializeField] private Vector3 targetOffset;
+        [SerializeField] protected Vector3 targetOffset;
         [SerializeField] protected Vector3 triggerDirection;
         [SerializeField] private float moveDuration = 2f;
         [SerializeField] private float secondsBeforeReturn;
@@ -34,9 +35,10 @@ namespace Terrain.Environment
 
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
-        [SerializeField] private EventReference moveSound;
+        [SerializeField] protected EventReference moveSound;
         [SerializeField] private EventReference returnSound;
         [SerializeField] private BoxCollider2D col;
+        [SerializeField] private Transform VisualsTransform;
         
         
         private Vector3 startPos;
@@ -44,9 +46,9 @@ namespace Terrain.Environment
         protected bool isMoving = false;
         protected bool isReturning = false;
         private bool isGentlyMoving = false;
-        private bool isLooping = false;
         private Coroutine moveslightlyCor;
         private Coroutine moveCoroutine;
+        private Coroutine returnCoroutine;
         private EventInstance moveInstance;
         private EventInstance returnInstance;
 
@@ -55,6 +57,20 @@ namespace Terrain.Environment
             startPos = transform.position;
             targetPos = startPos + targetOffset;
             
+        }
+
+        public virtual void Update()
+        {
+            if (returnInstance.isValid())
+            {
+                returnInstance.set3DAttributes(RuntimeUtils.To3DAttributes(VisualsTransform.position));
+            }
+
+            if (moveInstance.isValid())
+            {
+                moveInstance.set3DAttributes(RuntimeUtils.To3DAttributes(VisualsTransform.position));
+
+            }
         }
 
         public void MovePlatformExternally()
@@ -90,14 +106,16 @@ namespace Terrain.Environment
 
             transform.position = targetPos;
             StopMoveSound();
+            
+            
             yield return new WaitForSeconds(secondsBeforeReturn);
+            isMoving = false;
 
             print($"stop moving after {moveDuration}");
-            isMoving = false;
             if (returnWhenDone)
             {
                 print("return platform");
-                yield return StartCoroutine(ReturnPlatform());
+                returnCoroutine = StartCoroutine(ReturnPlatform());
             }
            
         }
@@ -122,15 +140,15 @@ namespace Terrain.Environment
             isMoving = false;
         }
 
-        private void PlayMoveSound()
+        protected void PlayMoveSound()
         {
             moveInstance = CoreManager.Instance.AudioManager.CreateEventInstance(moveSound);
-            moveInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+            moveInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(VisualsTransform.position));
             moveInstance.start();
         }
 
 
-        private void StopMoveSound()
+        protected void StopMoveSound()
         {
             moveInstance.stop(STOP_MODE.ALLOWFADEOUT);
             moveInstance.release();
@@ -139,7 +157,7 @@ namespace Terrain.Environment
         private void PlayReturnSound()
         {
             returnInstance = CoreManager.Instance.AudioManager.CreateEventInstance(moveSound);
-            returnInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+            returnInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(VisualsTransform.position));
             returnInstance.start();
         }
 
@@ -166,6 +184,7 @@ namespace Terrain.Environment
             StopReturnSound();
             transform.position = startPos;
             isReturning = false;
+            returnCoroutine = null;
         }
 
         public virtual void OnCollisionEnter2D(Collision2D collision)
@@ -202,7 +221,7 @@ namespace Terrain.Environment
                 }
                 
                 // If not dashing, move gently
-                if (!player.IsDashing && moveCoroutine is null)
+                if (!player.IsDashing && moveCoroutine is null && returnCoroutine is null)
                 {
                     if (!isGentlyMoving)
                     {
@@ -327,6 +346,7 @@ namespace Terrain.Environment
             StopReturnSound();
             StopAllCoroutines();
             moveCoroutine = null;
+            returnCoroutine = null;
             moveslightlyCor = null;
             isReturning = false;
             isMoving = false;

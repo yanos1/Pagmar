@@ -39,8 +39,9 @@ namespace Terrain.Environment
             
         }
 
-        private void Update()
+        public override void Update()
         {
+            base.Update();
             if (isMoving)
             {
                 RotateWheels();

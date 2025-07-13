@@ -210,6 +210,11 @@ namespace Enemies
                 if (sleepingImage)
                 {
                     sleepingImage.SetActive(false);
+                   
+                }
+
+                if (sleepInstance.isValid())
+                {
                     sleepInstance.stop(STOP_MODE.IMMEDIATE);
                     sleepInstance.release();
                 }
@@ -237,6 +242,8 @@ namespace Enemies
         public void WakeUp()
         {
             isSleeping = false;
+            sleepInstance.stop(STOP_MODE.IMMEDIATE);
+            sleepInstance.release();
         }
 
         private void Roam()
@@ -532,11 +539,16 @@ namespace Enemies
 
             if (sleepAtStart)
             {
-                if (sleepingImage)
+                if (sleepingImage is not null)  // is actually sleeping in game and not jsut dormant.
                 {
-                    sleepingImage.SetActive(true);
+                    print("sleep animation active");
                     sleepInstance = CoreManager.Instance.AudioManager.CreateEventInstance(sounds.sleepSound);
+                    sleepInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform));
+
+                    spineControl.PlayAnimation("sleeping",loop:true);
+
                     sleepInstance.start();
+
                 }
                 isSleeping = true;
             }

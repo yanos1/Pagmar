@@ -291,7 +291,7 @@ namespace Player
             {
                 Vector2 directionToPlayer = (transform.position - rammer.transform.position).normalized;
                 float dot = Mathf.Abs(Vector2.Dot(directionToPlayer, Vector2.right));
-                if (rammer.GetComponent<ChargingEnemy>() is not null && dot > 0.75f) // horizontal impact check
+                if (rammer.GetComponent<ChargingEnemy>() is not null && dot > 0.75f && isDead == false) // horizontal impact check
                 {
                     print("resolve ram");
                     RammerManager.Instance.ResolveRam(this, rammer, other.GetContact(0).point + Vector2.up);
@@ -301,12 +301,8 @@ namespace Player
                 {
                     print("player died");
                     Die(false);
-                    // RammerManager.Instance.ResolveRam(this, rammer);
-                }
-
-                else if (rammer.GetComponent<ChargingEnemy>() is null)
-                {
                     RammerManager.Instance.ResolveRam(this, rammer, other.GetContact(0).point + Vector2.up); // flying enemy
+                    // RammerManager.Instance.ResolveRam(this, rammer);
                 }
             }
         }
@@ -329,15 +325,6 @@ namespace Player
             if (Input.GetKeyDown(KeyCode.F12))
             {
                 Die();
-            }
-
-            else if (Input.GetKeyDown(KeyCode.F1))
-            {
-                _playerStage = PlayerStage.Teen;
-            }
-            else if (Input.GetKeyDown(KeyCode.F2))
-            {
-                _playerStage = PlayerStage.Adult;
             }
         }
 
@@ -535,6 +522,7 @@ namespace Player
         public void Die(bool lockAnimationsAfterDeath = true)
         {
             if (isDead) return;
+            print("die!123");
             isDead = true;
             isKnockbacked = false;
             if (lockAnimationsAfterDeath) LockAnimations();

@@ -13,7 +13,6 @@ namespace UI
     public abstract class Menu : MonoBehaviour
     {
         [SerializeField] private EventReference selectedSound;
-        [SerializeField] private EventReference pressSound;
 
         [SerializeField] private List<ButtonToAction> buttonsToActions;
         [SerializeField] private UISelectionFeedback selectButtonFeedbacks;
@@ -77,7 +76,6 @@ namespace UI
 
             lastSubmitTime = Time.unscaledTime;
 
-            CoreManager.Instance.AudioManager.PlayOneShot(pressSound, transform.position);
             buttonsToActions[selectedButtonIndex].action.Invoke();
             print("pressing button!");
 

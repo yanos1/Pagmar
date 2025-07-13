@@ -373,27 +373,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2168790710226838868, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
       propertyPath: pressSound.Path
-      value: event:/UI/UIStart
+      value: event:/UI/UINav
       objectReference: {fileID: 0}
     - target: {fileID: 2168790710226838868, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
       propertyPath: selectedSound.Path
       value: event:/UI/UINav
       objectReference: {fileID: 0}
     - target: {fileID: 2168790710226838868, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
+      propertyPath: pressStartSound.Path
+      value: event:/UI/UIStart
+      objectReference: {fileID: 0}
+    - target: {fileID: 2168790710226838868, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
       propertyPath: pressSound.Guid.Data1
-      value: -478423046
+      value: 1064531266
       objectReference: {fileID: 0}
     - target: {fileID: 2168790710226838868, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
       propertyPath: pressSound.Guid.Data2
-      value: 1174187093
+      value: 1084547932
       objectReference: {fileID: 0}
     - target: {fileID: 2168790710226838868, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
       propertyPath: pressSound.Guid.Data3
-      value: 324150950
+      value: 1274896780
       objectReference: {fileID: 0}
     - target: {fileID: 2168790710226838868, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
       propertyPath: pressSound.Guid.Data4
-      value: 2038135456
+      value: -374590627
       objectReference: {fileID: 0}
     - target: {fileID: 2168790710226838868, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
       propertyPath: selectedSound.Guid.Data1
@@ -410,6 +414,22 @@ PrefabInstance:
     - target: {fileID: 2168790710226838868, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
       propertyPath: selectedSound.Guid.Data4
       value: -374590627
+      objectReference: {fileID: 0}
+    - target: {fileID: 2168790710226838868, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
+      propertyPath: pressStartSound.Guid.Data1
+      value: -478423046
+      objectReference: {fileID: 0}
+    - target: {fileID: 2168790710226838868, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
+      propertyPath: pressStartSound.Guid.Data2
+      value: 1174187093
+      objectReference: {fileID: 0}
+    - target: {fileID: 2168790710226838868, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
+      propertyPath: pressStartSound.Guid.Data3
+      value: 324150950
+      objectReference: {fileID: 0}
+    - target: {fileID: 2168790710226838868, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
+      propertyPath: pressStartSound.Guid.Data4
+      value: 2038135456
       objectReference: {fileID: 0}
     - target: {fileID: 2660829121970662684, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
       propertyPath: m_Name

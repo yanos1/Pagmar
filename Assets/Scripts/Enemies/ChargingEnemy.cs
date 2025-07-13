@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Atmosphere.TileExplostion;
 using FMOD.Studio;
+using FMODUnity;
 using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
@@ -12,6 +13,7 @@ using ScripableObjects;
 using Spine.Unity;
 using SpongeScene;
 using UnityEngine;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Enemies
 {
@@ -102,6 +104,8 @@ namespace Enemies
                 {
                     print("sleep animation active");
                     sleepInstance = CoreManager.Instance.AudioManager.CreateEventInstance(sounds.sleepSound);
+                    sleepInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform));
+
                     spineControl.PlayAnimation("sleeping",loop:true);
 
                     sleepInstance.start();
@@ -197,13 +201,20 @@ namespace Enemies
         {
             if (sleepAtStart && col.gameObject.GetComponent<PlayerMovement>() is { } player && player.IsDashing)
             {
+                if (isSleeping)
+                {
+                    CoreManager.Instance.AudioManager.PlayOneShot(sounds.wakeUpSound, transform.position);
+
+                }
                 isSleeping = false;
                 if (sleepingImage)
                 {
                     sleepingImage.SetActive(false);
-                    sleepInstance.stop(STOP_MODE.ALLOWFADEOUT);
+                    sleepInstance.stop(STOP_MODE.IMMEDIATE);
                     sleepInstance.release();
                 }
+
+              
             }
 
             // if (col.gameObject.GetComponent<PlayerMovement>() is {} player)

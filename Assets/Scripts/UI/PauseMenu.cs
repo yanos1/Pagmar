@@ -1,4 +1,5 @@
 ﻿using System;
+using FMODUnity;
 using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,8 +11,7 @@ namespace UI
 {
     public class PauseMenu : Menu
     {
-    
-
+        [SerializeField] private EventReference pressSound;
         public void EnableMenu()
         {
             if (!Mathf.Approximately(Time.timeScale, 1f))
@@ -29,6 +29,7 @@ namespace UI
 
         public void Resume()
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(pressSound, transform.position);
             gameObject.SetActive(false);
             Time.timeScale = 1f;
 
@@ -39,6 +40,8 @@ namespace UI
 
         public void ToMainMenu()
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(pressSound, transform.position);
+
             Time.timeScale = 1f;
             gameObject.SetActive(false);
             ScenesManager.Instance.LoadMainMenu();
@@ -47,6 +50,7 @@ namespace UI
 
         public void Restart()
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(pressSound, transform.position);
             ScenesManager.Instance.ReloadCurrentScene();
             Resume();
         }

@@ -21,6 +21,7 @@ namespace Atmosphere.TileExplostion
         [SerializeField] private MMF_Player explosionFeedbacks;
         [SerializeField] private MMF_Player resetFeedbacks;
         [SerializeField] private EventReference explosionSound;
+        [SerializeField] private bool reset = true;
         private Dictionary<Vector3Int, TileBase> removedTiles = new Dictionary<Vector3Int, TileBase>();
         private Collider2D col;
         private bool exploded;
@@ -47,7 +48,7 @@ namespace Atmosphere.TileExplostion
         }
 
         // we activate collider from inspector this couses the explosion
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerStay2D(Collider2D other)
         {
             Vector3 hitPos = other.ClosestPoint(transform.position);
             Vector3Int cellPos = tilemap.WorldToCell(hitPos);
@@ -66,9 +67,6 @@ namespace Atmosphere.TileExplostion
                     StartCoroutine(CreateExplosion(hitPos));
                 }
             }
-
-
-           
             
         }
 
@@ -100,6 +98,7 @@ namespace Atmosphere.TileExplostion
 
         public void ResetToInitialState()
         {
+            if(!reset) return;
             exploded = false;
             forceExplosionTriggered = false;
             col.enabled = false;

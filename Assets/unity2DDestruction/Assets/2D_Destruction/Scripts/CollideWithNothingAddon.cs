@@ -22,7 +22,7 @@ namespace unity2DDestruction.Assets._2D_Destruction.Scripts
 
         private IEnumerator CheckFragmentsRoutine()
         {
-            yield return new WaitForSeconds(2f); // Initial delay
+            yield return new WaitForSeconds(1.5f); // Initial delay
 
             // Create a LayerMask for the ground (make sure "Ground" layer exists)
             foreach (var frag in fragments)

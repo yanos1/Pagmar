@@ -6,13 +6,25 @@ using UnityEngine.AI;
 using System.Collections.Generic;
 using Atmosphere.TileExplostion;
 using Enemies;
+using FMOD.Studio;
+using FMODUnity;
 using Managers;
 using Spine.Unity;
 using UnityEngine.Tilemaps;
+using EventManager = FMODUnity.EventManager;
+using Random = UnityEngine.Random;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class ChasingEnemy : Rammer, IResettable
 {
     [SerializeField] private Rammer player;
+    [SerializeField] private EventReference crawlSound;
+    private EventInstance crawlInstance;
+    [SerializeField] private EventReference biteSound;
+    [SerializeField] private List<EventReference> roarSounds;
+    [SerializeField] private SkeletonAnimation skeletonAnimation;
+
+
     private float contactRadius;
     private NavMeshAgent agent;
     private float rotationSpeed = 3f;
@@ -22,15 +34,24 @@ public class ChasingEnemy : Rammer, IResettable
     private bool chase = false;
     private float positionHistoryDuration = 17f;
     private List<(float time, Vector3 position)> positionHistory = new List<(float, Vector3)>();
-    
+
     public Tilemap tilemap;
     private Dictionary<Vector3Int, TileBase> removedTiles = new Dictionary<Vector3Int, TileBase>();
+
+    // Audio state
+    private bool crawlSoundPlaying = false;
+    private bool bitePlaying = false;
+    private bool roarPlaying = false;
+    private bool hasRoaredFirst = false;
+    private float biteCooldown = 4.5f;
+    private float roarCooldown = 5.2f;
+    private float biteSoundTimer = 4.5f;
+    private float roarSoundTimer = 5.2f;
 
     // Caching
     private Vector3 lastProcessedPlayerResetPos = Vector3.positiveInfinity;
     private Vector3 cachedBestResetPosition = Vector3.zero;
     private bool hasCachedReset = false;
-
 
     private void OnEnable()
     {
@@ -41,6 +62,8 @@ public class ChasingEnemy : Rammer, IResettable
     {
         CoreManager.Instance.EventManager.RemoveListener(EventNames.ReachedCheckPoint, OnReachedCheckpoint);
         StopAllCoroutines();
+        crawlInstance.stop(STOP_MODE.IMMEDIATE);
+        crawlInstance.release();
     }
 
     private void OnReachedCheckpoint(object obj)
@@ -64,7 +87,39 @@ public class ChasingEnemy : Rammer, IResettable
 
     void Update()
     {
-        if (!chase) return;
+        if (!chase)
+            return;
+
+        if (!crawlSoundPlaying)
+        {
+            crawlSoundPlaying = true;
+            crawlInstance = CoreManager.Instance.AudioManager.CreateEventInstance(crawlSound);
+            crawlInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform));
+            crawlInstance.start();
+            print("try crawl sound");
+            skeletonAnimation.AnimationState.SetAnimation(0, "animation", true);
+        }
+
+        // Timers
+        if (biteSoundTimer > 0)
+            biteSoundTimer -= Time.deltaTime;
+
+        if (roarSoundTimer > 0)
+            roarSoundTimer -= Time.deltaTime;
+
+        // Bite logic
+        if (biteSoundTimer <= 0 && !bitePlaying)
+        {
+            StartCoroutine(PlayBiteSound());
+            biteSoundTimer = biteCooldown;
+        }
+
+        // Roar logic
+        if (roarSoundTimer <= 0 && !roarPlaying && !bitePlaying)
+        {
+            StartCoroutine(PlayRoarSound());
+            roarSoundTimer = roarCooldown;
+        }
 
         agent.SetDestination(player.transform.position);
 
@@ -74,7 +129,7 @@ public class ChasingEnemy : Rammer, IResettable
 
         if (distance <= contactRadius)
         {
-            // RammerManager.Instance.ResolveRam(player, this); (Handled by player now)
+            // RammerManager.Instance.ResolveRam(player, this); // handled by player
         }
 
         Vector3 velocity = agent.velocity;
@@ -87,19 +142,68 @@ public class ChasingEnemy : Rammer, IResettable
         }
     }
 
+    private IEnumerator PlayBiteSound()
+    {
+        bitePlaying = true;
+        CoreManager.Instance.AudioManager.PlayOneShot(biteSound, transform.position);
+        yield return new WaitForSeconds(0.5f); // bite sound duration
+        bitePlaying = false;
+
+        // If roar was due and waiting, play immediately
+        if (roarSoundTimer <= 0 && !roarPlaying)
+        {
+            StartCoroutine(PlayRoarSound());
+            roarSoundTimer = roarCooldown;
+        }
+    }
+
+    private IEnumerator PlayRoarSound()
+    {
+        roarPlaying = true;
+
+        EventReference selectedRoar;
+        if (!hasRoaredFirst)
+        {
+            selectedRoar = roarSounds[0];
+            hasRoaredFirst = true;
+        }
+        else
+        {
+            selectedRoar = roarSounds[Random.Range(0, roarSounds.Count)];
+        }
+
+        CoreManager.Instance.AudioManager.PlayOneShot(selectedRoar, transform.position);
+        yield return null; // add delay here if you want to prevent overlap again
+        roarPlaying = false;
+    }
+
     private void CheckTileMapHit(Collider2D other)
     {
-        Vector3 hitPos = other.ClosestPoint(transform.position);
-        Vector3Int cellPos = tilemap.WorldToCell(hitPos);
-        print("checking hit with tilemap");
-        if (tilemap.HasTile(cellPos))
+        Vector3 hitPos = other.bounds.center;
+        Vector3Int centerCell = tilemap.WorldToCell(hitPos);
+        print($"Checking tile area around {centerCell}");
+
+        for (int x = -1; x <= 1; x++)
         {
-            print("hit a tile!!");
-            TileBase tile = tilemap.GetTile(cellPos);
-            var particles = CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.ExplodableTileParticles);
-            particles.Play(cellPos + Vector3.right*23.3f); // my grid is off by 23.3 ..... bad code.
-            removedTiles.TryAdd(cellPos, tile); // Store only once
-            tilemap.SetTile(cellPos, null);
+            for (int y = -1; y <= 1; y++)
+            {
+                if (Random.value < 0.75f) continue;
+                Vector3Int offset = new Vector3Int(x, y, 0);
+                Vector3Int targetCell = centerCell + offset;
+
+                if (tilemap.HasTile(targetCell))
+                {
+                    TileBase tile = tilemap.GetTile(targetCell);
+
+                    if (removedTiles.TryAdd(targetCell, tile))
+                    {
+                        tilemap.SetTile(targetCell, null);
+                        Vector3 worldPos = tilemap.GetCellCenterWorld(targetCell);
+                        var particles = CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.ExplodableTileParticles);
+                        particles.Play(worldPos);
+                    }
+                }
+            }
         }
     }
 
@@ -109,7 +213,7 @@ public class ChasingEnemy : Rammer, IResettable
         {
             breakable.OnBreak();
         }
-        
+
         CheckTileMapHit(other);
     }
 
@@ -124,15 +228,9 @@ public class ChasingEnemy : Rammer, IResettable
         agent.velocity = Vector3.zero;
     }
 
-    public override void OnRammed(float fromForce, Vector3 collisionPoint)
-    {
-    }
+    public override void OnRammed(float fromForce, Vector3 collisionPoint) { }
 
-    public override void OnTie(float fromForce, Vector3 collisionPoint)
-    {
-        return;
-    }
-
+    public override void OnTie(float fromForce, Vector3 collisionPoint) { }
 
     public override void ApplyKnockback(Vector2 direction, float force) { }
 
@@ -140,7 +238,13 @@ public class ChasingEnemy : Rammer, IResettable
     {
         if (!chase) return;
 
-        // Reuse cached position if the reset point hasn't changed
+        foreach (var kvp in removedTiles)
+        {
+            tilemap.SetTile(kvp.Key, kvp.Value);
+        }
+
+        removedTiles.Clear();
+
         if (hasCachedReset && playerResetPosition == lastProcessedPlayerResetPos)
         {
             agent.Warp(cachedBestResetPosition);
@@ -148,8 +252,6 @@ public class ChasingEnemy : Rammer, IResettable
             print($"[CACHED] chosen pos {cachedBestResetPosition}");
             return;
         }
-
-        float distanceToPlayer = Vector3.Distance(transform.position, playerResetPosition);
 
         var considerablePositions = new Dictionary<float, Vector3>();
         foreach (var (time, pos) in positionHistory)
@@ -181,17 +283,9 @@ public class ChasingEnemy : Rammer, IResettable
             agent.isStopped = false;
             print($"[CALCULATED] chosen pos {bestPosition}");
 
-            // Cache result
             lastProcessedPlayerResetPos = playerResetPosition;
             cachedBestResetPosition = bestPosition;
             hasCachedReset = true;
-            
-            foreach (var kvp in removedTiles)
-            {
-                tilemap.SetTile(kvp.Key, kvp.Value);
-            }
-
-            removedTiles.Clear();
         }
     }
 

@@ -51,8 +51,8 @@ namespace Terrain.Environment
 
             Bounds bounds = _collider.bounds;
 
-            Vector2 topLeft = new Vector2(bounds.min.x, bounds.max.y);
-            Vector2 topRight = new Vector2(bounds.max.x, bounds.max.y);
+            Vector2 topLeft = new Vector2(bounds.min.x, bounds.max.y +0.2f);
+            Vector2 topRight = new Vector2(bounds.max.x, bounds.max.y + 0.2f);
 
             bool hitTop = false;
             bool hitRight = false;

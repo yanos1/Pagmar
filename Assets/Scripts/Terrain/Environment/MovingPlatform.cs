@@ -132,7 +132,7 @@ namespace Terrain.Environment
 
         private void StopMoveSound()
         {
-            moveInstance.stop(STOP_MODE.IMMEDIATE);
+            moveInstance.stop(STOP_MODE.ALLOWFADEOUT);
             moveInstance.release();
         }
         
@@ -146,11 +146,9 @@ namespace Terrain.Environment
 
         private void StopReturnSound()
         {
-            returnInstance.stop(STOP_MODE.IMMEDIATE);
+            returnInstance.stop(STOP_MODE.ALLOWFADEOUT);
             returnInstance.release();
         }
-
-        
         
         private IEnumerator ReturnPlatform()
         {
@@ -326,9 +324,11 @@ namespace Terrain.Environment
         public virtual void ResetToInitialState()
         {
             StopMoveSound();
+            StopReturnSound();
             StopAllCoroutines();
             moveCoroutine = null;
             moveslightlyCor = null;
+            isReturning = false;
             isMoving = false;
             transform.position = startPos;
             gameObject.SetActive(true);

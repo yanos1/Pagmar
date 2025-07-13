@@ -1,5 +1,7 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 using Managers;
+using SpongeScene;
 using UnityEngine;
 using Utility;
 
@@ -10,6 +12,15 @@ namespace Atmosphere.TileExplostion
         [SerializeField] private Explodable e;
         private Rigidbody2D rb;
         private Vector3 startingPos;
+        private bool addedAsRessetable = false;
+
+        private void OnEnable()
+        {
+            if(addedAsRessetable) return;
+            addedAsRessetable = true;
+            CoreManager.Instance.ResetManager.AddResettable(this);
+            CoreManager.Instance.ResetManager.AddResettable(gameObject.GetComponent<Explodable>());
+        }
         public void Start()
         {
             startingPos = transform.position;
@@ -20,6 +31,7 @@ namespace Atmosphere.TileExplostion
         public void Explode()
         {
             e.explode();
+           
         }
 
         public void ResetToInitialState()

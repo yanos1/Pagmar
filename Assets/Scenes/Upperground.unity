@@ -95695,7 +95695,7 @@ MonoBehaviour:
   - {fileID: 315359973}
   - {fileID: 1766661690}
   animator: {fileID: 1766661689}
-  delay: 3
+  delay: 1
   fadeDuration: 1
 --- !u!61 &1695619189
 BoxCollider2D:

@@ -31872,6 +31872,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5662022951266685875, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: minJumpInterval
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662022951266685875, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: _cameraFollowObject
       value: 
       objectReference: {fileID: 647972400}

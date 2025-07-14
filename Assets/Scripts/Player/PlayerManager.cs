@@ -12,6 +12,9 @@ using MoreMountains.Feedbacks;
 using ScripableObjects;
 using Spine.Unity;
 using SpongeScene;
+using Unity.VisualScripting;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
@@ -34,6 +37,7 @@ namespace Player
         [SerializeField] private DoSpineFlash doSpineFlash;
         [SerializeField] private GameObject light;
         [SerializeField] private PlayerSounds sounds;
+        [SerializeField] private Transform finalStageLocation;
         
         private MMF_Player currentlyPlayingShake;
 
@@ -322,10 +326,10 @@ namespace Player
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                OnRammedFeedback();
-            }
+            // if (Input.GetKeyDown(KeyCode.G))
+            // {
+            //     SkipToTheEnd();
+            // }
 
             if (Input.GetKeyDown(KeyCode.F12))
             {
@@ -596,6 +600,20 @@ namespace Player
         private void ChangeToOriginalColor()
         {
             doSpineFlash.RestoreOriginalColors();
+        }
+
+        public void OnSkipToTheEnd(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                if (SceneManager.GetActiveScene().name != "Underground") return;
+                SetPlayerStage(PlayerStage.FinalForm);
+                _spineControl.changeSkelatonAnimation(_playerStage);
+                ChangeHitDamage(_playerStage);
+                SetForce();
+                _playerMovement.GameObject().transform.position = finalStageLocation.localPosition;
+            }
+
         }
     }
 }

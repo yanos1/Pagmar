@@ -1,0 +1,767 @@
+fileFormatVersion: 2
+guid: 0e548de3ef3824222b8115cd63693cce
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6369803056128485083
+    second: big-rig_0
+  - first:
+      213: -2232545006609828597
+    second: big-rig_1
+  - first:
+      213: -4234000529116319694
+    second: big-rig_2
+  - first:
+      213: 3710377120871268842
+    second: big-rig_3
+  - first:
+      213: 3533181768478715200
+    second: big-rig_4
+  - first:
+      213: -9027223728849211643
+    second: big-rig_5
+  - first:
+      213: 4689996179326910374
+    second: big-rig_6
+  - first:
+      213: -6505633628350328597
+    second: big-rig_7
+  - first:
+      213: -7307706961992390460
+    second: big-rig_8
+  - first:
+      213: -4864920526136081363
+    second: big-rig_9
+  - first:
+      213: 3812642202496619307
+    second: big-rig_10
+  - first:
+      213: -1197390268009602771
+    second: big-rig_11
+  - first:
+      213: 6133538560417485443
+    second: big-rig_12
+  - first:
+      213: 8338887775288047474
+    second: big-rig_13
+  - first:
+      213: -4867923401472579080
+    second: big-rig_14
+  - first:
+      213: -8353967239794860550
+    second: big-rig_15
+  - first:
+      213: -8923295167188423820
+    second: big-rig_16
+  - first:
+      213: 3407138386810139874
+    second: big-rig_17
+  - first:
+      213: -3743591761842092008
+    second: big-rig_18
+  - first:
+      213: -5650142093446762954
+    second: big-rig_19
+  - first:
+      213: 3692126008395969537
+    second: big-rig_20
+  - first:
+      213: 7396723043216573764
+    second: big-rig_21
+  - first:
+      213: 4875678317109597921
+    second: big-rig_22
+  - first:
+      213: -3578348773678311934
+    second: big-rig_23
+  - first:
+      213: 8501275169572766665
+    second: big-rig_24
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 0
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: big-rig_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1839
+        width: 474
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd66cb18126166850800000000000000
+      internalID: 6369803056128485083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_1
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 1839
+        width: 474
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b05f2ff15286401e0800000000000000
+      internalID: -2232545006609828597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_2
+      rect:
+        serializedVersion: 2
+        x: 1283
+        y: 2142
+        width: 172
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 230b43393fecd35c0800000000000000
+      internalID: -4234000529116319694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_3
+      rect:
+        serializedVersion: 2
+        x: 1455
+        y: 2142
+        width: 34
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae1c4404558ed7330800000000000000
+      internalID: 3710377120871268842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_4
+      rect:
+        serializedVersion: 2
+        x: 1494
+        y: 2147
+        width: 34
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04d6f0d4912680130800000000000000
+      internalID: 3533181768478715200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_5
+      rect:
+        serializedVersion: 2
+        x: 1807
+        y: 1791
+        width: 342
+        height: 359
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50f27fdc8dbd8b280800000000000000
+      internalID: -9027223728849211643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_6
+      rect:
+        serializedVersion: 2
+        x: 1283
+        y: 1424
+        width: 524
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6af38ba2da6361140800000000000000
+      internalID: 4689996179326910374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_7
+      rect:
+        serializedVersion: 2
+        x: 2155
+        y: 2013
+        width: 43
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be0d75feea857b5a0800000000000000
+      internalID: -6505633628350328597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_8
+      rect:
+        serializedVersion: 2
+        x: 2183
+        y: 1976
+        width: 46
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c86bc76c3fc59a90800000000000000
+      internalID: -7307706961992390460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_9
+      rect:
+        serializedVersion: 2
+        x: 2149
+        y: 1957
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2407239e845c7cb0800000000000000
+      internalID: -4864920526136081363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_10
+      rect:
+        serializedVersion: 2
+        x: 2149
+        y: 1747
+        width: 187
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b23597702e939e430800000000000000
+      internalID: 3812642202496619307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_11
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 920
+        width: 1168
+        height: 919
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2127c135e3026fe0800000000000000
+      internalID: -1197390268009602771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_12
+      rect:
+        serializedVersion: 2
+        x: 1807
+        y: 1424
+        width: 328
+        height: 367
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38258d5e2d4be1550800000000000000
+      internalID: 6133538560417485443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_13
+      rect:
+        serializedVersion: 2
+        x: 2135
+        y: 1617
+        width: 153
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27734e3104ea9b370800000000000000
+      internalID: 8338887775288047474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_14
+      rect:
+        serializedVersion: 2
+        x: 2135
+        y: 1407
+        width: 187
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f96a6d2579a17cb0800000000000000
+      internalID: -4867923401472579080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_15
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1150
+        width: 9
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afdd6ce7e0fb01c80800000000000000
+      internalID: -8353967239794860550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_16
+      rect:
+        serializedVersion: 2
+        x: 1191
+        y: 900
+        width: 718
+        height: 524
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47b26c5b2561a2480800000000000000
+      internalID: -8923295167188423820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_17
+      rect:
+        serializedVersion: 2
+        x: 1909
+        y: 900
+        width: 183
+        height: 507
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e47a6e9f46984f20800000000000000
+      internalID: 3407138386810139874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_18
+      rect:
+        serializedVersion: 2
+        x: 2190
+        y: 900
+        width: 183
+        height: 507
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 818c25380271c0cc0800000000000000
+      internalID: -3743591761842092008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_19
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 1190
+        height: 919
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63eaf95a3b9a691b0800000000000000
+      internalID: -5650142093446762954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_20
+      rect:
+        serializedVersion: 2
+        x: 1191
+        y: 1
+        width: 866
+        height: 899
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1043c6cfa011d3330800000000000000
+      internalID: 3692126008395969537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_21
+      rect:
+        serializedVersion: 2
+        x: 2057
+        y: 667
+        width: 271
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 445ced41b6076a660800000000000000
+      internalID: 7396723043216573764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_22
+      rect:
+        serializedVersion: 2
+        x: 2057
+        y: 1
+        width: 137
+        height: 666
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e65462d893e9a340800000000000000
+      internalID: 4875678317109597921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_23
+      rect:
+        serializedVersion: 2
+        x: 2194
+        y: 1
+        width: 137
+        height: 666
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 206137ecfb6275ec0800000000000000
+      internalID: -3578348773678311934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big-rig_24
+      rect:
+        serializedVersion: 2
+        x: 2331
+        y: 1
+        width: 35
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c3cb3c99b89af570800000000000000
+      internalID: 8501275169572766665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      big-rig_0: 6369803056128485083
+      big-rig_1: -2232545006609828597
+      big-rig_10: 3812642202496619307
+      big-rig_11: -1197390268009602771
+      big-rig_12: 6133538560417485443
+      big-rig_13: 8338887775288047474
+      big-rig_14: -4867923401472579080
+      big-rig_15: -8353967239794860550
+      big-rig_16: -8923295167188423820
+      big-rig_17: 3407138386810139874
+      big-rig_18: -3743591761842092008
+      big-rig_19: -5650142093446762954
+      big-rig_2: -4234000529116319694
+      big-rig_20: 3692126008395969537
+      big-rig_21: 7396723043216573764
+      big-rig_22: 4875678317109597921
+      big-rig_23: -3578348773678311934
+      big-rig_24: 8501275169572766665
+      big-rig_3: 3710377120871268842
+      big-rig_4: 3533181768478715200
+      big-rig_5: -9027223728849211643
+      big-rig_6: 4689996179326910374
+      big-rig_7: -6505633628350328597
+      big-rig_8: -7307706961992390460
+      big-rig_9: -4864920526136081363
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

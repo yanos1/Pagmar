@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using FMODUnity;
 using Managers;
 using MoreMountains.Feedbacks;
 using SpongeScene;
@@ -13,6 +14,7 @@ namespace Terrain.Environment
         [SerializeField] private MMF_Player breakFeedbacks;
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
+        [SerializeField] private EventReference collapseSound;
         private Rigidbody2D rb;
 
         private void OnEnable()
@@ -28,6 +30,7 @@ namespace Terrain.Environment
 
         private void OnPickUp(object obj)
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(collapseSound, transform.position);
             Shake();
         }
 

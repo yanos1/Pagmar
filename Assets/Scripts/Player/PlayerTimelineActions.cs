@@ -16,6 +16,7 @@ namespace Player
         [SerializeField] private GlobalActions _globalActions;
         [SerializeField] private GameObject explosionPrefab; 
         [SerializeField] private EventReference explodeSound;
+        [SerializeField] private EventReference gaspSound;
         private int bumpCount;
         
 
@@ -54,6 +55,11 @@ namespace Player
         {
             CoreManager.Instance.AudioManager.PlayOneShot(explodeSound, transform.position);
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        }
+
+        public void Gasp()
+        {
+            CoreManager.Instance.AudioManager.PlayOneShot(gaspSound, transform.position);
         }
     }
 }

@@ -68,6 +68,13 @@ MonoBehaviour:
       Data3: 1453633160
       Data4: 1540509142
     Path: event:/Enemy/player hit by horns
+  damagedHardSound:
+    Guid:
+      Data1: 728599434
+      Data2: 1124982399
+      Data3: 1767208617
+      Data4: 1902453540
+    Path: event:/Monster/monster Impact
   deathSound:
     Guid:
       Data1: -100136909
@@ -135,11 +142,11 @@ MonoBehaviour:
   - damageTaken: 5
     sound:
       Guid:
-        Data1: 554103337
-        Data2: 1255945491
-        Data3: -1546152288
-        Data4: -667654324
-      Path: event:/UI/Horns Crack 1
+        Data1: -2062121314
+        Data2: 1223711193
+        Data3: -1483113338
+        Data4: 69367842
+      Path: event:/UI/Horns Crack 3
   - damageTaken: 6
     sound:
       Guid:
@@ -151,16 +158,8 @@ MonoBehaviour:
   - damageTaken: 7
     sound:
       Guid:
-        Data1: -2062121314
-        Data2: 1223711193
-        Data3: -1483113338
-        Data4: 69367842
-      Path: event:/UI/Horns Crack 3
-  - damageTaken: 0
-    sound:
-      Guid:
-        Data1: -244489346
-        Data2: 1226646763
-        Data3: 1925060263
-        Data4: 711816866
-      Path: event:/UI/Horns Crack 4
+        Data1: 554103337
+        Data2: 1255945491
+        Data3: -1546152288
+        Data4: -667654324
+      Path: event:/UI/Horns Crack 1

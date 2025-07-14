@@ -216,7 +216,10 @@ public class PlayerMovement : MonoBehaviour, IResettable
 
         if (cutSceneEnded)
         {
-            CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.wakeUp, transform.position);
+            if (ScenesManager.Instance.CurrentScene == 5)  // wake up with big
+            {
+                CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.wakeUp, transform.position);
+            }
             spineControl.PlayAnimation("wake-up-jump", 3, loop: false, force: true, fallbackAnimation: null, onComplete:
                 () =>
                 {

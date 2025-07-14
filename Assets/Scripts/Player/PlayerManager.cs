@@ -393,7 +393,15 @@ namespace Player
             InjuryFeedbacks.Instance.UpdateVisualFeedback(true);
 
             spineControl.PlayAnimationOnBaseTrack("hit", false);
-            CoreManager.Instance.AudioManager.PlayOneShot(sounds.damagedSound, transform.position);
+            if (Mathf.Approximately(fromForce, 1))
+            {
+                CoreManager.Instance.AudioManager.PlayOneShot(sounds.damagedSound, transform.position);
+
+            }
+            else
+            {
+                CoreManager.Instance.AudioManager.PlayOneShot(sounds.damagedHardSound, transform.position);
+            }
             OnRammedFeedback();
             if(isDead) return;
             if (_playerStage == PlayerStage.FinalForm)

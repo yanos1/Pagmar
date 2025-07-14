@@ -39,7 +39,7 @@ namespace Terrain.Environment
                 }
                 else
                 {
-                    // CoreManager.Instance.AudioManager.PlayOneShot(hitSound, transform.position);
+                    CoreManager.Instance.AudioManager.PlayOneShot(hitSound, transform.position);
                 }
             }
         }

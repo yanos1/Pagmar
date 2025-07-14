@@ -82,7 +82,7 @@ namespace NPC.BigFriend
         {
             print("play big step");
             EventInstance instance = CoreManager.Instance.AudioManager.CreateEventInstance(stepSound, "Material", material);
-            instance.set3DAttributes(RuntimeUtils.To3DAttributes(CoreManager.Instance.Player.transform));
+            instance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
             instance.start();
             instance.release(); // let FMOD clean it up after it finishes
         }

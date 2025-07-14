@@ -783,11 +783,11 @@ MonoBehaviour:
   openDontClose: {fileID: 1510034713238003786}
   openSound:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -1881253574
+      Data2: 1176681140
+      Data3: -1246134887
+      Data4: 1634378311
+    Path: event:/Objects/StoneWallsOpen
 --- !u!212 &1984774602045987036
 SpriteRenderer:
   m_ObjectHideFlags: 0

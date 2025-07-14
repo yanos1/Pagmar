@@ -4625,7 +4625,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 5768732226941365689, guid: c7a3419fb4cf50542aebcdd343687e3c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4723,6 +4723,7 @@ MonoBehaviour:
     Path: event:/Objects/WoodBreak
   e: {fileID: 0}
   f: {fileID: 0}
+  breakFeedbacks: {fileID: 0}
 --- !u!50 &2746951127055160538
 Rigidbody2D:
   serializedVersion: 5

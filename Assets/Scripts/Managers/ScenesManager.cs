@@ -22,6 +22,8 @@ namespace Managers
 
         private int currentSceneIndex = 1; // Tracks the index of the currently active scene
 
+
+        public int CurrentScene => currentSceneIndex;
         private void RestartScene(object obj)
         {
             var doFade = IsNextSceneGameplayScene();

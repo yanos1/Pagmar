@@ -21,7 +21,7 @@ namespace NPC.NpcActions
             base.StartAction(npc);
             npc.SetState(NpcState.Sleeping);
             Debug.Log("play sleep sound");
-            CoreManager.Instance.Runner.StartCoroutine(UtilityFunctions.WaitAndInvokeAction(5f,
+            CoreManager.Instance.Runner.StartCoroutine(UtilityFunctions.WaitAndInvokeAction(2f,
                 () =>
                 {
                     CoreManager.Instance.AudioManager.PlayOneShot(snoring, npc.transform.position);

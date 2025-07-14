@@ -97,6 +97,7 @@ namespace Managers
         PlayerHitEnemyParticles = 7,
         EnemyHitPlayerParticles = 8,
         EnemyHitWallParticles = 9,
+        ExplodableTileParticlesV2 = 10,
 
     }
 }

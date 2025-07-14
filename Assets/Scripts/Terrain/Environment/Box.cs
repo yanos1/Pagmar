@@ -52,6 +52,12 @@ namespace Terrain.Environment
                 pushInstance = CoreManager.Instance.AudioManager.CreateEventInstance(boxPushEvent);
             }
         }
+        
+        private void Start()
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0;
+        }
 
         private void OnDestroy()
         {
@@ -79,8 +85,8 @@ namespace Terrain.Environment
             {
                 isDropping = false;
                 dropTriggered = true;
-
-                CoreManager.Instance.AudioManager.PlayOneShot(boxDropEvent, transform.position);
+                        
+                CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, transform.position) ;
                 Debug.Log("Box dropped and landed.");
             }
         }
@@ -119,7 +125,7 @@ namespace Terrain.Environment
 
         public void OnBreak()
         {
-            CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, transform.position- Vector3.right*7);
+            CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, transform.position);
 
             if (e != null && f != null)
             {

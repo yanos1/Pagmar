@@ -55,6 +55,7 @@ namespace Managers
 
         private void StopOldScneeSounds(object obj)
         {
+            print("stop old scene sounds!");
             currentAmbience.stop(STOP_MODE.IMMEDIATE);
             currentMusic.stop(STOP_MODE.ALLOWFADEOUT);
             currentMusic.release();

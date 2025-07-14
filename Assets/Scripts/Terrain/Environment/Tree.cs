@@ -3,6 +3,7 @@ using System;
 using FMODUnity;
 using Interfaces;
 using Managers;
+using MoreMountains.Feedbacks;
 using NPC;
 using Player;
 using SpongeScene;
@@ -20,6 +21,7 @@ namespace Terrain.Environment
         [SerializeField] private EventReference treeFall;
         [SerializeField] private EventReference treeImpact;
         [SerializeField] private EventReference treeHit;
+        [SerializeField] private MMF_Player fallFeedbacks;
         private Rigidbody2D rb;
         private bool hasFallen = false;
 
@@ -39,7 +41,7 @@ namespace Terrain.Environment
             {
                 hasFallen = true;
                 CoreManager.Instance.AudioManager.PlayOneShot(treeImpact, transform.position);
-
+                fallFeedbacks?.PlayFeedbacks();
                 StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.3f, () =>
                 {
                     rb.linearVelocity = Vector2.zero;

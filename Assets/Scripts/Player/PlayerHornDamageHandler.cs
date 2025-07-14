@@ -208,7 +208,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         Debug.Log("Horn is fully broken. Dead.");
         if (!player.IsDead)
         {
-            CoreManager.Instance.AudioManager.PlayOneShot(sounds.dashSound, transform.position);
+            CoreManager.Instance.AudioManager.PlayOneShot(sounds.deathSound, transform.position);
             player.Die();
         }
     }

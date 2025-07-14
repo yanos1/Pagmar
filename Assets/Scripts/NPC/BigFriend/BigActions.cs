@@ -109,7 +109,7 @@ namespace NPC.BigFriend
 
         public void ShowSleepHeallRequest()
         {
-            CoreManager.Instance.AudioManager.PlayOneShot(requestHealSound, transform.position);
+            // CoreManager.Instance.AudioManager.PlayOneShot(requestHealSound, transform.position);
             sleepingHealRequestFeedbacks?.PlayFeedbacks();
         }
 

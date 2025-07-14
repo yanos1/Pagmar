@@ -190,6 +190,7 @@ namespace Managers
         Upperground = 1,
         Underground = 2,
         EarthQuake = 3,
+        ForestTreeArea = 4,
     }
     
     [Serializable]

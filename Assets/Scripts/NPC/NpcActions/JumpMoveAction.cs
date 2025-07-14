@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using FMODUnity;
 using Managers;
 using MoreMountains.Feedbacks;
 using NPC.BigFriend;
@@ -52,6 +53,7 @@ namespace NPC.NpcActions
 
             string jumpAnim = _spine.GetAnimName(BigSpine.SpineAnim.Jump);
             Debug.Log($"[PerformMovement] Playing Jump animation: {jumpAnim}");
+            npc.Sounds.PlayJump(npc.transform);
             _spine.PlayAnimation(jumpAnim, loop: false, fallbackAnimation: null, force: true);
 
             Vector3 targetWorldPosition = npc.transform.position + targetPosition;
@@ -66,6 +68,8 @@ namespace NPC.NpcActions
                 .OnComplete(() =>
                 {
                     // Ensures cleanup if needed
+                    npc.Sounds.PlayLand(npc.transform);
+
                     npc.GetComponent<BigActions>().PlayLandFeedbacks();
                     isCompleted = true;
                     Debug.Log("[PerformMovement] DOJump complete. Movement completed.");

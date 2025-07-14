@@ -1,6 +1,7 @@
 ﻿using Managers;
 using System.Collections;
 using DG.Tweening;
+using FMODUnity;
 using UnityEngine;
 
 namespace NPC.NpcActions
@@ -13,6 +14,8 @@ namespace NPC.NpcActions
         [SerializeField] private Vector3 jumpTarget;
         [SerializeField] private int jumpPower;
         [SerializeField] private Vector3 dashTarget;
+        [SerializeField] private EventReference jumpSound;
+        [SerializeField] private EventReference dashSound;
 
         private Tween jumpTween;
         private Tween dashTween;
@@ -51,6 +54,7 @@ namespace NPC.NpcActions
 
             // Jump movement
             Vector3 jumpT = npc.transform.position + jumpTarget;
+            CoreManager.Instance.AudioManager.PlayOneShot(jumpSound, npc.transform.position);
             jumpTween = npc.transform.DOJump(jumpT, jumpPower, 1, jumpDuration).SetEase(Ease.OutQuad);
 
             // Cancel mid-air
@@ -62,6 +66,7 @@ namespace NPC.NpcActions
             }
 
             // Dash upward
+            CoreManager.Instance.AudioManager.PlayOneShot(dashSound, npc.transform.position);
             npc.SetState(NpcState.Charging);
             string dash = _spine.GetAnimName(BigSpine.SpineAnim.Dash);
             _spine.PlayAnimation(dash, loop: false, fallbackAnimation: null, force: true);   

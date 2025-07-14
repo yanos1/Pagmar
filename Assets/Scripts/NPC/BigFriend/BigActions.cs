@@ -58,6 +58,7 @@ namespace NPC.BigFriend
         {
             // enter animation of tired.
             bigSpine.PlayAnimation(bigSpine.GetAnimName(BigSpine.SpineAnim.Tired), loop: true);
+            CoreManager.Instance.AudioManager.PlayOneShot(requestHealSound, transform.position);
             StartCoroutine(UtilityFunctions.WaitAndInvokeAction(2, () => healText.SetActive(true)));
         }
         
@@ -108,7 +109,7 @@ namespace NPC.BigFriend
 
         public void ShowSleepHeallRequest()
         {
-            CoreManager.Instance.AudioManager.PlayOneShot(requestHealSound, transform.position);
+            // CoreManager.Instance.AudioManager.PlayOneShot(requestHealSound, transform.position);
             sleepingHealRequestFeedbacks?.PlayFeedbacks();
         }
 

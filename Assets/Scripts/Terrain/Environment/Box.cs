@@ -119,7 +119,7 @@ namespace Terrain.Environment
 
         public void OnBreak()
         {
-            CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, transform.position);
+            CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, transform.position- Vector3.right*7);
 
             if (e != null && f != null)
             {

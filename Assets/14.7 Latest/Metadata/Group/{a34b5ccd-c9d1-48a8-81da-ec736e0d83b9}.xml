@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="MixerGroup" id="{a34b5ccd-c9d1-48a8-81da-ec736e0d83b9}">
+		<property name="name">
+			<value>SFXnoUI</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{cf675797-4e9a-46f2-a5d3-092181c571f0}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{2ce5d841-af7b-4b3b-95b1-aa8dd12ccd01}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{cd085cb6-a581-462a-b216-fa0337439df0}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{cf675797-4e9a-46f2-a5d3-092181c571f0}">
+		<relationship name="effects">
+			<destination>{960550db-51b1-45fb-8bee-2a15fc60711f}</destination>
+			<destination>{5c57b3d1-ff44-4a46-82ed-cc9eb09eec6b}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{2ce5d841-af7b-4b3b-95b1-aa8dd12ccd01}" />
+	<object class="MixerBusFader" id="{960550db-51b1-45fb-8bee-2a15fc60711f}" />
+	<object class="MultibandEqEffect" id="{5c57b3d1-ff44-4a46-82ed-cc9eb09eec6b}">
+		<property name="wetDryEnabled">
+			<value>true</value>
+		</property>
+		<property name="wetMix">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

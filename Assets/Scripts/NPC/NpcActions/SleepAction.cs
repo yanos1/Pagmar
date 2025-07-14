@@ -1,6 +1,7 @@
 ﻿using FMODUnity;
 using Managers;
 using NPC.BigFriend;
+using SpongeScene;
 using UnityEngine;
 
 namespace NPC.NpcActions
@@ -14,11 +15,18 @@ namespace NPC.NpcActions
         [SerializeField] private BigActions _actions;
         [SerializeField] private EventReference snoring;
         private bool displayingSleep = false;
+
         public override void StartAction(Npc npc)
         {
             base.StartAction(npc);
             npc.SetState(NpcState.Sleeping);
-            CoreManager.Instance.AudioManager.PlayOneShot(snoring, npc.transform.position);
+            Debug.Log("play sleep sound");
+            CoreManager.Instance.Runner.StartCoroutine(UtilityFunctions.WaitAndInvokeAction(5f,
+                () =>
+                {
+                    CoreManager.Instance.AudioManager.PlayOneShot(snoring, npc.transform.position);
+                    Debug.Log("play snoring!!");
+                }));
         }
 
         public override void UpdateAction(Npc npc)

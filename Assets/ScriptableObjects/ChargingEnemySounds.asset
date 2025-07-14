@@ -21,11 +21,11 @@ MonoBehaviour:
     Path: event:/Enemy/EnemyFootsteps
   chargeSound:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -606514055
+      Data2: 1220758637
+      Data3: -1391110743
+      Data4: 1522933481
+    Path: event:/Enemy/EnemyRunningFootsteps
   damagedSound:
     Guid:
       Data1: -1580248317
@@ -68,3 +68,10 @@ MonoBehaviour:
       Data3: -1879889515
       Data4: -1933805998
     Path: event:/Enemy/EnemyRamsWall
+  loadCharge:
+    Guid:
+      Data1: -1175414519
+      Data2: 1159213046
+      Data3: -868709472
+      Data4: 376512624
+    Path: event:/Enemy/EnemyAttack/EnemyChargePre

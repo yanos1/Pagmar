@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Enemies;
+using FMODUnity;
 using Interfaces;
 using Managers;
 using NPC.NpcActions;
+using ScripableObjects;
 using SpongeScene;
 using UnityEngine;
 
@@ -33,6 +35,7 @@ namespace NPC
         private bool _isFollowing;
         private bool _isFollowed;
         private bool isJumpedOn;
+        [SerializeField] private BigSounds sounds;
 
         public NpcAction CurrentAction => currentAction;
 
@@ -64,6 +67,7 @@ namespace NPC
         public Rigidbody2D Rb => rb;
         public int ActionIndex => actionIndex;
         public bool IsJumpedOn => isJumpedOn;
+        public BigSounds Sounds => sounds;
 
         private void OnEnable()
         {

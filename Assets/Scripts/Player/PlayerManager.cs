@@ -139,6 +139,7 @@ namespace Player
             if(++healsPickedUp < 2) return;
             StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.5f, () =>
             {
+                CoreManager.Instance.AudioManager.PlayOneShot(sounds.laugh, transform.position);
                 spineControl.PlayAnimation("look-up-smile",
                     3, loop: false, fallbackAnimation: "idlev2", force: true, onComplete: () =>
                     {
@@ -155,6 +156,10 @@ namespace Player
                 var rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
                 transform.rotation = Quaternion.Euler(rotator);           
                 DisableInput();
+                print($"sounds.laugh is {sounds.laugh.ToString()}");
+                print($"Core manager audio : {CoreManager.Instance.AudioManager}");
+                CoreManager.Instance.AudioManager.PlayOneShot(sounds.laugh, transform.position);
+
                 spineControl.PlayAnimation("look-up-smile",
                     3, loop: false, fallbackAnimation: "idlev2", force: true, onComplete: () =>
                     {

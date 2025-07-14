@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
     [SerializeField] private float WhenStopPressGravity = 2.5f;
     [SerializeField] private float maxFallingSpeed = -10f;
     [SerializeField] private float graceJumpTime = 0.1f;
+    [SerializeField] private float minJumpInterval = 0.10f;
 
     [Header("Ground Check")] [SerializeField]
     private Transform groundCheckPosition;
@@ -215,6 +216,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
 
         if (cutSceneEnded)
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.wakeUp, transform.position);
             spineControl.PlayAnimation("wake-up-jump", 3, loop: false, force: true, fallbackAnimation: null, onComplete:
                 () =>
                 {
@@ -226,7 +228,8 @@ public class PlayerMovement : MonoBehaviour, IResettable
                 });
             yield break;
         }
-        
+        CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.wakeUp, transform.position);
+
         // Crossfade from sleep to wake-up (track 3)
         spineControl.PlayAnimation("wake-up", 3, loop: false, force: true, fallbackAnimation:null, onComplete: () =>
         {                
@@ -497,6 +500,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
 
         if (context.started)
         {
+            if (Time.time - LastPressedJumpTime < minJumpInterval) return;
             if (enableWallJump && isTouchingWall && !IsGrounded())
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.jumpSound, transform.position);
@@ -759,6 +763,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
 
     private bool CanJump()
     {
+        if (Time.time - LastPressedJumpTime < minJumpInterval) return false;
         return IsGrounded() || LastOnGroundTime <= graceJumpTime;
     }
 

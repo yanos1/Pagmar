@@ -75,7 +75,7 @@ public class GrowHoop : MonoBehaviour
         {
             _playing = false;
             SpawnParticles();   // 1️⃣ fire the VFX
-            // Destroy(gameObject); // 2️⃣ disappear
+            Destroy(gameObject); // 2️⃣ disappear
         }
     }
 
@@ -106,13 +106,10 @@ public class GrowHoop : MonoBehaviour
     {
         if (particlePrefab == null) return;
 
-        GameObject go = Instantiate(particlePrefab, transform.position, Quaternion.identity);
-
-        // If the prefab has a script that wants sync data, hand it over
-        var sync = go.GetComponent<IGrowHoopSync>();
-        if (sync != null)
-            sync.Init(lineColor, finalRadius);
+        Instantiate(particlePrefab, transform.position, Quaternion.identity);
+        // nothing else – the prefab stays exactly as saved in your Assets
     }
+
 }
 
 /* ── Optional interface for particle prefabs ────────────────────────── */

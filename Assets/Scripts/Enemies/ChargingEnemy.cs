@@ -74,6 +74,8 @@ namespace Enemies
         private float currentChargeCooldown;
         private float currentChargeDelay;
         private EventInstance sleepInstance;
+        private float hitWallCd = 1f;
+        private float currentHitWallCD = 0;
 
 
         public bool IsDead => isDead;
@@ -139,6 +141,11 @@ namespace Enemies
             if (isPreparingCharge)
             {
                 accumulatedChargePrepareTime += Time.deltaTime;
+            }
+
+            if (currentHitWallCD > 0)
+            {
+                currentHitWallCD -= Time.deltaTime;
             }
 
             if (currentChargeCooldown > 0) currentChargeCooldown -= Time.deltaTime;
@@ -351,6 +358,7 @@ namespace Enemies
             if(isDead) yield break;
             
             spineControl?.PlayAnimation("charge-attack", true);
+            CoreManager.Instance.AudioManager.PlayOneShot(sounds.loadCharge, transform.position);
             FlipSprite(dir.x > 0);
             print($"current charge delay {currentChargeDelay}");
             yield return new WaitForSeconds(currentChargeDelay);
@@ -368,7 +376,8 @@ namespace Enemies
             IsCharging = true;
             lastChargeTime = Time.time;
             spineControl?.PlayAnimation("run", true, "Idle", true);
-
+            CoreManager.Instance.AudioManager.PlayOneShot(sounds.chargeSound, transform.position);
+            StartCoroutine(PlayRunSound());
             while (!HitWall() && IsCharging && timer < chargeDuration)
             {
                 MoveAndRotate(dir);
@@ -418,6 +427,7 @@ namespace Enemies
             currentChargeDelay = chargeDelay;
             currentDirection *= -1;
             FlipSprite(currentDirection.x > 0);
+            print("stop charge");
         }
 
         private void AbortCharge()
@@ -443,9 +453,13 @@ namespace Enemies
             Debug.DrawRay(origin, currentDirection * wallDetectionDistance, raycast.collider ? Color.red : Color.green);
             if (raycast.collider)
             {
-                CoreManager.Instance.AudioManager.PlayOneShot(sounds.ramWall, transform.position);
-                CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.EnemyHitWallParticles).Play(raycast.point);
+                if (currentHitWallCD <= 0)
+                {
+                    CoreManager.Instance.AudioManager.PlayOneShot(sounds.ramWall, transform.position);
+                    CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.EnemyHitWallParticles).Play(raycast.point);
+                }
                 hitSomething = true;
+                currentHitWallCD = hitWallCd;
             }
 
             if (raycast.collider is not null && raycast.collider.gameObject.GetComponent<IBreakable>() is { } breakable && IsCharging)
@@ -519,7 +533,7 @@ namespace Enemies
             spineControl.UnlockAnimation();
             spineControl?.PlayAnimation("Idle", true);
             gameObject.layer = LayerMask.NameToLayer("Enemy");
-
+            currentHitWallCD = 0;
 
             // Flip using scale (Spine-compatible)
             Vector3 scale = transform.localScale;
@@ -694,6 +708,15 @@ namespace Enemies
                 }
                 CoreManager.Instance.AudioManager.PlayOneShot(sounds.walkSound, transform.position);
                 yield return new WaitForSeconds(1f);
+            }
+        }
+        
+        private IEnumerator PlayRunSound()
+        {
+            while (IsCharging)
+            {
+                CoreManager.Instance.AudioManager.PlayOneShot(sounds.walkSound, transform.position);
+                yield return new WaitForSeconds(0.2f);
             }
         }
     }

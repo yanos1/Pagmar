@@ -70,11 +70,11 @@ MonoBehaviour:
     Path: event:/Enemy/player hit by horns
   deathSound:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -100136909
+      Data2: 1276343829
+      Data3: -1072164444
+      Data4: -251874823
+    Path: event:/UI/Horns Crack 0
   attackSound:
     Guid:
       Data1: 0
@@ -89,3 +89,78 @@ MonoBehaviour:
       Data3: -1634270574
       Data4: -5920447
     Path: event:/Enemy/horns clash
+  laugh:
+    Guid:
+      Data1: -751440425
+      Data2: 1311511554
+      Data3: 590378166
+      Data4: -1607901581
+    Path: event:/Player/vocals/player laugh
+  gasp:
+    Guid:
+      Data1: 1669596242
+      Data2: 1190901308
+      Data3: 88901055
+      Data4: 1872867198
+    Path: event:/Player/vocals/player gasp
+  wakeUp:
+    Guid:
+      Data1: 80684274
+      Data2: 1132906952
+      Data3: -1926213975
+      Data4: -752980264
+    Path: event:/Player/vocals/player waking up
+  fallGasp:
+    Guid:
+      Data1: 117401943
+      Data2: 1161906308
+      Data3: -2051421018
+      Data4: -1454587643
+    Path: event:/Player/vocals/player fall gasp
+  playerSigh:
+    Guid:
+      Data1: -789554139
+      Data2: 1109142292
+      Data3: -89801079
+      Data4: 1924968738
+    Path: event:/Player/vocals/player sigh
+  breath:
+    Guid:
+      Data1: 1148709569
+      Data2: 1296272203
+      Data3: -1111170410
+      Data4: 1571114385
+    Path: event:/Player/vocals/player breathes
+  hornsDamagedPerLevel:
+  - damageTaken: 5
+    sound:
+      Guid:
+        Data1: 554103337
+        Data2: 1255945491
+        Data3: -1546152288
+        Data4: -667654324
+      Path: event:/UI/Horns Crack 1
+  - damageTaken: 6
+    sound:
+      Guid:
+        Data1: -1452591446
+        Data2: 1189189904
+        Data3: -292851282
+        Data4: 2026605626
+      Path: event:/UI/Horns Crack 2
+  - damageTaken: 7
+    sound:
+      Guid:
+        Data1: -2062121314
+        Data2: 1223711193
+        Data3: -1483113338
+        Data4: 69367842
+      Path: event:/UI/Horns Crack 3
+  - damageTaken: 0
+    sound:
+      Guid:
+        Data1: -244489346
+        Data2: 1226646763
+        Data3: 1925060263
+        Data4: 711816866
+      Path: event:/UI/Horns Crack 4

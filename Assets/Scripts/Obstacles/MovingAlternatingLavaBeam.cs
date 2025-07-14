@@ -8,6 +8,7 @@ using Interfaces;
 using Managers;
 using SpongeScene;
 using Terrain.Environment;
+using Triggers;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -24,7 +25,7 @@ namespace Obstacles
         [SerializeField] private ParticleSystem smokeParticleSystem;
         [SerializeField] private EventReference eruptionSound;
         [SerializeField] private EventReference buildUpSound;
-
+        [SerializeField] private Trigger safeZoneTrigger;
         private Vector3 startingPos;
         private bool hasFinished;
 
@@ -54,7 +55,10 @@ namespace Obstacles
                 yield return new WaitForSeconds(offTime - warningTime);
 
                 // Build-up warning
-                CoreManager.Instance.AudioManager.PlayOneShot(buildUpSound, transform.position);
+                if (!safeZoneTrigger.IsTriggered)
+                {
+                    CoreManager.Instance.AudioManager.PlayOneShot(buildUpSound, transform.position);
+                }
 
                 smokeParticleSystem.transform.position = new Vector3(
                     transform.position.x,
@@ -67,7 +71,7 @@ namespace Obstacles
                 // Beam ON
                 col.enabled = true;
                 print("BEAM ON!!");
-
+            
                 CoreManager.Instance.AudioManager.PlayOneShot(eruptionSound, transform.position);
 
                 CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.LavaBurstParticles)

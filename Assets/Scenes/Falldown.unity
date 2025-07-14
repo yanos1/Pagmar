@@ -12559,7 +12559,7 @@ Transform:
   m_GameObject: {fileID: 857027753}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.870026, y: 8.513949, z: -14}
+  m_LocalPosition: {x: 10.58519, y: 8.146853, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -35640,12 +35640,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230f39c80a564971a0523d6f3880af82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trigger: Player
-  requiredTriggers: 1
-  cutScene: {fileID: 1176015191}
-  delayBeforeStartCutscene: 0
-  PlaycutSceneOnlyOnce: 0
-  playOnAwake: 1
+  target: {fileID: 0}
+  delayBeforeFade: 5
+  fadeDuration: 1
+  animatorTrigger: Play
 --- !u!4 &1441483083
 Transform:
   m_ObjectHideFlags: 0
@@ -37548,7 +37546,7 @@ Transform:
   m_GameObject: {fileID: 1715352352}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.870026, y: 8.513949, z: -14}
+  m_LocalPosition: {x: 10.58519, y: 8.146853, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

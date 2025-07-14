@@ -1,92 +1,108 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Waits for a delay, fades a target in, then triggers its Animator.
-/// Attach this to any GameObject (for example the joystick root).
+/// Waits for a delay, fades one or more targets in, then triggers their Animators.
 /// </summary>
 public class MoveJoystich : MonoBehaviour
 {
-    [Header("Target to fade‑in & animate")]
-    [SerializeField] private GameObject target;
+    [Header("Targets to fade‑in & animate")]
+    [Tooltip("Add every GameObject you want to fade here (parent + children, images, etc.).")]
+    [SerializeField] private List<GameObject> targets = new();   // drag >1 element here
 
     [Header("Timing")]
-    [SerializeField] private float delayBeforeFade = 5f;   // seconds to wait
-    [SerializeField] private float fadeDuration    = 1f;   // seconds to fade from 0 → 1 alpha
+    [SerializeField] private float delayBeforeFade = 5f;
+    [SerializeField] private float fadeDuration    = 1f;
 
     [Header("Animator")]
-    [Tooltip("Name of the trigger or state to play when fade finishes.")]
+    [Tooltip("Trigger/state name sent to every Animator once fade completes. Leave blank to Play() the default state.")]
     [SerializeField] private string animatorTrigger = "Play";
 
-    // ── private refs ──────────────────────────────────────
-    CanvasGroup   _cg;
-    SpriteRenderer _sr;
-    Animator       _anim;
+    // ── internal data ─────────────────────────────────────
+    struct FadeTarget
+    {
+        public CanvasGroup    cg;
+        public SpriteRenderer sr;
+        public Animator       anim;
+    }
+    FadeTarget[] _fts;
 
+    // ── lifecycle ─────────────────────────────────────────
     void Awake()
     {
-        if (target == null)
+        if (targets.Count == 0)
         {
-            Debug.LogError("[MoveJoystick] No target assigned!", this);
+            Debug.LogError("[MoveJoystich] No targets assigned!", this);
             enabled = false;
             return;
         }
 
-        // Try CanvasGroup first (best for UI)
-        _cg = target.GetComponent<CanvasGroup>();
-        if (_cg == null && target.GetComponent<CanvasRenderer>() != null)
-            _cg = target.AddComponent<CanvasGroup>();   // add one so we can fade UI Images/Text
+        // Cache components for speed
+        _fts = new FadeTarget[targets.Count];
+        for (int i = 0; i < targets.Count; i++)
+        {
+            GameObject go = targets[i];
+            FadeTarget ft = new();
 
-        // World‑space sprite fallback
-        _sr = target.GetComponent<SpriteRenderer>();
+            // UI first
+            ft.cg = go.GetComponent<CanvasGroup>();
+            if (ft.cg == null && go.GetComponent<CanvasRenderer>() != null)
+                ft.cg = go.AddComponent<CanvasGroup>();
 
-        // Animator (optional)
-        _anim = target.GetComponent<Animator>();
+            // World‑space sprite fallback
+            ft.sr   = go.GetComponent<SpriteRenderer>();
+            ft.anim = go.GetComponent<Animator>();
 
-        // Start invisible
-        SetAlpha(0f);
+            SetAlpha(ft, 0f);          // start invisible
+            _fts[i] = ft;
+        }
     }
 
-    void Start()
-    {
-        StartCoroutine(FadeInThenPlay());
-    }
+    void Start() => StartCoroutine(FadeInThenPlay());
 
+    // ── coroutine ─────────────────────────────────────────
     IEnumerator FadeInThenPlay()
     {
-        // 1) wait
         yield return new WaitForSeconds(delayBeforeFade);
 
-        // 2) fade 0 → 1
         float t = 0f;
         while (t < fadeDuration)
         {
             t += Time.deltaTime;
             float a = Mathf.Clamp01(t / fadeDuration);
-            SetAlpha(a);
+
+            foreach (var ft in _fts)
+                SetAlpha(ft, a);
+
             yield return null;
         }
-        SetAlpha(1f);
 
-        // 3) animate
-        if (_anim != null)
+        // ensure final alpha = 1
+        foreach (var ft in _fts)
+            SetAlpha(ft, 1f);
+
+        // trigger animators (optional)
+        foreach (var ft in _fts)
         {
+            if (ft.anim == null) continue;
+
             if (!string.IsNullOrEmpty(animatorTrigger))
-                _anim.SetTrigger(animatorTrigger);
+                ft.anim.SetTrigger(animatorTrigger);
             else
-                _anim.Play(0); // play default state
+                ft.anim.Play(0);   // play default state
         }
     }
 
-    /* Helper: sets alpha on whichever component we have */
-    void SetAlpha(float a)
+    // ── helpers ───────────────────────────────────────────
+    static void SetAlpha(FadeTarget ft, float a)
     {
-        if (_cg) _cg.alpha = a;
-        else if (_sr)
+        if (ft.cg) ft.cg.alpha = a;
+        else if (ft.sr)
         {
-            Color c = _sr.color;
+            Color c = ft.sr.color;
             c.a = a;
-            _sr.color = c;
+            ft.sr.color = c;
         }
     }
 }

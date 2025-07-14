@@ -18,6 +18,7 @@ namespace Managers
         private Vignette vignette;
         private Coroutine vignetteFadeCoroutine;
         private Coroutine screenColorFadeCoroutine;
+        private UnityEngine.Camera mainCamera;
 
         private int totalHealth;
         private int currentDamageTaken;
@@ -26,7 +27,7 @@ namespace Managers
         private void Awake()
         {
             Instance = this;
-
+            mainCamera = UnityEngine.Camera.main;
             if (postProcessingVolume != null && postProcessingVolume.profile.TryGet(out Vignette v))
             {
                 vignette = v;
@@ -181,5 +182,35 @@ namespace Managers
             screenColor.alpha = 0f;
             screenColorFadeCoroutine = null;
         }
+        
+        public static Vector3 GetTopLeftWorld(UnityEngine.Camera cam, float planeZ = 0f)
+        {
+            // ── ORTHOGRAPHIC branch ────────────────────────────────────────────
+            if (cam.orthographic)
+            {
+                float vertExtent  = cam.orthographicSize;
+                float horizExtent = vertExtent * cam.aspect;
+
+                Vector3 camPosOnPlane = cam.transform.position;
+                if (Mathf.Abs(cam.transform.forward.z) > 0.01f)
+                {
+                    float dist = (planeZ - camPosOnPlane.z) / cam.transform.forward.z;
+                    camPosOnPlane += cam.transform.forward * dist;  
+                }
+                Vector3 corner = camPosOnPlane
+                                 + (-cam.transform.right * horizExtent)
+                                 + ( cam.transform.up    * vertExtent);
+                corner.z = planeZ;
+                return corner;
+            }
+
+            Ray   ray = cam.ViewportPointToRay(new Vector3(0f, 1f, 0f));
+            float t   = (planeZ - ray.origin.z) / ray.direction.z;        // param along the ray
+            Debug.Log(ray.origin + ray.direction * t);
+            return ray.origin + ray.direction * t;
+        }
+
+
+        
     }
 }

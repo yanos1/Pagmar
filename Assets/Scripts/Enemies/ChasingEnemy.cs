@@ -91,7 +91,7 @@ public class ChasingEnemy : Rammer, IResettable
         {
             crawlSoundPlaying = true;
             crawlInstance = CoreManager.Instance.AudioManager.CreateEventInstance(crawlSound);
-            crawlInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform));
+            crawlInstance.set3DAttributes(RuntimeUtils.To3DAttributes(CoreManager.Instance.Player.transform));
             crawlInstance.start();
             print("try crawl sound");
             skeletonAnimation.AnimationState.ClearTrack(0);
@@ -101,7 +101,7 @@ public class ChasingEnemy : Rammer, IResettable
 
         if (crawlSoundPlaying)
         {
-            crawlInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform));
+            crawlInstance.set3DAttributes(RuntimeUtils.To3DAttributes(CoreManager.Instance.Player.transform));
         }
 
         // Timers

@@ -182,4 +182,4 @@ MonoBehaviour:
   segments: 64
   lineWidth: 0.3
   lineColor: {r: 1, g: 1, b: 1, a: 1}
-  particlePrefab: {fileID: 3356378722873268463, guid: 315ba75a30efe421199dc089781372b5, type: 3}
+  particlePrefab: {fileID: 0}

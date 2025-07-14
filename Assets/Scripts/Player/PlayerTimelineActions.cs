@@ -1,4 +1,6 @@
 ﻿using System;
+using FMODUnity;
+using Managers;
 using SpongeScene;
 using UnityEngine;
 
@@ -13,6 +15,7 @@ namespace Player
         private int currentRotation = 0;
         [SerializeField] private GlobalActions _globalActions;
         [SerializeField] private GameObject explosionPrefab; 
+        [SerializeField] private EventReference explodeSound;
         private int bumpCount;
         
 
@@ -49,6 +52,7 @@ namespace Player
 
         public void Explode()
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(explodeSound, transform.position);
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         }
     }

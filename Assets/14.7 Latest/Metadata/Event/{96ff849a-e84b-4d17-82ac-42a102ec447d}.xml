@@ -100,6 +100,7 @@
 		<relationship name="effects">
 			<destination>{5ba75a79-9e95-4b41-8fc7-972a8fe96978}</destination>
 			<destination>{07d3adf0-9d0c-45da-93a2-df950eb4b5cb}</destination>
+			<destination>{20c39c3e-4427-40d0-a5d8-0f6ce147f217}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{b27eeac7-781f-4008-86fa-9b542b160133}" />
@@ -130,6 +131,11 @@
 		</property>
 		<property name="soundSize">
 			<value>18</value>
+		</property>
+	</object>
+	<object class="ThreeEQEffect" id="{20c39c3e-4427-40d0-a5d8-0f6ce147f217}">
+		<property name="lowGain">
+			<value>-5</value>
 		</property>
 	</object>
 	<object class="SingleSound" id="{ff4780e4-1bcb-4d70-a0dc-8939ff485a47}">

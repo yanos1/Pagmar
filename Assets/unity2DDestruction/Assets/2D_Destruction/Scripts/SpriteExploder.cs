@@ -162,6 +162,12 @@ public static class SpriteExploder {
 
     public static List<GameObject> GenerateVoronoiPieces(GameObject source, int extraPoints = 0, int subshatterSteps = 0, Material mat = null)
     {
+
+        bool e = source.GetComponent<SpriteRenderer>().enabled; // this is not needed in general, plaster.
+        if (!e)
+        {
+            source.GetComponent<SpriteRenderer>().enabled = true;
+        }
         List<GameObject> pieces = new List<GameObject>();
 
         if (mat == null)
@@ -236,6 +242,10 @@ public static class SpriteExploder {
         source.transform.localRotation = origRotation;
 
         Resources.UnloadUnusedAssets();
+        if (!e)
+        {
+            source.GetComponent<SpriteRenderer>().enabled = false;
+        }
 
         return morePieces;
     }

@@ -26,19 +26,25 @@ namespace ScripableObjects
         public EventReference fallGasp;
         public EventReference playerSigh;
         public EventReference breath;
-        public List<StageToDamagedSound> hornsDamagedPerLevel;
+        public List<DamageTakenToSound> hornsDamagedPerLevel;
 
 
-        public EventReference GethitSound(PlayerStage currentStage)
+        public EventReference GethitSound(int currentDamage)
         {
-            return hornsDamagedPerLevel.Find(pair => pair.stage == currentStage).sound;
+                var match = hornsDamagedPerLevel.Find(pair => pair.damageTaken == currentDamage);
+                Debug.Log("match {match}");
+            if (match == null)
+            {
+                return default;
+            }
+            return match.sound;
         }
     }
 
     [Serializable]
-    public class StageToDamagedSound
+    public class DamageTakenToSound
     {
-        public PlayerStage stage;
+        public int damageTaken;
         public EventReference sound;
     }
 

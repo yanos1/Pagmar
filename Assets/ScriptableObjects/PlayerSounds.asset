@@ -132,7 +132,7 @@ MonoBehaviour:
       Data4: 1571114385
     Path: event:/Player/vocals/player breathes
   hornsDamagedPerLevel:
-  - stage: 0
+  - damageTaken: 5
     sound:
       Guid:
         Data1: 554103337
@@ -140,7 +140,7 @@ MonoBehaviour:
         Data3: -1546152288
         Data4: -667654324
       Path: event:/UI/Horns Crack 1
-  - stage: 1
+  - damageTaken: 6
     sound:
       Guid:
         Data1: -1452591446
@@ -148,7 +148,7 @@ MonoBehaviour:
         Data3: -292851282
         Data4: 2026605626
       Path: event:/UI/Horns Crack 2
-  - stage: 2
+  - damageTaken: 7
     sound:
       Guid:
         Data1: -2062121314
@@ -156,7 +156,7 @@ MonoBehaviour:
         Data3: -1483113338
         Data4: 69367842
       Path: event:/UI/Horns Crack 3
-  - stage: 3
+  - damageTaken: 0
     sound:
       Guid:
         Data1: -244489346

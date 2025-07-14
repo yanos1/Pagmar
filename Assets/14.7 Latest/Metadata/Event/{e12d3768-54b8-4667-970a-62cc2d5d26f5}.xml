@@ -128,6 +128,12 @@
 		<property name="overrideRange">
 			<value>true</value>
 		</property>
+		<property name="extentMode">
+			<value>1</value>
+		</property>
+		<property name="soundSize">
+			<value>17.5</value>
+		</property>
 	</object>
 	<object class="SingleSound" id="{005996af-b532-4001-b7f6-ff3b05847c94}">
 		<relationship name="audioFile">

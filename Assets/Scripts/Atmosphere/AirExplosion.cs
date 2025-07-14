@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using FMODUnity;
+using Managers;
 using UnityEngine;
 
 namespace Atmosphere
@@ -6,6 +8,8 @@ namespace Atmosphere
     public class AirExplosion: MonoBehaviour
     {
         [SerializeField] private ExplosionForce f1;
+        [SerializeField] private EventReference expSound;
+        [SerializeField] private GameObject expPrefab;
 
 
         public void Explode()
@@ -16,8 +20,8 @@ namespace Atmosphere
 
         private IEnumerator Explodecoroutine()
         {
-            // yield return new WaitForSeconds(0f);
-            f1.doExplosion(transform.position);
+            print("called exp");
+            f1.doExplosion(CoreManager.Instance.Player.transform.position);
             yield break;
         }
     }

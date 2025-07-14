@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
 using DG.Tweening;
 using Enemies;
 using FMODUnity;
 using Interfaces;
+using Managers;
 using NPC.BigFriend;
+using Unity.Cinemachine;
 using UnityEngine;
 using Sequence = DG.Tweening.Sequence;
 
@@ -21,6 +24,7 @@ namespace NPC.NpcActions
         private Transform target;
         private bool isChargingAnimPlaying = false;
         [SerializeField] private EventReference hitSound;
+        private bool isRunning = false;
 
         public override void StartAction(Npc npc)
         {
@@ -54,27 +58,39 @@ namespace NPC.NpcActions
             float distToTarget = Vector2.Distance(npc.transform.position, target.position);
             if (distToTarget < 10f)
             {
+                isRunning = false;
                 string chargeAnim = _spine.GetAnimName(BigSpine.SpineAnim.Dash);
                 Debug.Log($"[ChargeAction] Distance to target < 5. Switching to Charge Animation: {chargeAnim}");
                 _spine.PlayAnimation(chargeAnim, loop: true, fallbackAnimation: null, force: true);
                 isChargingAnimPlaying = true;
+                npc.Sounds.PlayDash(npc.transform);
             }
         }
 
         protected override void PerformMovement(Npc npc)
         {
             int chargeDir = targetOffset > 0 ? -1 : 1;
-
+            isRunning = true;
             Sequence chargeSequence = DOTween.Sequence();
             chargeSequence.Append(npc.transform.DOMove(npc.transform.position + Vector3.right * (targetOffset + chargeDir), duration)
                 .SetEase(easeType));
-
+            CoreManager.Instance.Runner.StartCoroutine(PlaySteps(npc));
             chargeSequence.OnComplete(() =>
             {
                 isCompleted = true;
                 npc.GetComponent<BigActions>().DoSmileAnim(5);
                 Debug.Log("[ChargeAction] Charge complete.");
             });
+        }
+
+        private IEnumerator PlaySteps(Npc npc)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                if(!isRunning) yield break;
+                npc.Sounds.PlayStep(npc.transform);
+                yield return new WaitForSeconds(0.4f);
+            }
         }
 
         public override void ResetAction(Npc npc)

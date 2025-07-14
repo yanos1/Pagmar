@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{01af97bc-5577-4364-ae20-c6089d8daa95}">
+		<property name="assetPath">
+			<value>giant ram tree.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.5</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a9044247-395f-4438-af47-acfafbe18e57}</destination>
+		</relationship>
+	</object>
+</objects>

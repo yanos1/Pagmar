@@ -215,6 +215,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
 
         if (cutSceneEnded)
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.wakeUp, transform.position);
             spineControl.PlayAnimation("wake-up-jump", 3, loop: false, force: true, fallbackAnimation: null, onComplete:
                 () =>
                 {
@@ -226,7 +227,8 @@ public class PlayerMovement : MonoBehaviour, IResettable
                 });
             yield break;
         }
-        
+        CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.wakeUp, transform.position);
+
         // Crossfade from sleep to wake-up (track 3)
         spineControl.PlayAnimation("wake-up", 3, loop: false, force: true, fallbackAnimation:null, onComplete: () =>
         {                

@@ -150,6 +150,7 @@ namespace Managers
         {
             if (!sound.IsNull)
             {
+                print($"playing {sound.ToString()}");
                 RuntimeManager.PlayOneShot(sound, worldPos);
             }
         }

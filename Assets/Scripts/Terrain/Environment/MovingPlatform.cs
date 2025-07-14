@@ -73,16 +73,16 @@ namespace Terrain.Environment
             }
         }
 
-        public void MovePlatformExternally()
+        public void MovePlatformExternally(bool autoStopSound = false)
         {
-           moveCoroutine =  StartCoroutine(MovePlatform());
+           moveCoroutine =  StartCoroutine(MovePlatform(autoStopSound));
         }
 
         public void MovePlatformGentlyExternally()
         {
             moveslightlyCor  =  StartCoroutine(MoveGentlyUp());
         }
-        private IEnumerator MovePlatform()
+        private IEnumerator MovePlatform(bool autoStopSound = false)
         {
             print("move platform!");
             
@@ -105,7 +105,10 @@ namespace Terrain.Environment
             }
 
             transform.position = targetPos;
-            StopMoveSound();
+            if (!autoStopSound)
+            {
+                StopMoveSound();
+            }
             
             
             yield return new WaitForSeconds(secondsBeforeReturn);

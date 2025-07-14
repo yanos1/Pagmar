@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d6d992525c4852be8c5bfb72137b50, type: 3}
+  m_Name: BigSounds
+  m_EditorClassIdentifier: 
+  jumpSound:
+    Guid:
+      Data1: -1761639270
+      Data2: 1293412427
+      Data3: -1589465982
+      Data4: 2101668866
+    Path: event:/Giant/Giant Jump
+  landSound:
+    Guid:
+      Data1: 1797749691
+      Data2: 1276610326
+      Data3: -2079985746
+      Data4: -361314362
+    Path: event:/Giant/Giant Land
+  dashSound:
+    Guid:
+      Data1: -670466696
+      Data2: 1208122461
+      Data3: -1028283246
+      Data4: 1834495645
+    Path: event:/Giant/Giant Ram Midair
+  stepSound:
+    Guid:
+      Data1: -1468454033
+      Data2: 1086067004
+      Data3: 935298464
+      Data4: 387130130
+    Path: event:/Giant/Giant Footsteps

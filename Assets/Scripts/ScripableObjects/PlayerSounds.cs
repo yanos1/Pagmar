@@ -1,4 +1,6 @@
-﻿using FMODUnity;
+﻿using System;
+using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -18,7 +20,26 @@ namespace ScripableObjects
         public EventReference deathSound;
         public EventReference attackSound;
         public EventReference clashSound;
+        public EventReference laugh;
+        public EventReference gasp;
+        public EventReference wakeUp;
+        public EventReference fallGasp;
+        public EventReference playerSigh;
+        public EventReference breath;
+        public List<StageToDamagedSound> hornsDamagedPerLevel;
 
+
+        public EventReference GethitSound(PlayerStage currentStage)
+        {
+            return hornsDamagedPerLevel.Find(pair => pair.stage == currentStage).sound;
+        }
+    }
+
+    [Serializable]
+    public class StageToDamagedSound
+    {
+        public PlayerStage stage;
+        public EventReference sound;
     }
 
 }

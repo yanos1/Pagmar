@@ -5,6 +5,7 @@ using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
 using Player;
+using ScripableObjects;
 using Spine.Unity;
 using SpongeScene;
 using TMPro;
@@ -20,6 +21,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
     [SerializeField] private MMFeedbacks takeDamageFeedbacks;
     [SerializeField] private MMFeedbacks revealFeedbacks; 
     [SerializeField] private MMF_Player lowHealthFeedbacks;
+    [SerializeField] private PlayerSounds sounds;
 
     [Header("Healing System")]
     [SerializeField] private Image healBar;
@@ -159,7 +161,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
             hasBeenRevealed = true;
             revealFeedbacks.PlayFeedbacks();
         }
-
+        
         if (Mathf.Approximately(amount, lastDamageAmount) && Time.time - lastDamageTime < damageCooldown)
             return;
 
@@ -170,6 +172,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         }
 
         InjuryFeedbacks.Instance.ApplyDamage(amount);
+        
 
         currentDamageIndex += amount;
         lastDamageTime = Time.time;
@@ -185,6 +188,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
             Die();
             return;
         }
+        CoreManager.Instance.AudioManager.PlayOneShot(sounds.GethitSound(CoreManager.Instance.Player.playerStage), transform.position);
 
         UpdateVisual();
         takeDamageFeedbacks?.PlayFeedbacks();
@@ -197,6 +201,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         Debug.Log("Horn is fully broken. Dead.");
         if (!player.IsDead)
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(sounds.dashSound, transform.position);
             player.Die();
         }
     }

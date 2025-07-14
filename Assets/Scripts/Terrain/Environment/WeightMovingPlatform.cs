@@ -35,7 +35,7 @@ namespace Terrain.Environment
             directionSign = Mathf.Sign(triggerDirection.x);
             if (directionSign == 0f) directionSign = 1f; // default fallback
             
-            MovePlatformExternally();
+            MovePlatformExternally(true);
             
         }
 

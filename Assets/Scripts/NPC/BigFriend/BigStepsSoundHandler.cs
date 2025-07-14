@@ -69,7 +69,7 @@ namespace NPC.BigFriend
                 // Wait until 0.633s to play first step
                 yield return new WaitForSeconds(0.633f);
                 PlayStep(material);
-
+                
                 // Wait the remaining time until end of animation for the second step
                 yield return new WaitForSeconds(1.05f - 0.633f); // 0.417s
                 PlayStep(material);
@@ -80,6 +80,7 @@ namespace NPC.BigFriend
 
         private void PlayStep(int material)
         {
+            print("play big step");
             EventInstance instance = CoreManager.Instance.AudioManager.CreateEventInstance(stepSound, "Material", material);
             instance.set3DAttributes(RuntimeUtils.To3DAttributes(CoreManager.Instance.Player.transform));
             instance.start();

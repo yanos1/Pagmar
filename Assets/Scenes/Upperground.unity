@@ -44134,6 +44134,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _globalActions: {fileID: 0}
+  explosionPrefab: {fileID: 0}
+  explodeSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!114 &920217988 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8509487364657399828, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
@@ -107967,6 +107975,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6680346482450966074, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: managedReferences[5373309635675030017].dashSound.Path
+      value: event:/Giant/Giant Ram Midair
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680346482450966074, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: managedReferences[5373309635675030017].jumpSound.Path
+      value: event:/Giant/Giant Jump
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680346482450966074, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
       propertyPath: managedReferences[5373309635675030016].targetPosition.x
       value: 5
       objectReference: {fileID: 0}
@@ -107982,6 +107998,38 @@ PrefabInstance:
       propertyPath: managedReferences[2208691682680242289].stopFollowTrigger
       value: 
       objectReference: {fileID: 753204487}
+    - target: {fileID: 6680346482450966074, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: managedReferences[5373309635675030017].dashSound.Guid.Data1
+      value: -670466696
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680346482450966074, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: managedReferences[5373309635675030017].dashSound.Guid.Data2
+      value: 1208122461
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680346482450966074, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: managedReferences[5373309635675030017].dashSound.Guid.Data3
+      value: -1028283246
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680346482450966074, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: managedReferences[5373309635675030017].dashSound.Guid.Data4
+      value: 1834495645
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680346482450966074, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: managedReferences[5373309635675030017].jumpSound.Guid.Data1
+      value: -1761639270
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680346482450966074, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: managedReferences[5373309635675030017].jumpSound.Guid.Data2
+      value: 1293412427
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680346482450966074, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: managedReferences[5373309635675030017].jumpSound.Guid.Data3
+      value: -1589465982
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680346482450966074, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: managedReferences[5373309635675030017].jumpSound.Guid.Data4
+      value: 2101668866
+      objectReference: {fileID: 0}
     - target: {fileID: 8017310752260510469, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
       propertyPath: m_Enabled
       value: 0

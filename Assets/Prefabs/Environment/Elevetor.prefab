@@ -190,11 +190,11 @@ MonoBehaviour:
     Path: event:/Objects/Elevator
   returnSound:
     Guid:
-      Data1: -1472272352
-      Data2: 1332340814
-      Data3: -1779268717
-      Data4: -1804043663
-    Path: event:/Objects/Elevator
+      Data1: 2067711254
+      Data2: 1295568672
+      Data3: 1018080699
+      Data4: -1209702817
+    Path: event:/Objects/Elevator Return
   col: {fileID: 287640088777926130}
   VisualsTransform: {fileID: 4719064911444026289}
 --- !u!1 &1267597207550698884

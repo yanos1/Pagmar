@@ -5,7 +5,7 @@
 			<value>WoodBreak</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{220ac2ac-7cef-4a1b-b004-5810a5a46acd}</destination>
@@ -99,6 +99,7 @@
 	<object class="MixerBusEffectChain" id="{9492357d-e8b8-4680-81ca-7e1081bb1bae}">
 		<relationship name="effects">
 			<destination>{5d048197-60be-4ea6-953d-8152daeec088}</destination>
+			<destination>{729b28a2-74c1-4ccd-8f3e-3050f5c78b17}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{be87ab44-bec0-4e0b-801e-5ed7b067bd19}" />
@@ -111,6 +112,7 @@
 	</object>
 	<object class="MixerBusFader" id="{4c493bdb-1fad-469b-8880-f440c2413697}" />
 	<object class="MixerBusFader" id="{5d048197-60be-4ea6-953d-8152daeec088}" />
+	<object class="SpatialiserEffect" id="{729b28a2-74c1-4ccd-8f3e-3050f5c78b17}" />
 	<object class="SingleSound" id="{86ea436f-ae0b-4752-b97e-6bc31a9aae3e}">
 		<relationship name="audioFile">
 			<destination>{f8d0cb74-c208-46ce-a575-605e10447f4f}</destination>

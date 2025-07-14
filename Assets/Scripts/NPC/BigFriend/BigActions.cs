@@ -30,10 +30,10 @@ namespace NPC.BigFriend
 
         public void ShowQuestionMarkForSeconds(float duration = 3f)
         {
-            CoreManager.Instance.AudioManager.PlayOneShot(ponderingSound, transform.position + Vector3Int.right*8);
+            CoreManager.Instance.AudioManager.PlayOneShot(ponderingSound, transform.position + Vector3Int.right * 8);
             bigSpine.PlayAnimation(bigSpine.GetAnimName(BigSpine.SpineAnim.HeadTilt));
             // questionMark.SetActive(true);
-            
+
             // Sequence seq = DOTween.Sequence();
             //
             // seq.Append(questionMarkRenderer.DOFade(1f, 0.3f).SetEase(Ease.OutSine)) // Fade in
@@ -41,7 +41,7 @@ namespace NPC.BigFriend
             //     .Append(questionMarkRenderer.DOFade(0f, 0.3f).SetEase(Ease.InSine)) // Fade out
             //     .OnComplete(() => questionMark.SetActive(false)); // Deactivate
         }
-        
+
         public void ShowExclamationMarkForSeconds(float duration = 3f)
         {
             exclamationMark.SetActive(true);
@@ -58,10 +58,13 @@ namespace NPC.BigFriend
         {
             // enter animation of tired.
             bigSpine.PlayAnimation(bigSpine.GetAnimName(BigSpine.SpineAnim.Tired), loop: true);
-            CoreManager.Instance.AudioManager.PlayOneShot(requestHealSound, transform.position);
-            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(2, () => healText.SetActive(true)));
+            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(2, () =>
+            {
+                healText.SetActive(true);
+                CoreManager.Instance.AudioManager.PlayOneShot(requestHealSound, transform.position);
+            }));
         }
-        
+
         public void RemoveHealRequest()
         {
             // enter aniamtion of happy
@@ -77,15 +80,16 @@ namespace NPC.BigFriend
             StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.3f, () =>
             {
                 print("playing appear sound");
-                CoreManager.Instance.AudioManager.PlayOneShot(apearSound, transform.position + Vector3Int.right*8);
+                CoreManager.Instance.AudioManager.PlayOneShot(apearSound, transform.position + Vector3Int.right * 8);
             }));
         }
-        
+
         public void DoSmileAnim(float seconds)
         {
             print("call do smile");
             bigSpine.DoSmile(seconds);
         }
+
         public void EnableHeadCollider()
         {
             headCol.SetActive(true);
@@ -117,7 +121,7 @@ namespace NPC.BigFriend
         {
             print("playing Approach sound");
 
-            CoreManager.Instance.AudioManager.PlayOneShot(approachSound, transform.position + Vector3Int.right*8);
+            CoreManager.Instance.AudioManager.PlayOneShot(approachSound, transform.position + Vector3Int.right * 8);
         }
 
         public void PlayLandFeedbacks()

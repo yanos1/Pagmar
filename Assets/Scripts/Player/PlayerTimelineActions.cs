@@ -12,6 +12,7 @@ namespace Player
         private PlayerMovement _playerMovement;
         private int currentRotation = 0;
         [SerializeField] private GlobalActions _globalActions;
+        [SerializeField] private GameObject explosionPrefab; 
         private int bumpCount;
         
 
@@ -44,6 +45,11 @@ namespace Player
         {
             var rotator = new Vector3(transform.rotation.x, currentRotation == 0 ? 180: 0, transform.rotation.z);
             transform.rotation = Quaternion.Euler(rotator);
+        }
+
+        public void Explode()
+        {
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         }
     }
 }

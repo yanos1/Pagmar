@@ -156,6 +156,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
 
     public void AddDamage(int amount, bool activateFeedbacks = true)
     {
+        print("add damage 11");
         if (!hasBeenRevealed)
         {
             hasBeenRevealed = true;
@@ -172,7 +173,8 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         }
 
         InjuryFeedbacks.Instance.ApplyDamage(amount);
-        
+        print("AplliedDamage 11");
+
 
         currentDamageIndex += amount;
         lastDamageTime = Time.time;
@@ -188,7 +190,12 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
             Die();
             return;
         }
-        CoreManager.Instance.AudioManager.PlayOneShot(sounds.GethitSound(CoreManager.Instance.Player.playerStage), transform.position);
+      
+        // print("hit sound :" + sounds.GethitSound(CoreManager.Instance.Player.playerStage));
+        if (currentDamageIndex >= lowHealthThreshold)
+        {
+            CoreManager.Instance.AudioManager.PlayOneShot(sounds.GethitSound(currentDamageIndex), transform.position);
+        }
 
         UpdateVisual();
         takeDamageFeedbacks?.PlayFeedbacks();

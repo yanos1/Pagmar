@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
     [SerializeField] private float WhenStopPressGravity = 2.5f;
     [SerializeField] private float maxFallingSpeed = -10f;
     [SerializeField] private float graceJumpTime = 0.1f;
-    [SerializeField] private float minJumpInterval = 0.10f;
+    [SerializeField] private float minJumpInterval = 0.30f;
 
     [Header("Ground Check")] [SerializeField]
     private Transform groundCheckPosition;

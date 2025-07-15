@@ -21,6 +21,10 @@ namespace Terrain.Environment
 
         [SerializeField] private EventReference crumbleSound;
         [SerializeField] private bool reset = true;
+        [SerializeField] private GameObject cracks;
+        [SerializeField] private Explodable e;
+        [SerializeField] private ParticleSystem p;
+        [SerializeField] private ExplosionForce f;
 
         // Tween references
         private Tween moveTween;
@@ -75,52 +79,57 @@ namespace Terrain.Environment
 
         public void CrumbleQuick() // usued
         {
-            fadeTween = sr.DOFade(0f, crumbleDuration).OnComplete(DisablePlatform);
+            // fadeTween = sr.DOFade(0f, crumbleDuration).OnComplete(DisablePlatform);
         }
 
         private void Crumble()
         {
             CoreManager.Instance.AudioManager.PlayOneShot(crumbleSound, transform.position);
-            col.enabled = false;
+            e.explode();
+            f.doExplosion(f.transform.position);
+            cracks.SetActive(false);
+            p.Play();
+            // col.enabled = false;
 
-            moveTween = transform.DOMoveY(transform.position.y - 2f, crumbleDuration)
-                .SetEase(Ease.InQuad);
+            // moveTween = transform.DOMoveY(transform.position.y - 2f, crumbleDuration)
+            //     .SetEase(Ease.InQuad);
 
-            fadeTween = sr.DOFade(0f, crumbleDuration).OnComplete(DisablePlatform);
+            // fadeTween = sr.DOFade(0f, crumbleDuration).OnComplete(DisablePlatform);
         }
 
-        private void DisablePlatform()
-        {
-            gameObject.SetActive(false);
-        }
+        // private void DisablePlatform()
+        // {
+        //     gameObject.SetActive(false);
+        // }
 
         public virtual void ResetToInitialState()
         {
             if (!reset) return;
 
             // Kill active tweens
-            KillTweens();
+            // KillTweens();
 
             // Stop crumble coroutine if it's still waiting
-            if (crumbleCoroutine != null)
-            {
-                StopCoroutine(crumbleCoroutine);
-                crumbleCoroutine = null;
-            }
-
+            // if (crumbleCoroutine != null)
+            // {
+            //     StopCoroutine(crumbleCoroutine);
+            //     crumbleCoroutine = null;
+            // }
+            cracks.SetActive(true);
+            p.Stop();
             gameObject.SetActive(true);
             hasCrumbled = false;
             transform.position = initialPosition;
-            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
-            col.enabled = true;
+            // sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
+            // col.enabled = true;
         }
 
         private void KillTweens()
         {
-            moveTween?.Kill();
-            fadeTween?.Kill();
-            moveTween = null;
-            fadeTween = null;
+            // moveTween?.Kill();
+            // fadeTween?.Kill();
+            // moveTween = null;
+            // fadeTween = null;
         }
     }
 }

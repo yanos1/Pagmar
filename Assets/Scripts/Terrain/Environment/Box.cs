@@ -132,6 +132,9 @@ namespace Terrain.Environment
                 breakFeedbacks?.PlayFeedbacks();
                 e.explode();
                 f.doExplosion(transform.position);
+                rb.linearVelocity = Vector2.zero;
+                rb.bodyType = RigidbodyType2D.Kinematic;
+                
             }
         }
 
@@ -151,6 +154,7 @@ namespace Terrain.Environment
 
         public void ResetToInitialState()
         {
+            rb.bodyType = RigidbodyType2D.Dynamic;
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
 

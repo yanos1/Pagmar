@@ -28,6 +28,7 @@ TagManager:
   - HouseCollapse
   - MorningSleep
   - Falldown
+  - Flower
   layers:
   - Default
   - TransparentFX

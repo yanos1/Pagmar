@@ -179,7 +179,7 @@ public class PlayerHornDamageHandler : MonoBehaviour, IResettable
         currentDamageIndex += amount;
         lastDamageTime = Time.time;
 
-        if (!shownHealthWarning && currentDamageIndex >= lowHealthThreshold)
+        if (!shownHealthWarning && currentDamageIndex >= lowHealthThreshold && CoreManager.Instance.Player.transform.position.x < 200)
         {
             shownHealthWarning = true;
             healthWarningTextFeedbacks?.PlayFeedbacks();

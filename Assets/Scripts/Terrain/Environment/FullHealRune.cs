@@ -16,6 +16,7 @@ namespace Terrain.Environment
         [SerializeField] private float floatDuration = 1f;
         [SerializeField] private EventNames onPickup;
         [SerializeField] private EventReference healSound;
+        private GameObject parent;
 
         private Vector3 _startPos;
         
@@ -23,7 +24,7 @@ namespace Terrain.Environment
         private void Start()
         {
             _startPos = transform.position;
-
+            parent = transform.parent.gameObject;
             // Floating animation using DOTween
             transform.DOMoveY(_startPos.y + floatHeight, floatDuration)
                 .SetLoops(-1, LoopType.Yoyo)
@@ -47,9 +48,19 @@ namespace Terrain.Environment
             CoreManager.Instance.EventManager.InvokeEvent(onPickup, 100);
         }
 
+        public void GetDeletedByLavaBeam()
+        {
+            parent.SetActive(false);
+            gameObject.SetActive(false);
+        }
+
         public void ResetToInitialState()
         {
             gameObject.SetActive(true);
+            if (parent != null)
+            {
+                parent.SetActive(true);
+            }
         }
     }
     

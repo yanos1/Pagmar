@@ -20,6 +20,7 @@ public class ChasingEnemy : Rammer, IResettable
     [SerializeField] private EventReference biteSound;
     [SerializeField] private List<EventReference> roarSounds;
     [SerializeField] private SkeletonAnimation skeletonAnimation;
+    [SerializeField] private Transform soundPos;
 
 
     private float contactRadius;
@@ -91,7 +92,7 @@ public class ChasingEnemy : Rammer, IResettable
         {
             crawlSoundPlaying = true;
             crawlInstance = CoreManager.Instance.AudioManager.CreateEventInstance(crawlSound);
-            crawlInstance.set3DAttributes(RuntimeUtils.To3DAttributes(CoreManager.Instance.Player.transform));
+            crawlInstance.set3DAttributes(RuntimeUtils.To3DAttributes(soundPos));
             crawlInstance.start();
             print("try crawl sound");
             skeletonAnimation.AnimationState.ClearTrack(0);
@@ -101,7 +102,7 @@ public class ChasingEnemy : Rammer, IResettable
 
         if (crawlSoundPlaying)
         {
-            crawlInstance.set3DAttributes(RuntimeUtils.To3DAttributes(CoreManager.Instance.Player.transform));
+            crawlInstance.set3DAttributes(RuntimeUtils.To3DAttributes(soundPos));
         }
 
         // Timers

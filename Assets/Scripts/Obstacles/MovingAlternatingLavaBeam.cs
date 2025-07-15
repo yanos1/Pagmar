@@ -120,6 +120,16 @@ namespace Obstacles
             {
                 enemy.Die();   
             }
+
+            if (other.gameObject.GetComponent<FullHealRune>() is {} healRune)
+            {
+                healRune.GetDeletedByLavaBeam();
+            }
+            
+            if( other.CompareTag("Flower"))
+            {
+                other.gameObject.SetActive(false);
+            }
         }
 
         private void CheckTileMapHit(Collider2D other)

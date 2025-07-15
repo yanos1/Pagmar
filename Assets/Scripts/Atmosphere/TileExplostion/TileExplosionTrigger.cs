@@ -98,6 +98,7 @@ namespace Atmosphere.TileExplostion
 
         public void ResetToInitialState()
         {
+            return;
             if(!reset) return;
             exploded = false;
             forceExplosionTriggered = false;

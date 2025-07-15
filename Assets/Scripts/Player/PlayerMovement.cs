@@ -336,6 +336,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
         {
             if (!isFalling)
             {
+                print("call fall sound");
                  fallInstance = CoreManager.Instance.AudioManager.CreateEventInstance(playerSounds.fallSound);
                  fallInstance.start();
             }
@@ -374,7 +375,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.landSound, transform.position);
             }
-
+            print("stop fall sound");
             fallInstance.stop(STOP_MODE.IMMEDIATE);
             fallInstance.release();
             

@@ -123,12 +123,12 @@ namespace Managers
             CoreManager.Instance.EventManager.InvokeEvent(EventNames.StartNewScene, mainMenuIndex);
         }
 
-        public int LoadNextScene()
+        public int LoadNextScene(float delayBetweenFades = 0)
         {
             if (currentSceneIndex + 1 < numScenes)
             {
                 var doFade = IsNextSceneGameplayScene();
-                StartCoroutine(SwitchScene(currentSceneIndex + 1, doFade));
+                StartCoroutine(SwitchScene(currentSceneIndex + 1, doFade, delayBetweenFades));
             }
             else
             {

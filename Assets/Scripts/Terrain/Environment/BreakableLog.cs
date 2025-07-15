@@ -20,6 +20,8 @@ namespace Terrain.Environment
         [SerializeField] private EventReference hitSound;
         [SerializeField] private EventReference breakSound;
 
+        [SerializeField] private GameObject cracks;
+
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
@@ -48,6 +50,7 @@ namespace Terrain.Environment
         {
             e.explode();
             f.doExplosion(transform.position);
+            if(cracks != null) cracks.SetActive(false);
         }
 
         private void Update()
@@ -66,7 +69,8 @@ namespace Terrain.Environment
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
             transform.position = startingPos;
-            transform.rotation = Quaternion.identity;
+            if(cracks != null) cracks.SetActive(true);
+
         }
     }
 }

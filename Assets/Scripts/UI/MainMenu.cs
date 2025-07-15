@@ -12,7 +12,7 @@ namespace UI
         {
             gameObject.SetActive(false);
             CoreManager.Instance.AudioManager.PlayOneShot(pressStartSound, transform.position);
-            ScenesManager.Instance.LoadNextScene();
+            ScenesManager.Instance.LoadNextScene(1.8f);
         }
 
         public void ExitGame()

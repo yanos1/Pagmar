@@ -26,6 +26,8 @@ namespace Terrain.Environment
         [SerializeField] private int hitsToDestroy = 1;
         [SerializeField] private EventReference hitSound;
         [SerializeField] private EventReference breakSound;
+        [SerializeField] private GameObject cracks;
+        
         private bool isObjectOnTop = false;
         private float accumulatedForce;
         [SerializeField] private Collider2D _collider;
@@ -85,12 +87,15 @@ namespace Terrain.Environment
 
         public void OnBreak()
         {
+            CoreManager.Instance.AudioManager.PlayOneShot(breakSound, transform.position);
+
             if (f is not null && e is not null)
             {
                 print("play hill feedbacks");
                 breakFeedbacks?.PlayFeedbacks();
                 e.explode();
                 f.doExplosion(transform.position);
+                if (cracks != null) cracks.SetActive(false);
             }
         }
 
@@ -121,6 +126,7 @@ namespace Terrain.Environment
             transform.position = startingPos;
             accumulatedForce = baseForce;
             currentHits = 0;
+            if (cracks != null) cracks.SetActive(true);
         }
     }
 }

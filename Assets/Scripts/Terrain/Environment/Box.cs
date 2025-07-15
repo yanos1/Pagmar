@@ -4,6 +4,7 @@ using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
 using UnityEngine;
+using UnityEngine.Serialization;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Terrain.Environment
@@ -32,7 +33,7 @@ namespace Terrain.Environment
         [SerializeField] private Explodable e;
         [SerializeField] private ExplosionForce f;
         [SerializeField] private MMF_Player breakFeedbacks;
-
+        [SerializeField] private bool IsDymanic = true;
         private EventInstance pushInstance;
         private bool isPushSoundPlaying = false;
 
@@ -40,6 +41,7 @@ namespace Terrain.Environment
         private float hitCooldownTimer = 0f;
         private const float hitCooldownDuration = 0.5f;
         private bool isMoving;
+        
 
         private void Awake()
         {
@@ -86,7 +88,7 @@ namespace Terrain.Environment
                 isDropping = false;
                 dropTriggered = true;
                         
-                CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, transform.position) ;
+                CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, CoreManager.Instance.Player.transform.position) ;
                 Debug.Log("Box dropped and landed.");
             }
         }
@@ -125,7 +127,7 @@ namespace Terrain.Environment
 
         public void OnBreak()
         {
-            CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, transform.position);
+            CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, CoreManager.Instance.Player.transform.position);
 
             if (e != null && f != null)
             {
@@ -154,7 +156,10 @@ namespace Terrain.Environment
 
         public void ResetToInitialState()
         {
-            rb.bodyType = RigidbodyType2D.Dynamic;
+            if (IsDymanic)
+            {
+                rb.bodyType = RigidbodyType2D.Dynamic;
+            } 
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
 

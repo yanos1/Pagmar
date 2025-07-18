@@ -72,11 +72,13 @@ namespace NPC
         private void OnEnable()
         {
             CoreManager.Instance.EventManager.AddListener(EventNames.PlayerMeetSmall, OnMeetPlayer);
+            CoreManager.Instance.EventManager.AddListener(EventNames.StartLoadNextScene, EndActions);
         }
 
         private void OnDisable()
         {
             CoreManager.Instance.EventManager.RemoveListener(EventNames.PlayerMeetSmall, OnMeetPlayer);
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.StartLoadNextScene, EndActions);
         }
 
         private void Start()
@@ -127,6 +129,11 @@ namespace NPC
             //     waitingForLanding = false;
             //     OnLanding();
             // }
+        }
+        
+        private void EndActions(object obj)
+        {
+            currentAction.ResetAction(this);
         }
 
         public void TurnAround(Vector2 newDir)

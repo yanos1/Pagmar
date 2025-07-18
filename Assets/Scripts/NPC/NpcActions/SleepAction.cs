@@ -15,7 +15,8 @@ namespace NPC.NpcActions
         [SerializeField] private BigActions _actions;
         [SerializeField] private EventReference snoring;
         private bool displayingSleep = false;
-
+    
+        
         public override void StartAction(Npc npc)
         {
             base.StartAction(npc);

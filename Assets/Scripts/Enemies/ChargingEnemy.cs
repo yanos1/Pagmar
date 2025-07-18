@@ -122,8 +122,7 @@ namespace Enemies
             transform.localScale = scale;
             currentChargeDelay = chargeDelay;
         }
-
-
+        
         void Update()
         {
             if (player is null || isSleeping)
@@ -378,6 +377,8 @@ namespace Enemies
             spineControl?.PlayAnimation("run", true, "Idle", true);
             CoreManager.Instance.AudioManager.PlayOneShot(sounds.chargeSound, transform.position);
             StartCoroutine(PlayRunSound());
+            FlipSprite(dir.x > 0);
+            
             while (!HitWall() && IsCharging && timer < chargeDuration)
             {
                 MoveAndRotate(dir);
@@ -716,7 +717,14 @@ namespace Enemies
             while (IsCharging)
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(sounds.walkSound, transform.position);
-                yield return new WaitForSeconds(0.2f);
+                if (Time.timeScale < 0.9)
+                {
+                    yield return new WaitForSecondsRealtime(1f);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(0.2f);
+                }
             }
         }
     }

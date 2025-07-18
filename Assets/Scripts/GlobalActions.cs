@@ -90,6 +90,7 @@ public class GlobalActions : MonoBehaviour
 
     public void OpenPauseMenu()
     {
+        if(CoreManager.Instance.GameManager.InCutScene) return; // cant pause during cur scenes.
         CoreManager.Instance.UiManager.OpenPauseMenu();
     }
 

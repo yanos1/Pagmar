@@ -558,20 +558,28 @@ MonoBehaviour:
   scenes:
   - sceneNumber: 1
     SceneType: 2
+    fadeTimeForNextScene: 0
   - sceneNumber: 2
     SceneType: 2
+    fadeTimeForNextScene: 0
   - sceneNumber: 3
     SceneType: 2
+    fadeTimeForNextScene: 3
   - sceneNumber: 4
     SceneType: 2
+    fadeTimeForNextScene: 0
   - sceneNumber: 5
     SceneType: 2
+    fadeTimeForNextScene: 3
   - sceneNumber: 6
     SceneType: 2
+    fadeTimeForNextScene: 3
   - sceneNumber: 7
     SceneType: 2
+    fadeTimeForNextScene: 5
   - sceneNumber: 8
     SceneType: 2
+    fadeTimeForNextScene: 0
 --- !u!4 &1855960747
 Transform:
   m_ObjectHideFlags: 0

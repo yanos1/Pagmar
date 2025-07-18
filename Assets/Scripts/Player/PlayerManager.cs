@@ -77,6 +77,7 @@ namespace Player
         {
             isGodMode = true;
             light.SetActive(true);
+            _damageHandler.StartFullHeal(null);
         }
 
         public void ExitGodMode()

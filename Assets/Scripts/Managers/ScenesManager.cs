@@ -22,6 +22,9 @@ namespace Managers
 
         private int currentSceneIndex = 1; // Tracks the index of the currently active scene
 
+        private bool isSwitchingScene = false;
+
+        public bool IsSwitchingScene => isSwitchingScene;
 
         public int CurrentScene => currentSceneIndex;
         private void RestartScene(object obj)
@@ -163,7 +166,7 @@ namespace Managers
         {
             if (newSceneIndex >= 0 && newSceneIndex < SceneManager.sceneCountInBuildSettings)
             {
-            
+                isSwitchingScene = true;
                 print($"current scene is {currentSceneIndex} {SceneManager.GetActiveScene().name}");
                 if (doFade)
                 {
@@ -229,6 +232,8 @@ namespace Managers
                     CoreManager.Instance.UiManager.HideLoadingScreen();
 
                 }
+
+                isSwitchingScene = false;
                 CoreManager.Instance.EventManager.InvokeEvent(EventNames.StartNewScene, currentSceneIndex + 1);
             }
 
@@ -250,5 +255,6 @@ namespace Managers
     {
         public int sceneNumber;
         public SceneType SceneType;
+        public float fadeTimeForNextScene;
     }
 }

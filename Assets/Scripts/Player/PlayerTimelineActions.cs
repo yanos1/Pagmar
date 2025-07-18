@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using FMODUnity;
 using Managers;
 using SpongeScene;
@@ -60,6 +61,16 @@ namespace Player
         public void Gasp()
         {
             CoreManager.Instance.AudioManager.PlayOneShot(gaspSound, transform.position);
+        }
+
+        public void TransitionComicsSounds()
+        {
+            StartCoroutine(PlayTransitionSounds());
+        }
+
+        private IEnumerator PlayTransitionSounds()
+        {
+            yield return new WaitForSecondsRealtime(2);
         }
     }
 }

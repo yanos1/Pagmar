@@ -142,6 +142,7 @@ namespace Terrain.Environment
 
         public void OnHit(Vector2 hitDirection, PlayerStage stage)
         {
+            print("box is hit!");
             if (stage == PlayerStage.FinalForm)
             {
                 OnBreak();

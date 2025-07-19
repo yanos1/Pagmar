@@ -15,6 +15,7 @@ namespace Managers
         [SerializeField] private GameAmbience _gameAmbience;
         [SerializeField] private GameMusic _gameMusic;
         [SerializeField] private List<AmbienceInstance> temporalAmbiencesPlaying = new();
+        private List<EventInstance> soundsToStopAtTheEndOfScene = new();
 
         private EventInstance currentAmbience;
         private EventInstance currentMusic;
@@ -154,9 +155,22 @@ namespace Managers
                 RuntimeManager.PlayOneShot(sound, worldPos);
             }
         }
+
+        public void RegisterSoundToStopAtTheEndOfScene(EventInstance soundRef)
+        {
+            soundsToStopAtTheEndOfScene.Add(soundRef);
+        }
+
+        public void StopRegisteredSoundEvents()
+        {
+            foreach (var sound in soundsToStopAtTheEndOfScene)
+            {
+                sound.stop(STOP_MODE.ALLOWFADEOUT);
+                sound.release();
+            }
+        }
       
-
-
+        
         public EventInstance CreateEventInstance(EventReference sound, [CanBeNull] string parameter = null, float? parameterValue = null)
         {
             EventInstance instance = RuntimeManager.CreateInstance(sound);

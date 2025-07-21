@@ -15,13 +15,20 @@ namespace Terrain.Environment
 
         public override void OnCollisionEnter2D(Collision2D c)
         {
-            base.OnCollisionEnter2D(c);
-            if (c.gameObject.GetComponent<PlayerManager>() is { } playerManager)
+            if (c.gameObject.GetComponent<PlayerMovement>() is { } playerManager)
             {
                 if (!isMoving)
                 {
                     StartCoroutine(DelayedMove());
                 }
+                
+                print($"p{playerManager.GroundCheckPos.y +0.2f} e {col.bounds.max.y}");
+                if (playerManager.transform.position.y +0.2f> col.bounds.max.y)
+                {
+                    print("setting parent elevator");
+                    c.collider.transform.SetParent(transform);
+                }
+
             }
         }
 

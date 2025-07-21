@@ -103,11 +103,11 @@ namespace Enemies
                 {
                     print("sleep animation active");
                     sleepInstance = CoreManager.Instance.AudioManager.CreateEventInstance(sounds.sleepSound);
-                    sleepInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform));
-
+                    sleepInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+                    sleepInstance.start();
+                    print("sleepsound start");
                     spineControl.PlayAnimation("sleeping",loop:true);
 
-                    sleepInstance.start();
 
                 }
                 isSleeping = true;
@@ -218,6 +218,7 @@ namespace Enemies
 
                 if (sleepInstance.isValid())
                 {
+                    print("sleep sound stop!");
                     sleepInstance.stop(STOP_MODE.IMMEDIATE);
                     sleepInstance.release();
                 }
@@ -247,6 +248,7 @@ namespace Enemies
             isSleeping = false;
             sleepInstance.stop(STOP_MODE.IMMEDIATE);
             sleepInstance.release();
+            print("skeep sound stop from wape up");
         }
 
         private void Roam()
@@ -535,6 +537,8 @@ namespace Enemies
             spineControl?.PlayAnimation("Idle", true);
             gameObject.layer = LayerMask.NameToLayer("Enemy");
             currentHitWallCD = 0;
+            currentChargeCooldown = 0;
+            accumulatedChargePrepareTime = 0;
 
             // Flip using scale (Spine-compatible)
             Vector3 scale = transform.localScale;
@@ -562,6 +566,7 @@ namespace Enemies
                     sleepInstance.start();
 
                 }
+                print("go to sleep!");
                 isSleeping = true;
             }
 

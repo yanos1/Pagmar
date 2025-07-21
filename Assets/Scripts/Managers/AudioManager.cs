@@ -112,6 +112,7 @@ namespace Managers
             var addedAmbience = CreateEventInstance(ambience);
             temporalAmbiencesPlaying.Add(new AmbienceInstance(ambienceType, addedAmbience));
             addedAmbience.start();
+            soundsToStopAtTheEndOfScene.Add(addedAmbience);
         }
 
         public void RemoveTemporalAmbience(AmbienceType ambienceType)

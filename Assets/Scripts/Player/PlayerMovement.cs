@@ -81,11 +81,13 @@ public class PlayerMovement : MonoBehaviour, IResettable
     private bool _canDash = true;
     private float _fallSpeedYDampingChangeThreshold;
     private bool hitSomethingDuringDash;
+    private float lastMoveTime;
     public bool IsFacingRight => _isFacingRight;
     public bool IsDashing => _isDashing;
     public Vector2 DashDirection => _lastDashDir;
     public Vector3 GroundCheckPos => groundCheckPosition.position;
     public float LastJumpTime => LastPressedJumpTime;
+    public float LastMoveTime => lastMoveTime;
 
     private bool isTouchingWall = false;
     private bool isWallJumping = false;
@@ -124,6 +126,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
         CoreManager.Instance.EventManager.AddListener(EventNames.StartLoadNextScene, OnLoadNewScene);
         CoreManager.Instance.EventManager.AddListener(EventNames.EndCutScene, OnEndCutScene);
         CoreManager.Instance.EventManager.AddListener(EventNames.ReachedFirstObstacle, StopScaredEyes);
+        lastMoveTime = Time.time;
         // CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, OnNewScene);
     }
 
@@ -161,7 +164,6 @@ public class PlayerMovement : MonoBehaviour, IResettable
     private void Update()
     {
         LastOnGroundTime += Time.deltaTime;
-
         if (!_isDashAttacking && !isWallJumping && !isWallSliding)
             Move();
 
@@ -437,13 +439,14 @@ public class PlayerMovement : MonoBehaviour, IResettable
 
     public void HandleMovment(InputAction.CallbackContext context)
     {
+        lastMoveTime = Time.time;
         if (player.InputEnabled == false)
         {
             print("enput is disabled, make entereted input true");
             enteredInput = true; // used for the start of the game, wakiping the player up
             return;
         }
-
+            
         _moveInput = context.ReadValue<Vector2>();
         _moveInputX = _moveInput.x;
         _moveInputY = _moveInput.y;

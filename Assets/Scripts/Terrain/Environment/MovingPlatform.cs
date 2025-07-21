@@ -37,7 +37,7 @@ namespace Terrain.Environment
         [SerializeField] private ExplosionForce f;
         [SerializeField] protected EventReference moveSound;
         [SerializeField] private EventReference returnSound;
-        [SerializeField] private BoxCollider2D col;
+        [SerializeField] protected BoxCollider2D col;
         [SerializeField] private Transform VisualsTransform;
         
         
@@ -109,7 +109,6 @@ namespace Terrain.Environment
             {
                 StopMoveSound();
             }
-            
             
             yield return new WaitForSeconds(secondsBeforeReturn);
             isMoving = false;

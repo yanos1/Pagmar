@@ -61,6 +61,7 @@ namespace Managers
             currentMusic.stop(STOP_MODE.ALLOWFADEOUT);
             currentMusic.release();
             currentAmbience.release();
+            StopRegisteredSoundEvents();
 
         }
 
@@ -112,7 +113,6 @@ namespace Managers
             var addedAmbience = CreateEventInstance(ambience);
             temporalAmbiencesPlaying.Add(new AmbienceInstance(ambienceType, addedAmbience));
             addedAmbience.start();
-            soundsToStopAtTheEndOfScene.Add(addedAmbience);
         }
 
         public void RemoveTemporalAmbience(AmbienceType ambienceType)
@@ -169,6 +169,7 @@ namespace Managers
                 sound.stop(STOP_MODE.ALLOWFADEOUT);
                 sound.release();
             }
+            soundsToStopAtTheEndOfScene.Clear();
         }
       
         

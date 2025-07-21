@@ -8,25 +8,29 @@ namespace NPC.NpcActions
 {
     using System;
 
-
     [Serializable]
     public class SleepAction : NpcAction
     {
         [SerializeField] private BigActions _actions;
         [SerializeField] private EventReference snoring;
         private bool displayingSleep = false;
-    
-        
+
+        private FMOD.Studio.EventInstance snoreInstance;
+
         public override void StartAction(Npc npc)
         {
             base.StartAction(npc);
             npc.SetState(NpcState.Sleeping);
             Debug.Log("play sleep sound");
+
             CoreManager.Instance.Runner.StartCoroutine(UtilityFunctions.WaitAndInvokeAction(2f,
                 () =>
                 {
-                    CoreManager.Instance.AudioManager.PlayOneShot(snoring, npc.transform.position);
+                    snoreInstance = CoreManager.Instance.AudioManager.CreateEventInstance(snoring);
+                    snoreInstance.set3DAttributes(RuntimeUtils.To3DAttributes(npc.transform.position));
+                    snoreInstance.start();
                     Debug.Log("play snoring!!");
+                    CoreManager.Instance.AudioManager.RegisterSoundToStopAtTheEndOfScene(snoreInstance);
                 }));
         }
 
@@ -47,6 +51,11 @@ namespace NPC.NpcActions
         {
             Debug.Log("big is waking up");
             isCompleted = false;
+
+            // Stop and release the FMOD event instance
+            snoreInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            snoreInstance.release();
+
             afterActionCallback?.Invoke();
         }
     }

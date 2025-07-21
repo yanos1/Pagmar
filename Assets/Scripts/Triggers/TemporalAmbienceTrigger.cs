@@ -29,6 +29,7 @@ namespace Triggers
         public void StopAmbienceExternally()
         {
             CoreManager.Instance.AudioManager.RemoveTemporalAmbience(type);
+            print("remove ambience 12");
         }
 
         public void StartAmbienceExternally()

@@ -186,27 +186,34 @@ public class ChasingEnemy : Rammer, IResettable
     {
         Vector3 hitPos = other.bounds.center;
         Vector3Int centerCell = tilemap.WorldToCell(hitPos);
-
+        ExplodeTile(centerCell);
+        
         for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <= 1; y++)
             {
-                if (Random.value < 0.75f) continue;
+                if (Random.value < 0.75f || (x ==0 && y ==0)) continue;
                 Vector3Int offset = new Vector3Int(x, y, 0);
                 Vector3Int targetCell = centerCell + offset;
 
-                if (tilemap.HasTile(targetCell))
-                {
-                    TileBase tile = tilemap.GetTile(targetCell);
+                ExplodeTile(targetCell);
+            }
+        }
+    }
 
-                    if (removedTiles.TryAdd(targetCell, tile))
-                    {
-                        tilemap.SetTile(targetCell, null);
-                        Vector3 worldPos = tilemap.GetCellCenterWorld(targetCell);
-                        var particles = CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.ExplodableTileParticlesV2);
-                        particles.Play(worldPos);
-                    }
-                }
+    private void ExplodeTile(Vector3Int targetCell)
+    {
+        if (tilemap.HasTile(targetCell))
+        {
+            TileBase tile = tilemap.GetTile(targetCell);
+
+            if (removedTiles.TryAdd(targetCell, tile))
+            {
+                tilemap.SetTile(targetCell, null);
+                Vector3 worldPos = tilemap.GetCellCenterWorld(targetCell);
+                if(Random.value < 0.5) return; // spawn particles half of the time
+                var particles = CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.ExplodableTileParticlesV2);
+                particles.Play(worldPos);
             }
         }
     }

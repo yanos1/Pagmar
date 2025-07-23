@@ -1,4 +1,5 @@
-﻿using FMODUnity;
+﻿using System;
+using FMODUnity;
 using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
@@ -40,6 +41,11 @@ namespace Terrain.Environment
             
             startingPos = transform.position;
             accumulatedForce = baseForce;
+        }
+
+        private void OnMouseDown()
+        {
+            OnHit(Vector2.right, PlayerStage.Young);
         }
 
         private void Update()

@@ -56,11 +56,11 @@ MonoBehaviour:
     Path: event:/Enemy/EnemyWakesUp
   sleepSound:
     Guid:
-      Data1: 1373468407
-      Data2: 1085255587
-      Data3: -1016743247
-      Data4: 1470477786
-    Path: event:/Enemy/EnemySleeping
+      Data1: 226436523
+      Data2: 1216362466
+      Data3: -1054933352
+      Data4: -1261321413
+    Path: event:/Giant/GiantSnores
   ramWall:
     Guid:
       Data1: -508314700

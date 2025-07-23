@@ -34,6 +34,7 @@ namespace Terrain.Environment
         [SerializeField] private ExplosionForce f;
         [SerializeField] private MMF_Player breakFeedbacks;
         [SerializeField] private bool IsDymanic = true;
+
         private EventInstance pushInstance;
         private bool isPushSoundPlaying = false;
 
@@ -41,7 +42,6 @@ namespace Terrain.Environment
         private float hitCooldownTimer = 0f;
         private const float hitCooldownDuration = 0.5f;
         private bool isMoving;
-        
 
         private void Awake()
         {
@@ -54,7 +54,7 @@ namespace Terrain.Environment
                 pushInstance = CoreManager.Instance.AudioManager.CreateEventInstance(boxPushEvent);
             }
         }
-        
+
         private void Start()
         {
             rb.linearVelocity = Vector2.zero;
@@ -71,25 +71,19 @@ namespace Terrain.Environment
             float verticalVelocity = rb.linearVelocity.y;
             bool isFalling = verticalVelocity < dropVelocityThreshold;
 
-            Vector2 rayOrigin = (Vector2)transform.position + col.offset;
-            float castDistance = (col.size.y * 0.5f * transform.localScale.y) + extraRaycastDistance;
-            Vector2 down = -transform.up;
-
-            bool isTouchingGround = Physics2D.Raycast(rayOrigin, down, castDistance, groundLayers);
-
             if (isFalling)
             {
                 isDropping = true;
                 dropTriggered = false;
             }
 
-            if (isDropping && !dropTriggered && isTouchingGround && Mathf.Abs(verticalVelocity) < 0.1f)
+            if (isDropping && !dropTriggered && IsTouchingGroundAnySide() && rb.linearVelocity.magnitude < 0.1f)
             {
                 isDropping = false;
                 dropTriggered = true;
-                        
-                CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, CoreManager.Instance.Player.transform.position) ;
-                Debug.Log("Box dropped and landed.");
+
+                CoreManager.Instance.AudioManager.PlayOneShot(boxDropEvent, CoreManager.Instance.Player.transform.position);
+                Debug.Log("Box dropped and landed on any side.");
             }
         }
 
@@ -103,6 +97,11 @@ namespace Terrain.Environment
                 isMoving = false;
                 StopPushSound();
             }
+
+            if (isPushSoundPlaying)
+            {
+                pushInstance.set3DAttributes(RuntimeUtils.To3DAttributes(CoreManager.Instance.Player.transform.position));
+            }
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -111,13 +110,7 @@ namespace Terrain.Environment
 
             if (player != null)
             {
-                Vector2 hitDir = (transform.position - player.transform.position).normalized;
-
-                if (player.IsDashing)
-                {
-                    // Add dash hit logic if needed
-                }
-                else
+                if (!player.IsDashing)
                 {
                     PlayPushSound();
                     isMoving = true;
@@ -136,7 +129,6 @@ namespace Terrain.Environment
                 f.doExplosion(transform.position);
                 rb.linearVelocity = Vector2.zero;
                 rb.bodyType = RigidbodyType2D.Kinematic;
-                
             }
         }
 
@@ -160,27 +152,28 @@ namespace Terrain.Environment
             if (IsDymanic)
             {
                 rb.bodyType = RigidbodyType2D.Dynamic;
-            } 
+            }
+
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
 
-            rb.position = startingPosition; // Use this instead of transform.position
+            rb.position = startingPosition;
             rb.rotation = 0f;
-            
+
             hitCooldownTimer = 0f;
             isDropping = false;
             dropTriggered = false;
+
             print("reset box");
 
             StopPushSound();
         }
 
-
         private void PlayPushSound()
         {
             if (!isPushSoundPlaying)
             {
-                pushInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+                pushInstance.set3DAttributes(RuntimeUtils.To3DAttributes(CoreManager.Instance.Player.transform.position));
                 pushInstance.start();
                 isPushSoundPlaying = true;
             }
@@ -195,15 +188,67 @@ namespace Terrain.Environment
             }
         }
 
+        private bool IsTouchingGroundAnySide()
+        {
+            Vector2 center = (Vector2)transform.position + col.offset;
+            float halfWidth = col.size.x * 0.5f * transform.localScale.x;
+            float halfHeight = col.size.y * 0.5f * transform.localScale.y;
+
+            Vector2[] directions = {
+                Vector2.down,
+                Vector2.up,
+                Vector2.left,
+                Vector2.right
+            };
+
+            Vector2[] origins = {
+                center + Vector2.down * halfHeight,
+                center + Vector2.up * halfHeight,
+                center + Vector2.left * halfWidth,
+                center + Vector2.right * halfWidth
+            };
+
+            for (int i = 0; i < directions.Length; i++)
+            {
+                if (Physics2D.Raycast(origins[i], directions[i], extraRaycastDistance, groundLayers))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private void OnDrawGizmosSelected()
         {
             if (!Application.isPlaying) return;
 
             if (col == null) col = GetComponent<BoxCollider2D>();
-            Vector2 rayOrigin = (Vector2)transform.position + col.offset;
-            float castDistance = (col.size.y * 0.5f * transform.localScale.y) + extraRaycastDistance;
+
+            Vector2 center = (Vector2)transform.position + col.offset;
+            float halfWidth = col.size.x * 0.5f * transform.localScale.x;
+            float halfHeight = col.size.y * 0.5f * transform.localScale.y;
+
+            Vector2[] directions = {
+                Vector2.down,
+                Vector2.up,
+                Vector2.left,
+                Vector2.right
+            };
+
+            Vector2[] origins = {
+                center + Vector2.down * halfHeight,
+                center + Vector2.up * halfHeight,
+                center + Vector2.left * halfWidth,
+                center + Vector2.right * halfWidth
+            };
+
             Gizmos.color = Color.magenta;
-            Gizmos.DrawLine(rayOrigin, rayOrigin + (Vector2)(-transform.up * castDistance));
+
+            for (int i = 0; i < directions.Length; i++)
+            {
+                Gizmos.DrawLine(origins[i], origins[i] + directions[i] * extraRaycastDistance);
+            }
         }
     }
 }

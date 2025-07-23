@@ -32,7 +32,7 @@ namespace Managers
         {
             CoreManager.Instance.EventManager.AddListener(EventNames.ChangeAmbience, OnChangeAmbience);
             CoreManager.Instance.EventManager.AddListener(EventNames.ChangeMusic, OnChangeMusic);
-            CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, StopOldScneeSounds);
+            CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, StopSoundImmidiete);
             CoreManager.Instance.EventManager.AddListener(EventNames.PickUpFakeRune, StopOldScneeSounds);
             CoreManager.Instance.EventManager.AddListener(EventNames.StopMusic, OnChangeMusic);
         }
@@ -41,12 +41,9 @@ namespace Managers
             CoreManager.Instance.EventManager.RemoveListener(EventNames.ChangeAmbience, OnChangeAmbience);
             CoreManager.Instance.EventManager.RemoveListener(EventNames.ChangeMusic, OnChangeMusic);
             CoreManager.Instance.EventManager.RemoveListener(EventNames.PickUpFakeRune, StopOldScneeSounds);
-            CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, StopOldScneeSounds);
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, StopSoundImmidiete);
             CoreManager.Instance.EventManager.RemoveListener(EventNames.StopMusic, OnChangeMusic);
-
-            
         }
-
      
         public void StopAllSounds()
         {
@@ -54,6 +51,15 @@ namespace Managers
             masterBus.stopAllEvents(STOP_MODE.IMMEDIATE);
         }
 
+        private void StopSoundImmidiete(object o)
+        {
+            print("stop old scene sounds!");
+            currentAmbience.stop(STOP_MODE.IMMEDIATE);
+            currentMusic.stop(STOP_MODE.IMMEDIATE);
+            currentMusic.release();
+            currentAmbience.release();
+            StopRegisteredSoundEvents();
+        } 
         private void StopOldScneeSounds(object obj)
         {
             print("stop old scene sounds!");
@@ -62,7 +68,6 @@ namespace Managers
             currentMusic.release();
             currentAmbience.release();
             StopRegisteredSoundEvents();
-
         }
 
         private void OnChangeMusic(object obj)

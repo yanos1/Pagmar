@@ -40,7 +40,7 @@ namespace Managers
         {
             while (true)
             {
-                if (CoreManager.Instance.Player && Time.time - CoreManager.Instance.Player.GetComponent<PlayerMovement>().LastMoveTime > 300f) // 5 minutes
+                if (CoreManager.Instance.Player && Time.time - CoreManager.Instance.Player.GetComponent<PlayerMovement>().LastMoveTime > 140f) // 5 minutes
                 {
                     if (ScenesManager.Instance.CurrentScene != 2) // main menu
                     {
@@ -48,7 +48,7 @@ namespace Managers
                     }
 
                 }
-                yield return new WaitForSeconds(150f);
+                yield return new WaitForSeconds(60f);
 
             }
         }

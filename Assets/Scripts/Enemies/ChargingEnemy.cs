@@ -112,8 +112,6 @@ namespace Enemies
                 }
                 isSleeping = true;
             }
-          
-
             baseDir = currentDirection;
 
             // Flip scale based on initial direction

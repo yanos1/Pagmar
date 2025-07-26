@@ -12,6 +12,13 @@ namespace Managers
 {
     public class AudioManager : MonoBehaviour
     {
+        [Serializable]
+        public class sceneToStopSound
+        {
+            public int sceneNum;
+            public bool allowFade;
+        }
+
         [SerializeField] private GameAmbience _gameAmbience;
         [SerializeField] private GameMusic _gameMusic;
         [SerializeField] private List<AmbienceInstance> temporalAmbiencesPlaying = new();
@@ -19,32 +26,34 @@ namespace Managers
 
         private EventInstance currentAmbience;
         private EventInstance currentMusic;
-        
+
         private Bus masterBus;
+        [SerializeField] private List<sceneToStopSound> sceneToSoundStopMap;
 
         private void Awake()
         {
             masterBus = RuntimeManager.GetBus("bus:/");
         }
-        
-        
+
+
         private void OnEnable()
         {
             CoreManager.Instance.EventManager.AddListener(EventNames.ChangeAmbience, OnChangeAmbience);
             CoreManager.Instance.EventManager.AddListener(EventNames.ChangeMusic, OnChangeMusic);
-            CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, StopSoundImmidiete);
-            CoreManager.Instance.EventManager.AddListener(EventNames.PickUpFakeRune, StopOldScneeSounds);
+            CoreManager.Instance.EventManager.AddListener(EventNames.StartNewScene, StopOldSceneSounds);
+            CoreManager.Instance.EventManager.AddListener(EventNames.PickUpFakeRune, StopWithFadeout);
             CoreManager.Instance.EventManager.AddListener(EventNames.StopMusic, OnChangeMusic);
         }
+
         private void OnDisable()
         {
             CoreManager.Instance.EventManager.RemoveListener(EventNames.ChangeAmbience, OnChangeAmbience);
             CoreManager.Instance.EventManager.RemoveListener(EventNames.ChangeMusic, OnChangeMusic);
-            CoreManager.Instance.EventManager.RemoveListener(EventNames.PickUpFakeRune, StopOldScneeSounds);
-            CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, StopSoundImmidiete);
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.PickUpFakeRune, StopWithFadeout);
+            CoreManager.Instance.EventManager.RemoveListener(EventNames.StartNewScene, StopOldSceneSounds);
             CoreManager.Instance.EventManager.RemoveListener(EventNames.StopMusic, OnChangeMusic);
         }
-     
+
         public void StopAllSounds()
         {
             Bus masterBus = RuntimeManager.GetBus("bus:/");
@@ -59,8 +68,9 @@ namespace Managers
             currentMusic.release();
             currentAmbience.release();
             StopRegisteredSoundEvents();
-        } 
-        private void StopOldScneeSounds(object obj)
+        }
+
+        private void StopWithFadeout(object o)
         {
             print("stop old scene sounds!");
             currentAmbience.stop(STOP_MODE.IMMEDIATE);
@@ -69,6 +79,23 @@ namespace Managers
             currentAmbience.release();
             StopRegisteredSoundEvents();
         }
+
+        private void StopOldSceneSounds(object obj)
+        {
+            if (obj is int sceneNum)
+            {
+                var sound = sceneToSoundStopMap.Find(s => s.sceneNum == sceneNum);
+                if (sound != null)
+                {
+                    if (sound.allowFade)
+                        StopWithFadeout(null);
+                    else
+                        StopSoundImmidiete(null);
+                }
+            }
+        }
+
+
 
         private void OnChangeMusic(object obj)
         {
@@ -80,6 +107,7 @@ namespace Managers
                 currentMusic.stop(STOP_MODE.ALLOWFADEOUT);
                 currentMusic.release();
             }
+
             if (obj is MusicType musicType)
             {
                 print("try to start new music !");
@@ -89,8 +117,7 @@ namespace Managers
 
                 currentMusic = RuntimeManager.CreateInstance(music);
                 currentMusic.start();
-                
-            }        
+            }
         }
 
         public void MuteAll()
@@ -102,7 +129,7 @@ namespace Managers
         {
             masterBus.setMute(false);
         }
-        
+
         public void PauseAllAudio()
         {
             masterBus.setPaused(true);
@@ -112,7 +139,7 @@ namespace Managers
         {
             masterBus.setPaused(false);
         }
-        
+
         public void AddTemporalAmbience(AmbienceType ambienceType, EventReference ambience)
         {
             var addedAmbience = CreateEventInstance(ambience);
@@ -134,7 +161,6 @@ namespace Managers
 
         public void OnChangeAmbience(object obj)
         {
-            
             if (obj is AmbienceType ambienceType)
             {
                 currentAmbience.getPlaybackState(out PLAYBACK_STATE state);
@@ -144,13 +170,12 @@ namespace Managers
                     currentAmbience.stop(STOP_MODE.ALLOWFADEOUT);
                     currentAmbience.release();
                 }
-          
+
                 var ambience = _gameAmbience.GetAmbience(ambienceType);
                 if (ambience.IsNull) return;
 
                 currentAmbience = RuntimeManager.CreateInstance(ambience);
                 currentAmbience.start();
-                
             }
         }
 
@@ -174,11 +199,13 @@ namespace Managers
                 sound.stop(STOP_MODE.ALLOWFADEOUT);
                 sound.release();
             }
+
             soundsToStopAtTheEndOfScene.Clear();
         }
-      
-        
-        public EventInstance CreateEventInstance(EventReference sound, [CanBeNull] string parameter = null, float? parameterValue = null)
+
+
+        public EventInstance CreateEventInstance(EventReference sound, [CanBeNull] string parameter = null,
+            float? parameterValue = null)
         {
             EventInstance instance = RuntimeManager.CreateInstance(sound);
 
@@ -189,14 +216,13 @@ namespace Managers
 
             return instance;
         }
-        
+
         public void SetGlobalParameter(string parameter, float value)
         {
             print($"set global parameter {parameter}");
             RuntimeManager.StudioSystem.setParameterByName(parameter, value);
-
         }
-        
+
         public void SetMusicLocalParameter(string parameter, float value)
         {
             print($"Set local parameter '{parameter}' to {value}");
@@ -213,7 +239,7 @@ namespace Managers
         EarthQuake = 3,
         ForestTreeArea = 4,
     }
-    
+
     [Serializable]
     public enum MusicType
     {
@@ -226,5 +252,4 @@ namespace Managers
         Upperground1 = 6,
         Upperground2 = 7,
     }
-   
 }

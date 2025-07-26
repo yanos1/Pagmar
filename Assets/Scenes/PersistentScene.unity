@@ -2914,6 +2914,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameAmbience: {fileID: 11400000, guid: d4827e7e315ca7044bd69be194545a4d, type: 2}
   _gameMusic: {fileID: 11400000, guid: e4aa70cdb1e5d37418beec65cafa6d34, type: 2}
+  sceneToSoundStopMap:
+  - sceneNum: 0
+    allowFade: 0
+  - sceneNum: 0
+    allowFade: 0
+  - sceneNum: 2
+    allowFade: 0
+  - sceneNum: 3
+    allowFade: 1
+  - sceneNum: 4
+    allowFade: 1
+  - sceneNum: 5
+    allowFade: 1
+  - sceneNum: 6
+    allowFade: 1
+  - sceneNum: 7
+    allowFade: 1
+  - sceneNum: 0
+    allowFade: 0
 --- !u!4 &1005575757
 Transform:
   m_ObjectHideFlags: 0

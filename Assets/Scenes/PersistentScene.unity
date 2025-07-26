@@ -1989,7 +1989,7 @@ MonoBehaviour:
         SetStateOnInit: 0
         StateOnInit: 2
         SetStateOnPlay: 1
-        StateOnPlay: 2
+        StateOnPlay: 1
         SetStateOnStop: 0
         StateOnStop: 1
         SetStateOnReset: 0
@@ -2190,8 +2190,8 @@ MonoBehaviour:
         ExtraTargetGameObjects: []
         SetStateOnInit: 0
         StateOnInit: 1
-        SetStateOnPlay: 0
-        StateOnPlay: 1
+        SetStateOnPlay: 1
+        StateOnPlay: 0
         SetStateOnStop: 0
         StateOnStop: 1
         SetStateOnReset: 0

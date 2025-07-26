@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Camera;
 using FMOD.Studio;
+using FMODUnity;
 using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
@@ -15,6 +16,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using AnimationState = UnityEngine.AnimationState;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class PlayerMovement : MonoBehaviour, IResettable
 {
@@ -183,6 +185,11 @@ public class PlayerMovement : MonoBehaviour, IResettable
             }
         }
 
+        if (isFalling)
+        {
+            fallInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+        }
+
         UpdateAnimation();
     }
     
@@ -334,12 +341,14 @@ public class PlayerMovement : MonoBehaviour, IResettable
             CameraManager.GetInstance().LerpYDamping(true);
         }
 
-        if (_rb.linearVelocity.y < -2 && !player.IsKnockBacked)
+        if (_rb.linearVelocity.y < -0.4f && !player.IsKnockBacked)
         {
             if (!isFalling)
             {
                 print("call fall sound");
                  fallInstance = CoreManager.Instance.AudioManager.CreateEventInstance(playerSounds.fallSound);
+                 fallInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+
                  fallInstance.start();
             }
 

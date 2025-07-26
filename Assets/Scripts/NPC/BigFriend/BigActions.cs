@@ -27,10 +27,11 @@ namespace NPC.BigFriend
         [SerializeField] private EventReference apearSound;
         [SerializeField] private EventReference ponderingSound;
         [SerializeField] private EventReference requestHealSound;
+        [SerializeField] private EventReference loudStepSound;
 
         public void ShowQuestionMarkForSeconds(float duration = 3f)
         {
-            CoreManager.Instance.AudioManager.PlayOneShot(ponderingSound, transform.position + Vector3Int.right * 8);
+            CoreManager.Instance.AudioManager.PlayOneShot(ponderingSound, transform.position + Vector3Int.right * 7);
             bigSpine.PlayAnimation(bigSpine.GetAnimName(BigSpine.SpineAnim.HeadTilt));
             // questionMark.SetActive(true);
 
@@ -80,7 +81,7 @@ namespace NPC.BigFriend
             StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.3f, () =>
             {
                 print("playing appear sound");
-                CoreManager.Instance.AudioManager.PlayOneShot(apearSound, transform.position + Vector3Int.right * 8);
+                CoreManager.Instance.AudioManager.PlayOneShot(apearSound, transform.position + Vector3Int.right * 7);
             }));
         }
 
@@ -121,12 +122,17 @@ namespace NPC.BigFriend
         {
             print("playing Approach sound");
 
-            CoreManager.Instance.AudioManager.PlayOneShot(approachSound, transform.position + Vector3Int.right * 8);
+            CoreManager.Instance.AudioManager.PlayOneShot(approachSound, transform.position + Vector3Int.right * 7);
         }
 
         public void PlayLandFeedbacks()
         {
             landFeedbacks?.PlayFeedbacks();
+        }
+
+        public void PlayLoudFootSteps()
+        {
+            CoreManager.Instance.AudioManager.PlayOneShot(loudStepSound, transform.position+ Vector3Int.right* 7);
         }
     }
 }

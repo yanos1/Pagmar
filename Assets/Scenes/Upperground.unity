@@ -25980,7 +25980,7 @@ Transform:
   m_GameObject: {fileID: 355778679}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.399132, y: 0.79307556, z: -17}
+  m_LocalPosition: {x: -19.988466, y: -1.3154511, z: -17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -49575,11 +49575,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 29.4
+  near clip plane: 0.1
+  far clip plane: 5000
+  field of view: 40
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -49604,7 +49604,7 @@ Transform:
   m_GameObject: {fileID: 857027753}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -70.7, y: -4.593463, z: -24.4}
+  m_LocalPosition: {x: -19.27846, y: -1.1954511, z: -17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -121981,6 +121981,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5180183230169050883, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: loudStepSound.Path
+      value: event:/Giant/Giant Approaching Footsteps
+      objectReference: {fileID: 0}
+    - target: {fileID: 5180183230169050883, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: loudStepSound.Guid.Data1
+      value: -517130392
+      objectReference: {fileID: 0}
+    - target: {fileID: 5180183230169050883, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: loudStepSound.Guid.Data2
+      value: 1181177016
+      objectReference: {fileID: 0}
+    - target: {fileID: 5180183230169050883, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: loudStepSound.Guid.Data3
+      value: -865989993
+      objectReference: {fileID: 0}
+    - target: {fileID: 5180183230169050883, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: loudStepSound.Guid.Data4
+      value: -182035155
+      objectReference: {fileID: 0}
     - target: {fileID: 6074939913345086613, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
       propertyPath: managedReferences[2208691768540790935].BoundParticleSystem
       value: 
@@ -122104,6 +122124,34 @@ PrefabInstance:
     - target: {fileID: 8017310752260510469, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479937659446366725, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[4].m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479937659446366725, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[4].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479937659446366725, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[4].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 8945411767887879016}
+    - target: {fileID: 8479937659446366725, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[4].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479937659446366725, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[4].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlayLoudFootSteps
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479937659446366725, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[4].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: NPC.BigFriend.BigActions, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479937659446366725, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[4].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8816065527423953256, guid: 76782b3899e5bc248bba8df15af1b23e, type: 3}
       propertyPath: m_Sprite

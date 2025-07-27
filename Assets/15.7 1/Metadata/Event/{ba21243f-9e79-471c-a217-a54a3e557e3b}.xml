@@ -59,11 +59,7 @@
 			<destination>{c589ed05-58b0-4e47-9671-06c8d33079ce}</destination>
 		</relationship>
 	</object>
-	<object class="EventAutomatableProperties" id="{50996a3f-bf7d-43b8-9b7a-fe8f96ccae59}">
-		<property name="minimumDistance">
-			<value>4.80000019</value>
-		</property>
-	</object>
+	<object class="EventAutomatableProperties" id="{50996a3f-bf7d-43b8-9b7a-fe8f96ccae59}" />
 	<object class="MarkerTrack" id="{5bd48eb5-ad80-494d-835b-bc03198c070d}" />
 	<object class="Timeline" id="{e79a1abd-8cc2-4f7d-bcef-0e64f75121bb}">
 		<property name="isProxyEnabled">
@@ -114,8 +110,11 @@
 	<object class="MixerBusFader" id="{792e28eb-2b8a-40ee-a194-6b6354609236}" />
 	<object class="MixerBusFader" id="{bdc41a41-69f4-4f17-877a-c0c15d271646}" />
 	<object class="SpatialiserEffect" id="{878a4d0d-7953-43e3-a640-4de39148822b}">
-		<property name="distanceRolloffType">
-			<value>1</value>
+		<property name="minimumDistance">
+			<value>4.5999999</value>
+		</property>
+		<property name="overrideRange">
+			<value>true</value>
 		</property>
 		<property name="extentMode">
 			<value>1</value>

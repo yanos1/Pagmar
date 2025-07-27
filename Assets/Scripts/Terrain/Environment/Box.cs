@@ -82,7 +82,7 @@ namespace Terrain.Environment
                 isDropping = false;
                 dropTriggered = true;
 
-                CoreManager.Instance.AudioManager.PlayOneShot(boxDropEvent, CoreManager.Instance.Player.transform.position);
+                CoreManager.Instance.AudioManager.PlayOneShot(boxDropEvent, transform.position);
                 Debug.Log("Box dropped and landed on any side.");
             }
         }
@@ -120,7 +120,7 @@ namespace Terrain.Environment
 
         public void OnBreak()
         {
-            CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, CoreManager.Instance.Player.transform.position);
+            CoreManager.Instance.AudioManager.PlayOneShot(boxBreakSound, transform.position);
 
             if (e != null && f != null)
             {

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="Snapshot" id="{70cf6925-d78f-4bee-a552-be48aeb53f2b}">
+		<property name="name">
+			<value>Giant Steps Dim</value>
+		</property>
+		<property name="behavior">
+			<value>1</value>
+		</property>
+		<relationship name="mixer">
+			<destination>{2e316e59-e6f4-4460-901e-726cbb6d245b}</destination>
+		</relationship>
+		<relationship name="automatableProperties">
+			<destination>{a5b8471c-43a0-48d9-ab06-00b89a5d5b9d}</destination>
+		</relationship>
+		<relationship name="markerTracks">
+			<destination>{2853bd7b-bb83-4d3e-9e95-5c7621350470}</destination>
+		</relationship>
+		<relationship name="timeline">
+			<destination>{446492f2-482c-4742-a906-c617cf11103a}</destination>
+		</relationship>
+		<relationship name="snapshotMasterTrack">
+			<destination>{0bf99430-7c16-4e06-b956-4efbb1c05d96}</destination>
+		</relationship>
+		<relationship name="snapshotProperties">
+			<destination>{9c0e99c4-523c-4ec1-a584-6305a3fedbab}</destination>
+		</relationship>
+		<relationship name="snapshotTracks">
+			<destination>{e6bb78ba-0082-4c0a-a59d-581c8db6ea43}</destination>
+		</relationship>
+	</object>
+	<object class="EventAutomatableProperties" id="{a5b8471c-43a0-48d9-ab06-00b89a5d5b9d}" />
+	<object class="MarkerTrack" id="{2853bd7b-bb83-4d3e-9e95-5c7621350470}" />
+	<object class="Timeline" id="{446492f2-482c-4742-a906-c617cf11103a}" />
+	<object class="SnapshotMasterTrack" id="{0bf99430-7c16-4e06-b956-4efbb1c05d96}" />
+	<object class="SnapshotProperty" id="{9c0e99c4-523c-4ec1-a584-6305a3fedbab}">
+		<property name="propertyName">
+			<value>volume</value>
+		</property>
+		<property name="value">
+			<value>-14</value>
+		</property>
+		<relationship name="automatableObject">
+			<destination>{6a896a75-a7ac-4697-9c16-fff29654dac9}</destination>
+		</relationship>
+	</object>
+	<object class="SnapshotTrack" id="{e6bb78ba-0082-4c0a-a59d-581c8db6ea43}">
+		<relationship name="mixerStrip">
+			<destination>{6a896a75-a7ac-4697-9c16-fff29654dac9}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -307,6 +307,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
     private void OnLoadNewScene(object obj)
     {
         fallInstance.stop(STOP_MODE.ALLOWFADEOUT);
+        CoreManager.Instance.AudioManager.RemoveSoundToStopAtTheEndOfScene(fallInstance);
         fallInstance.release();
     }
     
@@ -348,6 +349,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
                 print("call fall sound");
                  fallInstance = CoreManager.Instance.AudioManager.CreateEventInstance(playerSounds.fallSound);
                  fallInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+                 CoreManager.Instance.AudioManager.RegisterSoundToStopAtTheEndOfScene(fallInstance);
 
                  fallInstance.start();
             }
@@ -388,6 +390,8 @@ public class PlayerMovement : MonoBehaviour, IResettable
             }
             print("stop fall sound");
             fallInstance.stop(STOP_MODE.IMMEDIATE);
+            CoreManager.Instance.AudioManager.RemoveSoundToStopAtTheEndOfScene(fallInstance);
+
             fallInstance.release();
             
 

@@ -3,6 +3,7 @@ using FMOD.Studio;
 using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
+using SpongeScene;
 using UnityEngine;
 using UnityEngine.Serialization;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
@@ -59,6 +60,12 @@ namespace Terrain.Environment
         {
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0;
+            StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.3f, () => // just a wierd bug no time to fix so a plaster
+            {
+                transform.position = startingPosition;
+                rb.linearVelocity = Vector2.zero;
+                rb.angularVelocity = 0;
+            }));
         }
 
         private void OnDestroy()

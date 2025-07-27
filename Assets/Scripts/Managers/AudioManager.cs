@@ -145,6 +145,7 @@ namespace Managers
             var addedAmbience = CreateEventInstance(ambience);
             temporalAmbiencesPlaying.Add(new AmbienceInstance(ambienceType, addedAmbience));
             addedAmbience.start();
+            CoreManager.Instance.AudioManager.RegisterSoundToStopAtTheEndOfScene(addedAmbience);
         }
 
         public void RemoveTemporalAmbience(AmbienceType ambienceType)
@@ -155,6 +156,8 @@ namespace Managers
                 {
                     instance.ambience.stop(STOP_MODE.ALLOWFADEOUT);
                     instance.ambience.release();
+                    CoreManager.Instance.AudioManager.RemoveSoundToStopAtTheEndOfScene(instance.ambience);
+
                 }
             }
         }
@@ -192,6 +195,11 @@ namespace Managers
             soundsToStopAtTheEndOfScene.Add(soundRef);
         }
 
+        public void RemoveSoundToStopAtTheEndOfScene(EventInstance soundRef)
+        {
+            soundsToStopAtTheEndOfScene.Remove(soundRef);
+        }
+        
         public void StopRegisteredSoundEvents()
         {
             foreach (var sound in soundsToStopAtTheEndOfScene)

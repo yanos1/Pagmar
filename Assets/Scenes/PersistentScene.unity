@@ -202,7 +202,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2660829121970662684, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3763098780718362788, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
       propertyPath: m_text
@@ -358,7 +358,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8160483064173110664, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8562084280408432999, guid: d5054fdf91d921e4d8a8e283e84fdf0c, type: 3}
       propertyPath: m_Color.b
@@ -1270,7 +1270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6944775420786094686, guid: ec3def2894471254ca159dd9265c524f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7518670301302313797, guid: ec3def2894471254ca159dd9265c524f, type: 3}
       propertyPath: m_Pivot.x

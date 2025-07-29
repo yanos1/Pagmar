@@ -222,6 +222,10 @@ public class PlayerMovement : MonoBehaviour, IResettable
             Gamepad.current?.buttonSouth.wasPressedThisFrame == true ||
             Gamepad.current?.leftStick.ReadValue().magnitude > 0.1f || cutSceneEnded
         );
+        if (ScenesManager.Instance.CurrentScene == 5)  // wake up with big
+        {
+            CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.wakeUp, transform.position);
+        }
         WakeUpJump();
     }
 
@@ -247,10 +251,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
             spineControl.ClearActionAnimation(3);
             _preventAnimOverride = false;
             player.EnableInput();
-            if (ScenesManager.Instance.CurrentScene == 5)  // wake up with big
-            {
-                CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.wakeUp, transform.position);
-            }
+          
         };
     }
 

@@ -15858,6 +15858,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5899883560379434557, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
+      propertyPath: m_Offset.y
+      value: 1.02
+      objectReference: {fileID: 0}
     - target: {fileID: 7440335471510734974, guid: 86c9792414f56456e843b1d509d7e962, type: 3}
       propertyPath: m_IsActive
       value: 0

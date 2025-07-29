@@ -8,6 +8,7 @@ using FMOD.Studio;
 using FMODUnity;
 using Managers;
 using Spine.Unity;
+using SpongeScene;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
@@ -42,9 +43,9 @@ public class ChasingEnemy : Rammer, IResettable
     private bool roarPlaying = false;
     private bool hasRoaredFirst = false;
     private float biteCooldown = 4.5f;
-    private float roarCooldown = 5.2f;
+    private float roarCooldown = 10f;
     private float biteSoundTimer = 4.5f;
-    private float roarSoundTimer = 5.2f;
+    private float roarSoundTimer = 10f;
 
     // Caching
     private Vector3 lastProcessedPlayerResetPos = Vector3.positiveInfinity;
@@ -97,7 +98,6 @@ public class ChasingEnemy : Rammer, IResettable
             print("try crawl sound");
             skeletonAnimation.AnimationState.ClearTrack(0);
             skeletonAnimation.AnimationState.SetAnimation(0, "animation", true);
-
         }
 
         if (crawlSoundPlaying)
@@ -150,7 +150,7 @@ public class ChasingEnemy : Rammer, IResettable
     private IEnumerator PlayBiteSound()
     {
         bitePlaying = true;
-        CoreManager.Instance.AudioManager.PlayOneShot(biteSound, transform.position);
+        CoreManager.Instance.AudioManager.PlayOneShot(biteSound, soundPos.position);
         yield return new WaitForSeconds(0.5f); // bite sound duration
         bitePlaying = false;
 
@@ -177,7 +177,7 @@ public class ChasingEnemy : Rammer, IResettable
             selectedRoar = roarSounds[Random.Range(0, roarSounds.Count)];
         }
 
-        CoreManager.Instance.AudioManager.PlayOneShot(selectedRoar, transform.position);
+        CoreManager.Instance.AudioManager.PlayOneShot(selectedRoar, soundPos.position);
         yield return null; // add delay here if you want to prevent overlap again
         roarPlaying = false;
     }
@@ -187,12 +187,12 @@ public class ChasingEnemy : Rammer, IResettable
         Vector3 hitPos = other.bounds.center;
         Vector3Int centerCell = tilemap.WorldToCell(hitPos);
         ExplodeTile(centerCell);
-        
+
         for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <= 1; y++)
             {
-                if (Random.value < 0.75f || (x ==0 && y ==0)) continue;
+                if (Random.value < 0.75f || (x == 0 && y == 0)) continue;
                 Vector3Int offset = new Vector3Int(x, y, 0);
                 Vector3Int targetCell = centerCell + offset;
 
@@ -211,8 +211,9 @@ public class ChasingEnemy : Rammer, IResettable
             {
                 tilemap.SetTile(targetCell, null);
                 Vector3 worldPos = tilemap.GetCellCenterWorld(targetCell);
-                if(Random.value < 0.5) return; // spawn particles half of the time
-                var particles = CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.ExplodableTileParticlesV2);
+                if (Random.value < 0.5) return; // spawn particles half of the time
+                var particles =
+                    CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.ExplodableTileParticlesV2);
                 particles.Play(worldPos);
             }
         }
@@ -239,11 +240,17 @@ public class ChasingEnemy : Rammer, IResettable
         agent.velocity = Vector3.zero;
     }
 
-    public override void OnRammed(float fromForce, Vector3 collisionPoint) { }
+    public override void OnRammed(float fromForce, Vector3 collisionPoint)
+    {
+    }
 
-    public override void OnTie(float fromForce, Vector3 collisionPoint) { }
+    public override void OnTie(float fromForce, Vector3 collisionPoint)
+    {
+    }
 
-    public override void ApplyKnockback(Vector2 direction, float force) { }
+    public override void ApplyKnockback(Vector2 direction, float force)
+    {
+    }
 
     public void ResetToInitialState()
     {
@@ -304,6 +311,8 @@ public class ChasingEnemy : Rammer, IResettable
     {
         chase = true;
         StartCoroutine(RecordPositionHistory());
+        StartCoroutine(UtilityFunctions.WaitAndInvokeAction(1.5f,
+            () => CoreManager.Instance.AudioManager.PlayOneShot(roarSounds[0], soundPos.position)));
     }
 
     private IEnumerator RecordPositionHistory()

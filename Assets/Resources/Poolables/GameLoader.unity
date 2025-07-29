@@ -564,16 +564,16 @@ MonoBehaviour:
     fadeTimeForNextScene: 0
   - sceneNumber: 3
     SceneType: 2
-    fadeTimeForNextScene: 3
+    fadeTimeForNextScene: 1.8
   - sceneNumber: 4
     SceneType: 2
-    fadeTimeForNextScene: 0
+    fadeTimeForNextScene: 2
   - sceneNumber: 5
     SceneType: 2
-    fadeTimeForNextScene: 3
+    fadeTimeForNextScene: 2
   - sceneNumber: 6
     SceneType: 2
-    fadeTimeForNextScene: 3
+    fadeTimeForNextScene: 4.5
   - sceneNumber: 7
     SceneType: 2
     fadeTimeForNextScene: 5

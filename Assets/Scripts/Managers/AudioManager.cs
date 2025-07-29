@@ -22,7 +22,8 @@ namespace Managers
         [SerializeField] private GameAmbience _gameAmbience;
         [SerializeField] private GameMusic _gameMusic;
         [SerializeField] private List<AmbienceInstance> temporalAmbiencesPlaying = new();
-        private List<EventInstance> soundsToStopAtTheEndOfScene = new();
+        private List<EventInstance> soundsToStopWhenGoingToMainMenu = new();
+        private List<EventInstance> soundsToStopBeforeNextScene = new();
 
         private EventInstance currentAmbience;
         private EventInstance currentMusic;
@@ -62,22 +63,22 @@ namespace Managers
 
         private void StopSoundImmidiete(object o)
         {
-            print("stop old scene sounds!");
+            print("stop sounds go to main menu!");
             currentAmbience.stop(STOP_MODE.IMMEDIATE);
             currentMusic.stop(STOP_MODE.IMMEDIATE);
             currentMusic.release();
             currentAmbience.release();
-            StopRegisteredSoundEvents();
+            StopRegisteredMenuSoundEvents();
         }
 
         private void StopWithFadeout(object o)
         {
-            print("stop old scene sounds!");
+            print("stop sounds go to next scnee!");
             currentAmbience.stop(STOP_MODE.IMMEDIATE);
             currentMusic.stop(STOP_MODE.ALLOWFADEOUT);
             currentMusic.release();
             currentAmbience.release();
-            StopRegisteredSoundEvents();
+            StopRegisteredNextSceneSoundEvents();
         }
 
         private void StopOldSceneSounds(object obj)
@@ -140,12 +141,12 @@ namespace Managers
             masterBus.setPaused(false);
         }
 
-        public void AddTemporalAmbience(AmbienceType ambienceType, EventReference ambience)
+        public EventInstance AddTemporalAmbience(AmbienceType ambienceType, EventReference ambience)
         {
             var addedAmbience = CreateEventInstance(ambience);
             temporalAmbiencesPlaying.Add(new AmbienceInstance(ambienceType, addedAmbience));
             addedAmbience.start();
-            CoreManager.Instance.AudioManager.RegisterSoundToStopAtTheEndOfScene(addedAmbience);
+            return addedAmbience;
         }
 
         public void RemoveTemporalAmbience(AmbienceType ambienceType)
@@ -156,7 +157,7 @@ namespace Managers
                 {
                     instance.ambience.stop(STOP_MODE.ALLOWFADEOUT);
                     instance.ambience.release();
-                    CoreManager.Instance.AudioManager.RemoveSoundToStopAtTheEndOfScene(instance.ambience);
+                    // CoreManager.Instance.AudioManager.RemoveSoundToStopAtTheEndOfScene(instance.ambience);
 
                 }
             }
@@ -190,25 +191,49 @@ namespace Managers
             }
         }
 
-        public void RegisterSoundToStopAtTheEndOfScene(EventInstance soundRef)
+        public void RegisterSoundToStopBeforeNextScene(EventInstance soundRef)
         {
-            soundsToStopAtTheEndOfScene.Add(soundRef);
+            soundsToStopBeforeNextScene.Add(soundRef);
         }
 
-        public void RemoveSoundToStopAtTheEndOfScene(EventInstance soundRef)
+        public void RemoveSoundToStopBeforeNextScene(EventInstance soundRef)
         {
-            soundsToStopAtTheEndOfScene.Remove(soundRef);
+            soundsToStopBeforeNextScene.Remove(soundRef);
         }
         
-        public void StopRegisteredSoundEvents()
+        public void RegisterSoundToStopWhenGoingToMainMenu(EventInstance soundRef)
         {
-            foreach (var sound in soundsToStopAtTheEndOfScene)
+            soundsToStopWhenGoingToMainMenu.Add(soundRef);
+        }
+
+        public void RemoveSoundToStopWhenGoingToMainMenu(EventInstance soundRef)
+        {
+            soundsToStopWhenGoingToMainMenu.Remove(soundRef);
+        }
+        
+        public void StopRegisteredMenuSoundEvents()
+        {
+            foreach (var sound in soundsToStopWhenGoingToMainMenu)
+            {
+                if (sound.isValid())
+                {
+                    sound.stop(STOP_MODE.ALLOWFADEOUT);
+                    sound.release();
+                }
+                
+            }
+
+            soundsToStopWhenGoingToMainMenu.Clear();
+        }
+        
+        public void StopRegisteredNextSceneSoundEvents()
+        {
+            foreach (var sound in soundsToStopBeforeNextScene)
             {
                 sound.stop(STOP_MODE.ALLOWFADEOUT);
                 sound.release();
             }
-
-            soundsToStopAtTheEndOfScene.Clear();
+            soundsToStopBeforeNextScene.Clear();
         }
 
 

@@ -287,7 +287,8 @@ namespace Enemies
             return chargeCoroutine is null &&
                    currentChargeCooldown <= 0 &&
                    !isDead &&
-                   distanceToPlayer < detectionRange &&
+                   distanceToPlayer < detectionRange 
+                   && Mathf.Abs(player.transform.position.y - transform.position.y ) < 9 && 
                    !IsCharging &&
                    !isPreparingCharge &&
                    IsPlayerVisibleLongEnough() &&

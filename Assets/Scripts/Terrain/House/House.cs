@@ -34,7 +34,9 @@ namespace Terrain.House
             {
                 print("play earthquake again!");
                 shakeFeedbacks?.PlayFeedbacks();
-                CoreManager.Instance.AudioManager.AddTemporalAmbience(AmbienceType.EarthQuake, earthQuake); // play earthquake sound
+                var sound = CoreManager.Instance.AudioManager.AddTemporalAmbience(AmbienceType.EarthQuake, earthQuake); // play earthquake sound
+                CoreManager.Instance.AudioManager.RegisterSoundToStopWhenGoingToMainMenu(sound);
+
             }
             else
             {

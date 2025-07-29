@@ -29,8 +29,9 @@ namespace NPC.NpcActions
                     snoreInstance = CoreManager.Instance.AudioManager.CreateEventInstance(snoring);
                     snoreInstance.set3DAttributes(RuntimeUtils.To3DAttributes(npc.transform.position));
                     snoreInstance.start();
-                    Debug.Log("play snoring!!");
-                    CoreManager.Instance.AudioManager.RegisterSoundToStopAtTheEndOfScene(snoreInstance);
+                    Debug.Log($"npcPos : {npc.transform.position}");
+                    CoreManager.Instance.AudioManager.RegisterSoundToStopWhenGoingToMainMenu(snoreInstance);
+                    CoreManager.Instance.AudioManager.RegisterSoundToStopBeforeNextScene(snoreInstance);
                 }));
         }
 
@@ -41,7 +42,7 @@ namespace NPC.NpcActions
                 displayingSleep = true;
                 _actions.ShowSleepHeallRequest();
             }
-            else if (npc.IsJumpedOn == false)
+            else if (!npc.IsJumpedOn)
             {
                 displayingSleep = false;
             }
@@ -51,11 +52,6 @@ namespace NPC.NpcActions
         {
             Debug.Log("big is waking up");
             isCompleted = false;
-
-            // Stop and release the FMOD event instance
-            snoreInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-            snoreInstance.release();
-
             afterActionCallback?.Invoke();
         }
     }

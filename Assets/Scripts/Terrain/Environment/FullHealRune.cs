@@ -1,4 +1,5 @@
-﻿using FMODUnity;
+﻿using Atmosphere;
+using FMODUnity;
 using Interfaces;
 using Managers;
 using Player;
@@ -16,6 +17,7 @@ namespace Terrain.Environment
         [SerializeField] private float floatDuration = 1f;
         [SerializeField] private EventNames onPickup;
         [SerializeField] private EventReference healSound;
+        // [SerializeField] private SpawnAndFlyToUI pickUpParticles;
         private GameObject parent;
 
         private Vector3 _startPos;
@@ -46,6 +48,7 @@ namespace Terrain.Environment
             CoreManager.Instance.AudioManager.PlayOneShot(healSound, transform.position);
             // Fire the PickFakeRune event
             CoreManager.Instance.EventManager.InvokeEvent(onPickup, 100);
+            // pickUpParticles.SpawnEffect(transform.position);
         }
 
         public void GetDeletedByLavaBeam()

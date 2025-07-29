@@ -245,20 +245,24 @@ public class PlayerMovement : MonoBehaviour, IResettable
         var state = skeletonAnimation.AnimationState;
         var stateData = state.Data;
 
-// Set mix from "wake-up" to "wake-up-jump"
-        stateData.SetMix("wake-up", "wake-up-jump", 2.2f);
+// Optional: Define mix duration from wake-up → wake-up-jump
+        stateData.SetMix("sleep", "wake-up", 4f);
 
-// Play first animation
+// Get the duration of the first animation
+        float wakeUpDuration = skeletonAnimation.Skeleton.Data.FindAnimation("wake-up").Duration;
+
+// Play "wake-up" first
         state.SetAnimation(3, "wake-up", false);
 
-// Queue second with mix
-        var jumpEntry = state.AddAnimation(3, "wake-up-jump", false, 0f);
+// Queue "wake-up-jump" to start after "wake-up" finishes
+        var jumpEntry = state.AddAnimation(3, "wake-up-jump", false, wakeUpDuration/1.5f);
         jumpEntry.Complete += entry =>
         {
             spineControl.ClearActionAnimation(3);
             _preventAnimOverride = false;
             player.EnableInput();
         };
+
 
     }
 

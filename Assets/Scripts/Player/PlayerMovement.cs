@@ -229,24 +229,26 @@ public class PlayerMovement : MonoBehaviour, IResettable
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.wakeUp, transform.position);
             }
-            spineControl.PlayAnimation("wake-up", 3, loop: false, force: true, fallbackAnimation: null, onComplete:
-                () =>
-                {
-                    // spineControl.ClearActionAnimation(4);
-                    spineControl.ClearActionAnimation(3);
-
-                    _preventAnimOverride = false;
-                    player.EnableInput();
-                });
+            WakeUpJump();
             yield break;
+           
+        }
+        if (ScenesManager.Instance.CurrentScene == 5)  // wake up with big
+        {
+            CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.wakeUp, transform.position);
         }
         // Crossfade from sleep to wake-up (track 3)
+        WakeUpJump();
+    }
+
+    private void WakeUpJump()
+    {
         var skeletonAnimation = spineControl.skeletonAnimation;
         var state = skeletonAnimation.AnimationState;
         var stateData = state.Data;
 
 // Optional: Define mix duration from wake-up → wake-up-jump
-        stateData.SetMix("sleep", "wake-up", 10f);
+        stateData.SetMix("sleep", "wake-up", 7f);
 
 // Get the duration of the first animation
         float wakeUpDuration = skeletonAnimation.Skeleton.Data.FindAnimation("wake-up").Duration;
@@ -255,15 +257,13 @@ public class PlayerMovement : MonoBehaviour, IResettable
         state.SetAnimation(3, "wake-up", false);
 
 // Queue "wake-up-jump" to start after "wake-up" finishes
-        var jumpEntry = state.AddAnimation(3, "wake-up-jump", false, wakeUpDuration/1.5f);
+        var jumpEntry = state.AddAnimation(3, "wake-up-jump", false, wakeUpDuration/2f);
         jumpEntry.Complete += entry =>
         {
             spineControl.ClearActionAnimation(3);
             _preventAnimOverride = false;
             player.EnableInput();
         };
-
-
     }
 
     public void MakeNextFallHard()

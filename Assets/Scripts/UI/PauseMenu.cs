@@ -24,7 +24,6 @@ namespace UI
             Time.timeScale = 0f;
 
             DisablePlayerInputMap();
-            CoreManager.Instance.AudioManager.MuteAll();
         }
 
         public void Resume()
@@ -32,7 +31,6 @@ namespace UI
             CoreManager.Instance.AudioManager.PlayOneShot(pressSound, transform.position);
             gameObject.SetActive(false);
             Time.timeScale = 1f;
-            CoreManager.Instance.AudioManager.UnmuteAll();
 
             // Disable UI input and re-enable gameplay input
             EnablePlayerInputMap();

@@ -235,4 +235,16 @@ public class SpineControl : MonoBehaviour
             currentActionAnimation = "";
         }
     }
+    
+    public void ClearAllTracks()
+    {
+        var state = skeletonAnimation.AnimationState;
+        if (state == null) return;
+
+        int trackCount = state.Tracks.Count;
+        for (int i = 0; i < trackCount; i++)
+        {
+            state.ClearTrack(i);
+        }
+    }
 }

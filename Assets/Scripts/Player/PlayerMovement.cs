@@ -246,7 +246,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
         var stateData = state.Data;
 
 // Optional: Define mix duration from wake-up → wake-up-jump
-        stateData.SetMix("sleep", "wake-up", 4f);
+        stateData.SetMix("sleep", "wake-up", 10f);
 
 // Get the duration of the first animation
         float wakeUpDuration = skeletonAnimation.Skeleton.Data.FindAnimation("wake-up").Duration;

@@ -257,7 +257,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
         state.SetAnimation(3, "wake-up", false);
 
 // Queue "wake-up-jump" to start after "wake-up" finishes
-        var jumpEntry = state.AddAnimation(3, "wake-up-jump", false, wakeUpDuration/2f);
+        var jumpEntry = state.AddAnimation(3, "wake-up-jump", false, wakeUpDuration/4f);
         jumpEntry.Complete += entry =>
         {
             spineControl.ClearActionAnimation(3);

@@ -4647,7 +4647,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 560a5dd9b6b295c4f9370feac7cbe636, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4724,6 +4724,7 @@ MonoBehaviour:
   e: {fileID: 0}
   f: {fileID: 0}
   breakFeedbacks: {fileID: 0}
+  IsDymanic: 1
 --- !u!50 &2746951127055160538
 Rigidbody2D:
   serializedVersion: 5

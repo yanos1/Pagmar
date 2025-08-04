@@ -2358,7 +2358,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6888695592842937812, guid: aa4bf489472109740b131ddbe48c7a7c, type: 3}
       propertyPath: m_TagString
-      value: Rock
+      value: Wood
       objectReference: {fileID: 0}
     - target: {fileID: 7091286012726029298, guid: aa4bf489472109740b131ddbe48c7a7c, type: 3}
       propertyPath: m_SortingOrder

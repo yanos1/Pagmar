@@ -158,9 +158,17 @@ namespace Player
             StartCoroutine(UtilityFunctions.WaitAndInvokeAction(1.8f, () =>
             {
                 if(_playerMovement.isJumping) return;
+                if (obj is Vector3 bigPos)
+                {
+                    Vector2 flipDir = bigPos.x < transform.position.x ? Vector2.left : Vector2.right;
+                    _playerMovement.FlipSpecial(flipDir);
+
+                }
                 var rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
-                transform.rotation = Quaternion.Euler(rotator);           
+                transform.rotation = Quaternion.Euler(rotator);  
+                LockAnimations();
                 DisableInput();
+                UnlockAnimations();
                 print($"sounds.laugh is {sounds.laugh.ToString()}");
                 print($"Core manager audio : {CoreManager.Instance.AudioManager}");
                 CoreManager.Instance.AudioManager.PlayOneShot(sounds.laugh, transform.position);

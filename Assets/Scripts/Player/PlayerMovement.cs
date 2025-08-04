@@ -572,9 +572,9 @@ public class PlayerMovement : MonoBehaviour, IResettable
         _isFacingRight = !_isFacingRight;
     }
     
-    public void FlipSpecial() // edge caes with wall sliding and dying at teh same time
+    public void FlipSpecial(Vector2 dir) 
     {
-        if (_isFacingRight)
+        if (dir == Vector2.right)
         {
             var rotator = new Vector3(transform.rotation.x, 0, transform.rotation.z);
             transform.rotation = Quaternion.Euler(rotator);

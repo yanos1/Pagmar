@@ -11,7 +11,7 @@ namespace NPC.NpcActions
         {
             base.StartAction(npc);
             npc.SetState(NpcState.Crouching);
-            CoreManager.Instance.EventManager.InvokeEvent(EventNames.BigDoingSomethingNice, null);
+            CoreManager.Instance.EventManager.InvokeEvent(EventNames.BigDoingSomethingNice, npc.transform.position);
             isCompleted = true;
         }
 

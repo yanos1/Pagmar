@@ -205,7 +205,7 @@ public class PlayerMovement : MonoBehaviour, IResettable
         print("player is sleeping");
         _preventAnimOverride = true;
         // Set "sleep" animation on track 3 with looping
-        spineControl.PlayAnimation("sleep", 2, loop: true, force: true, fallbackAnimation: null);
+        spineControl.PlayAnimation("sleep", 3, loop: true, force: true, fallbackAnimation: null);
     }
 
     public void WakeUp()
@@ -222,53 +222,37 @@ public class PlayerMovement : MonoBehaviour, IResettable
             Gamepad.current?.buttonSouth.wasPressedThisFrame == true ||
             Gamepad.current?.leftStick.ReadValue().magnitude > 0.1f || cutSceneEnded
         );
-
-        if (cutSceneEnded)
+        if (ScenesManager.Instance.CurrentScene == 5)  // wake up with big
         {
-            if (ScenesManager.Instance.CurrentScene == 5)  // wake up with big
-            {
-                CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.wakeUp, transform.position);
-            }
-            spineControl.PlayAnimation("wake-up-jump", 3, loop: false, force: true, fallbackAnimation: null, onComplete:
-                () =>
-                {
-                    // spineControl.ClearActionAnimation(4);
-                    spineControl.ClearActionAnimation(3);
-
-                    _preventAnimOverride = false;
-                    player.EnableInput();
-                });
-            yield break;
+            CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.wakeUp, transform.position);
         }
-        CoreManager.Instance.AudioManager.PlayOneShot(playerSounds.wakeUp, transform.position);
+        WakeUpJump();
+    }
 
-        // Crossfade from sleep to wake-up (track 3)
-        spineControl.PlayAnimation("wake-up", 3, loop: false, force: true, fallbackAnimation:null, onComplete: () =>
-        {                
-            spineControl.PlayAnimation("wake-up-jump", 3, loop: false,force:true, fallbackAnimation:null , onComplete: () =>
-            {
-                // spineControl.ClearActionAnimation(4);
-                spineControl.ClearActionAnimation(3);
-            
-                _preventAnimOverride = false;
-                player.EnableInput();
-              
+    private void WakeUpJump()
+    {
+        var skeletonAnimation = spineControl.skeletonAnimation;
+        var state = skeletonAnimation.AnimationState;
+        var stateData = state.Data;
 
-// Assuming you have a reference to your SkeletonAnimation
-                SkeletonAnimation skeletonAnimation = spineControl.skeletonAnimation;
-                Spine.AnimationState state = skeletonAnimation.AnimationState;
+// Optional: Define mix duration from wake-up → wake-up-jump
+        stateData.SetMix("sleep", "wake-up", 7f);
 
-                for (int i = 0; i < state.Tracks.Count; i++)
-                {
-                    TrackEntry entry = state.GetCurrent(i);
-                    if (entry != null)
-                    {
-                        Debug.Log($"Track {i}: {entry.Animation.Name} (Loop: {entry.Loop})");
-                    }
-                }
+// Get the duration of the first animation
+        float wakeUpDuration = skeletonAnimation.Skeleton.Data.FindAnimation("wake-up").Duration;
 
-            });
-        });
+// Play "wake-up" first
+        state.SetAnimation(3, "wake-up", false);
+
+// Queue "wake-up-jump" to start after "wake-up" finishes
+        var jumpEntry = state.AddAnimation(3, "wake-up-jump", false, wakeUpDuration/4f);
+        jumpEntry.Complete += entry =>
+        {
+            spineControl.ClearActionAnimation(3);
+            _preventAnimOverride = false;
+            player.EnableInput();
+          
+        };
     }
 
     public void MakeNextFallHard()

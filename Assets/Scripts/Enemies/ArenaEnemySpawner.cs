@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using FMODUnity;
 using Interfaces;
 using Managers;
 using MoreMountains.Feedbacks;
 using Player;
+using SpongeScene;
 using Terrain.Environment;
 using UnityEngine;
 
@@ -113,7 +115,10 @@ namespace Enemies
 
             if (timesActivated > 0 && !finishedBattle)  // this means the player has diied and is trying again to do the arena battle. we wait the cameras here to show enemies then give input back
             {
-                CoreManager.Instance.Player.DisableInputForDuration(5f);
+                StartCoroutine(UtilityFunctions.WaitAndInvokeAction(0.13f, () =>
+                {
+                    CoreManager.Instance.Player.DisableInputForDuration(5f);
+                }));
             }
         }
     }

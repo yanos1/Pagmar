@@ -23,7 +23,7 @@ namespace NPC.NpcActions
         public override void StartAction(Npc npc)
         {
             base.StartAction(npc);
-            // npc.SetState(NpcState.Idle);
+            npc.SetState(NpcState.Waiting);
             if (waitForDuration)
             {
                 // Reset the timer if waiting for a duration

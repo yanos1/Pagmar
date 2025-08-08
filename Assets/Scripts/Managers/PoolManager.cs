@@ -67,7 +67,17 @@ namespace Managers
                 return null;
             }
 
-            Poolable obj = poolDict[type].Count > 0 ? poolDict[type].Dequeue() : AddToPool(type);
+            Poolable obj = null;
+            if (poolDict[type].Count > 0)
+            {
+                obj = poolDict[type].Dequeue();
+            }
+
+            if (obj is null)
+            {
+                obj = AddToPool(type);
+
+            }
             obj.gameObject.SetActive(true);
             obj.OnGetFromPool();
 

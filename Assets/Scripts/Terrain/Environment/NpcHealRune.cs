@@ -38,7 +38,10 @@ namespace Terrain.Environment
             if (other.GetComponent<Npc>() is { } npc)
             {
                 CoreManager.Instance.AudioManager.PlayOneShot(healSound, transform.position);
-                npc.Heal();
+                if (npc.State == NpcState.Waiting)
+                {
+                    npc.Heal();
+                }
                 gameObject.SetActive(false);
             }
         }

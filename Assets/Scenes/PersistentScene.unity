@@ -3618,13 +3618,11 @@ MonoBehaviour:
   - type: 5
     initialCount: 1
   - type: 7
-    initialCount: 6
+    initialCount: 10
   - type: 8
-    initialCount: 6
+    initialCount: 10
   - type: 6
     initialCount: 1
-  - type: 9
-    initialCount: 6
   - type: 9
     initialCount: 6
   - type: 10

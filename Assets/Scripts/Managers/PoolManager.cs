@@ -6,7 +6,6 @@ namespace Managers
 {
     public class PoolManager : MonoBehaviour
     {
-
         [System.Serializable]
         public class PoolConfig
         {
@@ -16,14 +15,13 @@ namespace Managers
 
         [SerializeField] private PoolConfig[] poolConfigs;
 
-        private Dictionary<PoolEnum, Queue<Poolable>> poolDict = new();
-        private Dictionary<PoolEnum, Poolable> prefabDict = new();
+        private readonly Dictionary<PoolEnum, Queue<Poolable>> poolDict = new();
+        private readonly Dictionary<PoolEnum, Poolable> prefabDict = new();
 
         private void Awake()
         {
             InitializePools();
         }
-        
 
         private void InitializePools()
         {
@@ -35,24 +33,28 @@ namespace Managers
                     Debug.LogError($"Poolable prefab not found at Resources/Poolables/{config.type}");
                     continue;
                 }
-            
+
                 prefabDict[config.type] = prefab;
                 poolDict[config.type] = new Queue<Poolable>();
+
                 for (int i = 0; i < config.initialCount; i++)
                 {
-                    AddToPool(config.type);
+                    // Fill the pool with inactive objects
+                    var instance = CreateNewInstance(config.type);
+                    ReturnToPool(instance);
                 }
             }
         }
 
-        private Poolable AddToPool(PoolEnum type)
+        /// <summary>
+        /// Creates a new poolable instance without enqueuing it.
+        /// </summary>
+        private Poolable CreateNewInstance(PoolEnum type)
         {
             Poolable prefab = prefabDict[type];
-            Poolable instance = Instantiate(prefab,Vector3.zero,Quaternion.identity);
-            instance.Type = type; // setting the type for each object.
+            Poolable instance = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+            instance.Type = type;
             instance.Initialize();
-            instance.OnReturnToPool();
-            poolDict[type].Enqueue(instance);
             return instance;
         }
 
@@ -67,19 +69,16 @@ namespace Managers
                 return null;
             }
 
-            Poolable obj = null;
-            if (poolDict[type].Count > 0)
-            {
-                obj = poolDict[type].Dequeue();
-            }
+            Poolable obj = poolDict[type].Count > 0
+                ? poolDict[type].Dequeue()
+                : CreateNewInstance(type);
 
-            if (obj is null)
+            if (obj is not null)
             {
-                obj = AddToPool(type);
-
+                obj.gameObject.SetActive(true);
+                obj.OnGetFromPool();
             }
-            obj.gameObject.SetActive(true);
-            obj.OnGetFromPool();
+        
 
             if (obj is T tObj)
                 return tObj;
@@ -91,6 +90,7 @@ namespace Managers
         public void ReturnToPool(Poolable poolable)
         {
             poolable.OnReturnToPool();
+            poolable.gameObject.SetActive(false);
             poolDict[poolable.Type].Enqueue(poolable);
         }
     }
@@ -108,6 +108,5 @@ namespace Managers
         EnemyHitPlayerParticles = 8,
         EnemyHitWallParticles = 9,
         ExplodableTileParticlesV2 = 10,
-
     }
 }

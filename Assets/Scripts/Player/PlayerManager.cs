@@ -394,7 +394,7 @@ namespace Player
         {
             Debug.Log($"Player got rammed with force {fromForce}");
             var clashPart = CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.EnemyHitPlayerParticles);
-            clashPart.Play(collisionPoint +Vector3.left*0.5f);
+            clashPart?.Play(collisionPoint +Vector3.left*0.5f);
             
             InjuryFeedbacks.Instance.UpdateVisualFeedback(true);
 

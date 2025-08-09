@@ -35,7 +35,6 @@ namespace UI
                 return;
             }
 
-            Debug.Log($"Menu button count: {buttonsToActions.Count}");
 
             selectedButtonIndex = 0;
             buttonsToActions[0].button.Select();
@@ -47,7 +46,6 @@ namespace UI
         {
             if (!gameObject.activeInHierarchy) return;
             var direction = context.ReadValue<Vector2>();
-            print($"navigating with {direction}");
 
             if (Time.unscaledTime - lastInputTime < inputDelay)
             {

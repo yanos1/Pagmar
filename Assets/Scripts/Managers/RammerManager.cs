@@ -53,7 +53,6 @@ namespace Managers
         {
             float forceA = a.CurrentForce;
             float forceB = b.CurrentForce;
-            print($"forces : ours: {a.CurrentForce} enemy: {b.CurrentForce}");
             
             Vector2 dirA = (a.transform.position - b.transform.position).normalized;
             if (forceA ==0 && forceB == 0 && a.IsCharging) 
@@ -64,7 +63,6 @@ namespace Managers
             }
             if (rammersHistory.GetValueOrDefault(a).Item1 == b)
             {
-                print("return from ram no time");
                 return; // not enough time passed to do a second ram.
             }
             
@@ -79,7 +77,6 @@ namespace Managers
             {
                 if (forceA > 0)
                 {
-                    print("no winner no loser! 55");
                
                     Vector2 dirB = new Vector2(-dirA.x, 0.5f);
                     playerHitFeedback?.PlayFeedbacks();

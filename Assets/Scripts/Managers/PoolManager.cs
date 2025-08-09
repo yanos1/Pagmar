@@ -23,8 +23,11 @@ namespace Managers
             InitializePools();
         }
 
-        private void InitializePools()
+        public void InitializePools()
         {
+            poolDict.Clear();
+            prefabDict.Clear();
+            
             foreach (var config in poolConfigs)
             {
                 Poolable prefab = Resources.Load<Poolable>($"Poolables/{config.type}");
@@ -44,6 +47,8 @@ namespace Managers
                     ReturnToPool(instance);
                 }
             }
+            print("init pool state:");
+            LogFullPoolState();
         }
 
         /// <summary>
@@ -55,6 +60,7 @@ namespace Managers
             Poolable instance = Instantiate(prefab, Vector3.zero, Quaternion.identity);
             instance.Type = type;
             instance.Initialize();
+            instance.gameObject.SetActive(false);
             return instance;
         }
 
@@ -63,6 +69,7 @@ namespace Managers
         /// </summary>
         public T GetFromPool<T>(PoolEnum type) where T : Poolable
         {
+
             if (!poolDict.ContainsKey(type))
             {
                 Debug.LogError($"No pool found for type {type}");
@@ -72,16 +79,21 @@ namespace Managers
             Poolable obj = poolDict[type].Count > 0
                 ? poolDict[type].Dequeue()
                 : CreateNewInstance(type);
+            print($"alert: requested {type} and got {obj}");
 
-            if (obj is not null)
+            if (obj != null)
             {
                 obj.gameObject.SetActive(true);
                 obj.OnGetFromPool();
             }
-        
+
 
             if (obj is T tObj)
+            {
+                print($"alert: returning {obj}");
+
                 return tObj;
+            }
 
             Debug.LogError($"Object from pool is not of type {typeof(T)}");
             return null;
@@ -90,9 +102,21 @@ namespace Managers
         public void ReturnToPool(Poolable poolable)
         {
             poolable.OnReturnToPool();
-            poolable.gameObject.SetActive(false);
             poolDict[poolable.Type].Enqueue(poolable);
+            print($"alert: returned {poolable.Type} to pool!");
         }
+        
+
+        private void LogFullPoolState()
+        {
+            Debug.Log("====== Pool State ======");
+            foreach (var kvp in poolDict)
+            {
+                Debug.Log($"Type: {kvp.Key}, Count: {kvp.Value.Count}");
+            }
+            Debug.Log("========================");
+        }
+
     }
 
     public enum PoolEnum

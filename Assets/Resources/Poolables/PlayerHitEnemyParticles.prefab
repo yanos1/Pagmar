@@ -14695,7 +14695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explodingParticles:
   - {fileID: 2388442014190951547}
-  poolType: 8
+  poolType: 7
 --- !u!1 &2224345235981185490
 GameObject:
   m_ObjectHideFlags: 0

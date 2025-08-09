@@ -49,15 +49,12 @@ namespace NPC.NpcActions
 
         protected override void PerformMovement(Npc npc)
         {
-            Debug.Log("[PerformMovement] Starting movement.");
 
             string jumpAnim = _spine.GetAnimName(BigSpine.SpineAnim.Jump);
-            Debug.Log($"[PerformMovement] Playing Jump animation: {jumpAnim}");
             npc.Sounds.PlayJump(npc.transform);
             _spine.PlayAnimation(jumpAnim, loop: false, fallbackAnimation: null, force: true);
 
             Vector3 targetWorldPosition = npc.transform.position + targetPosition;
-            Debug.Log($"[PerformMovement] Starting DOJump to: {targetWorldPosition}, Power: {jumpPower}, NumJumps: {numJumps}, Duration: {duration}");
 
             npc.transform.DOJump(targetWorldPosition, jumpPower, numJumps, duration)
                 .SetEase(easeType)
@@ -72,7 +69,6 @@ namespace NPC.NpcActions
 
                     npc.GetComponent<BigActions>().PlayLandFeedbacks();
                     isCompleted = true;
-                    Debug.Log("[PerformMovement] DOJump complete. Movement completed.");
                 });
         }
 
@@ -83,13 +79,11 @@ namespace NPC.NpcActions
 
             yield return new WaitForSeconds(t1);
             string jumpAirAnim = _spine.GetAnimName(BigSpine.SpineAnim.JumpAir);
-            Debug.Log($"[Jump] Switching to JumpAir animation at {t1}s: {jumpAirAnim}");
             _spine.PlayAnimation(jumpAirAnim, loop: true, fallbackAnimation: null, force: true);
 
             yield return new WaitForSeconds(t2 - t1);
             string landAnim = _spine.GetAnimName(BigSpine.SpineAnim.JumpLand);
             string fallbackAnim = _spine.GetAnimName(BigSpine.SpineAnim.Walk);
-            Debug.Log($"[Jump] Switching to JumpLand animation at {t2}s: {landAnim}");
 
             _spine.PlayAnimation(
                 landAnim,

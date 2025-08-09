@@ -6,6 +6,7 @@ using NPC;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Atmosphere.TileExplosion;
 using Atmosphere.TileExplostion;
 using Enemies;
 using MoreMountains.Feedbacks;
@@ -164,11 +165,8 @@ namespace Player
                     _playerMovement.FlipSpecial(flipDir);
 
                 }
-                var rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
-                transform.rotation = Quaternion.Euler(rotator);  
-                LockAnimations();
                 DisableInput();
-                UnlockAnimations();
+
                 print($"sounds.laugh is {sounds.laugh.ToString()}");
                 print($"Core manager audio : {CoreManager.Instance.AudioManager}");
                 CoreManager.Instance.AudioManager.PlayOneShot(sounds.laugh, transform.position);
@@ -397,7 +395,15 @@ namespace Player
         {
             Debug.Log($"Player got rammed with force {fromForce}");
             var clashPart = CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.EnemyHitPlayerParticles);
-            clashPart.Play(collisionPoint +Vector3.left*0.5f);
+            if (clashPart is not null)
+            {
+                print($"alert: {{particles are  {clashPart}");
+                clashPart.Play(collisionPoint +Vector3.left*0.5f);
+            }
+            else
+            {
+                print("alert: particles got are NULL");
+            }
             
             InjuryFeedbacks.Instance.UpdateVisualFeedback(true);
 
@@ -507,12 +513,14 @@ namespace Player
             if (ramComboCount > 1 && !liftFeedbacks.IsPlaying &&
                 CoreManager.Instance.GameManager.InCutScene) // this is horrilbe code. i just dont ahve time.
             {
+                print("lift player!");
                 liftFeedbacks?.PlayFeedbacks();
                 isKnockbacked = false;
                 return;
             }
             else if (liftFeedbacks.IsPlaying)
             {
+                print("return without lifting, end knockback");
                 return;
             }
 

@@ -86,7 +86,7 @@ namespace NPC.NpcActions
             {
                 if (npc.IsFollowed)
                 {
-                    currentDir =Vector2.right;
+                    currentDir = Vector2.right;
                     return currentDir;
                 }
 
@@ -188,6 +188,7 @@ namespace NPC.NpcActions
             protected void PerformWalk(Npc npc, Vector2 direction, float speed)
             {
                 npc.SetState(NpcState.Walking);
+                Debug.Log("perform walk called");
                 walkRoutine = CoreManager.Instance.Runner.StartCoroutine(WalkRoutine(npc, direction.normalized, speed));
             }
 

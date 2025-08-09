@@ -138,7 +138,6 @@ namespace NPC
 
         public void TurnAround(Vector2 newDir)
         {
-            print("Turn around!!");
             Quaternion targetRotation = Quaternion.Euler(0, newDir.x > 0 ? 0f : 180f, 0);
             spine.transform.rotation = targetRotation;
         }
@@ -315,6 +314,7 @@ namespace NPC
         Charging,
         Crouching,
         GetUp,
-        Sleeping
+        Sleeping,
+        Waiting,
     }
 }

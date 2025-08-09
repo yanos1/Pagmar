@@ -84,7 +84,6 @@ namespace NPC.NpcActions
             npc.transform.position = endPos;
             isCompleted = true;
             stepshandler.StopStepSounds();
-            Debug.Log("Completed Coroutine Movement!");
         }
 
 

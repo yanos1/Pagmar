@@ -585,9 +585,15 @@ public class PlayerMovement : MonoBehaviour, IResettable
             transform.rotation = Quaternion.Euler(rotator);
         }
 
-        _cameraFollowObject.CallTurn();
-
-        _isFacingRight = !_isFacingRight;
+        if (dir == Vector2.left)
+        {
+            if (_isFacingRight)
+            {
+                _isFacingRight = !_isFacingRight;
+            }
+            // _cameraFollowObject.CallTurn();
+        }
+       
     }
 
     private bool IsGrounded()

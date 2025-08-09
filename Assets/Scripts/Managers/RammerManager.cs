@@ -57,10 +57,16 @@ namespace Managers
             Vector2 dirA = (a.transform.position - b.transform.position).normalized;
             if (forceA ==0 && forceB == 0 && a.IsCharging) 
             {
-                a.ApplyKnockback(dirA, baseForce*0.7f);
+                a.ApplyKnockback(dirA*-1, baseForce*0.7f);
 
                 return;
             }
+            
+            else if (forceA == 0 && forceB == 0)
+            {
+                return;
+            }
+            
             if (rammersHistory.GetValueOrDefault(a).Item1 == b)
             {
                 return; // not enough time passed to do a second ram.

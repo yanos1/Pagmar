@@ -6,6 +6,7 @@ using NPC;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Atmosphere.TileExplosion;
 using Atmosphere.TileExplostion;
 using Enemies;
 using MoreMountains.Feedbacks;
@@ -394,7 +395,15 @@ namespace Player
         {
             Debug.Log($"Player got rammed with force {fromForce}");
             var clashPart = CoreManager.Instance.PoolManager.GetFromPool<ParticleSpawn>(PoolEnum.EnemyHitPlayerParticles);
-            clashPart.Play(collisionPoint +Vector3.left*0.5f);
+            if (clashPart is not null)
+            {
+                print($"alert: {{particles are  {clashPart}");
+                clashPart.Play(collisionPoint +Vector3.left*0.5f);
+            }
+            else
+            {
+                print("alert: particles got are NULL");
+            }
             
             InjuryFeedbacks.Instance.UpdateVisualFeedback(true);
 

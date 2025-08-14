@@ -80,7 +80,7 @@ namespace Enemies
 
         private IEnumerator OpenGatesWhenAllDead()
         {
-            while (!finishedBattle)
+            while (true)
             {
                 yield return new WaitForSeconds(2f);
                 if (enemies.TrueForAll(enemy =>

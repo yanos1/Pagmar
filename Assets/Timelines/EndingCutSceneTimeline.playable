@@ -246,6 +246,57 @@ MonoBehaviour:
     eventThreshold: 0.5
     drawOrderThreshold: 0.5
     alpha: 1
+--- !u!114 &-7609467686817146240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 987a467495df9d942b56b1b51381d095, type: 3}
+  m_Name: FMODEventPlayable(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  Template:
+    EventReference:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    StopType: 0
+    Parameters: []
+    ParameterLinks: []
+    ParameterAutomation:
+      Slot00: 0
+      Slot01: 0
+      Slot02: 0
+      Slot03: 0
+      Slot04: 0
+      Slot05: 0
+      Slot06: 0
+      Slot07: 0
+      Slot08: 0
+      Slot09: 0
+      Slot10: 0
+      Slot11: 0
+      Slot12: 0
+      Slot13: 0
+      Slot14: 0
+      Slot15: 0
+  EventLength: 0
+  eventName: 
+  EventReference:
+    Guid:
+      Data1: -401077193
+      Data2: 1277706423
+      Data3: -1528542579
+      Data4: -1871443246
+    Path: event:/Player/PlayerFootsteps
+  StopType: 0
+  Parameters: []
 --- !u!114 &-7600063542784132081
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -442,6 +493,108 @@ MonoBehaviour:
     m_Objects: []
   template:
     volume: 1
+--- !u!114 &-7324990556915913229
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 987a467495df9d942b56b1b51381d095, type: 3}
+  m_Name: FMODEventPlayable(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  Template:
+    EventReference:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    StopType: 0
+    Parameters: []
+    ParameterLinks: []
+    ParameterAutomation:
+      Slot00: 0
+      Slot01: 0
+      Slot02: 0
+      Slot03: 0
+      Slot04: 0
+      Slot05: 0
+      Slot06: 0
+      Slot07: 0
+      Slot08: 0
+      Slot09: 0
+      Slot10: 0
+      Slot11: 0
+      Slot12: 0
+      Slot13: 0
+      Slot14: 0
+      Slot15: 0
+  EventLength: 0
+  eventName: 
+  EventReference:
+    Guid:
+      Data1: -401077193
+      Data2: 1277706423
+      Data3: -1528542579
+      Data4: -1871443246
+    Path: event:/Player/PlayerFootsteps
+  StopType: 0
+  Parameters: []
+--- !u!114 &-6519409246045100568
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 987a467495df9d942b56b1b51381d095, type: 3}
+  m_Name: FMODEventPlayable(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  Template:
+    EventReference:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    StopType: 0
+    Parameters: []
+    ParameterLinks: []
+    ParameterAutomation:
+      Slot00: 0
+      Slot01: 0
+      Slot02: 0
+      Slot03: 0
+      Slot04: 0
+      Slot05: 0
+      Slot06: 0
+      Slot07: 0
+      Slot08: 0
+      Slot09: 0
+      Slot10: 0
+      Slot11: 0
+      Slot12: 0
+      Slot13: 0
+      Slot14: 0
+      Slot15: 0
+  EventLength: 0
+  eventName: 
+  EventReference:
+    Guid:
+      Data1: -401077193
+      Data2: 1277706423
+      Data3: -1528542579
+      Data4: -1871443246
+    Path: event:/Player/PlayerFootsteps
+  StopType: 0
+  Parameters: []
 --- !u!114 &-6454060876704402379
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -987,7 +1140,7 @@ MonoBehaviour:
     m_Start: 22.180509050500888
     m_ClipIn: 1.1999992370605455
     m_Asset: {fileID: -2838084278903946292}
-    m_Duration: 6.586157616165778
+    m_Duration: 5.002824282832446
     m_TimeScale: 1
     m_ParentTrack: {fileID: -5128625711989085930}
     m_EaseInDuration: 0
@@ -1053,10 +1206,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: idlev2
   - m_Version: 1
-    m_Start: 28.766666666666666
-    m_ClipIn: 0.11669921874999645
+    m_Start: 27.183333333333334
+    m_ClipIn: 0
     m_Asset: {fileID: -8641314637639210936}
-    m_Duration: 2.2666666666666693
+    m_Duration: 2.5
     m_TimeScale: 1
     m_ParentTrack: {fileID: -5128625711989085930}
     m_EaseInDuration: 0
@@ -1399,7 +1552,7 @@ MonoBehaviour:
     eventThreshold: 0.5
     drawOrderThreshold: 0.5
     alpha: 1
---- !u!114 &-4622253676832027086
+--- !u!114 &-4726002685433203657
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1409,7 +1562,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 987a467495df9d942b56b1b51381d095, type: 3}
-  m_Name: FMODEventPlayable(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_Name: FMODEventPlayable(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: 
   Template:
     EventReference:
@@ -1450,7 +1603,7 @@ MonoBehaviour:
     Path: event:/Player/PlayerFootsteps
   StopType: 0
   Parameters: []
---- !u!114 &-4295965106878592857
+--- !u!114 &-4622253676832027086
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1460,7 +1613,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 987a467495df9d942b56b1b51381d095, type: 3}
-  m_Name: FMODEventPlayable(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_Name: FMODEventPlayable(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: 
   Template:
     EventReference:
@@ -1719,6 +1872,57 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 987a467495df9d942b56b1b51381d095, type: 3}
   m_Name: FMODEventPlayable(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  Template:
+    EventReference:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    StopType: 0
+    Parameters: []
+    ParameterLinks: []
+    ParameterAutomation:
+      Slot00: 0
+      Slot01: 0
+      Slot02: 0
+      Slot03: 0
+      Slot04: 0
+      Slot05: 0
+      Slot06: 0
+      Slot07: 0
+      Slot08: 0
+      Slot09: 0
+      Slot10: 0
+      Slot11: 0
+      Slot12: 0
+      Slot13: 0
+      Slot14: 0
+      Slot15: 0
+  EventLength: 0
+  eventName: 
+  EventReference:
+    Guid:
+      Data1: -401077193
+      Data2: 1277706423
+      Data3: -1528542579
+      Data4: -1871443246
+    Path: event:/Player/PlayerFootsteps
+  StopType: 0
+  Parameters: []
+--- !u!114 &-3401371281188014091
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 987a467495df9d942b56b1b51381d095, type: 3}
+  m_Name: FMODEventPlayable(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: 
   Template:
     EventReference:
@@ -2382,7 +2586,7 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 15
+    m_Start: 18.86666666666666
     m_ClipIn: 0
     m_Asset: {fileID: 5666797800218567976}
     m_Duration: 0.40000000000000036
@@ -2451,7 +2655,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 15.4
+    m_Start: 19.26666666666666
     m_ClipIn: 0
     m_Asset: {fileID: -3715151248709062178}
     m_Duration: 0.40000000000000036
@@ -2520,7 +2724,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 15.8
+    m_Start: 19.666666666666664
     m_ClipIn: 0
     m_Asset: {fileID: -8592899857469791372}
     m_Duration: 0.40000000000000036
@@ -2589,7 +2793,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 16.200000000000003
+    m_Start: 20.066666666666663
     m_ClipIn: 0
     m_Asset: {fileID: 6727894874669180310}
     m_Duration: 0.40000000000000036
@@ -2658,7 +2862,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 14.6
+    m_Start: 18.46666666666666
     m_ClipIn: 0
     m_Asset: {fileID: -5801832639067440046}
     m_Duration: 0.40000000000000036
@@ -2727,7 +2931,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 14.2
+    m_Start: 18.066666666666663
     m_ClipIn: 0
     m_Asset: {fileID: -5135747973545545415}
     m_Duration: 0.40000000000000036
@@ -2796,7 +3000,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 13.783333333333333
+    m_Start: 17.64999999999999
     m_ClipIn: 0
     m_Asset: {fileID: -2679240146755181386}
     m_Duration: 0.4166666666666661
@@ -2865,7 +3069,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 18.01380983175089
+    m_Start: 20.466666666666665
     m_ClipIn: 0
     m_Asset: {fileID: 2473306979927812540}
     m_Duration: 0.40000000000000036
@@ -2934,7 +3138,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 18.41380983175089
+    m_Start: 20.866666666666664
     m_ClipIn: 0
     m_Asset: {fileID: 7298574071156839}
     m_Duration: 0.40000000000000036
@@ -3003,7 +3207,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 18.81380983175089
+    m_Start: 21.266666666666666
     m_ClipIn: 0
     m_Asset: {fileID: -6454060876704402379}
     m_Duration: 0.40000000000000036
@@ -3072,7 +3276,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 19.213809831750893
+    m_Start: 21.666666666666668
     m_ClipIn: 0
     m_Asset: {fileID: -4041229862239580785}
     m_Duration: 0.40000000000000036
@@ -3141,7 +3345,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 19.613809831750892
+    m_Start: 22.066666666666666
     m_ClipIn: 0
     m_Asset: {fileID: -8278780417792929241}
     m_Duration: 0.40000000000000036
@@ -3210,76 +3414,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 20.01380983175089
-    m_ClipIn: 0
-    m_Asset: {fileID: -4295965106878592857}
-    m_Duration: 0.40000000000000036
-    m_TimeScale: 1
-    m_ParentTrack: {fileID: -2467105663884618761}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: 0
-    m_BlendOutDuration: 0
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 0
-    m_PreExtrapolationMode: 0
-    m_PostExtrapolationTime: 0
-    m_PreExtrapolationTime: 0
-    m_DisplayName: PlayerFootsteps
-  - m_Version: 1
-    m_Start: 13.366666666666667
+    m_Start: 17.233333333333327
     m_ClipIn: 0
     m_Asset: {fileID: 8367157967483308972}
     m_Duration: 0.4166666666666661
@@ -3348,7 +3483,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 12.950000000000001
+    m_Start: 16.816666666666656
     m_ClipIn: 0
     m_Asset: {fileID: -6010888979689272555}
     m_Duration: 0.4166666666666661
@@ -3417,7 +3552,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 12.533333333333335
+    m_Start: 16.4
     m_ClipIn: 0
     m_Asset: {fileID: -2787249179999869629}
     m_Duration: 0.4166666666666661
@@ -3486,7 +3621,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 12.116666666666669
+    m_Start: 15.983333333333334
     m_ClipIn: 0
     m_Asset: {fileID: 2387273922869364375}
     m_Duration: 0.4166666666666661
@@ -3555,7 +3690,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 11.700000000000003
+    m_Start: 15.566666666666668
     m_ClipIn: 0
     m_Asset: {fileID: -8396017651117060724}
     m_Duration: 0.4166666666666661
@@ -3624,7 +3759,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 11.283333333333337
+    m_Start: 15.150000000000002
     m_ClipIn: 0
     m_Asset: {fileID: -2383449000302869012}
     m_Duration: 0.4166666666666661
@@ -3693,7 +3828,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 29.283333333333335
+    m_Start: 27.183333333333334
     m_ClipIn: 0
     m_Asset: {fileID: -4622253676832027086}
     m_Duration: 0.25
@@ -3762,7 +3897,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 29.533333333333335
+    m_Start: 27.433333333333334
     m_ClipIn: 0
     m_Asset: {fileID: 8380215888691638171}
     m_Duration: 0.25
@@ -3831,7 +3966,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 29.783333333333335
+    m_Start: 27.683333333333334
     m_ClipIn: 0
     m_Asset: {fileID: 5665246431133374722}
     m_Duration: 0.25
@@ -3900,7 +4035,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 30.033333333333335
+    m_Start: 27.933333333333334
     m_ClipIn: 0
     m_Asset: {fileID: 6233212100105528392}
     m_Duration: 0.25
@@ -3969,7 +4104,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 30.283333333333335
+    m_Start: 28.183333333333334
     m_ClipIn: 0
     m_Asset: {fileID: 2798842654861567746}
     m_Duration: 0.25
@@ -4038,7 +4173,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 30.533333333333335
+    m_Start: 28.433333333333334
     m_ClipIn: 0
     m_Asset: {fileID: -3348545331096053180}
     m_Duration: 0.25
@@ -4107,7 +4242,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 30.783333333333335
+    m_Start: 28.683333333333334
     m_ClipIn: 0
     m_Asset: {fileID: -7600063542784132081}
     m_Duration: 0.25
@@ -4176,7 +4311,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
   - m_Version: 1
-    m_Start: 31.033333333333335
+    m_Start: 28.933333333333334
     m_ClipIn: 0
     m_Asset: {fileID: 5881189747310297699}
     m_Duration: 0.25
@@ -4796,6 +4931,558 @@ MonoBehaviour:
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
     m_DisplayName: PlayerFootsteps
+  - m_Version: 1
+    m_Start: 31.614092470115672
+    m_ClipIn: 0
+    m_Asset: {fileID: -7609467686817146240}
+    m_Duration: 0.25
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -2467105663884618761}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: PlayerFootsteps
+  - m_Version: 1
+    m_Start: 31.864092470115672
+    m_ClipIn: 0
+    m_Asset: {fileID: 1763095174864100720}
+    m_Duration: 0.25
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -2467105663884618761}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: PlayerFootsteps
+  - m_Version: 1
+    m_Start: 32.11409247011567
+    m_ClipIn: 0
+    m_Asset: {fileID: -6519409246045100568}
+    m_Duration: 0.25
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -2467105663884618761}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: PlayerFootsteps
+  - m_Version: 1
+    m_Start: 32.36409247011567
+    m_ClipIn: 0
+    m_Asset: {fileID: -3401371281188014091}
+    m_Duration: 0.25
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -2467105663884618761}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: PlayerFootsteps
+  - m_Version: 1
+    m_Start: 32.61409247011567
+    m_ClipIn: 0
+    m_Asset: {fileID: -429379547040118289}
+    m_Duration: 0.25
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -2467105663884618761}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: PlayerFootsteps
+  - m_Version: 1
+    m_Start: 32.86409247011567
+    m_ClipIn: 0
+    m_Asset: {fileID: -926839804532146527}
+    m_Duration: 0.25
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -2467105663884618761}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: PlayerFootsteps
+  - m_Version: 1
+    m_Start: 33.11409247011567
+    m_ClipIn: 0
+    m_Asset: {fileID: -4726002685433203657}
+    m_Duration: 0.25
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -2467105663884618761}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: PlayerFootsteps
+  - m_Version: 1
+    m_Start: 33.36409247011567
+    m_ClipIn: 0
+    m_Asset: {fileID: -7324990556915913229}
+    m_Duration: 0.25
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -2467105663884618761}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: PlayerFootsteps
   m_Markers:
     m_Objects: []
   template:
@@ -4980,6 +5667,57 @@ MonoBehaviour:
     Path: event:/Player/PlayerFootsteps
   StopType: 0
   Parameters: []
+--- !u!114 &-926839804532146527
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 987a467495df9d942b56b1b51381d095, type: 3}
+  m_Name: FMODEventPlayable(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  Template:
+    EventReference:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    StopType: 0
+    Parameters: []
+    ParameterLinks: []
+    ParameterAutomation:
+      Slot00: 0
+      Slot01: 0
+      Slot02: 0
+      Slot03: 0
+      Slot04: 0
+      Slot05: 0
+      Slot06: 0
+      Slot07: 0
+      Slot08: 0
+      Slot09: 0
+      Slot10: 0
+      Slot11: 0
+      Slot12: 0
+      Slot13: 0
+      Slot14: 0
+      Slot15: 0
+  EventLength: 0
+  eventName: 
+  EventReference:
+    Guid:
+      Data1: -401077193
+      Data2: 1277706423
+      Data3: -1528542579
+      Data4: -1871443246
+    Path: event:/Player/PlayerFootsteps
+  StopType: 0
+  Parameters: []
 --- !u!114 &-804860008846911705
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5060,6 +5798,57 @@ MonoBehaviour:
   m_OpenClipOffsetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_ApplyOffsets: 0
+--- !u!114 &-429379547040118289
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 987a467495df9d942b56b1b51381d095, type: 3}
+  m_Name: FMODEventPlayable(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  Template:
+    EventReference:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    StopType: 0
+    Parameters: []
+    ParameterLinks: []
+    ParameterAutomation:
+      Slot00: 0
+      Slot01: 0
+      Slot02: 0
+      Slot03: 0
+      Slot04: 0
+      Slot05: 0
+      Slot06: 0
+      Slot07: 0
+      Slot08: 0
+      Slot09: 0
+      Slot10: 0
+      Slot11: 0
+      Slot12: 0
+      Slot13: 0
+      Slot14: 0
+      Slot15: 0
+  EventLength: 0
+  eventName: 
+  EventReference:
+    Guid:
+      Data1: -401077193
+      Data2: 1277706423
+      Data3: -1528542579
+      Data4: -1871443246
+    Path: event:/Player/PlayerFootsteps
+  StopType: 0
+  Parameters: []
 --- !u!114 &-410538194253766914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5343,6 +6132,57 @@ MonoBehaviour:
     m_Objects: []
   template:
     volume: 1
+--- !u!114 &1763095174864100720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 987a467495df9d942b56b1b51381d095, type: 3}
+  m_Name: FMODEventPlayable(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  Template:
+    EventReference:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    StopType: 0
+    Parameters: []
+    ParameterLinks: []
+    ParameterAutomation:
+      Slot00: 0
+      Slot01: 0
+      Slot02: 0
+      Slot03: 0
+      Slot04: 0
+      Slot05: 0
+      Slot06: 0
+      Slot07: 0
+      Slot08: 0
+      Slot09: 0
+      Slot10: 0
+      Slot11: 0
+      Slot12: 0
+      Slot13: 0
+      Slot14: 0
+      Slot15: 0
+  EventLength: 0
+  eventName: 
+  EventReference:
+    Guid:
+      Data1: -401077193
+      Data2: 1277706423
+      Data3: -1528542579
+      Data4: -1871443246
+    Path: event:/Player/PlayerFootsteps
+  StopType: 0
+  Parameters: []
 --- !u!114 &2387273922869364375
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5968,8 +6808,8 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 28.75
-        value: {x: 0, y: 360, z: 0}
+        time: 27.183332
+        value: {x: 0, y: -0.000005722046, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -5977,8 +6817,8 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 28.766666
-        value: {x: 0, y: 180, z: 0}
+        time: 27.216667
+        value: {x: 0, y: -180, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -5986,8 +6826,8 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 33.816666
-        value: {x: 0, y: 180, z: 0}
+        time: 31.95
+        value: {x: 0, y: -180, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -5995,17 +6835,8 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 33.933334
-        value: {x: 0, y: 360, z: 0}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-      - serializedVersion: 3
-        time: 34.75
-        value: {x: 0, y: 360, z: 0}
+        time: 32.05
+        value: {x: 0, y: 0, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -6030,62 +6861,71 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 22.2
-        value: {x: 3.24975, y: -0.09000015, z: 0.00000028410207}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
+        time: 22.233334
+        value: {x: 3.94, y: 0.0012510817, z: 0.000000023059036}
+        inSlope: {x: 0, y: 0.0012844225, z: 0.000000015368952}
+        outSlope: {x: 0, y: 0.0012844225, z: 0.000000015368952}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 22.983334
-        value: {x: 3.24975, y: -0.09000015, z: 0.00000028410207}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
+        time: 27.183332
+        value: {x: 3.94, y: 0.008646488, z: 0.00000009662338}
+        inSlope: {x: 0, y: 0.0006681571, z: 0}
+        outSlope: {x: 0, y: 0.0006681571, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 28.666666
-        value: {x: 3.24975, y: -0.09000015, z: 0.00000028410207}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
+        time: 28.616667
+        value: {x: 1.0900002, y: 0.010007858, z: -0.00000013855936}
+        inSlope: {x: 0, y: 0.000027623653, z: 0}
+        outSlope: {x: 0, y: 0.000027623653, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 28.766666
-        value: {x: 3.0516493, y: -0.08856615, z: 0.00000028154955}
-        inSlope: {x: -0.5112269, y: 0.028035345, z: -0.00000004996707}
-        outSlope: {x: -0.5112269, y: 0.028035345, z: -0.00000004996707}
+        time: 28.633333
+        value: {x: 1.0900002, y: 0.010017872, z: -0.00000013855441}
+        inSlope: {x: 0, y: 0.000012016294, z: 0}
+        outSlope: {x: 0, y: 0.000012016294, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 30.216667
-        value: {x: 0.5499997, y: 0.029999733, z: 0.000000048082484}
-        inSlope: {x: 0, y: 0, z: -0.0000000443924}
-        outSlope: {x: 0, y: 0, z: -0.0000000443924}
+        time: 29.5
+        value: {x: 1.87, y: 0.012018545, z: -0.0000000932582}
+        inSlope: {x: 0, y: 0.0042097694, z: 0.00000009555163}
+        outSlope: {x: 0, y: 0.0042097694, z: 0.00000009555163}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 33.983334
-        value: {x: 0.5499997, y: 0.029999733, z: 0.000000048082427}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
+        time: 31.95
+        value: {x: 1.8699999, y: 0.025027275, z: 0.00000020268106}
+        inSlope: {x: 0, y: 0.0032517435, z: 0.00000007428313}
+        outSlope: {x: 0, y: 0.0032517435, z: 0.00000007428313}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 34.75
-        value: {x: 3.6124551, y: 0.029999733, z: 0.00000031581075}
+        value: {x: 7.434918, y: 0.029999733, z: 0.00000031581075}
+        inSlope: {x: 0.20211203, y: 0, z: 0}
+        outSlope: {x: 0.20211203, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      - serializedVersion: 3
+        time: 34.8
+        value: {x: 7.44, y: 0.029999733, z: 0.0000008027556}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -6130,7 +6970,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 34.75
+    m_StopTime: 34.8
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -6160,8 +7000,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 22.2
-        value: 3.24975
+        time: 22.233334
+        value: 3.94
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6169,8 +7009,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 22.983334
-        value: 3.24975
+        time: 27.183332
+        value: 3.94
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6178,8 +7018,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 28.666666
-        value: 3.24975
+        time: 28.616667
+        value: 1.0900002
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6187,17 +7027,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 28.766666
-        value: 3.0516493
-        inSlope: -0.5112269
-        outSlope: -0.5112269
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 30.216667
-        value: 0.5499997
+        time: 28.633333
+        value: 1.0900002
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6205,8 +7036,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 33.983334
-        value: 0.5499997
+        time: 29.5
+        value: 1.87
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6214,8 +7045,17 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 34.75
-        value: 3.6124551
+        time: 31.95
+        value: 1.8699999
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 34.8
+        value: 7.44
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6244,52 +7084,52 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 22.2
-        value: -0.09000015
-        inSlope: 0
-        outSlope: 0
+        time: 27.183332
+        value: 0.008646488
+        inSlope: 0.0006681571
+        outSlope: 0.0006681571
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 22.983334
-        value: -0.09000015
-        inSlope: 0
-        outSlope: 0
+        time: 28.616667
+        value: 0.010007858
+        inSlope: 0.000027623653
+        outSlope: 0.000027623653
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 28.666666
-        value: -0.09000015
-        inSlope: 0
-        outSlope: 0
+        time: 28.633333
+        value: 0.010017872
+        inSlope: 0.000012016294
+        outSlope: 0.000012016294
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 30.216667
-        value: 0.029999733
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 33.983334
-        value: 0.029999733
-        inSlope: 0
-        outSlope: 0
+        time: 31.95
+        value: 0.025027275
+        inSlope: 0.0032517435
+        outSlope: 0.0032517435
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 34.75
+        value: 0.029999733
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 34.8
         value: 0.029999733
         inSlope: 0
         outSlope: 0
@@ -6319,8 +7159,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 22.2
-        value: 0.00000028410207
+        time: 27.183332
+        value: 0.00000009662338
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6328,8 +7168,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 22.983334
-        value: 0.00000028410207
+        time: 28.616667
+        value: -0.00000013855936
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6337,8 +7177,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 28.666666
-        value: 0.00000028410207
+        time: 28.633333
+        value: -0.00000013855441
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6346,19 +7186,10 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 30.216667
-        value: 0.000000048082484
-        inSlope: -0.0000000443924
-        outSlope: -0.0000000443924
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 33.983334
-        value: 0.000000048082427
-        inSlope: 0
-        outSlope: 0
+        time: 31.95
+        value: 0.00000020268106
+        inSlope: 0.00000007428313
+        outSlope: 0.00000007428313
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
@@ -6366,6 +7197,15 @@ AnimationClip:
       - serializedVersion: 3
         time: 34.75
         value: 0.00000031581075
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 34.8
+        value: 0.0000008027556
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6385,7 +7225,7 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 28.75
+        time: 27.183332
         value: 0
         inSlope: 0
         outSlope: 0
@@ -6394,34 +7234,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 28.766666
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 33.816666
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 33.933334
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 34.75
+        time: 27.216667
         value: 0
         inSlope: 0
         outSlope: 0
@@ -6442,8 +7255,8 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 28.75
-        value: 360
+        time: 27.183332
+        value: -0.000005722046
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6451,8 +7264,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 28.766666
-        value: 180
+        time: 27.216667
+        value: -180
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6460,8 +7273,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 33.816666
-        value: 180
+        time: 31.95
+        value: -180
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6469,17 +7282,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 33.933334
-        value: 360
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 34.75
-        value: 360
+        time: 32.05
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6499,7 +7303,7 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 28.75
+        time: 27.183332
         value: 0
         inSlope: 0
         outSlope: 0
@@ -6508,34 +7312,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 28.766666
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 33.816666
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 33.933334
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 34.75
+        time: 27.216667
         value: 0
         inSlope: 0
         outSlope: 0

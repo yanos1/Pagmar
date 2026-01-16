@@ -1,0 +1,481 @@
+fileFormatVersion: 2
+guid: 6ef8442cdeaa947d5bea9bc0e7e304bf
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -594299481663595532
+    second: downfall-logo-white_0
+  - first:
+      213: -6049628407579491957
+    second: downfall-logo-white_1
+  - first:
+      213: -247775916762109354
+    second: downfall-logo-white_2
+  - first:
+      213: -8668606340980147344
+    second: downfall-logo-white_3
+  - first:
+      213: 3002781595866568328
+    second: downfall-logo-white_4
+  - first:
+      213: 2912244903048434558
+    second: downfall-logo-white_5
+  - first:
+      213: -5049393926556780910
+    second: downfall-logo-white_6
+  - first:
+      213: 805602450060725318
+    second: downfall-logo-white_7
+  - first:
+      213: 3353868570160984057
+    second: downfall-logo-white_8
+  - first:
+      213: -5219008659985872113
+    second: downfall-logo-white_9
+  - first:
+      213: 9135718214614392420
+    second: downfall-logo-white_10
+  - first:
+      213: 2090263082116760481
+    second: downfall-logo-white_11
+  - first:
+      213: -385079349199513424
+    second: downfall-logo-white_12
+  - first:
+      213: 2857975704487876689
+    second: downfall-logo-white_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: downfall-logo-white_0
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 555
+        width: 35
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fb1e3925cf90c7f0800000000000000
+      internalID: -594299481663595532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: downfall-logo-white_1
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 488
+        width: 35
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b81cc1ff3076b0ca0800000000000000
+      internalID: -6049628407579491957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: downfall-logo-white_2
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 348
+        width: 174
+        height: 280
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65a6f71dd19bf8cf0800000000000000
+      internalID: -247775916762109354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: downfall-logo-white_3
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 393
+        width: 186
+        height: 327
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07bfd2c067ce2b780800000000000000
+      internalID: -8668606340980147344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: downfall-logo-white_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 80
+        width: 465
+        height: 474
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88615b7b3f50ca920800000000000000
+      internalID: 3002781595866568328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: downfall-logo-white_5
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 255
+        width: 147
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e73d4214f4f5a6820800000000000000
+      internalID: 2912244903048434558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: downfall-logo-white_6
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 258
+        width: 158
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29671940af2fce9b0800000000000000
+      internalID: -5049393926556780910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: downfall-logo-white_7
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 252
+        width: 203
+        height: 165
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64ccd0af8231e2b00800000000000000
+      internalID: 805602450060725318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: downfall-logo-white_8
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 256
+        width: 143
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ffeacbe1b55b8e20800000000000000
+      internalID: 3353868570160984057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: downfall-logo-white_9
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 259
+        width: 118
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0bcad5764b5297b0800000000000000
+      internalID: -5219008659985872113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: downfall-logo-white_10
+      rect:
+        serializedVersion: 2
+        x: 1218
+        y: 258
+        width: 143
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46e1826205798ce70800000000000000
+      internalID: 9135718214614392420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: downfall-logo-white_11
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 250
+        width: 113
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a3cea0d23b120d10800000000000000
+      internalID: 2090263082116760481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: downfall-logo-white_12
+      rect:
+        serializedVersion: 2
+        x: 1488
+        y: 252
+        width: 115
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b8df944f5ce7aaf0800000000000000
+      internalID: -385079349199513424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: downfall-logo-white_13
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 0
+        width: 102
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15852b2d2c199a720800000000000000
+      internalID: 2857975704487876689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      downfall-logo-white_0: -594299481663595532
+      downfall-logo-white_1: -6049628407579491957
+      downfall-logo-white_10: 9135718214614392420
+      downfall-logo-white_11: 2090263082116760481
+      downfall-logo-white_12: -385079349199513424
+      downfall-logo-white_13: 2857975704487876689
+      downfall-logo-white_2: -247775916762109354
+      downfall-logo-white_3: -8668606340980147344
+      downfall-logo-white_4: 3002781595866568328
+      downfall-logo-white_5: 2912244903048434558
+      downfall-logo-white_6: -5049393926556780910
+      downfall-logo-white_7: 805602450060725318
+      downfall-logo-white_8: 3353868570160984057
+      downfall-logo-white_9: -5219008659985872113
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
